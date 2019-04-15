@@ -9,6 +9,16 @@ public class MinionAndHero extends Card {
 	private int nation;
 	private int attackType;
 	private String[] abilities;
+	public MinionAndHero(String name,int cardID,int shopPrice,int manaPrice,boolean isHero,int AP,int HP,String specialPower,int nation,int attackType,String[] abilities){
+		super (name, cardID, shopPrice, manaPrice );
+		this.isHero = isHero;
+		this.AP = AP;
+		this.HP = HP;
+		this.specialPower = specialPower;
+		this.nation = nation;
+		this.attackType = attackType;
+		this.abilities = abilities;
+	}
 	public int getNation () {
 		return nation;
 	}
