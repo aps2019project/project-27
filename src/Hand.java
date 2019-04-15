@@ -5,9 +5,6 @@ public class Hand extends Deck{
     private ArrayList<Card> cards = new ArrayList<>();
     private Item item;
     private Card nextCard;
-
-
-
     public void addCard() {
 
     }
