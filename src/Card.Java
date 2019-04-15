@@ -6,6 +6,12 @@ public abstract class Card{
 	private int cardID;
 	private int shopPrice;
 	private int manaPrice;
+	protected Card(String name,int cardID,int shopPrice,int manaPrice){
+		this.name = name;
+		this.shopPrice = shopPrice;
+		this.manaPrice = manaPrice;
+		cards.add ( this );
+	}
 	public static void showCardInfo(int cardID){
 		Card card = findCard ( cardID );
 		printCardInfo ( card );
