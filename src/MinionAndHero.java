@@ -18,4 +18,7 @@ public class MinionAndHero extends Card {
 	public String[] getAbilities(){
 		return abilities;
 	}
+	public static void setMinionAndHeroes ( ArrayList<MinionAndHero> minionAndHeroes ) {
+		MinionAndHero.minionAndHeroes = minionAndHeroes;
+	}
 }
