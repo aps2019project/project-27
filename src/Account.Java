@@ -72,50 +72,54 @@ public class Account {
         Scanner scanner = new Scanner();
         int accountFounded = 0;
         for (int i = 0; i < accounts.size(); i++) {
-            if (accounts.get(i).username.equals(username)){
+            if (accounts.get(i).username.equals(username)) {
                 accountFounded = 1;
             }
         }
-        if(accountFounded == 0){
+        if (accountFounded == 0) {
             System.out.println("There is no such username!");
-        }
-        else {
+        } else {
             String password = scanner.next();
-            for(int i=0 ; i<accounts.size() ; i++){
-                if(accounts.get(i).password.equals(password)){
+            for (int i = 0; i < accounts.size(); i++) {
+                if (accounts.get(i).password.equals(password)) {
 
-                }
-                else {
+                } else {
                     System.out.println("Wrong password!");
                 }
             }
         }
     }
-    public void logout(){
+
+    public void logout() {
 
     }
-    public static void save(){
+
+    public static void save() {
 
     }
-    public void increaseWins(){
+
+    public void increaseWins() {
         wins++;
     }
-    public void increaseLosses(){
+
+    public void increaseLosses() {
         losses++;
     }
-    public static void showLeaderBoard(){
-        for(int i=0 ; i<accounts.size() ; i++){
-            for(int j=i+1 ; j<accounts.size() ; j++){
-                if(accounts.get(i).wins < accounts.get(j).wins){
+
+    public static void showLeaderBoard() {
+        for (int i = 0; i < accounts.size(); i++) {
+            for (int j = i + 1; j < accounts.size(); j++) {
+                if (accounts.get(i).wins < accounts.get(j).wins) {
                     Collections.swap(accounts, i, j);
                 }
             }
         }
-        for(int i=0 ; i<accounts.size() ; i++){
+        for (int i = 0; i < accounts.size(); i++) {
             System.out.println(i + "-" + "UserName" + ":" + accounts.get(i).username + "-" + "Wins" + ":" + accounts.get(i).wins);
         }
     }
-    public void help(){
+
+    public void help() {
         System.out.println("create account [user name]\nlogin [user name]\nshow leaderboard\nsave\nlogout\n");
     }
 }
