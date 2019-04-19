@@ -14,6 +14,10 @@ public class MinionAndHero extends Card {
 		super ( name , cardID , shopPrice , manaPrice );
 	}
 
+	public static void setMinionAndHeroes ( ArrayList<MinionAndHero> minionAndHeroes ) {
+		MinionAndHero.minionAndHeroes = minionAndHeroes;
+	}
+
 	public int getNation () {
 		return nation;
 	}
