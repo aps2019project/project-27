@@ -8,7 +8,16 @@ public class Player extends Account {
     private int mana;
     private ArrayList<Card> graveYard;
     private ArrayList<Item> items;
-
+    public boolean equals (Object object){
+        if ( object.getClass () == Player.class )
+        {
+            Account account = (Player)object;
+            if ( account.getUsername ().equals ( this.getUsername () ) )
+                return true;
+            return false;
+        }
+        else return false;
+    }
     public void insert() {
 
     }

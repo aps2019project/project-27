@@ -19,7 +19,11 @@ public class Account {
 
     }
 
-    public void setCollection(Collection collection) {
+    public String getUsername () {
+        return username;
+    }
+
+    public void setCollection( Collection collection) {
         this.collection = collection;
     }
 
