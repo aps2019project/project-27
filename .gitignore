@@ -27,3 +27,4 @@ project-27.iml
 hs_err_pid*
 
 /out/
+/src/gson/

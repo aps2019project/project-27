@@ -1,3 +1,5 @@
+package Moudle;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -69,7 +71,7 @@ public class Account {
     }
 
     public static void login(String username) {
-        Scanner scanner = new Scanner();
+        Scanner scanner = new Scanner(System.in );
         int accountFounded = 0;
         for (int i = 0; i < accounts.size(); i++) {
             if (accounts.get(i).username.equals(username)) {

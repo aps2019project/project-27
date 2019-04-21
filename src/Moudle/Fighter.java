@@ -1,3 +1,5 @@
+package Moudle;
+
 public class Fighter extends Card {
 	private int AP;
 	private int HP;

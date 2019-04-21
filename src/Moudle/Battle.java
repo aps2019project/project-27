@@ -1,5 +1,6 @@
-import java.util.ArrayList;
+package Moudle;
 
+import java.util.ArrayList;
 public class Battle {
 	private int currentTurn;
 	private Player player1;
@@ -15,7 +16,7 @@ public class Battle {
 	private Fighter heroP2;
 	public void checkWinner(){}
 	public void setMana ( ){}
-	public Battle (Player player1,Player player2,int battleType){}
+	public Battle ( Player player1, Player player2, int battleType){}
 
 
 }
