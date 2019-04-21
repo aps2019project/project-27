@@ -23,7 +23,7 @@ public class Load {
 	public static void loadItems() throws FileNotFoundException {
 		Gson gson = CreatGson.getGson ();
 		Reader reader = new FileReader ( "Items.json" );
-		ItemTmp tmp = gson.fromJson ( reader,Item.class );
+		ItemTmp tmp = gson.fromJson ( reader, ( Type ) Item.class );
 		Item.setItems(tmp.items);
 	}
 	public static void loadAccounts(){

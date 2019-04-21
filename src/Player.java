@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Player extends Account {
-    private ArrayList<Fighter>;
+    private ArrayList<Fighter> fighters;
     private Hand hand;
     private int mana;
     private ArrayList<Card> graveYard;

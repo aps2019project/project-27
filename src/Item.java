@@ -17,4 +17,7 @@ public class Item {
 		}
 		return null;
 	}
+	public static void setItems(ArrayList<Item> items){
+		Item.items = items;
+	}
 }
