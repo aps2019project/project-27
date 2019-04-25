@@ -1,6 +1,6 @@
 package Moudle;
 
-import Controller.ControllBox;
+import Controller.ControlBox;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class Battle {
     private Fighter heroP1;
     private Fighter heroP2;
 
-    public static void input(ControllBox controllBox) {
+    public static void input(ControlBox controllBox) {
         if (controllBox.getType().equals("game info")) {
             currentBattle.showInfo();
             return;

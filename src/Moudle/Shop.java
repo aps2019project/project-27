@@ -1,5 +1,7 @@
 package Moudle;
 
+import Controller.ControlBox;
+
 import java.util.ArrayList;
 
 public class Shop {
@@ -7,6 +9,15 @@ public class Shop {
     private ArrayList<MinionAndHero> heroesAndMinions;
     private ArrayList<Card> cards;
     private ArrayList<Item> items;
+
+    public static void input(ControlBox controllBox) {
+        if (controllBox.getType().equals("search")) {
+            Card card = Card.findCard(controllBox.getCardName());
+            if (card == null) {
+
+            }
+        }
+    }
 
     public static void handleInput() {
 
@@ -54,10 +65,10 @@ public class Shop {
     public void sell(String name) {
         if (Card.findCard(name) == null && Item.findItem(name) == null) {
             System.out.println("This card/item doesn't exist!");
-        } else if (Card.findCard(name) != null && Item.findItem(name) == null){
+        } else if (Card.findCard(name) != null && Item.findItem(name) == null) {
             account.getCollection().removeCard(Card.findCard(name));
             account.addMoney(Card.findCard(name).getShopPrice());
-        } else if (Card.findCard(name) == null && Item.findItem(name) !=null){
+        } else if (Card.findCard(name) == null && Item.findItem(name) != null) {
             account.getCollection().removeItem(Item.findItem(name));
             account.addMoney(Item.findItem(name).getPrice());
         }
