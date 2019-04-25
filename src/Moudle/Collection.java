@@ -10,6 +10,13 @@ public class Collection {
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<Deck> decks = new ArrayList<>();
 
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
 
     public static void save() {
 
@@ -19,9 +26,7 @@ public class Collection {
 
     }
 
-
-
-    public Collection show() {
+    public void show() {
 
     }
 
@@ -46,7 +51,7 @@ public class Collection {
     }
 
     public boolean validateDeck(String deckName) {
-
+        return false;
     }
 
     public void selectDeck(String deckName) {
@@ -62,11 +67,18 @@ public class Collection {
     }
 
     public void addCard(Card card) {
-
+        cards.add(card);
     }
 
+    public void addItem(Item item) {
+        items.add(item);
+    }
 
     public void removeCard(Card card) {
+        cards.remove(card);
+    }
 
+    public void removeItem(Item item) {
+        items.remove(item);
     }
 }

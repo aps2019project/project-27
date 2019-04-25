@@ -19,11 +19,11 @@ public class Account {
         return false;
     }
 
-    public String getUsername () {
+    public String getUsername() {
         return username;
     }
 
-    public void setCollection( Collection collection) {
+    public void setCollection(Collection collection) {
         this.collection = collection;
     }
 
@@ -45,6 +45,14 @@ public class Account {
 
     public int getMoney() {
         return money;
+    }
+
+    public void spendMoney(int price) {
+        money -= price;
+    }
+
+    public void addMoney(int price) {
+        money += price;
     }
 
     public ArrayList<Deck> getDecks() {
@@ -75,7 +83,7 @@ public class Account {
     }
 
     public static void login(String username) {
-        Scanner scanner = new Scanner(System.in );
+        Scanner scanner = new Scanner(System.in);
         int accountFounded = 0;
         for (int i = 0; i < accounts.size(); i++) {
             if (accounts.get(i).username.equals(username)) {
