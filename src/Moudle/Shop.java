@@ -15,13 +15,13 @@ public class Shop {
     public void search(String name) {
         int founded = 0;
         for (int i = 0; i < cards.size(); i++) {
-            if (cards.get(i).) {
+            if (cards.get(i).getName().equals(name)) {
                 founded = 1;
                 System.out.println("We have this card!");
             }
         }
         for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).name.equals(name)) {
+            if (items.get(i).getName().equals(name)) {
                 founded = 1;
                 System.out.println("We have this item!");
             }

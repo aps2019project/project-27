@@ -11,6 +11,11 @@ public class MinionAndHero extends Card {
 	private int nation;
 	private int attackType;
 	private String[] abilities;
+	private boolean canCounterAttack;
+	private boolean canMove;
+	private boolean canAttack;
+	private int holyDefence;
+
 
 	protected MinionAndHero ( String name , int cardID , int shopPrice , int manaPrice ) {
 		super ( name , cardID , shopPrice , manaPrice );

@@ -22,4 +22,8 @@ public class Item {
 	public static void setItems(ArrayList<Item> items){
 		Item.items = items;
 	}
+
+	public String getName() {
+		return name;
+	}
 }

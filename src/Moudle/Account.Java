@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class Account {
     private static ArrayList<Account> accounts;
-    private
     private String username;
     private String password;
     private Collection collection;
@@ -17,7 +16,7 @@ public class Account {
     private int losses;
 
     public boolean isValidDeck() {
-
+        return false;
     }
 
     public String getUsername () {
