@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Spell extends Card {
 	private ArrayList<Spell> spells = new ArrayList<Spell> (  );
 	private String[] target;
-	private String[] effects;
+	private Buff mainBuff;
+	private ArrayList<Buff> buffs;
 	public static void setSpells ( ArrayList<Spell> spells ) {
 		this.spells = spells;
 	}
