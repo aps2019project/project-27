@@ -1,9 +1,9 @@
 package Moudle;
-
 import Controller.ControllBox;
 
 import java.util.ArrayList;
 public class Battle {
+	private static Battle currentBattle;
 	private Ground ground;
 	private int currentTurn;
 	private Player player1;
@@ -17,11 +17,14 @@ public class Battle {
 	private Item mainFlag;
 	private Fighter heroP1;
 	private Fighter heroP2;
+	public static void input(ControllBox controllBox){
+		if ( controllBox.getType ().equals ( "game info" ) ){
+			currentBattle.showInfo ();
+			return;
+		}
+	}
 	public void checkWinner(){}
 	public void setMana ( ){}
-	public int input( ControllBox controllBox ){
-		return 1;
-	}
 	public Battle ( Player player1, Player player2, int battleType){
 
 	}
@@ -29,7 +32,8 @@ public class Battle {
 		currentTurn++;
 		setMana ();
 		setPlayerInTurn ();
-
+	}
+	public void showInfo(){
 
 	}
 	private void setPlayerInTurn (){
