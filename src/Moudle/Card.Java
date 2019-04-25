@@ -14,6 +14,11 @@ public abstract class Card{
 		this.manaPrice = manaPrice;
 		cards.add ( this );
 	}
+
+	public String getName() {
+		return name;
+	}
+
 	public static void showCardInfo(int cardID){
 		Card card = findCard ( cardID );
 		printCardInfo ( card );

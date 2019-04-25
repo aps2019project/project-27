@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Account {
     private static ArrayList<Account> accounts;
+    private
     private String username;
     private String password;
     private Collection collection;

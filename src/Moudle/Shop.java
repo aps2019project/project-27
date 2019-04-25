@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Shop {
     private Account account;
-    private ArrayList<MinionsAndHero> heroesAndMinions;
+    private ArrayList<MinionAndHero> heroesAndMinions;
     private ArrayList<Card> cards;
     private ArrayList<Item> items;
 
@@ -15,7 +15,7 @@ public class Shop {
     public void search(String name) {
         int founded = 0;
         for (int i = 0; i < cards.size(); i++) {
-            if (cards.get(i).name.equals(name)) {
+            if (cards.get(i).) {
                 founded = 1;
                 System.out.println("We have this card!");
             }
