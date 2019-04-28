@@ -18,10 +18,20 @@ public class Fighter extends Card {
 		AP+=buff.getChangeAP ();
 		HP+=buff.getChangeHP ();
 		holyDefence+=buff.getChangeHollynes ();
-		booleanChangeInt ( canAttack,buff.getChangeCanAttack () );
-		booleanChangeInt ( canMove,buff.getChangeCanMove () );
-		booleanChangeInt ( canCounterAttack,buff.getChangeCanCounterAttack () );
 		buffs.add ( buff );
+	}
+	public void removeFromBuff(Buff buff){
+		AP-=buff.getChangeAP ();
+		HP-=buff.getChangeHP ();
+		holyDefence-=buff.getChangeHollynes ();
+		buffs.remove ( buff );
+	}
+	public void enableBuffBoolEssence(){
+		for ( Buff buff:buffs ){
+			booleanChangeInt ( canAttack,buff.getChangeCanAttack () );
+			booleanChangeInt ( canMove,buff.getChangeCanMove () );
+			booleanChangeInt ( canCounterAttack,buff.getChangeCanCounterAttack () );
+		}
 	}
 	private void booleanChangeInt(boolean target,int changer){
 		if ( changer==1 )
@@ -36,6 +46,5 @@ public class Fighter extends Card {
 	}
 	protected Fighter ( String name , int cardID , int shopPrice , int manaPrice ) {
 		super ( name , cardID , shopPrice , manaPrice );
-
 	}
 }
