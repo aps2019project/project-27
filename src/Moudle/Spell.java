@@ -7,7 +7,7 @@ public class Spell extends Card {
 	private String[] target;
 	private Buff mainBuff;
 	private ArrayList<Buff> buffs;
-	public static void setSpells ( ArrayList<Spell> spells ) {
+	public void setSpells ( ArrayList<Spell> spells ) {
 		this.spells = spells;
 	}
 	protected Spell ( String name , int cardID , int shopPrice , int manaPrice ) {

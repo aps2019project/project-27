@@ -15,6 +15,24 @@ public class Fighter extends Card {
 	private Cell currentCell;
 	private Player player;
 	public void addToBuff(Buff buff){
+		AP+=buff.getChangeAP ();
+		HP+=buff.getChangeHP ();
+		holyDefence+=buff.getChangeHollynes ();
+		booleanChangeInt ( canAttack,buff.getChangeCanAttack () );
+		booleanChangeInt ( canMove,buff.getChangeCanMove () );
+		booleanChangeInt ( canCounterAttack,buff.getChangeCanCounterAttack () );
+		buffs.add ( buff );
+	}
+	private void booleanChangeInt(boolean target,int changer){
+		if ( changer==1 )
+			target=true;
+		if ( changer==2 )
+			target=false;
+		if ( changer==3 ){
+			if ( target )
+				target=false;
+			else target=true;
+		}
 	}
 	protected Fighter ( String name , int cardID , int shopPrice , int manaPrice ) {
 		super ( name , cardID , shopPrice , manaPrice );
