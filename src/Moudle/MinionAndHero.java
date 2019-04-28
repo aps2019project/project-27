@@ -12,7 +12,6 @@ public class MinionAndHero extends Card {
     private int attackType;
     private String[] abilities;
 
-
     protected MinionAndHero(String name, int cardID, int shopPrice, int manaPrice) {
         super(name, cardID, shopPrice, manaPrice);
     }

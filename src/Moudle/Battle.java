@@ -19,34 +19,31 @@ public class Battle {
     private Item mainFlag;
     private Fighter heroP1;
     private Fighter heroP2;
-
-    public static void input(ControlBox controllBox) {
+    public Ground getGround () {
+        return ground;
+    }
+    public static void input( ControlBox controllBox) {
         if (controllBox.getType().equals("game info")) {
             currentBattle.showInfo();
             return;
         }
     }
-
     public void checkWinner() {
     }
-
     public void setMana() {
     }
 
     public Battle(Player player1, Player player2, int battleType) {
 
     }
-
     public void nextTurn() {
         currentTurn++;
         setMana();
         setPlayerInTurn();
     }
-
     public void showInfo() {
 
     }
-
     private void setPlayerInTurn() {
         if (playerInTurn.equals(player1))
             playerInTurn = player2;

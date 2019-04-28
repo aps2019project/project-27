@@ -2,7 +2,7 @@ package Moudle;
 
 import java.util.ArrayList;
 
-public class Fighter extends Card {
+public class Fighter extends MinionAndHero {
 	private int AP;
 	private int HP;
 	private int x;
@@ -20,7 +20,12 @@ public class Fighter extends Card {
 		holyDefence+=buff.getChangeHollynes ();
 		buffs.add ( buff );
 	}
-	public void removeFromBuff(Buff buff){
+
+	public Player getPlayer () {
+		return player;
+	}
+
+	public void removeFromBuff( Buff buff){
 		AP-=buff.getChangeAP ();
 		HP-=buff.getChangeHP ();
 		holyDefence-=buff.getChangeHollynes ();

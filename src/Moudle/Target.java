@@ -3,10 +3,60 @@ package Moudle;
 import java.util.ArrayList;
 
 public class Target {
-	public boolean isValidTarget(Battle battle,int x,int y){
+	//targetType 0:rectangle	1:1force	2:all forces	3:force in a row	4:force in a column		5:8cell in near
+	int targetType;
+	int rectangleLength;
+	//targetFriendType:0:no diffrence	1:only friend	2:only enemy
+	int targetFriendType;
+	//targetDegreeType:0:no diffrence	1:minion	2:hero
+	int targetDegreeType;
+	public boolean isValidTarget(Battle battle,int x,int y,Player player){
+		if ( targetType==0 ){
+			if ( isOutOfSide ( x,y )||isOutOfSide ( x+rectangleLength-1,y+rectangleLength-1 ) )
+				return false;
+			return true;
+		}
+		if ( targetType==1 ){
+			if ( battle.getGround ().getCell ( x, y ).getCardOnCell () == null ) {
+				return false;
+			}
+			Fighter fighter =  (Fighter)battle.getGround ().getCell ( x, y ).getCardOnCell ();
+			return checkFriendAndDegreeType (fighter,player );
+		}
 		return false;
 	}
-	private ArrayList<Fighter> targetFighters(Battle battle,int x,int y){
+	private ArrayList<Fighter> targetFighters(Battle battle,int x,int y,Player player){
+
 		return null;
+	}
+	private boolean isOutOfSide(int x,int y){
+		if ( x>4||x<0 )
+			return true;
+		if(y>8||y<0)
+			return true;
+		return false;
+	}
+	private boolean checkFriendAndDegreeType(Fighter fighter,Player player) {
+		if ( targetDegreeType!=0 ) {
+			if ( targetDegreeType==1 ) {
+				if ( fighter.isHero ( ) )
+					return false;
+			}
+			if ( targetDegreeType == 2 ) {
+				if ( !fighter.isHero () )
+					return false;
+			}
+		}
+		if ( targetFriendType!=0 ){
+			if ( targetFriendType==1 ){
+				if ( fighter.getPlayer ()!=player )
+					return false;
+			}
+			if ( targetFriendType==2 ){
+				if ( fighter.getPlayer ()==player )
+					return false;
+			}
+		}
+		return true;
 	}
 }

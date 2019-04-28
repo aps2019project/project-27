@@ -33,7 +33,6 @@ public abstract class Card {
         Card card = findCard(cardID, cards);
         printCardInfo(card);
     }
-
     private static void printCardInfo(Card card) {
         if (card == null) {
             System.out.println("there is no card with this ID");
