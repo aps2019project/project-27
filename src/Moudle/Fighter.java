@@ -14,6 +14,9 @@ public class Fighter extends MinionAndHero {
 	ArrayList<Buff> buffs = new ArrayList<> (  );
 	private Cell currentCell;
 	private Player player;
+	public void preTurnProcces(){
+		this.enableBuffBoolEssence ();
+	}
 	public void addToBuff(Buff buff){
 		AP+=buff.getChangeAP ();
 		HP+=buff.getChangeHP ();

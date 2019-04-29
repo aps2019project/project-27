@@ -8,6 +8,10 @@ public class Player extends Account {
     private int mana;
     private ArrayList<Card> graveYard;
     private ArrayList<Item> items;
+    private ArrayList<Buff> buffs;
+    public void addToBuffs(Buff buff){
+
+    }
     public boolean equals (Object object){
         if ( object.getClass () == Player.class )
         {

@@ -10,7 +10,12 @@ public class Cell {
 	public Object getCardOnCell () {
 		return cardOnCell;
 	}
-
+	public void addCellEffect(Buff buff){
+		cellEffect.add ( buff );
+	}
+	public void removeCellEffect(Buff buff){
+		cellEffect.remove ( buff );
+	}
 	public void moveFromCell() {
 
 	}

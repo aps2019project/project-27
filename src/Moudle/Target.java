@@ -27,7 +27,7 @@ public class Target {
 			return true;
 		return false;
 	}
-	private ArrayList<Fighter> targetFighters(Battle battle,int x,int y,Player player){
+	public ArrayList<Fighter> targetFighters(Battle battle,int x,int y,Player player){
 		ArrayList<Fighter> targets = new ArrayList<> (  );
 		Ground ground = battle.getGround ();
 		if ( targetType==0 ){
