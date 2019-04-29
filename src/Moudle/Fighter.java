@@ -52,7 +52,9 @@ public class Fighter extends MinionAndHero {
 			else target=true;
 		}
 	}
-	protected Fighter ( String name , int cardID , int shopPrice , int manaPrice ) {
-		super ( name , cardID , shopPrice , manaPrice );
+	protected Fighter ( MinionAndHero minionAndHero ) {
+		super ( minionAndHero);
+		AP = super.getAP ();
+		HP = super.getHP ();
 	}
 }

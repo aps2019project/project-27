@@ -6,17 +6,22 @@ public abstract class Card {
     private int cardID;
     private int shopPrice;
     private int manaPrice;
-    //0:spell   1:minion    2:hero
+    //0:spell   1:minion
     private int cardType;
 
     public int getCardType () {
         return cardType;
     }
 
-    protected Card( String name, int cardID, int shopPrice, int manaPrice) {
+    public int getManaPrice () {
+        return manaPrice;
+    }
+
+    protected Card( String name, int shopPrice, int manaPrice, int cardType) {
         this.name = name;
         this.shopPrice = shopPrice;
         this.manaPrice = manaPrice;
+        this.cardType= cardType;
         cards.add(this);
     }
     public String getName() {

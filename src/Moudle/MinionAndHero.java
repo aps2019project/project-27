@@ -11,22 +11,27 @@ public class MinionAndHero extends Card {
     private int nation;
     private int attackType;
     private String[] abilities;
-    protected MinionAndHero(String name, int cardID, int shopPrice, int manaPrice) {
-        super(name, cardID, shopPrice, manaPrice);
+    protected MinionAndHero(String name, int shopPrice, int manaPrice) {
+        super(name,shopPrice, manaPrice,1);
     }
-
-    public static void setMinionAndHeroes(ArrayList<MinionAndHero> minionAndHeroes) {
+    protected MinionAndHero(MinionAndHero minionAndHero){
+        super (minionAndHero.getName (),minionAndHero.getShopPrice (),minionAndHero.getManaPrice (),1 );
+    }
+    public int getAP () {
+        return AP;
+    }
+    public int getHP () {
+        return HP;
+    }
+    public static void setMinionAndHeroes( ArrayList<MinionAndHero> minionAndHeroes) {
         MinionAndHero.minionAndHeroes = minionAndHeroes;
     }
-
     public int getNation() {
         return nation;
     }
-
     public boolean isHero() {
         return isHero;
     }
-
     public String[] getAbilities() {
         return abilities;
     }
