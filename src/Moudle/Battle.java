@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Battle {
     private static Battle currentBattle;
+    private ArrayList<MinionAndHero> minionAndHeroes = new ArrayList<> (  );
     private Ground ground;
     private int currentTurn;
     private Player player1;
@@ -53,7 +54,8 @@ public class Battle {
             if ( !isValidNewFighter ( minionAndHero, playerInTurn,x,y ) ){
                 return;
             }
-            Fighter fighter = new Fighter ( minionAndHero );
+            minionAndHeroes.add ( minionAndHero );
+            Fighter fighter = new Fighter ( minionAndHero,minionAndHeroes,playerInTurn );
             ground.getCell ( x, y ).moveInCell ( fighter );
             fighter.setLocation ( x, y );
         }

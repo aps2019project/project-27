@@ -7,6 +7,7 @@ public class Fighter extends MinionAndHero {
 	private int HP;
 	private int x;
 	private int y;
+	private String ID;
 	private boolean canCounterAttack;
 	private boolean canMove;
 	private boolean canAttack;
@@ -55,9 +56,16 @@ public class Fighter extends MinionAndHero {
 			else target=true;
 		}
 	}
-	protected Fighter ( MinionAndHero minionAndHero ) {
+	protected Fighter ( MinionAndHero minionAndHero,ArrayList<MinionAndHero> minionAndHeroes,Player player ) {
 		super ( minionAndHero);
 		AP = super.getAP ();
 		HP = super.getHP ();
+		int counter=0;
+		for ( MinionAndHero minionAndHero1:minionAndHeroes ){
+			if ( minionAndHero==minionAndHero1 ){
+				counter++;
+			}
+		}
+		this.ID=player.getUsername ()+minionAndHero.getName ()+"-"+counter+1;
 	}
 }
