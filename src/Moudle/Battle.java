@@ -60,6 +60,44 @@ public class Battle {
             fighter.setLocation ( x, y );
         }
     }
+    public void attack(Fighter fighter,int baseX,int baseY,int targetX,int targetY){
+    if ( !isValidDistanceForAttack () ){
+        //fosh
+        return;
+    }
+    if ( !fighter.isCanAttack () ){
+        //fosh
+        return;
+    }
+    Fighter opponent = isValidTargetForAttack ( targetX, targetY );
+        if ( opponent == null ) {
+            //fosh
+            return;
+        }
+        fighter.disableCanAttack ();
+        fighter.disableCanMove ();
+    opponent.decreaseHP ( fighter.getAP ()-opponent.getHolyDefence () );
+    if ( opponent.isCanCounterAttack () ){
+        fighter.decreaseHP ( opponent.getAP ()-fighter.getHolyDefence () );
+    }
+    isDeath ( opponent );
+    isDeath ( fighter );
+
+    }
+    private boolean isDeath(Fighter fighter){
+
+    }
+    private boolean isValidDistanceForAttack(){
+
+        return true;
+    }
+    private Fighter isValidTargetForAttack(int targetX,int targetY){
+        Fighter fighter;
+        fighter= ( Fighter ) ground.getCell ( targetX, targetY ).getCardOnCell ();
+        if ( fighter.getPlayer ()== playerInTurn )
+            return null;
+        return fighter;
+    }
     private boolean isValidNewFighter(MinionAndHero minionAndHero,Player player,int x,int y){
         return true;
     }
@@ -98,7 +136,11 @@ public class Battle {
     		//fosh
 			return;
 		}
-		Fighter fighter = ( Fighter ) this.ground.getCell ( x, y ).getCardOnCell ();
+        Fighter fighter = ( Fighter ) this.ground.getCell ( x, y ).getCardOnCell ();
+    	if(fighter.isCanMove()){
+    	    //fosh
+    	    return;
+        }
     	ground.getCell ( x, y ).moveInCell ( fighter );
     	ground.getCell ( targetX,targetY ).moveFromCell ();
 	}

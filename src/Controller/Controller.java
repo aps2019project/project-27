@@ -20,6 +20,7 @@ public class Controller {
                 type = "game info";
             }
             Battle.input(new ControlBox(region, type));
+
         }
         if (region.equals("MainMenu")) {
 

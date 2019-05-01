@@ -24,10 +24,43 @@ public class Fighter extends MinionAndHero {
 		holyDefence+=buff.getChangeHollynes ();
 		buffs.add ( buff );
 	}
+
+	public boolean isCanAttack () {
+		return canAttack;
+	}
+	public void disableCanAttack(){
+		canAttack=false;
+	}
+	public void disableCanMove(){
+		this.canMove=false;
+	}
 	public void setLocation(int x,int y){
 		this.x=x;
 		this.y=y;
 	}
+	public boolean isCanCounterAttack () {
+		return canCounterAttack;
+	}
+	@Override
+	public int getHP () {
+		return HP;
+	}
+	public void decreaseHP(int decrease){
+		HP-=decrease;
+	}
+	@Override
+	public int getAP () {
+		return AP;
+	}
+
+	public int getHolyDefence () {
+		return holyDefence;
+	}
+
+	public boolean isCanMove () {
+		return canMove;
+	}
+
 	public Player getPlayer () {
 		return player;
 	}
@@ -45,7 +78,10 @@ public class Fighter extends MinionAndHero {
 			booleanChangeInt ( canCounterAttack,buff.getChangeCanCounterAttack () );
 		}
 	}
-	private void booleanChangeInt(boolean target,int changer){
+	public String getID () {
+		return ID;
+	}
+	private void booleanChangeInt( boolean target, int changer){
 		if ( changer==1 )
 			target=true;
 		if ( changer==2 )
@@ -66,6 +102,6 @@ public class Fighter extends MinionAndHero {
 				counter++;
 			}
 		}
-		this.ID=player.getUsername ()+minionAndHero.getName ()+"-"+counter+1;
+		this.ID=player.getUsername ()+"_"+minionAndHero.getName ()+"_"+counter+1;
 	}
 }
