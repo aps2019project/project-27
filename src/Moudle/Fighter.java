@@ -23,7 +23,10 @@ public class Fighter extends MinionAndHero {
 		holyDefence+=buff.getChangeHollynes ();
 		buffs.add ( buff );
 	}
-
+	public void setLocation(int x,int y){
+		this.x=x;
+		this.y=y;
+	}
 	public Player getPlayer () {
 		return player;
 	}

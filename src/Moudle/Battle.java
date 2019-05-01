@@ -48,6 +48,18 @@ public class Battle {
                 buffs.add ( buff );
             }
         }
+        if ( type==1 ){
+            MinionAndHero minionAndHero = ( MinionAndHero ) card;
+            if ( !isValidNewFighter ( minionAndHero, playerInTurn,x,y ) ){
+                return;
+            }
+            Fighter fighter = new Fighter ( minionAndHero );
+            ground.getCell ( x, y ).moveInCell ( fighter );
+            fighter.setLocation ( x, y );
+        }
+    }
+    private boolean isValidNewFighter(MinionAndHero minionAndHero,Player player,int x,int y){
+        return true;
     }
     private void buff(Buff buff,ArrayList<Fighter> fighters,int x,int y){
         if ( buff.getIsCellBuff ()){
@@ -61,6 +73,9 @@ public class Battle {
             }
         }
     }
+    private boolean isValidMove(int x1,int y1,int x2,int y2){
+        return  ( Ground.getDistance ( x1, y1, x2, y2 )<=2 );
+    }
     private boolean isValidSelect(){
         return true;
     }
@@ -72,6 +87,26 @@ public class Battle {
     public Battle(Player player1, Player player2, int battleType) {
 
     }
+    private void move(int targetX,int targetY,int x,int y){
+    	if(!isValidMove ( targetX, targetY, x, y )){
+    		//fosh
+    		return;
+		}
+    	if ( !isValidTargetForMove ( targetX,targetY )){
+    		//fosh
+			return;
+		}
+		Fighter fighter = ( Fighter ) this.ground.getCell ( x, y ).getCardOnCell ();
+    	ground.getCell ( x, y ).moveInCell ( fighter );
+    	ground.getCell ( targetX,targetY ).moveFromCell ();
+	}
+	private boolean isValidTargetForMove(int x,int y){
+    	Fighter fighter = (Fighter ) this.ground.getCell ( x, y ).getCardOnCell ();
+    	if ( fighter.getPlayer ().equals ( this.playerInTurn )){
+    		return true;
+		}
+    	return false;
+	}
     private void checkBuffs(){
         for ( Buff buff:buffs ){
             if ( buff.getAgeType ()==1 ){

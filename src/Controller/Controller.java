@@ -56,19 +56,15 @@ public class Controller {
     private boolean isValidPasswordLogin(String input) {
         return input.matches("[a-zA-Z0-9]");
     }
-
     private boolean isValidLogin(String input) {
         return input.matches("login+ +[a-zA-Z0-9]+");
     }
-
     private boolean isValidCreateAccount(String input) {
         return input.matches("create account+ +[a-zA-Z0-9]+");
     }
-
     private boolean isValidSearchShop(String input) {
         return input.matches("search+ +[a-zA-Z]");
     }
-
     private boolean isValidGameInfo(String input) {
         return input.toLowerCase().equals("game info");
     }
