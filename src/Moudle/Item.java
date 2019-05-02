@@ -6,6 +6,7 @@ public class Item {
     private static ArrayList<Item> items;
     private String name;
     private int price;
+    private boolean isFlag;
 
     public static Item findItem(String name) {
         for (Item item : items) {
@@ -13,6 +14,10 @@ public class Item {
                 return item;
         }
         return null;
+    }
+
+    public boolean isFlag(){
+        return isFlag;
     }
 
     public int getPrice() {

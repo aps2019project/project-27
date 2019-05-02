@@ -16,9 +16,18 @@ public class Account {
     private Deck mainDeck;
     private int wins;
     private int losses;
+    private static int inputType; //0:nothing's happened, 1:username's been added, 2:password's been added
 
     public static void input(ControlBox controlBox) {
-        if(controlBox.getType().equals("createAccount"));
+        int input = inputType;
+        if (controlBox.getType().equals("createAccount")) {
+            if(input == 1){
+
+                if(input == 2){
+
+                }
+            }
+        }
     }
 
     public boolean isValidDeck() {
