@@ -40,7 +40,7 @@ public class View {
     public static void main(String[] args) {
         Player player1 = new Player();
         Player player2 = new Player();
-        Battle battle = new Battle(player1, player2, );
-        showBattle();
+        Battle battle = new Battle(player1, player2,1 );
+        showBattle(battle);
     }
 }

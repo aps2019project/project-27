@@ -65,7 +65,7 @@ public class Battle {
         //fosh
         return;
     }
-    if ( !fighter.isCanAttack () ){
+    if ( !fighter.CanAttack () ){
         //fosh
         return;
     }
@@ -80,12 +80,19 @@ public class Battle {
     if ( opponent.isCanCounterAttack () ){
         fighter.decreaseHP ( opponent.getAP ()-fighter.getHolyDefence () );
     }
+    executeOnAttaclBuff ( fighter,opponent );
     isDeath ( opponent );
     isDeath ( fighter );
-
+    }
+    private void executeOnAttaclBuff(Fighter offenser,Fighter difender){
+        /* to do */
     }
     private boolean isDeath(Fighter fighter){
-
+        if ( fighter.getHP ()<1 ) {
+            ground.getCell ( fighter.getX (),fighter.getY () ).moveFromCell ();
+            return true;
+        }
+    return false;
     }
     private boolean isValidDistanceForAttack(){
 

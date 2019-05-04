@@ -16,6 +16,11 @@ public class Fighter extends MinionAndHero {
 	private Cell currentCell;
 	private Player player;
 	public void preTurnProcces(){
+		for ( Buff buff:this.getSpecialPowers () ){
+			if ( this.getSpecialPowerType ()==1 ){
+				addToBuff ( buff );
+			}
+		}
 		this.enableBuffBoolEssence ();
 	}
 	public void addToBuff(Buff buff){
@@ -25,7 +30,15 @@ public class Fighter extends MinionAndHero {
 		buffs.add ( buff );
 	}
 
-	public boolean isCanAttack () {
+	public int getX () {
+		return x;
+	}
+
+	public int getY () {
+		return y;
+	}
+
+	public boolean CanAttack () {
 		return canAttack;
 	}
 	public void disableCanAttack(){
