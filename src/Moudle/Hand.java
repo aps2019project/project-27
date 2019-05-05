@@ -13,6 +13,14 @@ public class Hand extends Deck{
     public void addItem() {
 
     }
+    public void show(){
+        for ( Card card:cards ){
+            card.showCard ();
+        }
+    }
+    public void showNextCard(){
+        nextCard.showCard ();
+    }
     public Item getItem() {
         return this.item;
     }

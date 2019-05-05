@@ -36,6 +36,10 @@ public class View {
             }
         }
     }
+    public static void showSpell(Spell spell){
+        //todo
+
+    }
     public static void showFighter(Fighter fighter){
         System.out.println ( fighter.getID ()+": health :" +fighter.getHP () +" attack : "+fighter.getAP ()
                 +" location : x="+fighter.getX ()+" y="+fighter.getY ());

@@ -3,14 +3,20 @@ package Moudle;
 import java.util.ArrayList;
 
 public class Target {
-	//targetType 0:rectangle	1:1force	2:all forces	3:force in a row	4:force in a column		5:8cell in near
+	//targetType 0:rectangle	1:1force	2:all forces	3:force in a row	4:force in a column		5:8cell in near		6:a random Fighter
+	//7:attacked Fighter	8:herself
 	private int targetType;
 	private int rectangleLength;
 	//targetFriendType:0:no diffrence	1:only friend	2:only enemy
 	private int targetFriendType;
 	//targetDegreeType:0:no diffrence	1:minion	2:hero
 	private int targetDegreeType;
-	public boolean isValidTarget(Battle battle,int x,int y,Player player){
+
+	public int getTargetType () {
+		return targetType;
+	}
+
+	public boolean isValidTarget( Battle battle, int x, int y, Player player){
 		if ( targetType==0 ){
 			if ( isOutOfSide ( x,y )||isOutOfSide ( x+rectangleLength-1,y+rectangleLength-1 ) )
 				return false;

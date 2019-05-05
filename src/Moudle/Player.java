@@ -15,6 +15,15 @@ public class Player extends Account {
 
     }
 
+    public int getMana () {
+        return mana;
+    }
+    public void decreaseMana(int mony){
+        mana-=mony;
+    }
+    public void addItem( Item item){
+        items.add ( item );
+    }
     public ArrayList<Fighter> getFighters () {
         return fighters;
     }
@@ -54,6 +63,6 @@ public class Player extends Account {
     }
 
     public void showHand() {
-
+        hand.show ();
     }
 }

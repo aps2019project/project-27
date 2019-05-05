@@ -8,6 +8,7 @@ public class Fighter extends MinionAndHero {
 	private int x;
 	private int y;
 	private String ID;
+	private ArrayList<Fighter> attackedFighter = new ArrayList<> (  );
 	private boolean canCounterAttack;
 	private boolean canMove;
 	private boolean canAttack;
@@ -24,12 +25,35 @@ public class Fighter extends MinionAndHero {
 		this.enableBuffBoolEssence ();
 	}
 	public void addToBuff(Buff buff){
+		if ( buff.getAgeType ()==3 ){
+			return;
+		}
 		AP+=buff.getChangeAP ();
 		HP+=buff.getChangeHP ();
 		holyDefence+=buff.getChangeHollynes ();
 		buffs.add ( buff );
+		if ( buff.isDisableNegativeBuffs () ) {
+			for ( Buff buff1:this.buffs )
+			if ( !buff1.isPositive ( ) ) {
+				removeFromBuff ( buff1 );
+			}
+		}
+		if ( buff.isDisablePositiveBuffs () ) {
+			for ( Buff buff1:this.buffs )
+				if ( buff1.isPositive ( ) ) {
+					removeFromBuff ( buff1 );
+				}
+		}
 	}
-
+	public int howManyAttacked(Fighter fighter){
+		int counter=0;
+		for ( Fighter fighter1:attackedFighter ){
+			if ( fighter==fighter1 ){
+				counter++;
+			}
+		}
+		return counter;
+	}
 	public int getX () {
 		return x;
 	}
@@ -90,6 +114,9 @@ public class Fighter extends MinionAndHero {
 			booleanChangeInt ( canMove,buff.getChangeCanMove () );
 			booleanChangeInt ( canCounterAttack,buff.getChangeCanCounterAttack () );
 		}
+	}
+	public void addAttackedFighter(Fighter fighter){
+		attackedFighter.add ( fighter );
 	}
 	public String getID () {
 		return ID;

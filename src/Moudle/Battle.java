@@ -47,29 +47,30 @@ public class Battle {
 		if ( in.equals ( "select card" ) ) {
 			currentBattle.setInGroundCard ( controllBox.getCardID ( ) );
 		}
-		if ( in.equals ( "end turn" ) ){
-			currentBattle.nextTurn ();
+		if ( in.equals ( "end turn" ) ) {
+			currentBattle.nextTurn ( );
 		}
-		if ( in.equals ( "use special power" ) ){
+		if ( in.equals ( "use special power" ) ) {
 			//todo
 		}
-		if ( in.equals ( "show hand" ) ){
+		if ( in.equals ( "show hand" ) ) {
 			//todo
+
 		}
-		if ( in.equals ( "insert" ) ){
-			currentBattle.insert ( controllBox.getCardName (),controllBox.getX (),controllBox.getY () );
+		if ( in.equals ( "insert" ) ) {
+			currentBattle.insert ( controllBox.getCardName ( ) , controllBox.getX ( ) , controllBox.getY ( ) );
 		}
 		if ( in.equals ( "move" ) ) {
-			currentBattle.move ( controllBox.getX ( ) , controllBox.getY ( ) ,
-					currentBattle.selectedFighter.getX ( ) , currentBattle.selectedFighter.getY ( ) );
+			currentBattle.move ( currentBattle.selectedFighter.getX ( ) , currentBattle.selectedFighter.getY ( )
+					, controllBox.getX ( ) , controllBox.getY ( ) );
 		}
-		if ( in.equals ( "attack" ) ){
-			Fighter opponent = currentBattle.findFighter ( controllBox.getCardID (),currentBattle.offTurn () );
+		if ( in.equals ( "attack" ) ) {
+			Fighter opponent = currentBattle.findFighter ( controllBox.getCardID ( ) , currentBattle.offTurn ( ) );
 			if ( opponent == null ) {
 				//fosh
 				return;
 			}
-			currentBattle.attack ( currentBattle.selectedFighter,opponent );
+			currentBattle.attack ( currentBattle.selectedFighter , opponent );
 		}
 	}
 
@@ -82,7 +83,9 @@ public class Battle {
 			//accept;
 		}
 	}
-
+	private void showHand(){
+		playerInTurn.showHand ();
+	}
 	private Fighter findFighter ( String cardID ) {
 		for ( Fighter fighter : fighters ) {
 			if ( fighter.getID ( ).equals ( cardID ) ) {
@@ -114,9 +117,19 @@ public class Battle {
 			return player2;
 		return player1;
 	}
-
-	public void insert ( String cardName ,int x , int y ) {
-		Card card = null;//todo cardName
+	private boolean isValidInsert(Card card){
+		if ( card.getManaPrice ()<=playerInTurn.getMana () ){
+			playerInTurn.decreaseMana ( card.getManaPrice () );
+			return true;
+		}
+		return false;
+	}
+	public void insert ( String cardName , int x , int y ) {
+		Card card = null;//todo cardName ali
+		if ( isValidInsert ( card ) ){
+			//fosh
+			return;
+		}
 		int type = card.getCardType ( );
 		if ( type == 0 ) {
 			Spell spell = ( Spell ) card;
@@ -136,7 +149,15 @@ public class Battle {
 		if ( type == 1 ) {
 			MinionAndHero minionAndHero = ( MinionAndHero ) card;
 			if ( ! isValidNewFighter ( minionAndHero , playerInTurn , x , y ) ) {
+				//fosh
 				return;
+			}
+			if ( ground.getCell ( x , y ).getCardOnCell ( ) != null ) {
+				//fosh
+				return;
+			}
+			if ( ground.getCell ( x , y ).getItemOnCell ( ) != null ) {
+				playerInTurn.addItem ( ground.getCell ( x , y ).getItemOnCell ( ) );
 			}
 			minionAndHeroes.add ( minionAndHero );
 			Fighter fighter = new Fighter ( minionAndHero , minionAndHeroes , playerInTurn );
@@ -147,8 +168,8 @@ public class Battle {
 	}
 
 	public void attack ( Fighter fighter , Fighter opponent ) {
-		int targetX=opponent.getX ();
-		int targetY = opponent.getY ();
+		int targetX = opponent.getX ( );
+		int targetY = opponent.getY ( );
 		if ( ! isValidDistanceForAttack ( ) ) {
 			//fosh
 			return;
@@ -163,27 +184,80 @@ public class Battle {
 		if ( opponent.isCanCounterAttack ( ) ) {
 			fighter.decreaseHP ( opponent.getAP ( ) - fighter.getHolyDefence ( ) );
 		}
+		fighter.addAttackedFighter ( opponent );
 		executeOnAttackAndDeBuff ( fighter , opponent );
 		isDeath ( opponent );
 		isDeath ( fighter );
 	}
 
-	private void executeOnAttackAndDeBuff ( Fighter offenser , Fighter difender ) {
-		/* todo */
+	private void executeOnAttackAndDeBuff ( Fighter offenser , Fighter defender ) {
+		if ( offenser.getSpecialPowerType ()==3 ){
+			Fighter target = null;
+			if ( offenser.getSpecialPowerTarget ().getTargetType ()==7 ){
+				target = defender;
+			}
+			else if(offenser.getSpecialPowerTarget ().getTargetType () == 8)
+				target = offenser;
+			for ( Buff buff:offenser.getSpecialPowers () ){
+				if ( buff.getPlusDamageToAttacked ()>0 ){
+					defender.decreaseHP ( buff.getPlusDamageToAttacked ()*offenser.howManyAttacked ( defender ) );
+				}
+				if ( buff.noHolynessForOpponent () ){
+					defender.decreaseHP ( defender.getHolyDefence () );
+				}
+				target.addToBuff ( buff );
+				if ( buff.isExeptABuff () ){
+					buffs.add ( buff );
+				}
+			}
+		}
+		if ( defender.getSpecialPowerType ()==4 ){
+			Fighter target = null;
+			if ( defender.getSpecialPowerTarget ().getTargetType ()==7 ){
+				target = offenser;
+			}
+			else if ( defender.getSpecialPowerTarget ().getTargetType ()==7 ){
+				target = defender;
+			}
+			for ( Buff buff:offenser.getSpecialPowers () ){
+				defender.addToBuff ( buff );
+				if ( buff.isExeptABuff () ){
+					buffs.add ( buff );
+				}
+			}
+		}
 	}
 
 	private void executeOnSpawnBuff ( Fighter fighter ) {
-		// todo
+		if ( fighter.getSpecialPowerType ()!=0 )
+			return;
+		executeSpecialBuffs ( fighter );
 	}
 
 	private void executeOnDeathBuff ( Fighter fighter ) {
+		if ( fighter.getSpecialPowerType ()!=2 )
+			return;
+		executeSpecialBuffs ( fighter );
+	}
 
+	private void executeSpecialBuffs ( Fighter fighter ) {
+		for ( Buff buff : fighter.getSpecialPowers ( ) ) {
+			ArrayList<Fighter> targets = fighter.getSpecialPowerTarget ( ).
+					targetFighters ( this , fighter.getX ( ) , fighter.getY ( ) , playerInTurn );
+			buff ( buff , targets , fighter.getX ( ) , fighter.getY ( ) );
+		}
 	}
 
 	private boolean isDeath ( Fighter fighter ) {
 		if ( fighter.getHP ( ) < 1 ) {
 			ground.getCell ( fighter.getX ( ) , fighter.getY ( ) ).moveFromCell ( );
 			executeOnDeathBuff ( fighter );
+			if ( fighter.isHero () ){
+				if ( fighter.getPlayer ()==player1 )
+					winner ( player2 );
+				winner ( player1 );
+				return true;
+			}
 			return true;
 		}
 		return false;
@@ -219,7 +293,46 @@ public class Battle {
 	}
 
 	private boolean isValidMove ( int x1 , int y1 , int x2 , int y2 ) {
-		return ( Ground.getDistance ( x1 , y1 , x2 , y2 ) <= 2 );
+		if ( Ground.getDistance ( x1 , y1 , x2 , y2 ) > 2 )
+			return false;
+		if ( ground.getCell ( x2 , y2 ).getCardOnCell ( ) != null ) {
+			//fosh
+			return false;
+		}
+		if ( Ground.getDistance ( x1 , y1 , x2 , y2 ) == 2 ) {
+			if ( x1 == x2 ) {
+				if ( y1 > y2 ) {
+					if ( ground.getCell ( x1 , y1 - 1 ).getCardOnCell ( ) != null || ground.getCell ( x1 , y1 - 2 ).getCardOnCell ( ) != null ) {
+						//fosh
+						return false;
+					}
+				}
+				if ( y2 > y1 ) {
+					if ( ground.getCell ( x1 , y1 + 1 ).getCardOnCell ( ) != null || ground.getCell ( x1 , y1 + 2 ).getCardOnCell ( ) != null ) {
+						//fosh
+						return false;
+					}
+				}
+			}
+			else if ( y1 == y2 ) {
+				if ( x1 > x2 ) {
+					if ( ground.getCell ( x1-1 , y1 ).getCardOnCell ( ) != null || ground.getCell ( x1-2 , y1 ).getCardOnCell ( ) != null ) {
+						//fosh
+						return false;
+					}
+				}
+				if ( x2 > x1 ) {
+					if ( ground.getCell ( x1+1 , y1 ).getCardOnCell ( ) != null || ground.getCell ( x1+2 , y1 ).getCardOnCell ( ) != null ) {
+						//fosh
+						return false;
+					}
+				}
+			}
+			else{
+				// TODO: 5/5/2019
+			}
+		}
+		return true;
 	}
 
 	private boolean isValidSelect () {
@@ -251,6 +364,9 @@ public class Battle {
 			//fosh
 			return;
 		}
+		if ( ground.getCell ( targetX , targetY ).getItemOnCell ( ) != null ) {
+			playerInTurn.addItem ( ground.getCell ( targetX , targetY ).getItemOnCell ( ) );
+		}
 		ground.getCell ( x , y ).moveInCell ( fighter );
 		ground.getCell ( targetX , targetY ).moveFromCell ( );
 	}
@@ -270,6 +386,13 @@ public class Battle {
 					removeBuff ( buff );
 				} else buff.decreesAge ( );
 			}
+			if ( buff.getAgeType ()==3 ){
+				if ( buff.getAge ()<1 ){
+					for ( Fighter fighter:buff.getFighters () ){
+						fighter.addToBuff ( buff );
+					}
+				}
+			}
 		}
 	}
 
@@ -287,6 +410,7 @@ public class Battle {
 		for ( Fighter fighter : fighters ) {
 			fighter.preTurnProcces ( );
 		}
+		checkBuffs ();
 		currentTurn++;
 		setMana ( );
 		setPlayerInTurn ( );
@@ -295,7 +419,9 @@ public class Battle {
 	public void showInfo () {
 
 	}
+	private void winner(Player player){
 
+	}
 	private void setPlayerInTurn () {
 		if ( playerInTurn.equals ( player1 ) )
 			playerInTurn = player2;

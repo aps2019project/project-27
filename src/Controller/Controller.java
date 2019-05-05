@@ -19,6 +19,9 @@ public class Controller {
 			if ( isValidGameInfo ( input ) ) {
 				type = "game info";
 			}
+			if ( isValidNextCard ( input ) ){
+				type = "next card";
+			}
 			Battle.input ( new ControlBox ( region , type ) );
 			if ( isValidShowMyMinion ( input ) ) {
 				type = "show my minions";
@@ -62,6 +65,7 @@ public class Controller {
 			if ( isValidEndTur ( input ) ){
 				type = "end turn";
 			}
+			//todo item
 			controlBox.setType ( type );
 			Battle.input ( controlBox );
 		}
@@ -155,4 +159,8 @@ public class Controller {
 	private boolean isValidEndTur(String input){
 		return input.equalsIgnoreCase ( "end turn" );
 	}
+	private boolean isValidNextCard(String input){
+		return input.equalsIgnoreCase ( "show next card" );
+	}
+
 }

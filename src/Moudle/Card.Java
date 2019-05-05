@@ -1,4 +1,6 @@
 package Moudle;
+import View.View;
+
 import java.util.ArrayList;
 public abstract class Card {
     private static ArrayList<Card> cards = new ArrayList<>();
@@ -16,7 +18,14 @@ public abstract class Card {
     public int getManaPrice () {
         return manaPrice;
     }
-
+    public void showCard (){
+        if ( this.getCardType ()==1 ){
+            View.showFighter ( ( Fighter ) this );
+        }
+        if(this.getCardType ()==0){
+            View.showSpell ( ( Spell ) this );
+        }
+    }
     protected Card( String name, int shopPrice, int manaPrice, int cardType) {
         this.name = name;
         this.shopPrice = shopPrice;

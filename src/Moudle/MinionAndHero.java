@@ -14,6 +14,11 @@ public class MinionAndHero extends Card {
     private int specialPowerCoolDown;
     //0:onspawn 2:passive   3:ondeath   4:onAttack  5:onDe  6:combo
     private int specialPowerType;
+    private Target specialPowerTarget;
+
+    public Target getSpecialPowerTarget () {
+        return specialPowerTarget;
+    }
 
     public int getSpecialPowerType () {
         return specialPowerType;
