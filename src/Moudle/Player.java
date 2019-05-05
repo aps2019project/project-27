@@ -14,7 +14,12 @@ public class Player extends Account {
     public void addToBuffs(Buff buff){
 
     }
-    public boolean equals (Object object){
+
+    public ArrayList<Fighter> getFighters () {
+        return fighters;
+    }
+
+    public boolean equals ( Object object){
         if ( object.getClass () == Player.class )
         {
             Account account = (Player)object;

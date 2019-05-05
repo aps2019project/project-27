@@ -5,6 +5,35 @@ public class ControlBox {
     private String region;
     private String cardName;
     private String userName;
+    private String cardID;
+    private int x,y;
+
+    public void setX ( int x ) {
+        this.x = x;
+    }
+
+    public void setY ( int y ) {
+        this.y = y;
+    }
+
+    public int getY () {
+        return y;
+    }
+
+    public int getX () {
+        return x;
+    }
+
+    public void setCardID ( String cardID ) {
+        this.cardID = cardID;
+    }
+    public String getCardID () {
+        return cardID;
+    }
+
+    public void setType ( String type ) {
+        this.type = type;
+    }
 
     public String getUserName() {
         return userName;

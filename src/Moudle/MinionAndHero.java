@@ -43,7 +43,4 @@ public class MinionAndHero extends Card {
     public boolean isHero() {
         return isHero;
     }
-    public String[] getAbilities() {
-        return abilities;
-    }
 }

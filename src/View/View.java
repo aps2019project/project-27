@@ -21,13 +21,13 @@ public class View {
                 if (cardOnCell[i][j] == null && itemOnCell[i][j] == null) {
                     continue;
                 } else if (cardOnCell[i][j] != null) {
-                    if (cardOnCell[i][j].isHero() == true) {
+                    if ( cardOnCell[ i ][ j ].isHero ( ) ) {
                         System.out.print(cardOnCell[i][j].getPlayer() + "|" + "Hero" + "|" + cardOnCell[i][j].getAP() + "|" + cardOnCell[i][j].getHP() + "|" + cardOnCell[i][j].getID());
                     } else {
                         System.out.print(cardOnCell[i][j].getPlayer() + "|" + "Minion" + "|" + cardOnCell[i][j].getAP() + "|" + cardOnCell[i][j].getHP() + "|" + cardOnCell[i][j].getID());
                     }
                 } else if (itemOnCell[i][j] != null) {
-                    if(itemOnCell[i][j].isFlag() == true) {
+                    if( itemOnCell[ i ][ j ].isFlag ( ) ) {
                         System.out.print(itemOnCell[i][j].getName() + "| flag");
                     } else {
                         System.out.print(itemOnCell[i][j].getName());
