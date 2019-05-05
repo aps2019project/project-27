@@ -47,9 +47,29 @@ public class Battle {
 		if ( in.equals ( "select card" ) ) {
 			currentBattle.setInGroundCard ( controllBox.getCardID ( ) );
 		}
+		if ( in.equals ( "end turn" ) ){
+			currentBattle.nextTurn ();
+		}
+		if ( in.equals ( "use special power" ) ){
+			//todo
+		}
+		if ( in.equals ( "show hand" ) ){
+			//todo
+		}
+		if ( in.equals ( "insert" ) ){
+			currentBattle.insert ( controllBox.getCardName (),controllBox.getX (),controllBox.getY () );
+		}
 		if ( in.equals ( "move" ) ) {
 			currentBattle.move ( controllBox.getX ( ) , controllBox.getY ( ) ,
 					currentBattle.selectedFighter.getX ( ) , currentBattle.selectedFighter.getY ( ) );
+		}
+		if ( in.equals ( "attack" ) ){
+			Fighter opponent = currentBattle.findFighter ( controllBox.getCardID (),currentBattle.offTurn () );
+			if ( opponent == null ) {
+				//fosh
+				return;
+			}
+			currentBattle.attack ( currentBattle.selectedFighter,opponent );
 		}
 	}
 
@@ -95,8 +115,8 @@ public class Battle {
 		return player1;
 	}
 
-	public void insert ( int x , int y ) {
-		Card card = null;
+	public void insert ( String cardName ,int x , int y ) {
+		Card card = null;//todo cardName
 		int type = card.getCardType ( );
 		if ( type == 0 ) {
 			Spell spell = ( Spell ) card;
@@ -126,17 +146,14 @@ public class Battle {
 		}
 	}
 
-	public void attack ( Fighter fighter , int baseX , int baseY , int targetX , int targetY ) {
+	public void attack ( Fighter fighter , Fighter opponent ) {
+		int targetX=opponent.getX ();
+		int targetY = opponent.getY ();
 		if ( ! isValidDistanceForAttack ( ) ) {
 			//fosh
 			return;
 		}
 		if ( ! fighter.CanAttack ( ) ) {
-			//fosh
-			return;
-		}
-		Fighter opponent = isValidTargetForAttack ( targetX , targetY );
-		if ( opponent == null ) {
 			//fosh
 			return;
 		}
@@ -152,11 +169,11 @@ public class Battle {
 	}
 
 	private void executeOnAttackAndDeBuff ( Fighter offenser , Fighter difender ) {
-		/* to do */
+		/* todo */
 	}
 
 	private void executeOnSpawnBuff ( Fighter fighter ) {
-		// to do
+		// todo
 	}
 
 	private void executeOnDeathBuff ( Fighter fighter ) {
@@ -173,7 +190,7 @@ public class Battle {
 	}
 
 	private boolean isValidDistanceForAttack () {
-
+		//todo
 		return true;
 	}
 

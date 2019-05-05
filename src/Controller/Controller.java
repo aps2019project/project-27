@@ -7,10 +7,10 @@ import Moudle.Shop;
 import java.util.Scanner;
 
 public class Controller {
-	Scanner scanner = new Scanner ( System.in );
-	String input;
-	String region;
-	String type;
+	private final Scanner scanner = new Scanner ( System.in );
+	private String input;
+	private String region;
+	private String type;
 
 	public void input () {
 		input = scanner.nextLine ( );
@@ -39,8 +39,28 @@ public class Controller {
 			if ( isValidMove ( input ) ) {
 				type = "move";
 				String[] tmp = input.split ( " " );
-				controlBox.setX ( Integer.parseInt ( String.valueOf ( tmp[2].charAt ( 1 ) ) ) );
-				controlBox.setY ( Integer.parseInt ( String.valueOf ( tmp[2].charAt ( 3 ) ) ) );
+				setLocation ( ( ControlBox ) controlBox , tmp[2] );
+			}
+			if ( isValidAttack ( input ) ){
+				type = "attack";
+				controlBox.setCardID ( input.toLowerCase ().split ( " " )[1] );
+			}
+			if ( useSpecialPower ( input ) ){
+				type = "use special power";
+				String location = input.toLowerCase ().split ( " " )[3];
+				setLocation ( ( ControlBox ) controlBox , location );
+			}
+			if ( isValidInsert ( input ) ){
+				type = "insert";
+				String[] tmp = input.toLowerCase ().split ( " " );
+				setLocation ( controlBox,tmp[3] );
+
+			}
+			if (isValidShowHand ( input ) ){
+				type ="show hand";
+			}
+			if ( isValidEndTur ( input ) ){
+				type = "end turn";
 			}
 			controlBox.setType ( type );
 			Battle.input ( controlBox );
@@ -77,10 +97,17 @@ public class Controller {
 		}
 	}
 
+	private void setLocation ( ControlBox controlBox , String location ) {
+		controlBox.setX ( Integer.parseInt ( String.valueOf ( location.charAt ( 1 ) ) ) );
+		controlBox.setY ( Integer.parseInt ( String.valueOf ( location.charAt ( 3 ) ) ) );
+	}
+
 	private boolean isValidSelectCard ( String input ) {
 		return input.toLowerCase ( ).matches ( "select+ +card+ +[\\w_]+" );
 	}
-
+	private boolean isValidShowHand(String input){
+		return input.toLowerCase ().equals ( "show hand" );
+	}
 	private boolean isValidShowOpMinion ( String input ) {
 		return input.toLowerCase ( ).equals ( "show my opponenet minions" );
 	}
@@ -115,5 +142,17 @@ public class Controller {
 
 	private boolean isValidMove ( String input ) {
 		return input.toLowerCase ( ).matches ( "move+ +to+ +[(]\\d,\\d[)]" );
+	}
+	private boolean isValidAttack(String input){
+		return input.toLowerCase ().matches ( "attack+ +[a-zA-Z0-9]+" );
+	}
+	private boolean useSpecialPower(String input){
+		return input.toLowerCase ().matches ( "Use+ +special+ +power+ +[(]\\d,\\d[)]");
+	}
+	private boolean isValidInsert(String input){
+		return input.toLowerCase ().matches ( "insert+ +[a-z]+ +in+ +[(]\\d,\\d[)]" );
+	}
+	private boolean isValidEndTur(String input){
+		return input.equalsIgnoreCase ( "end turn" );
 	}
 }
