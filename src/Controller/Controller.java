@@ -20,7 +20,13 @@ public class Controller {
                 type = "game info";
             }
             Battle.input(new ControlBox(region, type));
-
+            if ( isValidShowMyMinion ( input ) ){
+                type = "show my minions";
+            }
+            if ( isValidShowOpMinion ( input ) ){
+                type = "show opponent minions";
+            }
+            Battle.input ( new ControlBox ( "Battle",type) );
         }
         if (region.equals("MainMenu")) {
 
@@ -53,7 +59,12 @@ public class Controller {
             Account.input(controlBox);
         }
     }
-
+    private boolean isValidShowOpMinion(String input){
+        return input.toLowerCase ().equals ( "show my opponenet minions" );
+    }
+    private boolean isValidShowMyMinion(String input){
+        return input.toLowerCase ().equals ( "show my minions" );
+    }
     private boolean isValidPasswordLogin(String input) {
         return input.matches("[a-zA-Z0-9]");
     }

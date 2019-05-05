@@ -36,6 +36,11 @@ public class View {
             }
         }
     }
+    public static void showFighter(Fighter fighter){
+        System.out.println ( fighter.getID ()+": health :" +fighter.getHP () +" attack : "+fighter.getAP ()
+                +" location : x="+fighter.getX ()+" y="+fighter.getY ());
+
+    }
 
     public static void main(String[] args) {
         Player player1 = new Player();

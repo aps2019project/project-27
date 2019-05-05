@@ -26,10 +26,22 @@ public class Battle {
         return ground;
     }
     public static void input( ControlBox controllBox) {
-        if (controllBox.getType().equals("game info")) {
+        String in = controllBox.getType ();
+        if (in.equals("game info")) {
             currentBattle.showInfo();
             return;
         }
+        if ( in.equals ( "show my minions" ) ){
+            currentBattle.playerInTurn.showFighters ();
+        }
+        if ( in.equals ( "show my opponent minions" ) ){
+            currentBattle.offTurn ().showFighters ();
+        }
+    }
+    private Player offTurn(){
+        if ( player1==playerInTurn )
+            return player2;
+        return player1;
     }
     public void insert(int x,int y){
         Card card = null;
@@ -56,6 +68,7 @@ public class Battle {
             }
             minionAndHeroes.add ( minionAndHero );
             Fighter fighter = new Fighter ( minionAndHero,minionAndHeroes,playerInTurn );
+            executeOnSpawnBuff ( fighter );
             ground.getCell ( x, y ).moveInCell ( fighter );
             fighter.setLocation ( x, y );
         }
@@ -80,16 +93,23 @@ public class Battle {
     if ( opponent.isCanCounterAttack () ){
         fighter.decreaseHP ( opponent.getAP ()-fighter.getHolyDefence () );
     }
-    executeOnAttaclBuff ( fighter,opponent );
+    executeOnAttackAndDeBuff ( fighter,opponent );
     isDeath ( opponent );
     isDeath ( fighter );
     }
-    private void executeOnAttaclBuff(Fighter offenser,Fighter difender){
+    private void executeOnAttackAndDeBuff ( Fighter offenser, Fighter difender){
         /* to do */
+    }
+    private void executeOnSpawnBuff(Fighter fighter){
+        // to do
+    }
+    private void executeOnDeathBuff(Fighter fighter){
+
     }
     private boolean isDeath(Fighter fighter){
         if ( fighter.getHP ()<1 ) {
             ground.getCell ( fighter.getX (),fighter.getY () ).moveFromCell ();
+            executeOnDeathBuff ( fighter );
             return true;
         }
     return false;
@@ -129,6 +149,7 @@ public class Battle {
     public void checkWinner() {
     }
     public void setMana() {
+
     }
 
     public Battle(Player player1, Player player2, int battleType) {

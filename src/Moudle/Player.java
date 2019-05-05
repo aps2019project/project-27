@@ -1,5 +1,7 @@
 package Moudle;
 
+import View.View;
+
 import java.util.ArrayList;
 
 public class Player extends Account {
@@ -29,7 +31,11 @@ public class Player extends Account {
     public void showCollectables() {
 
     }
-
+    public void showFighters(){
+        for ( Fighter fighter:fighters ){
+            View.showFighter ( fighter );
+        }
+    }
     public void useItem(Item item) {
 
     }
