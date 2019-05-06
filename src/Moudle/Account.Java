@@ -168,7 +168,7 @@ public class Account {
         //todo
     }
 
-    public static void logout(Account account) {
+    public static void logout() {
         //todo
         mainAccount = null;
     }
