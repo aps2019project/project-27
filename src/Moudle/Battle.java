@@ -478,7 +478,11 @@ public class Battle {
 
 	}
 	private void winner(Player player){
-
+		player.increaseWins ();
+		if ( player==player1 )
+			player2.increaseLosses ();
+		else player1.increaseLosses ();
+		System.out.println (  );
 	}
 	private void setPlayerInTurn () {
 		if ( playerInTurn.equals ( player1 ) )

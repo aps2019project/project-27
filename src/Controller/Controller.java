@@ -7,83 +7,89 @@ import Moudle.Shop;
 import java.util.Scanner;
 
 public class Controller {
+	public static void main (String[] args){
+		//load phase
+		Controller controller = new Controller ( "Account" );
+		int out=0;
+		while ( out!=-1){
+			out = controller.input();
+		}
+	}
 	private final Scanner scanner = new Scanner ( System.in );
 	private String input;
 	private String region;
 	private String type;
-
+	private Controller(String region){
+		this.region = region;
+	}
     public int input() {
         input = scanner.nextLine();
         ControlBox controlBox = new ControlBox("Battle", type);
         if (region.equals("Battle")) {
-            int whereWeAre = 0;
             if (isValidGameInfo(input)) {
                 type = "game info";
-                whereWeAre = 1;
             }
             if (isValidNextCard(input)) {
                 type = "next card";
-                whereWeAre = 2;
             }
             Battle.input(new ControlBox(region, type));
             if (isValidShowMyMinion(input)) {
                 type = "show my minions";
-                whereWeAre = 3;
             }
             if (isValidShowOpMinion(input)) {
                 type = "show opponent minions";
-                whereWeAre = 4;
             }
             if (isValidShowCardInfo(input)) {
                 String[] tmp = input.split(" ");
                 type = "show card";
                 controlBox.setCardID(tmp[3]);
-                whereWeAre = 5;
             }
             if (isValidSelectCard(input)) {
                 type = "select card";
                 String[] tmp = input.toLowerCase().split(" ");
                 controlBox.setCardID(tmp[2]);
-                whereWeAre = 6;
             }
             if (isValidMove(input)) {
                 type = "move";
                 String[] tmp = input.split(" ");
                 setLocation((ControlBox) controlBox, tmp[2]);
-                whereWeAre = 7;
             }
             if (isValidAttack(input)) {
                 type = "attack";
                 controlBox.setCardID(input.toLowerCase().split(" ")[1]);
-                whereWeAre = 8;
             }
             if (useSpecialPower(input)) {
                 type = "use special power";
                 String location = input.toLowerCase().split(" ")[3];
                 setLocation((ControlBox) controlBox, location);
-                whereWeAre = 9;
             }
             if (isValidInsert(input)) {
                 type = "insert";
                 String[] tmp = input.toLowerCase().split(" ");
                 setLocation(controlBox, tmp[3]);
-                whereWeAre = 10;
             }
             if (isValidShowHand(input)) {
                 type = "show hand";
-                whereWeAre = 11;
             }
             if (isValidEndTur(input)) {
                 type = "end turn";
-                whereWeAre = 12;
             }
             //todo item
+			if ( isValidGraveYard ( input ) ){
+				type = "grave yard";
+			}
+			if ( isHelp ( input ) ){
+				type = "help";
+			}
+			if ( isEnd ( input ) ){
+				type = "end game";
+			}
             controlBox.setType(type);
             Battle.input(controlBox);
-            return whereWeAre;
+            return 1 ;
         }
         if (region.equals("MainMenu")) {
-
+			if ( input.equalsIgnoreCase (  ) )
         }
         if (region.equals("Shop")) {
             controlBox = new ControlBox("Shop", "search");
@@ -189,6 +195,15 @@ public class Controller {
 	}
 	private boolean isValidNextCard(String input){
 		return input.equalsIgnoreCase ( "show next card" );
+	}
+	private boolean isValidGraveYard ( String input){
+    	return input.equalsIgnoreCase ( "enter graveyard" );
+	}
+	private boolean isHelp (String input){
+    	return input.equalsIgnoreCase ( "help" );
+	}
+	private boolean isEnd(String input){
+    	return input.equalsIgnoreCase ( "end game" );
 	}
 
 }
