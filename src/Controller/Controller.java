@@ -83,7 +83,30 @@ public class Controller {
             return whereWeAre;
         }
         if (region.equals("MainMenu")) {
-
+            System.out.println("1.Collection");
+            System.out.println("2.Shop");
+            System.out.println("3.Battle");
+            System.out.println("4.Exit");
+            System.out.println("5.Help");
+            if (input.equals("Enter collection")) {
+                region = "Collection";
+            }
+            if (input.equals("Enter shop")) {
+                region = "Shop";
+            }
+            if (input.equals("Enter battle")) {
+                region = "Battle";
+            }
+            if (input.equals("Exit")) {
+                return -1;
+            }
+            if (input.equals("Enter help")) {
+                System.out.println("1.Collection");
+                System.out.println("2.Shop");
+                System.out.println("3.Battle");
+                System.out.println("4.Exit");
+                System.out.println("5.Help");
+            }
         }
         if (region.equals("Shop")) {
             controlBox = new ControlBox("Shop", "search");
@@ -94,7 +117,26 @@ public class Controller {
             Shop.input(controlBox);
         }
         if (region.equals("Collection")) {
-            controlBox = new ControlBox("Collection", "s");
+            controlBox = new ControlBox("Collection", type);
+            if (input.equals("exit")) {
+                region = "MainMenu";
+            }
+            if (input.equals("show")) {
+                type = "show";
+            }
+            if (isValidSearchCollection(input)) {
+                type = "searchCollection";
+            }
+            if (input.equals("save")) {
+                type = "save";
+            }
+            if (isValidCreateDeck(input)){
+                type = "createDeck";
+            }
+            if (isValidDeleteDeck(input)){
+                type = "deleteDeck";
+            }
+            if ()
         }
         if (region.equals("Account")) {
             int whereWeAre = 0;
@@ -132,6 +174,22 @@ public class Controller {
     private void setLocation(ControlBox controlBox, String location) {
         controlBox.setX(Integer.parseInt(String.valueOf(location.charAt(1))));
         controlBox.setY(Integer.parseInt(String.valueOf(location.charAt(3))));
+    }
+
+    private boolean isValidSearchCollection(String input) {
+        return input.toLowerCase().matches("search+ +[a-z0-9]+")
+    }
+
+    private boolean isValidCreateDeck(String input) {
+        return input.toLowerCase().matches("create+ +deck+ +[a-z0-9]+");
+    }
+
+    private boolean isValidDeleteDeck(String input){
+        return input.toLowerCase().matches("delete+ +deck+ +[a-z0-9]+");
+    }
+
+    private boolean isValidAdd(String input){
+        return input.toLowerCase().matches("add+ +[a-z0-9]+ +to+ +deck+ +[a-z0-9]+")
     }
 
     private boolean isValidSelectCard(String input) {
