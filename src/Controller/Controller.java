@@ -14,6 +14,7 @@ public class Controller {
 		int out=0;
 		ArrayList<Account> accounts = Account.getAccounts ();
 		while ( out!=-1){
+			Account account;
 			out = controller.input();
 		}
 	}
@@ -73,21 +74,17 @@ public class Controller {
                 type = "use special power";
                 String location = input.toLowerCase().split(" ")[3];
                 setLocation((ControlBox) controlBox, location);
-                whereWeAre = 9;
             }
             if (isValidInsert(input)) {
                 type = "insert";
                 String[] tmp = input.toLowerCase().split(" ");
                 setLocation(controlBox, tmp[3]);
-                whereWeAre = 10;
             }
             if (isValidShowHand(input)) {
                 type = "show hand";
-                whereWeAre = 11;
             }
             if (isValidEndTur(input)) {
                 type = "end turn";
-                whereWeAre = 12;
             }
             //todo item
             controlBox.setType(type);
@@ -100,19 +97,19 @@ public class Controller {
             System.out.println("3.Battle");
             System.out.println("4.Exit");
             System.out.println("5.Help");
-            if (input.equals("Enter collection")) {
+            if (input.equalsIgnoreCase ("Enter collection")) {
                 region = "Collection";
             }
-            if (input.equals("Enter shop")) {
+            if (input.equalsIgnoreCase ("Enter shop")) {
                 region = "Shop";
             }
-            if (input.equals("Enter battle")) {
+            if (input.equalsIgnoreCase ("Enter battle")) {
                 region = "Battle";
             }
-            if (input.equals("Exit")) {
+            if (input.equalsIgnoreCase ("Exit")) {
                 return -1;
             }
-            if (input.equals("Enter help")) {
+            if (input.equalsIgnoreCase ("Enter help")) {
                 System.out.println("1.Collection");
                 System.out.println("2.Shop");
                 System.out.println("3.Battle");
@@ -162,7 +159,7 @@ public class Controller {
                 type = "login";
 //                String userName = null;
                 controlBox.setUserName(input.split(" ")[1]);
-                whereWeAre = 2;
+                region = "MainMenu";
             }
             if (input.equals("show leaderboard")) {
                 type = "show leaderboard";
@@ -177,8 +174,11 @@ public class Controller {
                 type = "logout";
             }
             controlBox.setType(type);
-            Account.input(controlBox);
-            return whereWeAre;
+            int o =  Account.input(controlBox);
+            if ( o==2 ){
+            	region = "MainMenu";
+			}
+            return o;
         }
         return 0;
     }

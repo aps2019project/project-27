@@ -15,6 +15,9 @@ public class Player extends Account {
     public int getMana () {
         return mana;
     }
+    public void preTurnProcess(){
+
+    }
     public void addToBuffs(Buff buff){
         mana+=buff.getChangeMana ();
         buffs.add ( buff );
