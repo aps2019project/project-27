@@ -4,6 +4,7 @@ import Moudle.Account;
 import Moudle.Battle;
 import Moudle.Shop;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Controller {
@@ -11,6 +12,7 @@ public class Controller {
 		//load phase
 		Controller controller = new Controller ( "Account" );
 		int out=0;
+		ArrayList<Account> accounts = Account.getAccounts ();
 		while ( out!=-1){
 			out = controller.input();
 		}
@@ -134,19 +136,19 @@ public class Controller {
             if (input.equals("show")) {
                 type = "show";
             }
-            if (isValidSearchCollection(input)) {
-                type = "searchCollection";
-            }
-            if (input.equals("save")) {
-                type = "save";
-            }
-            if (isValidCreateDeck(input)){
-                type = "createDeck";
-            }
-            if (isValidDeleteDeck(input)){
-                type = "deleteDeck";
-            }
-            if ()
+//            if (isValidSearchCollection(input)) {
+//                type = "searchCollection";
+//            }
+//            if (input.equals("save")) {
+//                type = "save";
+//            }
+//            if (isValidCreateDeck(input)){
+//                type = "createDeck";
+//            }
+//            if (isValidDeleteDeck(input)){
+//                type = "deleteDeck";
+//            }
+//            if ()
         }
         if (region.equals("Account")) {
             int whereWeAre = 0;

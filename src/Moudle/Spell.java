@@ -3,7 +3,7 @@ package Moudle;
 import java.util.ArrayList;
 
 public class Spell extends Card {
-	private ArrayList<Spell> spells = new ArrayList<Spell> (  );
+	private static ArrayList<Spell> spells = new ArrayList<Spell> (  );
 	private ArrayList<Buff> mainBuffs;
 	private ArrayList<Buff> buffs;
 	private Target target;
@@ -19,8 +19,8 @@ public class Spell extends Card {
 	public Target getTarget () {
 		return target;
 	}
-	public void setSpells ( ArrayList<Spell> spells ) {
-		this.spells = spells;
+	public static void setSpells ( ArrayList<Spell> spells ) {
+		Spell.spells = spells;
 	}
 	protected Spell ( String name , int cardID , int shopPrice , int manaPrice ) {
 		super ( name , cardID , shopPrice , manaPrice );

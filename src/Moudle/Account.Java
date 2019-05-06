@@ -1,10 +1,6 @@
 package Moudle;
 
 import Controller.ControlBox;
-import Controller.Controller;
-import com.sun.org.apache.bcel.internal.generic.ACONST_NULL;
-
-import Controller.ControlBox;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +8,7 @@ import java.util.Scanner;
 
 public class Account {
     private static ArrayList<Account> accounts = new ArrayList<>();
+    private static Account mainAccount;
     private String userName;
     private String passWord;
     private Collection collection;
@@ -21,7 +18,15 @@ public class Account {
     private int wins;
     private int losses;
 
-    public static int input(ControlBox controlBox) {
+    public static Account getMainAccount () {
+        return mainAccount;
+    }
+
+    public static ArrayList<Account> getAccounts () {
+        return accounts;
+    }
+
+    public static int input( ControlBox controlBox) {
         String in = controlBox.getType();
         if (in.equals("create account")) {
             createAccount(controlBox.getUserName());
@@ -163,8 +168,9 @@ public class Account {
         //todo
     }
 
-    public static void logout() {
+    public static void logout(Account account) {
         //todo
+        mainAccount = null;
     }
 
     public static void help() {

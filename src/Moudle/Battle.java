@@ -54,7 +54,7 @@ public class Battle {
 			//todo
 		}
 		if ( in.equals ( "show hand" ) ) {
-			//todo
+			currentBattle.playerInTurn.showHand ();
 
 		}
 		if ( in.equals ( "insert" ) ) {
