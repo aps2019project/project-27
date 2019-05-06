@@ -13,14 +13,14 @@ public class MatchHistory {
     private Date dateAndTime;
 
     public String[] loadLastMatch(Player player) {
-
+        return null;
     }
 
     public void addMatchHistory(MatchHistory match) {
         matchHistories.add(match);
     }
 
-    public void MatchHistory(Game game) {
-
-    }
+//    public void MatchHistory(Game game) {
+//
+//    }
 }

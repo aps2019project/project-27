@@ -10,41 +10,47 @@ public class MinionAndHero extends Card {
     private int nation;
     private int attackType;
     private String[] abilities;
-    private ArrayList<Buff> specialPowers=new ArrayList<>();
+    private ArrayList<Buff> specialPowers = new ArrayList<>();
     private int specialPowerCoolDown;
     //0:onspawn 2:passive   3:ondeath   4:onAttack  5:onDe  6:combo
     private int specialPowerType;
-    private Target specialPowerTarget;
 
-    public Target getSpecialPowerTarget () {
-        return specialPowerTarget;
+    public int getAttackType() {
+        return attackType;
     }
 
-    public int getSpecialPowerType () {
+    public int getSpecialPowerType() {
         return specialPowerType;
     }
 
-    public ArrayList<Buff> getSpecialPowers () {
+    public ArrayList<Buff> getSpecialPowers() {
         return specialPowers;
     }
-    protected MinionAndHero( String name, int shopPrice, int manaPrice) {
-        super(name,shopPrice, manaPrice,1);
+
+    protected MinionAndHero(String name, int shopPrice, int manaPrice) {
+        super(name, shopPrice, manaPrice, 1);
     }
-    protected MinionAndHero(MinionAndHero minionAndHero){
-        super (minionAndHero.getName (),minionAndHero.getShopPrice (),minionAndHero.getManaPrice (),1 );
+
+    protected MinionAndHero(MinionAndHero minionAndHero) {
+        super(minionAndHero.getName(), minionAndHero.getShopPrice(), minionAndHero.getManaPrice(), 1);
     }
-    public int getAP () {
+
+    public int getAP() {
         return AP;
     }
-    public int getHP () {
+
+    public int getHP() {
         return HP;
     }
-    public static void setMinionAndHeroes( ArrayList<MinionAndHero> minionAndHeroes) {
+
+    public static void setMinionAndHeroes(ArrayList<MinionAndHero> minionAndHeroes) {
         MinionAndHero.minionAndHeroes = minionAndHeroes;
     }
+
     public int getNation() {
         return nation;
     }
+
     public boolean isHero() {
         return isHero;
     }

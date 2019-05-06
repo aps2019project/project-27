@@ -1,57 +1,26 @@
 package Moudle;
 
-import Controller.ControlBox;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class Account {
-    private static ArrayList<Account> accounts;
-    private String username;
-    private String password;
+    private static ArrayList<Account> accounts = new ArrayList<>();
+    private String userName;
+    private String passWord;
     private Collection collection;
     private int money;
     private ArrayList<Deck> decks;
     private Deck mainDeck;
     private int wins;
     private int losses;
-    private static int inputType; //0:nothing's happened, 1:username's been added, 2:password's been added
 
-    public static void input(ControlBox controlBox) {
-        int input = inputType;
-        if (controlBox.getType().equals("createAccount")) {
-            if(input == 1){
-
-                if(input == 2){
-
-                }
-            }
-        }
+    public String getUserName() {
+        return userName;
     }
 
-    public boolean isValidDeck() {
-        return false;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setCollection(Collection collection) {
-        this.collection = collection;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
-    }
-
-    public void addDeck(Deck deck) {
-        this.decks.add(deck);
-    }
-
-    public void setMainDeck(Deck deck) {
-        this.mainDeck = deck;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Collection getCollection() {
@@ -62,93 +31,106 @@ public class Account {
         return money;
     }
 
-    public void spendMoney(int price) {
-        money -= price;
+    public void setMoney(int money) {
+        this.money = money;
     }
 
-    public void addMoney(int price) {
-        money += price;
+    public void addMoney(int money) {
+        this.money += money;
+    }
+
+    public void spendMoney(int money) {
+        this.money -= money;
     }
 
     public ArrayList<Deck> getDecks() {
         return decks;
     }
 
+
     public Deck getMainDeck() {
         return mainDeck;
     }
 
-    public static void createAccount(String username) {
-        Scanner scanner = new Scanner(System.in);
-        int accountFounded = 0;
-        for (int i = 0; i < accounts.size(); i++) {
-            if (accounts.get(i).username.equals(username)) {
-                accountFounded = 1;
-            }
-        }
-        if (accountFounded == 1) {
-            System.out.println("This user has already been created!");
-        } else {
-            String password = scanner.next();
-            Account account = new Account();
-            account.username = username;
-            account.password = password;
-            accounts.add(account);
-        }
+    public void setMainDeck(Deck mainDeck) {
+        this.mainDeck = mainDeck;
     }
 
-    public static void login(String username) {
-        Scanner scanner = new Scanner(System.in);
-        int accountFounded = 0;
-        for (int i = 0; i < accounts.size(); i++) {
-            if (accounts.get(i).username.equals(username)) {
-                accountFounded = 1;
-            }
-        }
-        if (accountFounded == 0) {
-            System.out.println("There is no such username!");
-        } else {
-            String password = scanner.next();
-            for (int i = 0; i < accounts.size(); i++) {
-                if (accounts.get(i).password.equals(password)) {
+    public int getWins() {
+        return wins;
+    }
 
-                } else {
-                    System.out.println("Wrong password!");
+    public int getLosses() {
+        return losses;
+    }
+
+    public static Account findAccount(String userName) {
+        if (accounts.size() == 0) {
+            return null;
+        } else {
+            for (int i = 0; i < accounts.size(); i++) {
+                if (accounts.get(i).userName.equals(userName)) {
+                    return accounts.get(i);
                 }
             }
         }
+        return null;
     }
 
-    public void logout() {
+    public static void createAccount(String userName) {
+        if (findAccount(userName) != null) {
+            System.out.println("There is an account with this userName!");
+        } else {
+            Scanner scanner = new Scanner(System.in);
+            String passWord = scanner.next();
+            Account account = new Account();
+            account.userName = userName;
+            account.passWord = passWord;
+            accounts.add(account);
+            System.out.println("created");
+        }
 
+    }
+
+    public boolean login(String userName) {
+        if (findAccount(userName) == null) {
+            System.out.println("There is no account with this userName!");
+            return false;
+        } else {
+            Scanner scanner = new Scanner(System.in);
+            String passWord = scanner.next();
+            if (passWord.equals(findAccount(userName).passWord)) {
+
+                return true;
+            } else {
+                System.out.println("Wrong passWord!");
+                return false;
+            }
+        }
+    }
+
+    public static void showLeaderBoard() {
+        for (int i = 0; i < accounts.size(); i++) {
+            for (int j = i + 1; j < accounts.size(); j++) {
+                if (accounts.get(j).wins > accounts.get(i).wins) {
+                    Collections.swap(accounts, i, j);
+                }
+            }
+        }
+        for (int i = 0; i < accounts.size(); i++) {
+            System.out.printf("%d-UserName : %s-Wins : %d\n", i + 1, accounts.get(i).userName, accounts.get(i).wins);
+        }
     }
 
     public static void save() {
 
     }
 
-    public void increaseWins() {
-        wins++;
+    public static void logout() {
+
     }
 
-    public void increaseLosses() {
-        losses++;
-    }
-
-    public static void showLeaderBoard() {
-        for (int i = 0; i < accounts.size(); i++) {
-            for (int j = i + 1; j < accounts.size(); j++) {
-                if (accounts.get(i).wins < accounts.get(j).wins) {
-                    Collections.swap(accounts, i, j);
-                }
-            }
-        }
-        for (int i = 0; i < accounts.size(); i++) {
-            System.out.println(i + "-" + "UserName" + ":" + accounts.get(i).username + "-" + "Wins" + ":" + accounts.get(i).wins);
-        }
-    }
-
-    public void help() {
-        System.out.println("create account [user name]\nlogin [user name]\nshow leaderboard\nsave\nlogout\n");
+    public static void help() {
+        System.out.print("create account [user name}\nlogin [user name]\nshow leaderboard\nsave\nlogout\nhelp\n");
     }
 }

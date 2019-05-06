@@ -1,7 +1,5 @@
 package Moudle;
 
-import View.View;
-
 import java.util.ArrayList;
 
 public class Player extends Account {
@@ -11,33 +9,24 @@ public class Player extends Account {
     private ArrayList<Card> graveYard;
     private ArrayList<Item> items;
     private ArrayList<Buff> buffs;
-    public void addToBuffs(Buff buff){
+
+    public void addToBuffs(Buff buff) {
 
     }
 
-    public int getMana () {
-        return mana;
-    }
-    public void decreaseMana(int mony){
-        mana-=mony;
-    }
-    public void addItem( Item item){
-        items.add ( item );
-    }
-    public ArrayList<Fighter> getFighters () {
+    public ArrayList<Fighter> getFighters() {
         return fighters;
     }
 
-    public boolean equals ( Object object){
-        if ( object.getClass () == Player.class )
-        {
-            Account account = (Player)object;
-            if ( account.getUsername ().equals ( this.getUsername () ) )
+    public boolean equals(Object object) {
+        if (object.getClass() == Player.class) {
+            Account account = (Player) object;
+            if (account.getUserName().equals(this.getUserName()))
                 return true;
             return false;
-        }
-        else return false;
+        } else return false;
     }
+
     public void insert() {
 
     }
@@ -45,11 +34,11 @@ public class Player extends Account {
     public void showCollectables() {
 
     }
-    public void showFighters(){
-        for ( Fighter fighter:fighters ){
-            View.showFighter ( fighter );
-        }
+
+    public void showFighters() {
+        System.out.println(fighters);
     }
+
     public void useItem(Item item) {
 
     }
@@ -63,6 +52,6 @@ public class Player extends Account {
     }
 
     public void showHand() {
-        hand.show ();
+
     }
 }

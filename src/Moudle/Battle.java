@@ -1,430 +1,170 @@
 package Moudle;
 
-import Controller.ControlBox;
-import View.View;
-
 import java.util.ArrayList;
 
 public class Battle {
-	private static Battle currentBattle;
-	private Fighter selectedFighter;
-	private ArrayList<MinionAndHero> minionAndHeroes = new ArrayList<> ( );
-	private Ground ground;
-	private int currentTurn;
-	private Player player1;
-	private Player player2;
-	private Player playerInTurn;
-	private ArrayList<Fighter> fighters;
-	private Card selectedCard;
-	private Item selectedItem;
-	private int battleType;
-	private ArrayList<Item> flags;
-	private int numberOfFlags;
-	private Item mainFlag;
-	private Fighter heroP1;
-	private Fighter heroP2;
-	private ArrayList<Buff> buffs = new ArrayList<> ( );
+    private static Battle currentBattle;
+    private Fighter selectedFighter;
+    private ArrayList<MinionAndHero> minionAndHeroes;
+    private Ground ground;
+    private int currentTurn;
+    private Player player1;
+    private Player player2;
+    private Player playerInTurn;
+    private ArrayList<Fighter> fighters;
+    private Card selectedCard;
+    private Item selectedItem;
+    private int battleType;
+    private ArrayList<Item> flags;
+    private int numberOfFlags;
+    private Item mainFlag;
+    private Fighter heroP1;
+    private Fighter heroP2;
+    private ArrayList<Buff> buffs;
 
-	public Ground getGround () {
-		return ground;
-	}
+    public static Battle getCurrentBattle() {
+        return currentBattle;
+    }
 
-	public static void input ( ControlBox controllBox ) {
-		String in = controllBox.getType ( );
-		if ( in.equals ( "game info" ) ) {
-			currentBattle.showInfo ( );
-			return;
-		}
-		if ( in.equals ( "show my minions" ) ) {
-			currentBattle.playerInTurn.showFighters ( );
-		}
-		if ( in.equals ( "show my opponent minions" ) ) {
-			currentBattle.offTurn ( ).showFighters ( );
-		}
-		if ( in.equals ( "show card info" ) ) {
-			currentBattle.showCardInfo ( controllBox.getCardID ( ) );
-		}
-		if ( in.equals ( "select card" ) ) {
-			currentBattle.setInGroundCard ( controllBox.getCardID ( ) );
-		}
-		if ( in.equals ( "end turn" ) ) {
-			currentBattle.nextTurn ( );
-		}
-		if ( in.equals ( "use special power" ) ) {
-			//todo
-		}
-		if ( in.equals ( "show hand" ) ) {
-			//todo
+    public static void setCurrentBattle(Battle currentBattle) {
+        Battle.currentBattle = currentBattle;
+    }
 
-		}
-		if ( in.equals ( "insert" ) ) {
-			currentBattle.insert ( controllBox.getCardName ( ) , controllBox.getX ( ) , controllBox.getY ( ) );
-		}
-		if ( in.equals ( "move" ) ) {
-			currentBattle.move ( currentBattle.selectedFighter.getX ( ) , currentBattle.selectedFighter.getY ( )
-					, controllBox.getX ( ) , controllBox.getY ( ) );
-		}
-		if ( in.equals ( "attack" ) ) {
-			Fighter opponent = currentBattle.findFighter ( controllBox.getCardID ( ) , currentBattle.offTurn ( ) );
-			if ( opponent == null ) {
-				//fosh
-				return;
-			}
-			currentBattle.attack ( currentBattle.selectedFighter , opponent );
-		}
-	}
+    public Fighter getSelectedFighter() {
+        return selectedFighter;
+    }
 
-	private void setInGroundCard ( String cardID ) {
-		Fighter fighter = findFighter ( cardID , playerInTurn );
-		if ( fighter == null ) {
-			//fosh
-		} else {
-			selectedFighter = fighter;
-			//accept;
-		}
-	}
-	private void showHand(){
-		playerInTurn.showHand ();
-	}
-	private Fighter findFighter ( String cardID ) {
-		for ( Fighter fighter : fighters ) {
-			if ( fighter.getID ( ).equals ( cardID ) ) {
-				return fighter;
-			}
-		}
-		return null;
-	}
+    public void setSelectedFighter(Fighter selectedFighter) {
+        this.selectedFighter = selectedFighter;
+    }
 
-	private Fighter findFighter ( String cardID , Player player ) {
-		for ( Fighter fighter : player.getFighters ( ) ) {
-			if ( fighter.getID ( ).equals ( cardID ) )
-				return fighter;
-		}
-		return null;
-	}
+    public ArrayList<MinionAndHero> getMinionAndHeroes() {
+        return minionAndHeroes;
+    }
 
-	private void showCardInfo ( String cardID ) {
-		Fighter fighter = findFighter ( cardID );
-		if ( fighter == null ) {
-			//fosh
-			return;
-		}
-		View.showFighter ( fighter );
-	}
+    public void setMinionAndHeroes(ArrayList<MinionAndHero> minionAndHeroes) {
+        this.minionAndHeroes = minionAndHeroes;
+    }
 
-	private Player offTurn () {
-		if ( player1 == playerInTurn )
-			return player2;
-		return player1;
-	}
-	private boolean isValidInsert(Card card){
-		if ( card.getManaPrice ()<=playerInTurn.getMana () ){
-			playerInTurn.decreaseMana ( card.getManaPrice () );
-			return true;
-		}
-		return false;
-	}
-	public void insert ( String cardName , int x , int y ) {
-		Card card = null;//todo cardName ali
-		if ( isValidInsert ( card ) ){
-			//fosh
-			return;
-		}
-		int type = card.getCardType ( );
-		if ( type == 0 ) {
-			Spell spell = ( Spell ) card;
-			if ( ! spell.getTarget ( ).isValidTarget ( this , x , y , playerInTurn ) ) {
-				System.out.println ( "invalid target" );
-				return;
-			}
-			ArrayList<Fighter> fighters = spell.getTarget ( ).targetFighters ( this , x , y , playerInTurn );
-			for ( Buff buff : spell.getMainBuffs ( ) ) {
-				buff ( buff , fighters , x , y );
-			}
-			for ( Buff buff : spell.getBuffs ( ) ) {
-				buff ( buff , fighters , x , y );
-				buffs.add ( buff );
-			}
-		}
-		if ( type == 1 ) {
-			MinionAndHero minionAndHero = ( MinionAndHero ) card;
-			if ( ! isValidNewFighter ( minionAndHero , playerInTurn , x , y ) ) {
-				//fosh
-				return;
-			}
-			if ( ground.getCell ( x , y ).getCardOnCell ( ) != null ) {
-				//fosh
-				return;
-			}
-			if ( ground.getCell ( x , y ).getItemOnCell ( ) != null ) {
-				playerInTurn.addItem ( ground.getCell ( x , y ).getItemOnCell ( ) );
-			}
-			minionAndHeroes.add ( minionAndHero );
-			Fighter fighter = new Fighter ( minionAndHero , minionAndHeroes , playerInTurn );
-			executeOnSpawnBuff ( fighter );
-			ground.getCell ( x , y ).moveInCell ( fighter );
-			fighter.setLocation ( x , y );
-		}
-	}
+    public Ground getGround() {
+        return ground;
+    }
 
-	public void attack ( Fighter fighter , Fighter opponent ) {
-		int targetX = opponent.getX ( );
-		int targetY = opponent.getY ( );
-		if ( ! isValidDistanceForAttack ( ) ) {
-			//fosh
-			return;
-		}
-		if ( ! fighter.CanAttack ( ) ) {
-			//fosh
-			return;
-		}
-		fighter.disableCanAttack ( );
-		fighter.disableCanMove ( );
-		opponent.decreaseHP ( fighter.getAP ( ) - opponent.getHolyDefence ( ) );
-		if ( opponent.isCanCounterAttack ( ) ) {
-			fighter.decreaseHP ( opponent.getAP ( ) - fighter.getHolyDefence ( ) );
-		}
-		fighter.addAttackedFighter ( opponent );
-		executeOnAttackAndDeBuff ( fighter , opponent );
-		isDeath ( opponent );
-		isDeath ( fighter );
-	}
+    public void setGround(Ground ground) {
+        this.ground = ground;
+    }
 
-	private void executeOnAttackAndDeBuff ( Fighter offenser , Fighter defender ) {
-		if ( offenser.getSpecialPowerType ()==3 ){
-			Fighter target = null;
-			if ( offenser.getSpecialPowerTarget ().getTargetType ()==7 ){
-				target = defender;
-			}
-			else if(offenser.getSpecialPowerTarget ().getTargetType () == 8)
-				target = offenser;
-			for ( Buff buff:offenser.getSpecialPowers () ){
-				if ( buff.getPlusDamageToAttacked ()>0 ){
-					defender.decreaseHP ( buff.getPlusDamageToAttacked ()*offenser.howManyAttacked ( defender ) );
-				}
-				if ( buff.noHolynessForOpponent () ){
-					defender.decreaseHP ( defender.getHolyDefence () );
-				}
-				target.addToBuff ( buff );
-				if ( buff.isExeptABuff () ){
-					buffs.add ( buff );
-				}
-			}
-		}
-		if ( defender.getSpecialPowerType ()==4 ){
-			Fighter target = null;
-			if ( defender.getSpecialPowerTarget ().getTargetType ()==7 ){
-				target = offenser;
-			}
-			else if ( defender.getSpecialPowerTarget ().getTargetType ()==7 ){
-				target = defender;
-			}
-			for ( Buff buff:offenser.getSpecialPowers () ){
-				defender.addToBuff ( buff );
-				if ( buff.isExeptABuff () ){
-					buffs.add ( buff );
-				}
-			}
-		}
-	}
+    public int getCurrentTurn() {
+        return currentTurn;
+    }
 
-	private void executeOnSpawnBuff ( Fighter fighter ) {
-		if ( fighter.getSpecialPowerType ()!=0 )
-			return;
-		executeSpecialBuffs ( fighter );
-	}
+    public void setCurrentTurn(int currentTurn) {
+        this.currentTurn = currentTurn;
+    }
 
-	private void executeOnDeathBuff ( Fighter fighter ) {
-		if ( fighter.getSpecialPowerType ()!=2 )
-			return;
-		executeSpecialBuffs ( fighter );
-	}
+    public Player getPlayer1() {
+        return player1;
+    }
 
-	private void executeSpecialBuffs ( Fighter fighter ) {
-		for ( Buff buff : fighter.getSpecialPowers ( ) ) {
-			ArrayList<Fighter> targets = fighter.getSpecialPowerTarget ( ).
-					targetFighters ( this , fighter.getX ( ) , fighter.getY ( ) , playerInTurn );
-			buff ( buff , targets , fighter.getX ( ) , fighter.getY ( ) );
-		}
-	}
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
+    }
 
-	private boolean isDeath ( Fighter fighter ) {
-		if ( fighter.getHP ( ) < 1 ) {
-			ground.getCell ( fighter.getX ( ) , fighter.getY ( ) ).moveFromCell ( );
-			executeOnDeathBuff ( fighter );
-			if ( fighter.isHero () ){
-				if ( fighter.getPlayer ()==player1 )
-					winner ( player2 );
-				winner ( player1 );
-				return true;
-			}
-			return true;
-		}
-		return false;
-	}
+    public Player getPlayer2() {
+        return player2;
+    }
 
-	private boolean isValidDistanceForAttack () {
-		//todo
-		return true;
-	}
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
+    }
 
-	private Fighter isValidTargetForAttack ( int targetX , int targetY ) {
-		Fighter fighter;
-		fighter = ( Fighter ) ground.getCell ( targetX , targetY ).getCardOnCell ( );
-		if ( fighter.getPlayer ( ) == playerInTurn )
-			return null;
-		return fighter;
-	}
+    public Player getPlayerInTurn() {
+        return playerInTurn;
+    }
 
-	private boolean isValidNewFighter ( MinionAndHero minionAndHero , Player player , int x , int y ) {
-		return true;
-	}
+    public void setPlayerInTurn(Player playerInTurn) {
+        this.playerInTurn = playerInTurn;
+    }
 
-	private void buff ( Buff buff , ArrayList<Fighter> fighters , int x , int y ) {
-		if ( buff.getIsCellBuff ( ) ) {
-			ground.getCell ( x , y ).addCellEffect ( buff.getCellBuff ( ) );
+    public ArrayList<Fighter> getFighters() {
+        return fighters;
+    }
 
-		} else {
-			buff.setFighters ( fighters );
-			for ( Fighter fighter : fighters ) {
-				fighter.addToBuff ( buff );
-			}
-		}
-	}
+    public void setFighters(ArrayList<Fighter> fighters) {
+        this.fighters = fighters;
+    }
 
-	private boolean isValidMove ( int x1 , int y1 , int x2 , int y2 ) {
-		if ( Ground.getDistance ( x1 , y1 , x2 , y2 ) > 2 )
-			return false;
-		if ( ground.getCell ( x2 , y2 ).getCardOnCell ( ) != null ) {
-			//fosh
-			return false;
-		}
-		if ( Ground.getDistance ( x1 , y1 , x2 , y2 ) == 2 ) {
-			if ( x1 == x2 ) {
-				if ( y1 > y2 ) {
-					if ( ground.getCell ( x1 , y1 - 1 ).getCardOnCell ( ) != null || ground.getCell ( x1 , y1 - 2 ).getCardOnCell ( ) != null ) {
-						//fosh
-						return false;
-					}
-				}
-				if ( y2 > y1 ) {
-					if ( ground.getCell ( x1 , y1 + 1 ).getCardOnCell ( ) != null || ground.getCell ( x1 , y1 + 2 ).getCardOnCell ( ) != null ) {
-						//fosh
-						return false;
-					}
-				}
-			}
-			else if ( y1 == y2 ) {
-				if ( x1 > x2 ) {
-					if ( ground.getCell ( x1-1 , y1 ).getCardOnCell ( ) != null || ground.getCell ( x1-2 , y1 ).getCardOnCell ( ) != null ) {
-						//fosh
-						return false;
-					}
-				}
-				if ( x2 > x1 ) {
-					if ( ground.getCell ( x1+1 , y1 ).getCardOnCell ( ) != null || ground.getCell ( x1+2 , y1 ).getCardOnCell ( ) != null ) {
-						//fosh
-						return false;
-					}
-				}
-			}
-			else{
-				// TODO: 5/5/2019
-			}
-		}
-		return true;
-	}
+    public Card getSelectedCard() {
+        return selectedCard;
+    }
 
-	private boolean isValidSelect () {
-		return true;
-	}
+    public void setSelectedCard(Card selectedCard) {
+        this.selectedCard = selectedCard;
+    }
 
-	public void checkWinner () {
-	}
+    public Item getSelectedItem() {
+        return selectedItem;
+    }
 
-	public void setMana () {
+    public void setSelectedItem(Item selectedItem) {
+        this.selectedItem = selectedItem;
+    }
 
-	}
+    public int getBattleType() {
+        return battleType;
+    }
 
-	public Battle ( Player player1 , Player player2 , int battleType ) {
+    public void setBattleType(int battleType) {
+        this.battleType = battleType;
+    }
 
-	}
+    public ArrayList<Item> getFlags() {
+        return flags;
+    }
 
-	private void move ( int targetX , int targetY , int x , int y ) {
-		if ( ! isValidMove ( targetX , targetY , x , y ) ) {
-			//fosh
-			return;
-		}
-		if ( ! isValidTargetForMove ( targetX , targetY ) ) {
-			//fosh
-			return;
-		}
-		Fighter fighter = ( Fighter ) this.ground.getCell ( x , y ).getCardOnCell ( );
-		if ( fighter.isCanMove ( ) ) {
-			//fosh
-			return;
-		}
-		if ( ground.getCell ( targetX , targetY ).getItemOnCell ( ) != null ) {
-			playerInTurn.addItem ( ground.getCell ( targetX , targetY ).getItemOnCell ( ) );
-		}
-		ground.getCell ( x , y ).moveInCell ( fighter );
-		ground.getCell ( targetX , targetY ).moveFromCell ( );
-	}
+    public void setFlags(ArrayList<Item> flags) {
+        this.flags = flags;
+    }
 
-	private boolean isValidTargetForMove ( int x , int y ) {
-		Fighter fighter = ( Fighter ) this.ground.getCell ( x , y ).getCardOnCell ( );
-		if ( fighter.getPlayer ( ).equals ( this.playerInTurn ) ) {
-			return true;
-		}
-		return false;
-	}
+    public int getNumberOfFlags() {
+        return numberOfFlags;
+    }
 
-	private void checkBuffs () {
-		for ( Buff buff : buffs ) {
-			if ( buff.getAgeType ( ) == 1 ) {
-				if ( buff.getAge ( ) < 1 ) {
-					removeBuff ( buff );
-				} else buff.decreesAge ( );
-			}
-			if ( buff.getAgeType ()==3 ){
-				if ( buff.getAge ()<1 ){
-					for ( Fighter fighter:buff.getFighters () ){
-						fighter.addToBuff ( buff );
-					}
-				}
-			}
-		}
-	}
+    public void setNumberOfFlags(int numberOfFlags) {
+        this.numberOfFlags = numberOfFlags;
+    }
 
-	private void removeBuff ( Buff buff ) {
-		if ( buff.getIsCellBuff ( ) ) {
+    public Item getMainFlag() {
+        return mainFlag;
+    }
 
-		} else {
-			for ( Fighter fighter : buff.getFighters ( ) ) {
-				fighter.removeFromBuff ( buff );
-			}
-		}
-	}
+    public void setMainFlag(Item mainFlag) {
+        this.mainFlag = mainFlag;
+    }
 
-	public void nextTurn () {
-		for ( Fighter fighter : fighters ) {
-			fighter.preTurnProcces ( );
-		}
-		checkBuffs ();
-		currentTurn++;
-		setMana ( );
-		setPlayerInTurn ( );
-	}
+    public Fighter getHeroP1() {
+        return heroP1;
+    }
 
-	public void showInfo () {
+    public void setHeroP1(Fighter heroP1) {
+        this.heroP1 = heroP1;
+    }
 
-	}
-	private void winner(Player player){
+    public Fighter getHeroP2() {
+        return heroP2;
+    }
 
-	}
-	private void setPlayerInTurn () {
-		if ( playerInTurn.equals ( player1 ) )
-			playerInTurn = player2;
-		playerInTurn = player1;
-	}
+    public void setHeroP2(Fighter heroP2) {
+        this.heroP2 = heroP2;
+    }
+
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public void setBuffs(ArrayList<Buff> buffs) {
+        this.buffs = buffs;
+    }
+
+
 }
