@@ -9,91 +9,80 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Controller {
-	public static void main (String[] args){
-		//load phase
-		Controller controller = new Controller ( "Account" );
-		int out=0;
-		ArrayList<Account> accounts = Account.getAccounts ();
-		while ( out!=-1){
-			out = controller.input();
-		}
-	}
-	private final Scanner scanner = new Scanner ( System.in );
-	private String input;
-	private String region;
-	private String type;
-	private Controller(String region){
-		this.region = region;
-	}
+    public static void main(String[] args) {
+        //load phase
+        Controller controller = new Controller("Account");
+        int out = 0;
+        ArrayList<Account> accounts = Account.getAccounts();
+        while (out != -1) {
+            out = controller.input();
+        }
+    }
+
+    private final Scanner scanner = new Scanner(System.in);
+    private String input;
+    private String region;
+    private String type;
+
+    private Controller(String region) {
+        this.region = region;
+    }
+
     public int input() {
         input = scanner.nextLine();
         ControlBox controlBox = new ControlBox("Battle", type);
         if (region.equals("Battle")) {
-            int whereWeAre = 0;
             if (isValidGameInfo(input)) {
                 type = "game info";
-                whereWeAre = 1;
             }
             if (isValidNextCard(input)) {
                 type = "next card";
-                whereWeAre = 2;
             }
             Battle.input(new ControlBox(region, type));
             if (isValidShowMyMinion(input)) {
                 type = "show my minions";
-                whereWeAre = 3;
             }
             if (isValidShowOpMinion(input)) {
                 type = "show opponent minions";
-                whereWeAre = 4;
             }
             if (isValidShowCardInfo(input)) {
                 String[] tmp = input.split(" ");
                 type = "show card";
                 controlBox.setCardID(tmp[3]);
-                whereWeAre = 5;
             }
             if (isValidSelectCard(input)) {
                 type = "select card";
                 String[] tmp = input.toLowerCase().split(" ");
                 controlBox.setCardID(tmp[2]);
-                whereWeAre = 6;
             }
             if (isValidMove(input)) {
                 type = "move";
                 String[] tmp = input.split(" ");
                 setLocation((ControlBox) controlBox, tmp[2]);
-                whereWeAre = 7;
             }
             if (isValidAttack(input)) {
                 type = "attack";
                 controlBox.setCardID(input.toLowerCase().split(" ")[1]);
-                whereWeAre = 8;
             }
             if (useSpecialPower(input)) {
                 type = "use special power";
                 String location = input.toLowerCase().split(" ")[3];
                 setLocation((ControlBox) controlBox, location);
-                whereWeAre = 9;
             }
             if (isValidInsert(input)) {
                 type = "insert";
                 String[] tmp = input.toLowerCase().split(" ");
                 setLocation(controlBox, tmp[3]);
-                whereWeAre = 10;
             }
             if (isValidShowHand(input)) {
                 type = "show hand";
-                whereWeAre = 11;
             }
             if (isValidEndTur(input)) {
                 type = "end turn";
-                whereWeAre = 12;
             }
             //todo item
             controlBox.setType(type);
             Battle.input(controlBox);
-            return whereWeAre;
         }
         if (region.equals("MainMenu")) {
             System.out.println("1.Collection");
@@ -122,11 +111,37 @@ public class Controller {
             }
         }
         if (region.equals("Shop")) {
-            controlBox = new ControlBox("Shop", "search");
-            if (isValidSearchShop(input)) {
-                String cardName = null;
-                controlBox.setCardName(cardName);
+            controlBox = new ControlBox("Shop", type);
+            if (input.equalsIgnoreCase("exit")) {
+                type = "exit";
+                region = "Menu";
             }
+            if (input.equalsIgnoreCase("show collection")) {
+                type = "showCollection";
+            }
+            if (isValidSearchShop(input)) {
+                type = "search";
+                controlBox.setCardName(input.split(" ")[1]);
+            }
+            if (isValidSearchShopCollection(input)) {
+                type = "searchCollection";
+                controlBox.setCardName(input.split(" ")[2]);
+            }
+            if (isValidBuy(input)) {
+                type = "buy";
+                controlBox.setCardName(input.split(" ")[1]);
+            }
+            if (isValidSell(input)) {
+                type = "sell";
+                controlBox.setCardName(input.split(" ")[1]);
+            }
+            if (input.equalsIgnoreCase("show")) {
+                type = "show";
+            }
+            if (input.equalsIgnoreCase("help")) {
+                type = "help";
+            }
+            controlBox.setType(type);
             Shop.input(controlBox);
         }
         if (region.equals("Collection")) {
@@ -184,18 +199,14 @@ public class Controller {
             Collection.input(controlBox);
         }
         if (region.equals("Account")) {
-            int whereWeAre = 0;
             controlBox = new ControlBox("Account", type);
             if (isValidCreateAccount(input)) {
                 type = "create account";
                 controlBox.setUserName(input.split(" ")[2]);
-                whereWeAre = 1;
             }
             if (isValidLogin(input)) {
                 type = "login";
-//                String userName = null;
                 controlBox.setUserName(input.split(" ")[1]);
-                whereWeAre = 2;
             }
             if (input.equals("show leaderboard")) {
                 type = "show leaderboard";
@@ -211,7 +222,6 @@ public class Controller {
             }
             controlBox.setType(type);
             Account.input(controlBox);
-            return whereWeAre;
         }
         return 0;
     }
@@ -219,6 +229,18 @@ public class Controller {
     private void setLocation(ControlBox controlBox, String location) {
         controlBox.setX(Integer.parseInt(String.valueOf(location.charAt(1))));
         controlBox.setY(Integer.parseInt(String.valueOf(location.charAt(3))));
+    }
+
+    private boolean isValidSearchShopCollection(String input) {
+        return input.toLowerCase().matches("search+ +collection+ +[a-z0-9_.]+");
+    }
+
+    private boolean isValidBuy(String input) {
+        return input.toLowerCase().matches("buy+ +[a-z0-9_.]+");
+    }
+
+    private boolean isValidSell(String input) {
+        return input.toLowerCase().matches("sell+ +[a-z0-9_.]+");
     }
 
     private boolean isValidSearchCollection(String input) {
@@ -273,43 +295,48 @@ public class Controller {
         return input.matches("[a-zA-Z0-9]");
     }
 
-	private boolean isValidLogin ( String input ) {
-		return input.matches ( "login+ +[a-zA-Z0-9]+" );
-	}
+    private boolean isValidLogin(String input) {
+        return input.matches("login+ +[a-zA-Z0-9]+");
+    }
 
-	private boolean isValidCreateAccount ( String input ) {
-		return input.matches ( "create account+ +[a-zA-Z0-9]+" );
-	}
+    private boolean isValidCreateAccount(String input) {
+        return input.matches("create account+ +[a-zA-Z0-9]+");
+    }
 
-	private boolean isValidSearchShop ( String input ) {
-		return input.matches ( "search+ +[a-zA-Z]" );
-	}
+    private boolean isValidSearchShop(String input) {
+        return input.matches("search+ +[a-zA-Z]");
+    }
 
-	private boolean isValidShowCardInfo ( String input ) {
-		return input.toLowerCase ( ).matches ( "show+ +card+ +info+ +[\\w_]+" );
-	}
+    private boolean isValidShowCardInfo(String input) {
+        return input.toLowerCase().matches("show+ +card+ +info+ +[\\w_]+");
+    }
 
-	private boolean isValidGameInfo ( String input ) {
-		return input.toLowerCase ( ).equals ( "game info" );
-	}
+    private boolean isValidGameInfo(String input) {
+        return input.toLowerCase().equals("game info");
+    }
 
-	private boolean isValidMove ( String input ) {
-		return input.toLowerCase ( ).matches ( "move+ +to+ +[(]\\d,\\d[)]" );
-	}
-	private boolean isValidAttack(String input){
-		return input.toLowerCase ().matches ( "attack+ +[a-zA-Z0-9]+" );
-	}
-	private boolean useSpecialPower(String input){
-		return input.toLowerCase ().matches ( "Use+ +special+ +power+ +[(]\\d,\\d[)]");
-	}
-	private boolean isValidInsert(String input){
-		return input.toLowerCase ().matches ( "insert+ +[a-z]+ +in+ +[(]\\d,\\d[)]" );
-	}
-	private boolean isValidEndTur(String input){
-		return input.equalsIgnoreCase ( "end turn" );
-	}
-	private boolean isValidNextCard(String input){
-		return input.equalsIgnoreCase ( "show next card" );
-	}
+    private boolean isValidMove(String input) {
+        return input.toLowerCase().matches("move+ +to+ +[(]\\d,\\d[)]");
+    }
+
+    private boolean isValidAttack(String input) {
+        return input.toLowerCase().matches("attack+ +[a-zA-Z0-9]+");
+    }
+
+    private boolean useSpecialPower(String input) {
+        return input.toLowerCase().matches("Use+ +special+ +power+ +[(]\\d,\\d[)]");
+    }
+
+    private boolean isValidInsert(String input) {
+        return input.toLowerCase().matches("insert+ +[a-z]+ +in+ +[(]\\d,\\d[)]");
+    }
+
+    private boolean isValidEndTur(String input) {
+        return input.equalsIgnoreCase("end turn");
+    }
+
+    private boolean isValidNextCard(String input) {
+        return input.equalsIgnoreCase("show next card");
+    }
 
 }

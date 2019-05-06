@@ -11,11 +11,11 @@ public class Item {
     private ArrayList<Buff> buffs;
     private boolean isCollectible;
 
-    public boolean isCollectible () {
+    public boolean isCollectible() {
         return isCollectible;
     }
 
-    public ArrayList<Buff> getBuffs () {
+    public ArrayList<Buff> getBuffs() {
         return buffs;
     }
 
@@ -27,7 +27,7 @@ public class Item {
         return null;
     }
 
-    public boolean isFlag(){
+    public boolean isFlag() {
         return isFlag;
     }
 

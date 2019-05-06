@@ -9,9 +9,28 @@ public class Shop {
     private ArrayList<MinionAndHero> heroesAndMinions;
     private ArrayList<Card> cards;
     private ArrayList<Item> items;
+    private static Shop currentShop;
 
     public static void input(ControlBox controlBox) {
-
+        String in = controlBox.getType();
+        if (in.equals("showCollection")) {
+            currentShop.showCollection();
+        }
+        if (in.equals("search")) {
+            currentShop.search(controlBox.getCardName());
+        }
+        if (in.equals("buy")) {
+            currentShop.buy(controlBox.getCardName());
+        }
+        if (in.equals("sell")) {
+            currentShop.sell(controlBox.getCardName());
+        }
+        if (in.equals("show")) {
+            currentShop.show();
+        }
+        if (in.equals("help")) {
+            currentShop.help();
+        }
     }
 
     public Account getAccount() {

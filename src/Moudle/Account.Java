@@ -18,15 +18,15 @@ public class Account {
     private int wins;
     private int losses;
 
-    public static Account getMainAccount () {
+    public static Account getMainAccount() {
         return mainAccount;
     }
 
-    public static ArrayList<Account> getAccounts () {
+    public static ArrayList<Account> getAccounts() {
         return accounts;
     }
 
-    public static int input( ControlBox controlBox) {
+    public static int input(ControlBox controlBox) {
         String in = controlBox.getType();
         if (in.equals("create account")) {
             createAccount(controlBox.getUserName());
@@ -142,7 +142,6 @@ public class Account {
             Scanner scanner = new Scanner(System.in);
             String passWord = scanner.next();
             if (passWord.equals(findAccount(userName).passWord)) {
-
                 return true;
             } else {
                 System.out.println("Wrong passWord!");
