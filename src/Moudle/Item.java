@@ -19,7 +19,7 @@ public class Item {
         return buffs;
     }
 
-    public static Item findItem( String name) {
+    public static Item findItem(String name) {
         for (Item item : items) {
             if (item.name.equals(name))
                 return item;
