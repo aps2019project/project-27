@@ -8,6 +8,7 @@ public class Fighter extends MinionAndHero {
 	private int x;
 	private int y;
 	private String ID;
+	private int specialPowerCoolDown;
 	private ArrayList<Fighter> attackedFighter = new ArrayList<> (  );
 	private boolean canCounterAttack;
 	private boolean canMove;
@@ -16,12 +17,22 @@ public class Fighter extends MinionAndHero {
 	ArrayList<Buff> buffs = new ArrayList<> (  );
 	private Cell currentCell;
 	private Player player;
+	public void resetSpecialPowerCoolDown(){
+		specialPowerCoolDown = 0;
+	}
+
+	@Override
+	public int getSpecialPowerCoolDown () {
+		return specialPowerCoolDown;
+	}
+
 	public void preTurnProcces(){
 		for ( Buff buff:this.getSpecialPowers () ){
-			if ( this.getSpecialPowerType ()==1 ){
+			if ( this.getSpecialPowerTypeMinion ()==1 ){
 				addToBuff ( buff );
 			}
 		}
+		specialPowerCoolDown++;
 		this.enableBuffBoolEssence ();
 	}
 	public void addToBuff(Buff buff){

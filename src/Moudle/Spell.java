@@ -26,3 +26,4 @@ public class Spell extends Card {
 		super ( name , cardID , shopPrice , manaPrice );
 	}
 }
+//todo cell effect

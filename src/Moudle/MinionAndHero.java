@@ -11,17 +11,26 @@ public class MinionAndHero extends Card {
     private int attackType;
     private String[] abilities;
     private ArrayList<Buff> specialPowers=new ArrayList<>();
+    private int specialPowerMana;
     private int specialPowerCoolDown;
     //0:onspawn 2:passive   3:ondeath   4:onAttack  5:onDe  6:combo
-    private int specialPowerType;
+    private int specialPowerTypeMinion;
     private Target specialPowerTarget;
 
     public Target getSpecialPowerTarget () {
         return specialPowerTarget;
     }
 
-    public int getSpecialPowerType () {
-        return specialPowerType;
+    public int getSpecialPowerCoolDown () {
+        return specialPowerCoolDown;
+    }
+
+    public int getSpecialPowerMana () {
+        return specialPowerMana;
+    }
+
+    public int getSpecialPowerTypeMinion () {
+        return specialPowerTypeMinion;
     }
 
     public ArrayList<Buff> getSpecialPowers () {

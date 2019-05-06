@@ -8,13 +8,10 @@ public class Player extends Account {
     private ArrayList<Fighter> fighters;
     private Hand hand;
     private int mana;
+    private ArrayList<Item> collectedItems;
     private ArrayList<Card> graveYard;
     private ArrayList<Item> items;
     private ArrayList<Buff> buffs;
-    public void addToBuffs(Buff buff){
-
-    }
-
     public int getMana () {
         return mana;
     }

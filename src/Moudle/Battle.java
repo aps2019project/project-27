@@ -191,7 +191,7 @@ public class Battle {
 	}
 
 	private void executeOnAttackAndDeBuff ( Fighter offenser , Fighter defender ) {
-		if ( offenser.getSpecialPowerType ()==3 ){
+		if ( offenser.getSpecialPowerTypeMinion ()==3 ){
 			Fighter target = null;
 			if ( offenser.getSpecialPowerTarget ().getTargetType ()==7 ){
 				target = defender;
@@ -211,7 +211,7 @@ public class Battle {
 				}
 			}
 		}
-		if ( defender.getSpecialPowerType ()==4 ){
+		if ( defender.getSpecialPowerTypeMinion ()==4 ){
 			Fighter target = null;
 			if ( defender.getSpecialPowerTarget ().getTargetType ()==7 ){
 				target = offenser;
@@ -227,15 +227,56 @@ public class Battle {
 			}
 		}
 	}
+	private void useSpecialPowerHero(int x,int y){
+		Fighter hero;
+		if ( playerInTurn==player1 )
+			hero = heroP1;
+		else hero = heroP2;
+		if ( hero.getSpecialPowerCoolDown ()<((MinionAndHero)hero).getSpecialPowerCoolDown() ){
+			//fosh
+			return;
+		}
+		if ( !hero.getSpecialPowerTarget ().isValidTarget ( this,x,y,playerInTurn ) ){
+			//fosh
+			return;
+		}
+		if ( playerInTurn.getMana ()>=hero.getSpecialPowerMana () ){
+			playerInTurn.decreaseMana ( hero.getSpecialPowerMana () );
+			hero.resetSpecialPowerCoolDown ();
+			if ( hero.getSpecialPowerTarget ().getTargetType ()==8 ){
+				for ( Buff buff:hero.getSpecialPowers () ){
+					hero.addToBuff ( buff );
+					if ( buff.isExeptABuff () ){
+						buffs.add ( buff );
+					}
+				}
+			}
+			else {
+				ArrayList<Fighter> targets = hero.getSpecialPowerTarget ().targetFighters ( this,x,y,playerInTurn );
+				for ( Fighter fighter:targets ){
+					for ( Buff buff:hero.getSpecialPowers () ){
+						fighter.addToBuff ( buff );
+						if ( buff.isExeptABuff () ){
+							buffs.add ( buff );
+						}
+					}
+				}
+			}
+		}
+		else {
+			//fosh
+			return;
+		}
 
+	}
 	private void executeOnSpawnBuff ( Fighter fighter ) {
-		if ( fighter.getSpecialPowerType ()!=0 )
+		if ( fighter.getSpecialPowerTypeMinion ()!=0 )
 			return;
 		executeSpecialBuffs ( fighter );
 	}
 
 	private void executeOnDeathBuff ( Fighter fighter ) {
-		if ( fighter.getSpecialPowerType ()!=2 )
+		if ( fighter.getSpecialPowerTypeMinion ()!=2 )
 			return;
 		executeSpecialBuffs ( fighter );
 	}
@@ -277,6 +318,7 @@ public class Battle {
 	}
 
 	private boolean isValidNewFighter ( MinionAndHero minionAndHero , Player player , int x , int y ) {
+		//todo
 		return true;
 	}
 

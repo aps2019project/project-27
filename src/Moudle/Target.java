@@ -36,6 +36,7 @@ public class Target {
 	public ArrayList<Fighter> targetFighters(Battle battle,int x,int y,Player player){
 		ArrayList<Fighter> targets = new ArrayList<> (  );
 		Ground ground = battle.getGround ();
+		//todo random selection
 		if ( targetType==0 ){
 			for ( int i=0;i<rectangleLength;i++ ){
 				for ( int j=0;j<rectangleLength;j++ ){
