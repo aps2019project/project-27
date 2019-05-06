@@ -22,6 +22,10 @@ public class Account {
         return mainAccount;
     }
 
+    public static void setAccounts ( ArrayList<Account> accounts ) {
+        Account.accounts = accounts;
+    }
+
     public static ArrayList<Account> getAccounts() {
         return accounts;
     }

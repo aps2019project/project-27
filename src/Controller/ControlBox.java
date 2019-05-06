@@ -57,7 +57,9 @@ public class ControlBox {
         this.region = region;
         this.type = type;
     }
-
+    public ControlBox(){
+        this.type="empty";
+    }
     public String getCardName() {
         return cardName;
     }

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Hand extends Deck {
     private Deck deck;
-    private ArrayList<Card> cards = new ArrayList<>();
-    private Item item;
+    private ArrayList<Card> handCards = new ArrayList<>();
+    private Item handItem;
     private Card nextCard;
 
     public void addCard() {
-        cards.add ( nextCard );
+        handCards.add ( nextCard );
         nextCard = null;
     }
     private void setNextCard(){
@@ -23,14 +23,14 @@ public class Hand extends Deck {
 
     public void show() {
         //todo
-        for (Card card : cards) {
+        for (Card card : handCards) {
             card.showCard();
         }
     }
 
     @Override
     public ArrayList<Card> getCards() {
-        return cards;
+        return handCards;
     }
 
     public void showNextCard() {
@@ -38,7 +38,7 @@ public class Hand extends Deck {
     }
 
     public Item getItem() {
-        return this.item;
+        return this.handItem;
     }
 
     public void selectNextCard() {

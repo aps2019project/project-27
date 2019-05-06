@@ -19,17 +19,20 @@ public class Load {
 	public static void loadSpells() throws FileNotFoundException {
 		Gson gson = CreatGson.getGson ();
 		Reader reader = new FileReader ( "Spells.json");
-		SpellTmp tmp = gson.fromJson ( reader, ( Type ) Spell.class);
+		SpellTmp tmp = gson.fromJson ( reader, ( Type ) SpellTmp.class);
 		Spell.setSpells ( tmp.spells );
+	}
+	public static void loadAccounts() throws FileNotFoundException {
+		Gson gson = CreatGson.getGson ();
+		Reader reader = new FileReader ( "Accounts.json" );
+		AccountTmp tmp = gson.fromJson ( reader, ( Type ) AccountTmp.class );
+		Account.setAccounts (tmp.accounts);
 	}
 	public static void loadItems() throws FileNotFoundException {
 		Gson gson = CreatGson.getGson ();
 		Reader reader = new FileReader ( "Items.json" );
-		ItemTmp tmp = gson.fromJson ( reader, ( Type ) Item.class );
+		ItemTmp tmp = gson.fromJson ( reader, ItemTmp.class );
 		Item.setItems(tmp.items);
-	}
-	public static void loadAccounts(){
-		Gson gson = CreatGson.getGson ();
 	}
 }
 class ItemTmp{
@@ -41,7 +44,7 @@ class MinionAndHeroTmp {
 class SpellTmp {
 	ArrayList<Spell> spells;
 }
-class AccountTnp{
+class AccountTmp {
 	ArrayList<Account> accounts;
 }
 class CreatGson {

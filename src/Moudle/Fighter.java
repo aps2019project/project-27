@@ -3,12 +3,12 @@ package Moudle;
 import java.util.ArrayList;
 
 public class Fighter extends MinionAndHero {
-	private int AP;
-	private int HP;
+	private transient int AP;
+	private transient int HP;
 	private int x;
 	private int y;
 	private String ID;
-	private int specialPowerCoolDown;
+	private transient int specialPowerCoolDown;
 	private ArrayList<Fighter> attackedFighter = new ArrayList<> (  );
 	private boolean canCounterAttack;
 	private boolean canMove;

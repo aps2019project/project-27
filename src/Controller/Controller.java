@@ -1,16 +1,15 @@
 package Controller;
 
-import Moudle.Account;
-import Moudle.Battle;
-import Moudle.Collection;
-import Moudle.Shop;
+import Moudle.*;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Controller {
-	public static void main (String[] args){
+	public static void main (String[] args) throws FileNotFoundException {
 		//load phase
+        Load.loadAccounts ();
 		Controller controller = new Controller ( "Account" );
 		int out=0;
 		ArrayList<Account> accounts = Account.getAccounts ();
@@ -29,6 +28,7 @@ public class Controller {
     public int input() {
         input = scanner.nextLine();
         ControlBox controlBox = new ControlBox("Battle", type);
+        type = "empty";
         if (region.equals("Battle")) {
             int whereWeAre = 0;
             if (isValidGameInfo(input)) {
@@ -64,28 +64,23 @@ public class Controller {
                 type = "move";
                 String[] tmp = input.split(" ");
                 setLocation((ControlBox) controlBox, tmp[2]);
-                whereWeAre = 7;
             }
             if (isValidAttack(input)) {
                 type = "attack";
                 controlBox.setCardID(input.toLowerCase().split(" ")[1]);
-                whereWeAre = 8;
             }
             if (useSpecialPower(input)) {
                 type = "use special power";
                 String location = input.toLowerCase().split(" ")[3];
                 setLocation((ControlBox) controlBox, location);
-                whereWeAre = 9;
             }
             if (isValidInsert(input)) {
                 type = "insert";
                 String[] tmp = input.toLowerCase().split(" ");
                 setLocation(controlBox, tmp[3]);
-                whereWeAre = 10;
             }
             if (isValidShowHand(input)) {
                 type = "show hand";
-                whereWeAre = 11;
             }
             if (isValidEndTur(input)) {
                 type = "end turn";
