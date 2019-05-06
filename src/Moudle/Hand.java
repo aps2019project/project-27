@@ -9,9 +9,14 @@ public class Hand extends Deck {
     private Card nextCard;
 
     public void addCard() {
-
+        cards.add ( nextCard );
+        nextCard = null;
     }
-
+    private void setNextCard(){
+        int size = deck.getCards ().size ();
+        int i = ( int ) (Math.random ()%size);
+        nextCard = deck.getCards ().get ( i );
+    }
     public void addItem() {
 
     }

@@ -2,6 +2,7 @@ package Controller;
 
 import Moudle.Account;
 import Moudle.Battle;
+import Moudle.Collection;
 import Moudle.Shop;
 
 import java.util.ArrayList;

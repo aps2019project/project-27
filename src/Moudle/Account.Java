@@ -32,7 +32,9 @@ public class Account {
             createAccount(controlBox.getUserName());
         }
         if (in.equals("login")) {
-            login(controlBox.getUserName());
+            if(login(controlBox.getUserName())){
+                return 2;
+            }
         }
         if (in.equals("show leaderboard")) {
             showLeaderBoard();

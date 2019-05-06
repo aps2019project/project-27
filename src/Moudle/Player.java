@@ -16,7 +16,9 @@ public class Player extends Account {
         return mana;
     }
     public void preTurnProcess(){
-
+        if ( hand.getCards ().size ()<5 ){
+            hand.addCard ();
+        }
     }
     public void addToBuffs(Buff buff){
         mana+=buff.getChangeMana ();

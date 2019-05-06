@@ -468,6 +468,8 @@ public class Battle {
         for (Fighter fighter : fighters) {
             fighter.preTurnProcces();
         }
+        player1.preTurnProcess ();
+        player2.preTurnProcess ();
         checkBuffs();
         currentTurn++;
         setMana();
