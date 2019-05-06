@@ -1,5 +1,9 @@
 package Moudle;
 
+import Controller.ControlBox;
+import Controller.Controller;
+import com.sun.org.apache.bcel.internal.generic.ACONST_NULL;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -14,6 +18,29 @@ public class Account {
     private Deck mainDeck;
     private int wins;
     private int losses;
+
+    public static int input(ControlBox controlBox) {
+        String in = controlBox.getType();
+        if (in.equals("create account")) {
+            createAccount(controlBox.getUserName());
+        }
+        if (in.equals("login")) {
+            login(controlBox.getUserName());
+        }
+        if (in.equals("show leaderboard")) {
+            showLeaderBoard();
+        }
+        if (in.equals("save")) {
+            save();
+        }
+        if (in.equals("logout")) {
+            logout();
+        }
+        if (in.equals("help")) {
+            help();
+        }
+        return 0;
+    }
 
     public String getUserName() {
         return userName;
@@ -56,8 +83,16 @@ public class Account {
         this.mainDeck = mainDeck;
     }
 
+    public void increaseWins() {
+        wins++;
+    }
+
     public int getWins() {
         return wins;
+    }
+
+    public void increaseLosses() {
+        losses++;
     }
 
     public int getLosses() {
@@ -92,7 +127,7 @@ public class Account {
 
     }
 
-    public boolean login(String userName) {
+    public static boolean login(String userName) {
         if (findAccount(userName) == null) {
             System.out.println("There is no account with this userName!");
             return false;
@@ -123,11 +158,11 @@ public class Account {
     }
 
     public static void save() {
-
+        //todo
     }
 
     public static void logout() {
-
+        //todo
     }
 
     public static void help() {

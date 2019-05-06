@@ -7,6 +7,7 @@ public class Item {
     private String name;
     private int price;
     private boolean isFlag;
+    //todo isCollectible
 
     public static Item findItem(String name) {
         for (Item item : items) {
