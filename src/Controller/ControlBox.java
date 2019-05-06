@@ -7,8 +7,17 @@ public class ControlBox {
     private String userName;
     private String cardID;
     private int x,y;
+    private String deckName;
 
-    public void setX ( int x ) {
+    public void setDeckName(String deckName) {
+        this.deckName = deckName;
+    }
+
+    public String getDeckName() {
+        return deckName;
+    }
+
+    public void setX (int x ) {
         this.x = x;
     }
 

@@ -2,6 +2,7 @@ package Controller;
 
 import Moudle.Account;
 import Moudle.Battle;
+import Moudle.Collection;
 import Moudle.Shop;
 
 import java.util.ArrayList;
@@ -136,19 +137,51 @@ public class Controller {
             if (input.equals("show")) {
                 type = "show";
             }
-//            if (isValidSearchCollection(input)) {
-//                type = "searchCollection";
-//            }
-//            if (input.equals("save")) {
-//                type = "save";
-//            }
-//            if (isValidCreateDeck(input)){
-//                type = "createDeck";
-//            }
-//            if (isValidDeleteDeck(input)){
-//                type = "deleteDeck";
-//            }
-//            if ()
+            if (isValidSearchCollection(input)) {
+                type = "searchCollection";
+                controlBox.setCardName(input.split(" ")[1]);
+            }
+            if (input.equals("save")) {
+                type = "save";
+            }
+            if (isValidCreateDeck(input)) {
+                type = "createDeck";
+                controlBox.setDeckName(input.split(" ")[2]);
+            }
+            if (isValidDeleteDeck(input)) {
+                type = "deleteDeck";
+                controlBox.setDeckName(input.split(" ")[2]);
+            }
+            if (isValidAdd(input)) {
+                type = "add";
+                controlBox.setCardName(input.split(" ")[1]);
+                controlBox.setDeckName(input.split(" ")[4]);
+            }
+            if (isValidRemove(input)) {
+                type = "remove";
+                controlBox.setCardName(input.split(" ")[1]);
+                controlBox.setDeckName(input.split(" ")[4]);
+            }
+            if (isValidValidateDeck(input)) {
+                type = "validateDeck";
+                controlBox.setDeckName(input.split(" ")[2]);
+            }
+            if (isValidSelectDeck(input)) {
+                type = "selectDeck";
+                controlBox.setDeckName(input.split(" ")[2]);
+            }
+            if (input.equals("show all decks")) {
+                type = "showAllDecks";
+            }
+            if (isValidShowDeck(input)) {
+                type = "showDeck";
+                controlBox.setDeckName(input.split(" ")[2]);
+            }
+            if (input.equals("help")) {
+                type = "help";
+            }
+            controlBox.setType(type);
+            Collection.input(controlBox);
         }
         if (region.equals("Account")) {
             int whereWeAre = 0;
@@ -183,28 +216,62 @@ public class Controller {
         return 0;
     }
 
-	private void setLocation ( ControlBox controlBox , String location ) {
-		controlBox.setX ( Integer.parseInt ( String.valueOf ( location.charAt ( 1 ) ) ) );
-		controlBox.setY ( Integer.parseInt ( String.valueOf ( location.charAt ( 3 ) ) ) );
-	}
+    private void setLocation(ControlBox controlBox, String location) {
+        controlBox.setX(Integer.parseInt(String.valueOf(location.charAt(1))));
+        controlBox.setY(Integer.parseInt(String.valueOf(location.charAt(3))));
+    }
 
-	private boolean isValidSelectCard ( String input ) {
-		return input.toLowerCase ( ).matches ( "select+ +card+ +[\\w_]+" );
-	}
-	private boolean isValidShowHand(String input){
-		return input.toLowerCase ().equals ( "show hand" );
-	}
-	private boolean isValidShowOpMinion ( String input ) {
-		return input.toLowerCase ( ).equals ( "show my opponenet minions" );
-	}
+    private boolean isValidSearchCollection(String input) {
+        return input.toLowerCase().matches("search+ +[a-z0-9]+");
+    }
 
-	private boolean isValidShowMyMinion ( String input ) {
-		return input.toLowerCase ( ).equals ( "show my minions" );
-	}
+    private boolean isValidCreateDeck(String input) {
+        return input.toLowerCase().matches("create+ +deck+ +[a-z0-9]+");
+    }
 
-	private boolean isValidPasswordLogin ( String input ) {
-		return input.matches ( "[a-zA-Z0-9]" );
-	}
+    private boolean isValidDeleteDeck(String input) {
+        return input.toLowerCase().matches("delete+ +deck+ +[a-z0-9]+");
+    }
+
+    private boolean isValidAdd(String input) {
+        return input.toLowerCase().matches("add+ +[a-z0-9_.]+ +to+ +deck+ +[a-z0-9_.]+");
+    }
+
+    private boolean isValidRemove(String input) {
+        return input.toLowerCase().matches("remove+ +[a-z0-9_.]+ +from+ +deck+ +[a-z0-9_.]+");
+    }
+
+    private boolean isValidValidateDeck(String input) {
+        return input.toLowerCase().matches("validate+ +deck+ +[a-z0-9_.]+");
+    }
+
+    private boolean isValidSelectDeck(String input) {
+        return input.toLowerCase().matches("select+ +deck+ +[a-z0-9_.]+");
+    }
+
+    private boolean isValidShowDeck(String input) {
+        return input.toLowerCase().matches("show+ +deck+ +[a-z0-9_.]+");
+    }
+
+    private boolean isValidSelectCard(String input) {
+        return input.toLowerCase().matches("select+ +card+ +[\\w_]+");
+    }
+
+    private boolean isValidShowHand(String input) {
+        return input.toLowerCase().equals("show hand");
+    }
+
+    private boolean isValidShowOpMinion(String input) {
+        return input.toLowerCase().equals("show my opponenet minions");
+    }
+
+    private boolean isValidShowMyMinion(String input) {
+        return input.toLowerCase().equals("show my minions");
+    }
+
+    private boolean isValidPasswordLogin(String input) {
+        return input.matches("[a-zA-Z0-9]");
+    }
 
 	private boolean isValidLogin ( String input ) {
 		return input.matches ( "login+ +[a-zA-Z0-9]+" );

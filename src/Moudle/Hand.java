@@ -2,41 +2,52 @@ package Moudle;
 
 import java.util.ArrayList;
 
-public class Hand extends Deck{
+public class Hand extends Deck {
     private Deck deck;
     private ArrayList<Card> cards = new ArrayList<>();
     private Item item;
     private Card nextCard;
+
     public void addCard() {
 
     }
+
     public void addItem() {
 
     }
-    public void show(){
-        for ( Card card:cards ){
-            card.showCard ();
+
+    public void show() {
+        //todo
+        for (Card card : cards) {
+            card.showCard();
         }
     }
+
     @Override
-    public ArrayList<Card> getCards () {
+    public ArrayList<Card> getCards() {
         return cards;
     }
-    public void showNextCard(){
-        nextCard.showCard ();
+
+    public void showNextCard() {
+        nextCard.showCard();
     }
+
     public Item getItem() {
         return this.item;
     }
+
     public void selectNextCard() {
 
     }
+
     public Card getNextCard() {
         return this.nextCard;
     }
+
     public void removeCard() {
 
     }
+
     public void removeItem() {
 
     }

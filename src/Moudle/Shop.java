@@ -10,9 +10,10 @@ public class Shop {
     private ArrayList<Card> cards;
     private ArrayList<Item> items;
 
-    public static void input( ControlBox controlBox ){
+    public static void input(ControlBox controlBox) {
 
     }
+
     public Account getAccount() {
         return account;
     }
@@ -74,9 +75,9 @@ public class Shop {
 
     public int search(String name) {
         if (findCard(name) != null && findItem(name) == null) {
-         //   return findCard(name).getCardID();
+            //   return findCard(name).getCardID();
         } else if (findCard(name) == null && findItem(name) != null) {
-         //   return findItem(name).getID();
+            //   return findItem(name).getID();
         }
         System.out.println("This card|item is not in the shop!");
         return 0;
@@ -84,9 +85,9 @@ public class Shop {
 
     public int searchCollection(String name) {
         if (account.getCollection().findCard(name) != null && account.getCollection().findItem(name) == null) {
-     //       return account.getCollection().findCard(name).getCardID();
+            //       return account.getCollection().findCard(name).getCardID();
         } else if (account.getCollection().findCard(name) == null && account.getCollection().findItem(name) != null) {
-      //      return account.getCollection().findItem(name).getID();
+            //      return account.getCollection().findItem(name).getID();
         }
         System.out.println("This card|item is not in your collection!");
         return 0;
