@@ -1,15 +1,59 @@
 package Moudle;
 
+import Controller.ControlBox;
+
 import java.util.ArrayList;
 
 public class Collection {
     private static ArrayList<Collection> collections;
     private Account account;
-    private static ArrayList<Card> cards;
-    private static ArrayList<MinionAndHero> minionAndHeroes;
-    private static ArrayList<Spell> spells;
-    private static ArrayList<Item> items;
+    private ArrayList<Card> cards;
+    private ArrayList<MinionAndHero> minionAndHeroes;
+    private ArrayList<Spell> spells;
+    private ArrayList<Item> items;
     private ArrayList<Deck> decks;
+    private static Collection currentCollection;
+
+    public static int input(ControlBox controlBox) {
+        String in = controlBox.getType();
+        if (in.equals("show")) {
+            currentCollection.show();
+        }
+        if (in.equals("searchCollection")) {
+            currentCollection.search(controlBox.getCardName());
+        }
+        if (in.equals("save")) {
+            save();
+        }
+        if (in.equals("createDeck")) {
+            currentCollection.createDeck(controlBox.getDeckName());
+        }
+        if (in.equals("deleteDeck")) {
+            currentCollection.deleteDeck(controlBox.getDeckName());
+        }
+        if (in.equals("add")) {
+            currentCollection.add(controlBox.getCardName(), controlBox.getDeckName());
+        }
+        if (in.equals("remove")) {
+            currentCollection.remove(controlBox.getCardName(), controlBox.getDeckName());
+        }
+        if (in.equals("validateDeck")) {
+            currentCollection.validateDeck(controlBox.getDeckName());
+        }
+        if (in.equals("selectDeck")) {
+            currentCollection.selectDeck(controlBox.getDeckName());
+        }
+        if (in.equals("showAllDecks")) {
+            currentCollection.showAllDecks();
+        }
+        if (in.equals("showDeck")) {
+            currentCollection.showDeck(controlBox.getDeckName());
+        }
+        if (in.equals("help")) {
+            help();
+        }
+        return 0;
+    }
 
     public ArrayList<Card> getCards() {
         return cards;
@@ -23,13 +67,13 @@ public class Collection {
 
     }
 
-    public static void show() {
+    public void show() {
         System.out.println("Heroes :");
         for (int i = 0; i < minionAndHeroes.size(); i++) {
             if (minionAndHeroes.get(i).isHero() == true) {
                 System.out.printf("\t%d:Name:%s - AP:%d - HP:%d - Class:%s - Special power:%s - Sell Cost:%d\n",
                         i + 1, minionAndHeroes.get(i).getAP(), minionAndHeroes.get(i).getHP(),
-                        minionAndHeroes.get(i).getAttackType(), minionAndHeroes.get(i).getSpecialPowerType (), minionAndHeroes.get(i).getShopPrice());
+                        minionAndHeroes.get(i).getAttackType(), minionAndHeroes.get(i).getSpecialPowerType(), minionAndHeroes.get(i).getShopPrice());
             }
         }
         System.out.println("Items :");
@@ -42,7 +86,7 @@ public class Collection {
             if (minionAndHeroes.get(i).isHero() == false) {
                 System.out.printf("\tType:Minion - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n",
                         minionAndHeroes.get(i).getAttackType(), minionAndHeroes.get(i).getAP(),
-                        minionAndHeroes.get(i).getHP(), minionAndHeroes.get(i).getManaPrice(), minionAndHeroes.get(i).getSpecialPowerType (),
+                        minionAndHeroes.get(i).getHP(), minionAndHeroes.get(i).getManaPrice(), minionAndHeroes.get(i).getSpecialPowerType(),
                         minionAndHeroes.get(i).getShopPrice());
                 counter++;
             }
@@ -53,13 +97,13 @@ public class Collection {
         }
     }
 
-    public static void search(String name) {
+    public void search(String name) {
         if (Card.findCard(name) == null && Item.findItem(name) == null) {
             System.out.println("There is no such card|item in collection");
         } else if (Card.findCard(name) != null && Item.findItem(name) == null) {
-          //  System.out.printf("Your card id is %d\n", Card.findCard(name).getCardID());
+            //  System.out.printf("Your card id is %d\n", Card.findCard(name).getCardID());
         } else if (Card.findCard(name) == null && Item.findItem(name) != null) {
-        //    System.out.printf("Your item id is %d\n", Item.findItem(name).getID());
+            //    System.out.printf("Your item id is %d\n", Item.findItem(name).getID());
         }
     }
 

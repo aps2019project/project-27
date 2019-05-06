@@ -9,10 +9,30 @@ public class Shop {
     private ArrayList<MinionAndHero> heroesAndMinions;
     private ArrayList<Card> cards;
     private ArrayList<Item> items;
+    private static Shop currentShop;
 
-    public static void input( ControlBox controlBox ){
-
+    public static void input(ControlBox controlBox) {
+        String in = controlBox.getType();
+        if (in.equals("showCollection")) {
+            currentShop.showCollection();
+        }
+        if (in.equals("search")) {
+            currentShop.search(controlBox.getCardName());
+        }
+        if (in.equals("buy")) {
+            currentShop.buy(controlBox.getCardName());
+        }
+        if (in.equals("sell")) {
+            currentShop.sell(controlBox.getCardName());
+        }
+        if (in.equals("show")) {
+            currentShop.show();
+        }
+        if (in.equals("help")) {
+            currentShop.help();
+        }
     }
+
     public Account getAccount() {
         return account;
     }
@@ -74,9 +94,9 @@ public class Shop {
 
     public int search(String name) {
         if (findCard(name) != null && findItem(name) == null) {
-         //   return findCard(name).getCardID();
+            //   return findCard(name).getCardID();
         } else if (findCard(name) == null && findItem(name) != null) {
-         //   return findItem(name).getID();
+            //   return findItem(name).getID();
         }
         System.out.println("This card|item is not in the shop!");
         return 0;
@@ -84,9 +104,9 @@ public class Shop {
 
     public int searchCollection(String name) {
         if (account.getCollection().findCard(name) != null && account.getCollection().findItem(name) == null) {
-     //       return account.getCollection().findCard(name).getCardID();
+            //       return account.getCollection().findCard(name).getCardID();
         } else if (account.getCollection().findCard(name) == null && account.getCollection().findItem(name) != null) {
-      //      return account.getCollection().findItem(name).getID();
+            //      return account.getCollection().findItem(name).getID();
         }
         System.out.println("This card|item is not in your collection!");
         return 0;

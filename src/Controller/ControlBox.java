@@ -6,32 +6,42 @@ public class ControlBox {
     private String cardName;
     private String userName;
     private String cardID;
-    private int x,y;
+    private int x, y;
+    private String deckName;
 
-    public void setX ( int x ) {
+    public void setDeckName(String deckName) {
+        this.deckName = deckName;
+    }
+
+    public String getDeckName() {
+        return deckName;
+    }
+
+    public void setX(int x) {
         this.x = x;
     }
 
-    public void setY ( int y ) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    public int getY () {
+    public int getY() {
         return y;
     }
 
-    public int getX () {
+    public int getX() {
         return x;
     }
 
-    public void setCardID ( String cardID ) {
+    public void setCardID(String cardID) {
         this.cardID = cardID;
     }
-    public String getCardID () {
+
+    public String getCardID() {
         return cardID;
     }
 
-    public void setType ( String type ) {
+    public void setType(String type) {
         this.type = type;
     }
 
