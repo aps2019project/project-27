@@ -7,8 +7,19 @@ public class Item {
     private String name;
     private int price;
     private boolean isFlag;
+    private Target target;
+    private ArrayList<Buff> buffs;
+    private boolean isCollectible;
 
-    public static Item findItem(String name) {
+    public boolean isCollectible () {
+        return isCollectible;
+    }
+
+    public ArrayList<Buff> getBuffs () {
+        return buffs;
+    }
+
+    public static Item findItem( String name) {
         for (Item item : items) {
             if (item.name.equals(name))
                 return item;

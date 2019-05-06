@@ -12,7 +12,7 @@ public class Controller {
 	private String region;
 	private String type;
 
-	public void input () {
+	public int input () {
 		input = scanner.nextLine ( );
 		ControlBox controlBox = new ControlBox ( "Battle" , type );
 		if ( region.equals ( "Battle" ) ) {
@@ -99,6 +99,7 @@ public class Controller {
 			}
 			Account.input ( controlBox );
 		}
+		return 0;
 	}
 
 	private void setLocation ( ControlBox controlBox , String location ) {
@@ -141,7 +142,7 @@ public class Controller {
 	}
 
 	private boolean isValidGameInfo ( String input ) {
-		return input.toLowerCase ( ).equals ( "game info" );
+		return input.equalsIgnoreCase ( "game info" );
 	}
 
 	private boolean isValidMove ( String input ) {

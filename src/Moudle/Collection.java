@@ -29,7 +29,7 @@ public class Collection {
             if (minionAndHeroes.get(i).isHero() == true) {
                 System.out.printf("\t%d:Name:%s - AP:%d - HP:%d - Class:%s - Special power:%s - Sell Cost:%d\n",
                         i + 1, minionAndHeroes.get(i).getAP(), minionAndHeroes.get(i).getHP(),
-                        minionAndHeroes.get(i).getAttackType(), minionAndHeroes.get(i).getSpecialPowerTypeMinion(), minionAndHeroes.get(i).getShopPrice());
+                        minionAndHeroes.get(i).getAttackType(), minionAndHeroes.get(i).getSpecialPowerType (), minionAndHeroes.get(i).getShopPrice());
             }
         }
         System.out.println("Items :");
@@ -42,7 +42,7 @@ public class Collection {
             if (minionAndHeroes.get(i).isHero() == false) {
                 System.out.printf("\tType:Minion - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n",
                         minionAndHeroes.get(i).getAttackType(), minionAndHeroes.get(i).getAP(),
-                        minionAndHeroes.get(i).getHP(), minionAndHeroes.get(i).getManaPrice(), minionAndHeroes.get(i).getSpecialPowerTypeMinion(),
+                        minionAndHeroes.get(i).getHP(), minionAndHeroes.get(i).getManaPrice(), minionAndHeroes.get(i).getSpecialPowerType (),
                         minionAndHeroes.get(i).getShopPrice());
                 counter++;
             }

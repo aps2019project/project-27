@@ -10,16 +10,34 @@ public class Player extends Account {
     private int mana;
     private ArrayList<Item> collectedItems;
     private ArrayList<Card> graveYard;
-    private ArrayList<Item> items;
+    private Item mainItem;
     private ArrayList<Buff> buffs;
     public int getMana () {
         return mana;
+    }
+    public void addToBuffs(Buff buff){
+        mana+=buff.getChangeMana ();
+        buffs.add ( buff );
+    }
+    public void removeFromBuff(Buff buff){
+        buffs.remove ( buff );
+    }
+    public Item getMainItem () {
+        return mainItem;
+    }
+
+    public Hand getHand () {
+        return hand;
+    }
+
+    public void addToGraveYard( Fighter fighter){
+        graveYard.add ( fighter );
     }
     public void decreaseMana(int mony){
         mana-=mony;
     }
     public void addItem( Item item){
-        items.add ( item );
+        collectedItems.add ( item );
     }
     public ArrayList<Fighter> getFighters () {
         return fighters;
@@ -29,7 +47,7 @@ public class Player extends Account {
         if ( object.getClass () == Player.class )
         {
             Account account = (Player)object;
-            if ( account.getUsername ().equals ( this.getUsername () ) )
+            if ( account.getUserName ().equals ( this.getUserName ()) )
                 return true;
             return false;
         }

@@ -1,5 +1,7 @@
 package Moudle;
 
+import Controller.ControlBox;
+
 import java.util.ArrayList;
 
 public class Shop {
@@ -8,7 +10,7 @@ public class Shop {
     private ArrayList<Card> cards;
     private ArrayList<Item> items;
 
-    public void input(){
+    public static void input( ControlBox controlBox ){
 
     }
     public Account getAccount() {

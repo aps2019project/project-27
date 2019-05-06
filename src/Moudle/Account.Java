@@ -1,5 +1,7 @@
 package Moudle;
 
+import Controller.ControlBox;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -14,7 +16,7 @@ public class Account {
     private Deck mainDeck;
     private int wins;
     private int losses;
-
+    public static void input( ControlBox controlBox ){}
     public String getUserName() {
         return userName;
     }
@@ -91,7 +93,12 @@ public class Account {
         }
 
     }
-
+    public void win(){
+        wins++;
+    }
+    public void losses(){
+        losses++;
+    }
     public boolean login(String userName) {
         if (findAccount(userName) == null) {
             System.out.println("There is no account with this userName!");

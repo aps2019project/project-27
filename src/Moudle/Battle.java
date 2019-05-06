@@ -125,7 +125,11 @@ public class Battle {
 		return false;
 	}
 	public void insert ( String cardName , int x , int y ) {
-		Card card = null;//todo cardName ali
+		Card card = Card.findCard ( cardName,playerInTurn.getHand ().getCards () );
+		if ( card == null ) {
+			//fosh
+			return;
+		}
 		if ( isValidInsert ( card ) ){
 			//fosh
 			return;
@@ -162,6 +166,9 @@ public class Battle {
 			minionAndHeroes.add ( minionAndHero );
 			Fighter fighter = new Fighter ( minionAndHero , minionAndHeroes , playerInTurn );
 			executeOnSpawnBuff ( fighter );
+			if (ground.getCell (x, y).getItemOnCell ()!=null){
+				playerInTurn.addItem ( ground.getCell (x, y).getItemOnCell () );
+			}
 			ground.getCell ( x , y ).moveInCell ( fighter );
 			fighter.setLocation ( x , y );
 		}
@@ -191,7 +198,7 @@ public class Battle {
 	}
 
 	private void executeOnAttackAndDeBuff ( Fighter offenser , Fighter defender ) {
-		if ( offenser.getSpecialPowerTypeMinion ()==3 ){
+		if ( offenser.getSpecialPowerType ()==3 ){
 			Fighter target = null;
 			if ( offenser.getSpecialPowerTarget ().getTargetType ()==7 ){
 				target = defender;
@@ -211,7 +218,7 @@ public class Battle {
 				}
 			}
 		}
-		if ( defender.getSpecialPowerTypeMinion ()==4 ){
+		if ( defender.getSpecialPowerType ()==4 ){
 			Fighter target = null;
 			if ( defender.getSpecialPowerTarget ().getTargetType ()==7 ){
 				target = offenser;
@@ -232,6 +239,10 @@ public class Battle {
 		if ( playerInTurn==player1 )
 			hero = heroP1;
 		else hero = heroP2;
+		if ( hero.getSpecialPowerType ()!=8 ){
+			//fosh
+			return;
+		}
 		if ( hero.getSpecialPowerCoolDown ()<((MinionAndHero)hero).getSpecialPowerCoolDown() ){
 			//fosh
 			return;
@@ -270,13 +281,13 @@ public class Battle {
 
 	}
 	private void executeOnSpawnBuff ( Fighter fighter ) {
-		if ( fighter.getSpecialPowerTypeMinion ()!=0 )
+		if ( fighter.getSpecialPowerType ()!=0 )
 			return;
 		executeSpecialBuffs ( fighter );
 	}
 
 	private void executeOnDeathBuff ( Fighter fighter ) {
-		if ( fighter.getSpecialPowerTypeMinion ()!=2 )
+		if ( fighter.getSpecialPowerType ()!=2 )
 			return;
 		executeSpecialBuffs ( fighter );
 	}
@@ -292,6 +303,7 @@ public class Battle {
 	private boolean isDeath ( Fighter fighter ) {
 		if ( fighter.getHP ( ) < 1 ) {
 			ground.getCell ( fighter.getX ( ) , fighter.getY ( ) ).moveFromCell ( );
+			fighter.getPlayer ().addToGraveYard ( fighter );
 			executeOnDeathBuff ( fighter );
 			if ( fighter.isHero () ){
 				if ( fighter.getPlayer ()==player1 )
@@ -410,6 +422,10 @@ public class Battle {
 			playerInTurn.addItem ( ground.getCell ( targetX , targetY ).getItemOnCell ( ) );
 		}
 		ground.getCell ( x , y ).moveInCell ( fighter );
+		fighter.setLocation ( x,y );
+		if (ground.getCell (x, y).getItemOnCell ()!=null){
+			playerInTurn.addItem ( ground.getCell (x, y).getItemOnCell () );
+		}
 		ground.getCell ( targetX , targetY ).moveFromCell ( );
 	}
 
