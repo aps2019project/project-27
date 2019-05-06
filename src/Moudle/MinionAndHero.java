@@ -16,7 +16,6 @@ public class MinionAndHero extends Card {
     //0:onspawn 2:passive   3:ondeath   4:onAttack  5:onDe  6:combo
     private int specialPowerTypeMinion;
     private Target specialPowerTarget;
-
     public Target getSpecialPowerTarget () {
         return specialPowerTarget;
     }
@@ -56,5 +55,9 @@ public class MinionAndHero extends Card {
     }
     public boolean isHero() {
         return isHero;
+    }
+
+    public int getAttackType() {
+        return attackType;
     }
 }
