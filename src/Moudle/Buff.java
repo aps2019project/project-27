@@ -11,6 +11,7 @@ public class Buff {
 	private boolean isPositive;
 	private int changeAP;
 	private int changeHP;
+	private int changeMana;
 	private int changeHollynes;
 	private boolean noHolynessForOpponent;
 	private int changeOpponentHolyness;
@@ -28,6 +29,10 @@ public class Buff {
 	public void setCellXY(int x,int y){
 		cellX=x;
 		cellY=y;
+	}
+
+	public int getChangeMana () {
+		return changeMana;
 	}
 
 	public boolean isDisableNegativeBuffs () {

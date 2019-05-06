@@ -18,6 +18,10 @@ public class Hand extends Deck{
             card.showCard ();
         }
     }
+    @Override
+    public ArrayList<Card> getCards () {
+        return cards;
+    }
     public void showNextCard(){
         nextCard.showCard ();
     }

@@ -7,7 +7,17 @@ public class Item {
     private String name;
     private int price;
     private boolean isFlag;
-    //todo isCollectible
+    private Target target;
+    private ArrayList<Buff> buffs;
+    private boolean isCollectible;
+
+    public boolean isCollectible () {
+        return isCollectible;
+    }
+
+    public ArrayList<Buff> getBuffs () {
+        return buffs;
+    }
 
     public static Item findItem(String name) {
         for (Item item : items) {

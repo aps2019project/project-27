@@ -28,7 +28,7 @@ public class Fighter extends MinionAndHero {
 
 	public void preTurnProcces(){
 		for ( Buff buff:this.getSpecialPowers () ){
-			if ( this.getSpecialPowerTypeMinion ()==1 ){
+			if ( this.getSpecialPowerType ()==1 ){
 				addToBuff ( buff );
 			}
 		}
@@ -153,6 +153,6 @@ public class Fighter extends MinionAndHero {
 				counter++;
 			}
 		}
-		this.ID=player.getUsername ()+"_"+minionAndHero.getName ()+"_"+counter+1;
+		this.ID=player.getUserName ()+"_"+minionAndHero.getName ()+"_"+counter+1;
 	}
 }

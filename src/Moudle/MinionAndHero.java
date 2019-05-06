@@ -13,8 +13,8 @@ public class MinionAndHero extends Card {
     private ArrayList<Buff> specialPowers=new ArrayList<>();
     private int specialPowerMana;
     private int specialPowerCoolDown;
-    //0:onspawn 2:passive   3:ondeath   4:onAttack  5:onDe  6:combo
-    private int specialPowerTypeMinion;
+    //0:onSpawn 2:passive   3:onDeath   4:onAttack  5:onDe  6:combo 7:use with select
+    private int specialPowerType;
     private Target specialPowerTarget;
     public Target getSpecialPowerTarget () {
         return specialPowerTarget;
@@ -28,8 +28,8 @@ public class MinionAndHero extends Card {
         return specialPowerMana;
     }
 
-    public int getSpecialPowerTypeMinion () {
-        return specialPowerTypeMinion;
+    public int getSpecialPowerType () {
+        return specialPowerType;
     }
 
     public ArrayList<Buff> getSpecialPowers () {

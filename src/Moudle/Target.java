@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 public class Target {
 	//targetType 0:rectangle	1:1force	2:all forces	3:force in a row	4:force in a column		5:8cell in near		6:a random Fighter
-	//7:attacked Fighter	8:herself
+	//7:attacked Fighter	8:herself	9:onPlayer
 	private int targetType;
 	private int rectangleLength;
 	//targetFriendType:0:no diffrence	1:only friend	2:only enemy
 	private int targetFriendType;
 	//targetDegreeType:0:no diffrence	1:minion	2:hero
 	private int targetDegreeType;
+	//0:no defrence	1:melee	3:R&H
+	private int targetAttackModeType;
 
 	public int getTargetType () {
 		return targetType;
