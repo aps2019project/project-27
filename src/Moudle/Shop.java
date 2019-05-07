@@ -8,7 +8,7 @@ public class Shop {
     private static Shop currentShop = new Shop();
     private Account account = Account.getMainAccount();
     private ArrayList<Card> cards = Card.getCards();
-    private ArrayList<Item> items;
+    private ArrayList<Item> items = new ArrayList<Item>();
 
     public static void input(ControlBox controlBox) {
         String in = controlBox.getType();
@@ -17,6 +17,9 @@ public class Shop {
         }
         if (in.equals("search")) {
             currentShop.search(controlBox.getCardName());
+        }
+        if (in.equals("searchCollection")) {
+            currentShop.searchCollection(controlBox.getCardName());
         }
         if (in.equals("buy")) {
             currentShop.buy(controlBox.getCardName());
@@ -73,8 +76,47 @@ public class Shop {
     }
 
     public void showCollection() {
-        System.out.println(account.getCollection().getCards());
-        System.out.println(account.getCollection().getItems());
+        System.out.println("Heroes :");
+        int counterHero = 0;
+        for (Card card : cards) {
+            if (card.getCardType() == 1) {
+                MinionAndHero minionAndHero = (MinionAndHero) card;
+                if (minionAndHero.isHero()) {
+                    printMinion(minionAndHero, counterHero);
+                    counterHero++;
+                }
+            }
+
+        }
+        System.out.println("Items :");
+        int counterItem = 0;
+        for (Item item : items) {
+            System.out.printf("\t%d:Name:%d - Desc: - Sell Cost:%d\n", counterItem + 1 /*description*/, items.get(counterItem).getPrice());
+            counterItem++;
+        }
+        System.out.println("Cards :");
+        int counterCard = 0;
+        for (Card card : cards) {
+            if (card.getCardType() == 1) {
+                MinionAndHero minionAndHero = (MinionAndHero) card;
+                printMinion(minionAndHero, counterCard);
+                counterCard++;
+            }
+            if (card.getCardType() == 0) {
+                System.out.printf("\tType:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", card.getName(), card.getManaPrice(),
+                        card.getShopPrice());
+            }
+        }
+        if (counterCard == 0 && counterHero == 0 && counterItem == 0) {
+            System.out.println("There is nothing to show!");
+        }
+    }
+
+    private void printMinion(MinionAndHero minionAndHero, int counter) {
+        System.out.printf("\t%d : Type:Minion - Name : %s - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n",
+                counter + 1, minionAndHero.getName(), minionAndHero.getAttackType(), minionAndHero.getAP(),
+                minionAndHero.getHP(), minionAndHero.getManaPrice(), minionAndHero.getSpecialPowerType(),
+                minionAndHero.getShopPrice());
     }
 
     public Card findCard(String name) {
@@ -95,24 +137,25 @@ public class Shop {
         return null;
     }
 
-    public int search(String name) {
+    public String search(String name) {
         if (findCard(name) != null && findItem(name) == null) {
-            //   return findCard(name).getCardID();
+            return findCard(name).getName();
         } else if (findCard(name) == null && findItem(name) != null) {
-            //   return findItem(name).getID();
+            return findItem(name).getName();
+        } else {
+            System.out.println("This card|item is not in the shop!");
         }
-        System.out.println("This card|item is not in the shop!");
-        return 0;
+        return null;
     }
 
-    public int searchCollection(String name) {
+    public String searchCollection(String name) {
         if (account.getCollection().findCard(name) != null && account.getCollection().findItem(name) == null) {
-            //       return account.getCollection().findCard(name).getCardID();
+            return account.getCollection().findCard(name).getName();
         } else if (account.getCollection().findCard(name) == null && account.getCollection().findItem(name) != null) {
-            //      return account.getCollection().findItem(name).getID();
+            return account.getCollection().findItem(name).getName();
         }
         System.out.println("This card|item is not in your collection!");
-        return 0;
+        return null;
     }
 
     public void buy(String name) {
@@ -160,9 +203,7 @@ public class Shop {
             if (card.getCardType() == 1) {
                 MinionAndHero minionAndHero = (MinionAndHero) card;
                 if (minionAndHero.isHero()) {
-                    System.out.printf("\t%d:Name:%s - AP:%d - HP:%d - Class:%s - Special power:%s - Sell Cost:%d\n",
-                            counterHero + 1, minionAndHero.getAP(), minionAndHero.getHP(),
-                            minionAndHero.getAttackType(), minionAndHero.getSpecialPowerType(), minionAndHero.getShopPrice());
+                    printMinion(minionAndHero, counterHero);
                     counterHero++;
                 }
             }
@@ -179,10 +220,7 @@ public class Shop {
         for (Card card : cards) {
             if (card.getCardType() == 1) {
                 MinionAndHero minionAndHero = (MinionAndHero) card;
-                System.out.printf("\tType:Minion - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n",
-                        minionAndHero.getAttackType(), minionAndHero.getAP(),
-                        minionAndHero.getHP(), minionAndHero.getManaPrice(), minionAndHero.getSpecialPowerType(),
-                        minionAndHero.getShopPrice());
+                printMinion(minionAndHero, counterCard);
                 counterCard++;
             }
             if (card.getCardType() == 0) {
