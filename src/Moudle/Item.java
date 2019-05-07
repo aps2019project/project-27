@@ -7,9 +7,14 @@ public class Item {
     private String name;
     private int price;
     private boolean isFlag;
+    private boolean isLastFlag;
     private Target target;
     private ArrayList<Buff> buffs;
     private boolean isCollectible;
+
+    public boolean isLastFlag () {
+        return isLastFlag;
+    }
 
     public boolean isCollectible() {
         return isCollectible;

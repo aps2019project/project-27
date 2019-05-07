@@ -17,10 +17,11 @@ public class Battle {
     private ArrayList<Fighter> fighters;
     private Card selectedCard;
     private Item selectedItem;
+    //0:hero    1:lastflag  2:flags
     private int battleType;
     private ArrayList<Item> flags;
     private int numberOfFlags;
-    private Item mainFlag;
+    private Item lastFlag;
     private Fighter heroP1;
     private Fighter heroP2;
     private ArrayList<Buff> buffs = new ArrayList<>();
@@ -34,6 +35,9 @@ public class Battle {
         if (in.equals("game info")) {
             currentBattle.showInfo();
             return;
+        }
+        if ( in.equalsIgnoreCase ( "new mp" ) ){
+
         }
         if (in.equals("show my minions")) {
             currentBattle.playerInTurn.showFighters();
@@ -52,6 +56,7 @@ public class Battle {
         }
         if (in.equals("use special power")) {
             //todo
+            currentBattle.useSpecialPowerHero ( controllBox.getX (),controllBox.getY () );
         }
         if (in.equals("show hand")) {
             currentBattle.playerInTurn.showHand();
@@ -179,12 +184,14 @@ public class Battle {
     public void attack(Fighter fighter, Fighter opponent) {
         int targetX = opponent.getX();
         int targetY = opponent.getY();
-        if (!isValidDistanceForAttack()) {
-            //fosh
+        int baseX = fighter.getX ();
+        int baseY = fighter.getY ();
+        if (!isValidDistanceForAttack(baseX,baseY,targetX,targetY,fighter)) {
+            System.out.println ( "distance is not valid" );
             return;
         }
         if (!fighter.CanAttack()) {
-            //fosh
+            System.out.println ( "this fighter cant attack now" );
             return;
         }
         fighter.disableCanAttack();
@@ -316,8 +323,22 @@ public class Battle {
         return false;
     }
 
-    private boolean isValidDistanceForAttack() {
-        //todo
+    private boolean isValidDistanceForAttack(int baseX,int baseY,int tarX,int tarY,Fighter fighter) {
+        if (fighter.getRange ()==0  ){
+            if ( Ground.getDistance ( tarX,tarY,baseX,baseY )!=1 ){
+                return false;
+            }
+        }
+        if (fighter.getRange ()==1  ){
+            if ( Ground.getDistance ( tarX,tarY,baseX,baseY )<2||Ground.getDistance ( tarX,tarY,baseX,baseY )>fighter.getRange () ){
+                return false;
+            }
+        }
+        if (fighter.getRange ()==2  ){
+            if ( Ground.getDistance ( tarX,tarY,baseX,baseY )>fighter.getRange () ){
+                return false;
+            }
+        }
         return true;
     }
 
@@ -392,14 +413,37 @@ public class Battle {
     }
 
     public void checkWinner() {
+        if (battleType==1) {
+            if ( player1.getFlagInHand ( ) >= 6 )
+                winner ( player1 );
+            if ( player2.getFlagInHand ( ) >= 6 )
+                winner ( player2 );
+        }
+        if ( battleType==2 ){
+            if ( player1.getFlagInHand ( ) >= numberOfFlags/2 )
+                winner ( player1 );
+            if ( player2.getFlagInHand ( ) >= numberOfFlags/2 )
+                winner ( player2 );
+        }
     }
 
     public void setMana() {
-
+        if ( currentTurn%2==0 ){
+            player2.setMana ( currentTurn/2+2 );
+        }
+        else {
+            player1.setMana ( (currentTurn-1)/2+2 );
+        }
     }
 
-    public Battle(Player player1, Player player2, int battleType) {
-
+    public Battle(Account account, Account account2) {
+        player1 = new Player ( account );
+        player2 = new Player ( account2 );
+        this.battleType=0;
+        ground= new Ground ();
+        currentTurn = 0;
+        nextTurn ();
+        currentBattle=this;
     }
 
     private void move(int targetX, int targetY, int x, int y) {
@@ -417,7 +461,16 @@ public class Battle {
             return;
         }
         if (ground.getCell(targetX, targetY).getItemOnCell() != null) {
-            playerInTurn.addItem(ground.getCell(targetX, targetY).getItemOnCell());
+            Item item = ground.getCell ( x, y ).getItemOnCell ();
+            if ( item.isFlag () ){
+
+            }
+            else if ( item.isLastFlag () ){
+
+            }
+            else if ( item.isCollectible () ){
+                playerInTurn.addItem ( item );
+            }
         }
         ground.getCell(x, y).moveInCell(fighter);
         fighter.setLocation(x, y);
@@ -466,12 +519,21 @@ public class Battle {
         for (Fighter fighter : fighters) {
             fighter.preTurnProcces();
         }
+        if ( battleType == 1 ) {
+            if ( player1.isHaveLastFlag () ){
+                player1.increaseFlagInHand ();
+            }
+            if ( player2.isHaveLastFlag () ){
+                player2.increaseFlagInHand ();
+            }
+        }
         player1.preTurnProcess ();
         player2.preTurnProcess ();
         checkBuffs();
         currentTurn++;
         setMana();
         setPlayerInTurn();
+        checkWinner ();
     }
 
     public void showInfo() {
@@ -479,11 +541,12 @@ public class Battle {
     }
 
     private void winner(Player player) {
-        player.increaseWins();
+        player.getAccount ().increaseWins();
         if (player == player1)
-            player2.increaseLosses();
-        else player1.increaseLosses();
+            player2.getAccount ().increaseLosses();
+        else player1.getAccount ().increaseLosses();
         System.out.println();
+        currentBattle = null;
     }
 
     private void setPlayerInTurn() {

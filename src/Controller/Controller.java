@@ -32,35 +32,31 @@ public class Controller {
         ControlBox controlBox = new ControlBox("Battle", type);
         type = "empty";
         if (region.equals("Battle")) {
-            int whereWeAre = 0;
             if (isValidGameInfo(input)) {
                 type = "game info";
-                whereWeAre = 1;
+            }
+            if ( input.equalsIgnoreCase ( "new multi player battle" ) ){
+                type = "new mp";
             }
             if (isValidNextCard(input)) {
                 type = "next card";
-                whereWeAre = 2;
             }
             Battle.input(new ControlBox(region, type));
             if (isValidShowMyMinion(input)) {
                 type = "show my minions";
-                whereWeAre = 3;
             }
             if (isValidShowOpMinion(input)) {
                 type = "show opponent minions";
-                whereWeAre = 4;
             }
             if (isValidShowCardInfo(input)) {
                 String[] tmp = input.split(" ");
                 type = "show card";
                 controlBox.setCardID(tmp[3]);
-                whereWeAre = 5;
             }
             if (isValidSelectCard(input)) {
                 type = "select card";
                 String[] tmp = input.toLowerCase().split(" ");
                 controlBox.setCardID(tmp[2]);
-                whereWeAre = 6;
             }
             if (isValidMove(input)) {
                 type = "move";
@@ -86,12 +82,11 @@ public class Controller {
             }
             if (isValidEndTur(input)) {
                 type = "end turn";
-                whereWeAre = 12;
             }
             //todo item
             controlBox.setType(type);
             Battle.input(controlBox);
-            return whereWeAre;
+            return 0;
         }
         if (region.equals("MainMenu")) {
             System.out.println("1.Collection");
@@ -208,16 +203,13 @@ public class Controller {
             Collection.input(controlBox);
         }
         if (region.equals("Account")) {
-            int whereWeAre = 0;
             controlBox = new ControlBox("Account", type);
             if (isValidCreateAccount(input)) {
                 type = "create account";
                 controlBox.setUserName(input.split(" ")[2]);
-                whereWeAre = 1;
             }
             if (isValidLogin(input)) {
                 type = "login";
-//                String userName = null;
                 controlBox.setUserName(input.split(" ")[1]);
                 region = "MainMenu";
             }
@@ -329,7 +321,7 @@ public class Controller {
     }
 
     private boolean isValidGameInfo(String input) {
-        return input.toLowerCase().equals("game info");
+        return input.equalsIgnoreCase ("game info");
     }
 
     private boolean isValidMove(String input) {

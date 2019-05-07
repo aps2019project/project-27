@@ -8,6 +8,7 @@ public class MinionAndHero extends Card {
     private int AP;
     private int HP;
     private int nation;
+    private int range;
     private int attackType;
     private String[] abilities;
     private ArrayList<Buff> specialPowers = new ArrayList<>();
@@ -23,6 +24,10 @@ public class MinionAndHero extends Card {
 
     public Target getSpecialPowerTarget() {
         return specialPowerTarget;
+    }
+
+    public int getRange () {
+        return range;
     }
 
     public int getSpecialPowerCoolDown() {
