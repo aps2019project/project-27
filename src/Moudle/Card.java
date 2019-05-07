@@ -10,15 +10,6 @@ public abstract class Card {
     private int manaPrice;
     //0:spell   1:minion
     private int cardType;
-    public static void addMAndH(ArrayList<MinionAndHero> minionAndHeroes){
-        for (MinionAndHero minionAndHero:minionAndHeroes){
-            cards.add(minionAndHero);
-        }
-    }
-
-    public static ArrayList<Card> getCards() {
-        return cards;
-    }
 
     public int getCardType () {
         return cardType;

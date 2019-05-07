@@ -10,6 +10,15 @@ public class Deck {
     private ArrayList<Spell> spells;
     private Item item;
 
+    public static Deck findDeck(String deckName) {
+        for (int i = 0; i < decks.size(); i++) {
+            if (decks.get(i).name.equals(deckName)) {
+                return decks.get(i);
+            }
+        }
+        return null;
+    }
+
     public String getName() {
         return name;
     }
@@ -32,15 +41,6 @@ public class Deck {
 
     public void setItem(Item item) {
         this.item = item;
-    }
-
-    public static Deck findDeck(String deckName) {
-        for (int i = 0; i < decks.size(); i++) {
-            if (decks.get(i).name.equals(deckName)) {
-                return decks.get(i);
-            }
-        }
-        return null;
     }
 
     public Card findCard(String cardName) {
@@ -66,7 +66,7 @@ public class Deck {
             if (minionAndHeroes.get(i).isHero() == true) {
                 System.out.printf("\t%d:Name:%s - AP:%d - HP:%d - Class:%s - Special power:%s - Sell Cost:%d\n",
                         i + 1, minionAndHeroes.get(i).getAP(), minionAndHeroes.get(i).getHP(),
-                        minionAndHeroes.get(i).getAttackType(), minionAndHeroes.get(i).getSpecialPowerType (), minionAndHeroes.get(i).getShopPrice());
+                        minionAndHeroes.get(i).getAttackType(), minionAndHeroes.get(i).getSpecialPowerType(), minionAndHeroes.get(i).getShopPrice());
             }
         }
         System.out.println("Items :");
@@ -78,7 +78,7 @@ public class Deck {
             if (minionAndHeroes.get(i).isHero() == false) {
                 System.out.printf("\tType:Minion - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n",
                         minionAndHeroes.get(i).getAttackType(), minionAndHeroes.get(i).getAP(),
-                        minionAndHeroes.get(i).getHP(), minionAndHeroes.get(i).getManaPrice(), minionAndHeroes.get(i).getSpecialPowerType (),
+                        minionAndHeroes.get(i).getHP(), minionAndHeroes.get(i).getManaPrice(), minionAndHeroes.get(i).getSpecialPowerType(),
                         minionAndHeroes.get(i).getShopPrice());
                 counter++;
             }
@@ -87,5 +87,9 @@ public class Deck {
             System.out.printf("\tType:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", spells.get(i).getName(), spells.get(i).getManaPrice(),
                     spells.get(i).getShopPrice());
         }
+    }
+
+    public boolean isValidDeck(Deck deck) {
+        return true;
     }
 }

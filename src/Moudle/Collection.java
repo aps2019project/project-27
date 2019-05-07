@@ -6,13 +6,11 @@ import java.util.ArrayList;
 
 public class Collection {
     private static ArrayList<Collection> collections;
+    private static Collection currentCollection = Account.getMainAccount().getCollection();
     private Account account;
-    private ArrayList<Card> cards;
-    private ArrayList<MinionAndHero> minionAndHeroes;
-    private ArrayList<Spell> spells;
+    private ArrayList<Card> cards = new ArrayList<>();
     private ArrayList<Item> items;
     private ArrayList<Deck> decks;
-    private static Collection currentCollection;
 
     public static int input(ControlBox controlBox) {
         String in = controlBox.getType();
@@ -55,6 +53,20 @@ public class Collection {
         return 0;
     }
 
+    public static void exit() {
+
+    }
+
+    public static void save() {
+
+    }
+
+    public static void help() {
+        System.out.printf("exit\nshow\nsearch [card name | item name]\nsave\ncreate deck[deck name]\ndelete deck [deck name]\n" +
+                "add[card id|card id|hero id]to deck[deck name]\nremove[card id|card id|hero id]from deck[deck name]\n" +
+                "validate deck[deck name]\nselect deck[deck name]\nshow all decks\nshow deck[deck name]\nhelp\n");
+    }
+
     public ArrayList<Card> getCards() {
         return cards;
     }
@@ -63,37 +75,45 @@ public class Collection {
         return items;
     }
 
-    public static void exit() {
-
-    }
-
     public void show() {
         System.out.println("Heroes :");
-        for (int i = 0; i < minionAndHeroes.size(); i++) {
-            if (minionAndHeroes.get(i).isHero() == true) {
-                System.out.printf("\t%d:Name:%s - AP:%d - HP:%d - Class:%s - Special power:%s - Sell Cost:%d\n",
-                        i + 1, minionAndHeroes.get(i).getAP(), minionAndHeroes.get(i).getHP(),
-                        minionAndHeroes.get(i).getAttackType(), minionAndHeroes.get(i).getSpecialPowerType(), minionAndHeroes.get(i).getShopPrice());
+        int counterHero = 0;
+        for (Card card : cards) {
+            if (card.getCardType() == 1) {
+                MinionAndHero minionAndHero = (MinionAndHero) card;
+                if (minionAndHero.isHero()) {
+                    System.out.printf("\t%d:Name:%s - AP:%d - HP:%d - Class:%s - Special power:%s - Sell Cost:%d\n",
+                            counterHero + 1, minionAndHero.getAP(), minionAndHero.getHP(),
+                            minionAndHero.getAttackType(), minionAndHero.getSpecialPowerType(), minionAndHero.getShopPrice());
+                    counterHero++;
+                }
             }
+
         }
         System.out.println("Items :");
-        for (int i = 0; i < items.size(); i++) {
-            System.out.printf("\t%d:Name:%d - Desc: - Sell Cost:%d\n", i + 1 /*description*/, items.get(i).getPrice());
+        int counterItem = 0;
+        for (Item item : items) {
+            System.out.printf("\t%d:Name:%d - Desc: - Sell Cost:%d\n", counterItem + 1 /*description*/, items.get(counterItem).getPrice());
+            counterItem++;
         }
         System.out.println("Cards :");
-        int counter = 0;
-        for (int i = 0; i < minionAndHeroes.size(); i++) {
-            if (minionAndHeroes.get(i).isHero() == false) {
+        int counterCard = 0;
+        for (Card card : cards) {
+            if (card.getCardType() == 1) {
+                MinionAndHero minionAndHero = (MinionAndHero) card;
                 System.out.printf("\tType:Minion - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n",
-                        minionAndHeroes.get(i).getAttackType(), minionAndHeroes.get(i).getAP(),
-                        minionAndHeroes.get(i).getHP(), minionAndHeroes.get(i).getManaPrice(), minionAndHeroes.get(i).getSpecialPowerType(),
-                        minionAndHeroes.get(i).getShopPrice());
-                counter++;
+                        minionAndHero.getAttackType(), minionAndHero.getAP(),
+                        minionAndHero.getHP(), minionAndHero.getManaPrice(), minionAndHero.getSpecialPowerType(),
+                        minionAndHero.getShopPrice());
+                counterCard++;
+            }
+            if (card.getCardType() == 0) {
+                System.out.printf("\tType:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", card.getName(), card.getManaPrice(),
+                        card.getShopPrice());
             }
         }
-        for (int i = 0; i < spells.size(); i++) {
-            System.out.printf("\tType:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", spells.get(i).getName(), spells.get(i).getManaPrice(),
-                    spells.get(i).getShopPrice());
+        if (counterCard == 0 && counterHero == 0 && counterItem == 0) {
+            System.out.println("There is nothing to show!");
         }
     }
 
@@ -105,10 +125,6 @@ public class Collection {
         } else if (Card.findCard(name) == null && Item.findItem(name) != null) {
             //    System.out.printf("Your item id is %d\n", Item.findItem(name).getID());
         }
-    }
-
-    public static void save() {
-
     }
 
     public Card findCard(String cardName) {
@@ -244,11 +260,5 @@ public class Collection {
         } else {
             findDeck(deckName).show();
         }
-    }
-
-    public static void help() {
-        System.out.printf("exit\nshow\nsearch [card name | item name]\nsave\ncreate deck[deck name]\ndelete deck [deck name]\n" +
-                "add[card id|card id|hero id]to deck[deck name]\nremove[card id|card id|hero id]from deck[deck name]\n" +
-                "validate deck[deck name]\nselect deck[deck name]\nshow all decks\nshow deck[deck name]\nhelp\n");
     }
 }
