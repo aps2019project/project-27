@@ -11,10 +11,12 @@ public class Controller {
 		//load phase
         Load.loadAccounts ();
         Load.loadMinionAndHeros ();
+        Card.addMAndH(MinionAndHero.getMinionAndHeroes());
 		Controller controller = new Controller ( "Account" );
 		int out=0;
 		ArrayList<MinionAndHero> minionAndHeroes = MinionAndHero.getMinionAndHeroes ();
 		ArrayList<Account> accounts = Account.getAccounts ();
+		ArrayList<Card> cards = Card.getCards();
 		while ( out!=-1){
 			int a=1;
 			out = controller.input();
@@ -62,23 +64,28 @@ public class Controller {
                 type = "move";
                 String[] tmp = input.split(" ");
                 setLocation((ControlBox) controlBox, tmp[2]);
+                whereWeAre = 7;
             }
             if (isValidAttack(input)) {
                 type = "attack";
                 controlBox.setCardID(input.toLowerCase().split(" ")[1]);
+                whereWeAre = 8;
             }
             if (useSpecialPower(input)) {
                 type = "use special power";
                 String location = input.toLowerCase().split(" ")[3];
                 setLocation((ControlBox) controlBox, location);
+                whereWeAre = 9;
             }
             if (isValidInsert(input)) {
                 type = "insert";
                 String[] tmp = input.toLowerCase().split(" ");
                 setLocation(controlBox, tmp[3]);
+                whereWeAre = 10;
             }
             if (isValidShowHand(input)) {
                 type = "show hand";
+                whereWeAre = 11;
             }
             if (isValidEndTur(input)) {
                 type = "end turn";
@@ -94,19 +101,22 @@ public class Controller {
             System.out.println("3.Battle");
             System.out.println("4.Exit");
             System.out.println("5.Help");
-            if (input.equalsIgnoreCase ("Enter collection")) {
+            if (input.equalsIgnoreCase("Enter collection")) {
                 region = "Collection";
+                System.out.println("You entered the collection!");
             }
-            if (input.equalsIgnoreCase ("Enter shop")) {
+            if (input.equalsIgnoreCase("Enter shop")) {
                 region = "Shop";
+                System.out.println("You entered the shop!");
             }
-            if (input.equalsIgnoreCase ("Enter battle")) {
+            if (input.equalsIgnoreCase("Enter battle")) {
                 region = "Battle";
+                System.out.println("You entered the battle!");
             }
-            if (input.equalsIgnoreCase ("Exit")) {
+            if (input.equalsIgnoreCase("Exit")) {
                 return -1;
             }
-            if (input.equalsIgnoreCase ("Enter help")) {
+            if (input.equalsIgnoreCase("Enter help")) {
                 System.out.println("1.Collection");
                 System.out.println("2.Shop");
                 System.out.println("3.Battle");
@@ -226,10 +236,10 @@ public class Controller {
                 type = "logout";
             }
             controlBox.setType(type);
-            int o =  Account.input(controlBox);
-            if ( o==2 ){
-            	region = "MainMenu";
-			}
+            int o = Account.input(controlBox);
+            if (o == 2) {
+                region = "MainMenu";
+            }
             return o;
         }
         return 0;

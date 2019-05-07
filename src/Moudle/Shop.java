@@ -5,11 +5,10 @@ import Controller.ControlBox;
 import java.util.ArrayList;
 
 public class Shop {
-    private Account account;
-    private ArrayList<MinionAndHero> heroesAndMinions;
-    private ArrayList<Card> cards;
+    private static Shop currentShop = new Shop();
+    private Account account = Account.getMainAccount();
+    private ArrayList<Card> cards = Card.getCards();
     private ArrayList<Item> items;
-    private static Shop currentShop;
 
     public static void input(ControlBox controlBox) {
         String in = controlBox.getType();
@@ -33,6 +32,10 @@ public class Shop {
         }
     }
 
+    public static void setCurrentShop(Account account) {
+
+    }
+
     public Account getAccount() {
         return account;
     }
@@ -41,13 +44,13 @@ public class Shop {
         this.account = account;
     }
 
-    public ArrayList<MinionAndHero> getHeroesAndMinions() {
-        return heroesAndMinions;
-    }
-
-    public void setHeroesAndMinions(ArrayList<MinionAndHero> heroesAndMinions) {
-        this.heroesAndMinions = heroesAndMinions;
-    }
+//    public ArrayList<MinionAndHero> getHeroesAndMinions() {
+//        return heroesAndMinions;
+//    }
+//
+//    public void setHeroesAndMinions(ArrayList<MinionAndHero> heroesAndMinions) {
+//        this.heroesAndMinions = heroesAndMinions;
+//    }
 
     public ArrayList<Card> getCards() {
         return cards;
@@ -121,6 +124,7 @@ public class Shop {
             } else {
                 account.getCollection().addToCards(findCard(name));
                 account.spendMoney(findCard(name).getShopPrice());
+                System.out.println("The card's been bought!");
             }
         } else if (findCard(name) == null && findItem(name) != null) {
             if (account.getMoney() < findItem(name).getPrice()) {
@@ -130,6 +134,7 @@ public class Shop {
             } else {
                 account.getCollection().addToItems(findItem(name));
                 account.spendMoney(findItem(name).getPrice());
+                System.out.println("The item's been bought!");
             }
         }
     }
@@ -140,15 +145,54 @@ public class Shop {
         } else if (findCard(name) != null && findItem(name) == null) {
             account.getCollection().removeFromCards(findCard(name));
             account.addMoney(findCard(name).getShopPrice());
+            System.out.println("The card's been sold!");
         } else if (findCard(name) == null && findItem(name) != null) {
             account.getCollection().removeFromItems(findItem(name));
             account.addMoney(findItem(name).getPrice());
+            System.out.println("The item's been sold!");
         }
     }
 
     public void show() {
-        System.out.println(cards);
-        System.out.println(items);
+        System.out.println("Heroes :");
+        int counterHero = 0;
+        for (Card card : cards) {
+            if (card.getCardType() == 1) {
+                MinionAndHero minionAndHero = (MinionAndHero) card;
+                if (minionAndHero.isHero()) {
+                    System.out.printf("\t%d:Name:%s - AP:%d - HP:%d - Class:%s - Special power:%s - Sell Cost:%d\n",
+                            counterHero + 1, minionAndHero.getAP(), minionAndHero.getHP(),
+                            minionAndHero.getAttackType(), minionAndHero.getSpecialPowerType(), minionAndHero.getShopPrice());
+                    counterHero++;
+                }
+            }
+
+        }
+        System.out.println("Items :");
+        int counterItem = 0;
+        for (Item item : items) {
+            System.out.printf("\t%d:Name:%d - Desc: - Sell Cost:%d\n", counterItem + 1 /*description*/, items.get(counterItem).getPrice());
+            counterItem++;
+        }
+        System.out.println("Cards :");
+        int counterCard = 0;
+        for (Card card : cards) {
+            if (card.getCardType() == 1) {
+                MinionAndHero minionAndHero = (MinionAndHero) card;
+                System.out.printf("\tType:Minion - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n",
+                        minionAndHero.getAttackType(), minionAndHero.getAP(),
+                        minionAndHero.getHP(), minionAndHero.getManaPrice(), minionAndHero.getSpecialPowerType(),
+                        minionAndHero.getShopPrice());
+                counterCard++;
+            }
+            if (card.getCardType() == 0) {
+                System.out.printf("\tType:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", card.getName(), card.getManaPrice(),
+                        card.getShopPrice());
+            }
+        }
+        if (counterCard == 0 && counterHero == 0 && counterItem == 0) {
+            System.out.println("There is nothing to show!");
+        }
     }
 
     public void help() {
