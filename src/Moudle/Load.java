@@ -8,11 +8,9 @@ import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 public class Load {
-	public static void saveAccounts () {
-	}
 	public static void loadMinionAndHeros() throws FileNotFoundException {
 		Gson gson = CreatGson.getGson ();
-		Reader reader = new FileReader ( "MinionAndHeros.json" );
+		Reader reader = new FileReader ( "MinionAndHeroes.json" );
 		MinionAndHeroTmp tmp = gson.fromJson ( reader, MinionAndHeroTmp.class);
 		MinionAndHero.setMinionAndHeroes ( tmp.minionAndHeroes );
 	}

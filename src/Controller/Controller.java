@@ -10,11 +10,13 @@ public class Controller {
 	public static void main (String[] args) throws FileNotFoundException {
 		//load phase
         Load.loadAccounts ();
+        Load.loadMinionAndHeros ();
 		Controller controller = new Controller ( "Account" );
 		int out=0;
+		ArrayList<MinionAndHero> minionAndHeroes = MinionAndHero.getMinionAndHeroes ();
 		ArrayList<Account> accounts = Account.getAccounts ();
 		while ( out!=-1){
-			Account account;
+			int a=1;
 			out = controller.input();
 		}
 	}

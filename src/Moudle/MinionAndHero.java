@@ -17,6 +17,10 @@ public class MinionAndHero extends Card {
     private int specialPowerType;
     private Target specialPowerTarget;
 
+    public static ArrayList<MinionAndHero> getMinionAndHeroes () {
+        return minionAndHeroes;
+    }
+
     public Target getSpecialPowerTarget() {
         return specialPowerTarget;
     }
