@@ -2,6 +2,7 @@ package Moudle;
 
 import Controller.ControlBox;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -87,7 +88,13 @@ public class Account {
         return decks;
     }
 
-
+    public static Account findAccount(String userName){
+        for ( Account account:accounts ){
+            if ( account.userName.equals ( userName ) )
+                return account;
+        }
+        return null;
+    }
     public Deck getMainDeck() {
         return mainDeck;
     }
@@ -110,19 +117,6 @@ public class Account {
 
     public int getLosses() {
         return losses;
-    }
-
-    public static Account findAccount(String userName) {
-        if (accounts.size() == 0) {
-            return null;
-        } else {
-            for (int i = 0; i < accounts.size(); i++) {
-                if (accounts.get(i).userName.equals(userName)) {
-                    return accounts.get(i);
-                }
-            }
-        }
-        return null;
     }
 
     public static void createAccount(String userName) {
@@ -170,7 +164,11 @@ public class Account {
     }
 
     public static void save() {
-        //todo
+        try {
+            Load.saveAccount ();
+        } catch (IOException e) {
+            e.printStackTrace ( );
+        }
     }
 
     public static void logout() {

@@ -4,23 +4,61 @@ import View.View;
 
 import java.util.ArrayList;
 
-public class Player extends Account {
-    private ArrayList<Fighter> fighters;
+public class Player {
+    private String UserName;
+    private ArrayList<Fighter> fighters = new ArrayList<> (  );
     private Hand hand;
     private int mana;
+    private Account account;
     private ArrayList<Item> collectedItems;
     private ArrayList<Card> graveYard;
     private Item mainItem;
+    private boolean haveLastFlag;
     private ArrayList<Buff> buffs;
+    private int flagInHand=0;
+    public void increaseFlagInHand(){
+        flagInHand++;
+    }
+
+    public int getFlagInHand () {
+        return flagInHand;
+    }
+
+    public boolean isHaveLastFlag () {
+        return haveLastFlag;
+    }
+
+    public void setHaveLastFlag ( boolean haveLastFlag ) {
+        this.haveLastFlag = haveLastFlag;
+    }
+
     public int getMana () {
         return mana;
     }
     public void preTurnProcess(){
         if ( hand.getCards ().size ()<5 ){
             hand.addCard ();
+            hand.setNextCard ();
         }
     }
-    public void addToBuffs(Buff buff){
+
+    public void setMana ( int mana ) {
+        this.mana = mana;
+    }
+
+    public Player( Account account){
+        this.account = account;
+        hand = new Hand ( account.getMainDeck () );
+    }
+    public Account getAccount () {
+        return account;
+    }
+
+    public String getUserName () {
+        return UserName;
+    }
+
+    public void addToBuffs( Buff buff){
         mana+=buff.getChangeMana ();
         buffs.add ( buff );
     }
@@ -47,11 +85,14 @@ public class Player extends Account {
     public ArrayList<Fighter> getFighters () {
         return fighters;
     }
+    public void addFighter(Fighter fighter){
+        fighters.add ( fighter );
+    }
 
     public boolean equals ( Object object){
         if ( object.getClass () == Player.class )
         {
-            Account account = (Player)object;
+            Account account = this.getAccount ();
             if ( account.getUserName ().equals ( this.getUserName ()) )
                 return true;
             return false;

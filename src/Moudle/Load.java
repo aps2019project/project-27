@@ -2,12 +2,19 @@ package Moudle;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Reader;
+
+import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 public class Load {
+	public static void saveAccount() throws IOException {
+		Gson gson = CreatGson.getGson ();
+		AccountTmp accountTmp= new AccountTmp ();
+		accountTmp.accounts=Account.getAccounts ();
+		FileWriter writer = new FileWriter ( "Accounts.json" );
+		gson.toJson ( accountTmp,writer );
+		System.out.println ( "saved!\n" );
+	}
 	public static void loadMinionAndHeros() throws FileNotFoundException {
 		Gson gson = CreatGson.getGson ();
 		Reader reader = new FileReader ( "MinionAndHeroes.json" );

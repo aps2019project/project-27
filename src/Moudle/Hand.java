@@ -12,7 +12,9 @@ public class Hand extends Deck {
         handCards.add ( nextCard );
         nextCard = null;
     }
-    private void setNextCard(){
+    public void setNextCard(){
+        if ( nextCard!=null )
+            return;
         int size = deck.getCards ().size ();
         int i = ( int ) (Math.random ()%size);
         nextCard = deck.getCards ().get ( i );
@@ -20,7 +22,9 @@ public class Hand extends Deck {
     public void addItem() {
 
     }
-
+    public Hand(Deck deck){
+        this.deck = deck;
+    }
     public void show() {
         //todo
         for (Card card : handCards) {
@@ -39,10 +43,6 @@ public class Hand extends Deck {
 
     public Item getItem() {
         return this.handItem;
-    }
-
-    public void selectNextCard() {
-
     }
 
     public Card getNextCard() {

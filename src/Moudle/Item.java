@@ -4,21 +4,33 @@ import java.util.ArrayList;
 
 public class Item {
     private static ArrayList<Item> items;
+    private static Item lastFlag;
+    private static Item normalFlag;
     private String name;
     private int price;
     private boolean isFlag;
+    private boolean isLastFlag;
     private Target target;
     private ArrayList<Buff> buffs;
     private boolean isCollectible;
 
+    public boolean isLastFlag () {
+        return isLastFlag;
+    }
+    public static Item getLastFlag () {
+        return lastFlag;
+    }
+
+    public static Item getNormalFlag () {
+        return normalFlag;
+    }
+
     public boolean isCollectible() {
         return isCollectible;
     }
-
     public ArrayList<Buff> getBuffs() {
         return buffs;
     }
-
     public static Item findItem(String name) {
         for (Item item : items) {
             if (item.name.equals(name))

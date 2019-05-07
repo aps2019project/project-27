@@ -26,7 +26,12 @@ public class Cell {
     public void moveFromCell() {
 
     }
-
+    public void setItemOnCell(Item itemOnCell){
+        this.itemOnCell = itemOnCell;
+    }
+    public void removeItem(){
+        itemOnCell = null;
+    }
     public void moveInCell(Object object) {
     }
 }

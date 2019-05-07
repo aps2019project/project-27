@@ -11,6 +11,7 @@ public class Fighter extends MinionAndHero {
 	private transient int specialPowerCoolDown;
 	private ArrayList<Fighter> attackedFighter = new ArrayList<> (  );
 	private boolean canCounterAttack;
+	private boolean haveLastFlag;
 	private boolean canMove;
 	private boolean canAttack;
 	private int holyDefence;
@@ -24,6 +25,14 @@ public class Fighter extends MinionAndHero {
 	@Override
 	public int getSpecialPowerCoolDown () {
 		return specialPowerCoolDown;
+	}
+
+	public boolean isHaveLastFlag () {
+		return haveLastFlag;
+	}
+
+	public void setHaveLastFlag ( boolean haveLastFlag ) {
+		this.haveLastFlag = haveLastFlag;
 	}
 
 	public void preTurnProcces(){
