@@ -4,18 +4,12 @@ import java.util.ArrayList;
 
 public class Spell extends Card {
 	private static ArrayList<Spell> spells = new ArrayList<Spell> (  );
-	private ArrayList<Buff> mainBuffs;
 	private ArrayList<Buff> buffs;
 	private Target target;
-
+	//todo
 	public ArrayList<Buff> getBuffs () {
 		return buffs;
 	}
-
-	public ArrayList<Buff> getMainBuffs () {
-		return mainBuffs;
-	}
-
 	public Target getTarget () {
 		return target;
 	}

@@ -30,11 +30,12 @@ public class Buff {
 		cellX=x;
 		cellY=y;
 	}
-
 	public int getChangeMana () {
 		return changeMana;
 	}
-
+	public boolean isABuff(){
+		return exeptABuff;
+	}
 	public boolean isDisableNegativeBuffs () {
 		return disableNegativeBuffs;
 	}

@@ -146,12 +146,10 @@ public class Battle {
                 return;
             }
             ArrayList<Fighter> fighters = spell.getTarget().targetFighters(this, x, y, playerInTurn);
-            for (Buff buff : spell.getMainBuffs()) {
-                buff(buff, fighters, x, y);
-            }
             for (Buff buff : spell.getBuffs()) {
                 buff(buff, fighters, x, y);
-                buffs.add(buff);
+                if ( buff.isExeptABuff () )
+                    buffs.add(buff);
             }
         }
         if (type == 1) {
