@@ -34,6 +34,10 @@ public class Controller {
         ControlBox controlBox = new ControlBox("Battle", type);
         type = "empty";
         if (region.equals("Battle")) {
+            if ( isValidSelectUser ( input ) ){
+                type = "select user";
+                controlBox.setUserName ( input.split ( " " )[2] );
+            }
             if (isValidGameInfo(input)) {
                 type = "game info";
             }
@@ -64,28 +68,23 @@ public class Controller {
                 type = "move";
                 String[] tmp = input.split(" ");
                 setLocation((ControlBox) controlBox, tmp[2]);
-                whereWeAre = 7;
             }
             if (isValidAttack(input)) {
                 type = "attack";
                 controlBox.setCardID(input.toLowerCase().split(" ")[1]);
-                whereWeAre = 8;
             }
             if (useSpecialPower(input)) {
                 type = "use special power";
                 String location = input.toLowerCase().split(" ")[3];
                 setLocation((ControlBox) controlBox, location);
-                whereWeAre = 9;
             }
             if (isValidInsert(input)) {
                 type = "insert";
                 String[] tmp = input.toLowerCase().split(" ");
                 setLocation(controlBox, tmp[3]);
-                whereWeAre = 10;
             }
             if (isValidShowHand(input)) {
                 type = "show hand";
-                whereWeAre = 11;
             }
             if (isValidEndTur(input)) {
                 type = "end turn";
@@ -356,6 +355,9 @@ public class Controller {
 
     private boolean isValidNextCard(String input) {
         return input.equalsIgnoreCase("show next card");
+    }
+    private boolean isValidSelectUser(String input){
+	    return input.toLowerCase ().matches ( "select+ +user+ +[a-z0-9._]" );
     }
 
 }
