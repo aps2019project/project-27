@@ -39,6 +39,7 @@ public class Account {
         }
         if (in.equals("login")) {
             if (login(controlBox.getUserName())) {
+                Controller.setRegion("MainMenu");
                 return 2;
             }
         }
