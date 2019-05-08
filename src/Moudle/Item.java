@@ -25,6 +25,9 @@ public class Item {
         return normalFlag;
     }
 
+    public Target getTarget () {
+        return target;
+    }
     public boolean isCollectible() {
         return isCollectible;
     }
@@ -54,7 +57,9 @@ public class Item {
         }
         return null;
     }
-
+    public void showItem(){
+        //todo
+    }
     public static void setItems(ArrayList<Item> items) {
         Item.items = items;
     }

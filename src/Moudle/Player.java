@@ -24,6 +24,10 @@ public class Player {
         return flagInHand;
     }
 
+    public ArrayList<Item> getCollectedItems () {
+        return collectedItems;
+    }
+
     public boolean isHaveLastFlag () {
         return haveLastFlag;
     }
@@ -104,7 +108,9 @@ public class Player {
     }
 
     public void showCollectables() {
-
+        for ( Item item:collectedItems ){
+            item.showItem ();
+        }
     }
     public void showFighters(){
         for ( Fighter fighter:fighters ){

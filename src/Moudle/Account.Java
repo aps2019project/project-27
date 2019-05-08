@@ -39,6 +39,7 @@ public class Account {
         }
         if (in.equals("login")) {
             if (login(controlBox.getUserName())) {
+                Controller.setRegion("MainMenu");
                 return 2;
             }
         }
@@ -55,6 +56,63 @@ public class Account {
             help();
         }
         return 0;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Collection getCollection() {
+        return collection;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public void addMoney(int money) {
+        this.money += money;
+    }
+
+    public void spendMoney(int money) {
+        this.money -= money;
+    }
+
+    public ArrayList<Deck> getDecks() {
+        return decks;
+    }
+
+
+    public Deck getMainDeck() {
+        return mainDeck;
+    }
+
+    public void setMainDeck(Deck mainDeck) {
+        this.mainDeck = mainDeck;
+    }
+
+    public void increaseWins() {
+        wins++;
+    }
+
+    public int getWins() {
+        return wins;
+    }
+
+    public void increaseLosses() {
+        losses++;
+    }
+
+    public int getLosses() {
+        return losses;
     }
 
     public static Account findAccount(String userName) {
@@ -131,62 +189,6 @@ public class Account {
     }
 
     public static void help() {
-        System.out.print("create account [user name]\nlogin [user name]\nshow leaderboard\nsave\nlogout\nhelp\n");
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public Collection getCollection() {
-        return collection;
-    }
-
-    public int getMoney() {
-        return money;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
-    }
-
-    public void addMoney(int money) {
-        this.money += money;
-    }
-
-    public void spendMoney(int money) {
-        this.money -= money;
-    }
-
-    public ArrayList<Deck> getDecks() {
-        return decks;
-    }
-
-    public Deck getMainDeck() {
-        return mainDeck;
-    }
-
-    public void setMainDeck(Deck mainDeck) {
-        this.mainDeck = mainDeck;
-    }
-
-    public void increaseWins() {
-        wins++;
-    }
-
-    public int getWins() {
-        return wins;
-    }
-
-    public void increaseLosses() {
-        losses++;
-    }
-
-    public int getLosses() {
-        return losses;
+        System.out.print("create account [user name}\nlogin [user name]\nshow leaderboard\nsave\nlogout\nhelp\n");
     }
 }

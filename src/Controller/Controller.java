@@ -51,6 +51,18 @@ public class Controller {
             if ( input.equalsIgnoreCase ( "new multi player battle" ) ){
                 type = "new mp";
             }
+            if ( isValidShowItems ( input ) ){
+                type = "show items";
+            }
+            if ( isValidShowItemInfo ( input ) ){
+                type = "show item";
+                controlBox.setCardName ( input.split ( " " )[2] );
+            }
+            if ( isValidUseItem ( input ) ){
+                type = "use item";
+                controlBox.setCardName ( input.split ( " " )[1] );
+                setLocation ( controlBox,input.split ( " " )[2] );
+            }
             if (isValidNextCard(input)) {
                 type = "next card";
             }
@@ -374,5 +386,13 @@ public class Controller {
     private boolean isValidNewGame(String input){
 	    return input.matches ( "start+ +multiplayer+ +game+ +[0|1|2]+ *+\\d*+" );
     }
-
+    private boolean isValidShowItems(String input){
+        return input.toLowerCase ().matches ( "show+ +items" );
+    }
+    private boolean isValidShowItemInfo(String input){
+        return input.toLowerCase ().matches ( "show+ +info+ +[a-z0-9]" );
+    }
+    private boolean isValidUseItem(String input){
+        return input.toLowerCase ().matches ( "use+ +item+ +[0-9a-z]+ +[(]\\d,\\d[)]" );
+    }
 }
