@@ -49,7 +49,21 @@ public class Battle {
 
 		}
 		if ( in.equalsIgnoreCase ( "new mp" ) ) {
-
+			//todo
+		}
+		if(in.equals ( "show item" )){
+			currentBattle.showItem ( controllBox.getCardName () );
+		}
+		if ( in.equals ( "use item" ) ){
+			Item item = Item.findItem ( controllBox.getCardName (), currentBattle.playerInTurn.getCollectedItems ());
+			if ( item == null ) {
+				System.out.println ( "you havent this item" );
+				return;
+			}
+			currentBattle.useItem ( item,controllBox.getX (),controllBox.getY () );
+		}
+		if ( in.equals ( "show items" ) ){
+			currentBattle.playerInTurn.showCollectables ();
 		}
 		if ( in.equals ( "show my minions" ) ) {
 			currentBattle.playerInTurn.showFighters ( );
@@ -90,7 +104,15 @@ public class Battle {
 			currentBattle.attack ( currentBattle.selectedFighter , opponent );
 		}
 	}
-
+	private void showItem (String name){
+		Item item = Item.findItem (name,playerInTurn.getCollectedItems ());
+		if ( item == null ) {
+			System.out.println ("you havent this item");
+		}
+		else {
+			item.showItem ();
+		}
+	}
 	private void setInGroundCard ( String cardID ) {
 		Fighter fighter = findFighter ( cardID , playerInTurn );
 		if ( fighter == null ) {
@@ -144,7 +166,19 @@ public class Battle {
 		}
 		return false;
 	}
+	private void useItem(Item item ,int x,int y){
+		if (!item.getTarget ().isValidTarget ( currentBattle,x,y,playerInTurn )){
+			System.out.println ( "invalid target" );
+			return;
+		}
+		ArrayList<Fighter> fighters = item.getTarget ().targetFighters ( currentBattle,x,y,playerInTurn );
+		for ( Buff buff:item.getBuffs () ){
+			buff ( buff,fighters,x,y );
+			if ( buff.isExeptABuff () )
+				buffs.add ( buff );
+		}
 
+	}
 	public void insert ( String cardName , int x , int y ) {
 		Card card = Card.findCard ( cardName , playerInTurn.getHand ( ).getCards ( ) );
 		if ( card == null ) {

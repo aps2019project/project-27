@@ -3,7 +3,7 @@ package Moudle;
 import java.util.ArrayList;
 
 public class Item {
-    private static ArrayList<Item> items;
+    private static ArrayList<Item> items = new ArrayList<>();
     private static Item lastFlag;
     private static Item normalFlag;
     private String name;
@@ -14,23 +14,34 @@ public class Item {
     private ArrayList<Buff> buffs;
     private boolean isCollectible;
 
-    public boolean isLastFlag () {
+    public static ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public boolean isLastFlag() {
         return isLastFlag;
     }
-    public static Item getLastFlag () {
+
+    public static Item getLastFlag() {
         return lastFlag;
     }
 
-    public static Item getNormalFlag () {
+    public static Item getNormalFlag() {
         return normalFlag;
+    }
+
+    public Target getTarget() {
+        return target;
     }
 
     public boolean isCollectible() {
         return isCollectible;
     }
+
     public ArrayList<Buff> getBuffs() {
         return buffs;
     }
+
     public static Item findItem(String name) {
         for (Item item : items) {
             if (item.name.equals(name))
@@ -53,6 +64,10 @@ public class Item {
                 return item;
         }
         return null;
+    }
+
+    public void showItem() {
+        //todo
     }
 
     public static void setItems(ArrayList<Item> items) {

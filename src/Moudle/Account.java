@@ -10,15 +10,24 @@ import java.util.Scanner;
 
 public class Account {
     private static ArrayList<Account> accounts = new ArrayList<>();
-    private static Account mainAccount;
+    private static Account mainAccount = new Account();
     private String userName;
     private String passWord;
-    private Collection collection;
-    private int money;
-    private ArrayList<Deck> decks;
+    private Collection collection = new Collection();
+    private int money = 1000;
+    private ArrayList<Deck> decks = new ArrayList<>();
     private Deck mainDeck;
     private int wins;
     private int losses;
+
+    public Deck findDeck(String name) {
+        for (Deck deck : decks) {
+            if (deck.getName().equals(name)) {
+                return deck;
+            }
+        }
+        return null;
+    }
 
     public static Account getMainAccount() {
         return mainAccount;
@@ -40,6 +49,11 @@ public class Account {
         if (in.equals("login")) {
             if (login(controlBox.getUserName())) {
                 Controller.setRegion("MainMenu");
+                System.out.println("1.Collection");
+                System.out.println("2.Shop");
+                System.out.println("3.Battle");
+                System.out.println("4.Exit");
+                System.out.println("5.Help");
                 return 2;
             }
         }
@@ -82,7 +96,10 @@ public class Account {
             account.userName = userName;
             account.passWord = passWord;
             accounts.add(account);
-            System.out.println("created!");
+//            Collection collection = new Collection();
+//            Collection.getCollections().add(collection);
+//            account.setCollection(collection);
+            System.out.println("Account's been created!");
         }
 
     }
@@ -96,7 +113,7 @@ public class Account {
             Scanner scanner = new Scanner(System.in);
             String passWord = scanner.next();
             if (passWord.equals(findAccount(userName).passWord)) {
-                System.out.println("login successful!");
+                System.out.println("Login successful!");
                 return true;
             } else {
                 System.out.println("Wrong password!");
@@ -141,6 +158,10 @@ public class Account {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setCollection(Collection collection) {
+        this.collection = collection;
     }
 
     public Collection getCollection() {

@@ -3,11 +3,11 @@ package Moudle;
 import java.util.ArrayList;
 
 public class Deck {
-    private static ArrayList<Deck> decks;
+    private static ArrayList<Deck> decks = new ArrayList<>();
     private String name;
-    private ArrayList<Card> cards;
-    private ArrayList<MinionAndHero> minionAndHeroes;
-    private ArrayList<Spell> spells;
+    private ArrayList<Card> cards = new ArrayList<>();
+    //    private ArrayList<MinionAndHero> minionAndHeroes;
+//    private ArrayList<Spell> spells;
     private Item item;
 
     public static Deck findDeck(String deckName) {
@@ -61,32 +61,43 @@ public class Deck {
     }
 
     public void show() {
-        System.out.println("Heroes :");
-        for (int i = 0; i < minionAndHeroes.size(); i++) {
-            if (minionAndHeroes.get(i).isHero() == true) {
-                System.out.printf("\t%d:Name:%s - AP:%d - HP:%d - Class:%s - Special power:%s - Sell Cost:%d\n",
-                        i + 1, minionAndHeroes.get(i).getAP(), minionAndHeroes.get(i).getHP(),
-                        minionAndHeroes.get(i).getAttackType(), minionAndHeroes.get(i).getSpecialPowerType(), minionAndHeroes.get(i).getShopPrice());
+        System.out.println("\tHeroes :");
+        int counterHero = 0;
+        for (Card card : cards) {
+            if (card.getCardType() == 1) {
+                MinionAndHero minionAndHero = (MinionAndHero) card;
+                if (minionAndHero.isHero()) {
+                    printMinion(minionAndHero, counterHero);
+                    counterHero++;
+                }
             }
         }
-        System.out.println("Items :");
-        System.out.printf("\t%d:Name:%d - Desc: - Sell Cost:%d\n", 1 /*description*/, item.getPrice());
+        System.out.println("\tItems :");
+        if (item != null) {
+            System.out.printf("\t\t1 : Name:%s - Desc: - Sell Cost:%d\n", item.getName(), /*description*/
+                    item.getPrice());
+        }
+        System.out.println("\tCards :");
+        int counterCard = 0;
+        for (Card card : cards) {
+            if (card.getCardType() == 1) {
+                MinionAndHero minionAndHero = (MinionAndHero) card;
+                printMinion(minionAndHero, counterCard);
+                counterCard++;
+            }
+            if (card.getCardType() == 0) {
+                System.out.printf("\t\t%d : Type:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", counterCard + 1, card.getName(),
+                        card.getManaPrice(), card.getShopPrice());
+            }
+        }
+    }
 
-        System.out.println("Cards :");
-        int counter = 0;
-        for (int i = 0; i < minionAndHeroes.size(); i++) {
-            if (minionAndHeroes.get(i).isHero() == false) {
-                System.out.printf("\tType:Minion - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n",
-                        minionAndHeroes.get(i).getAttackType(), minionAndHeroes.get(i).getAP(),
-                        minionAndHeroes.get(i).getHP(), minionAndHeroes.get(i).getManaPrice(), minionAndHeroes.get(i).getSpecialPowerType(),
-                        minionAndHeroes.get(i).getShopPrice());
-                counter++;
-            }
-        }
-        for (int i = 0; i < spells.size(); i++) {
-            System.out.printf("\tType:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", spells.get(i).getName(), spells.get(i).getManaPrice(),
-                    spells.get(i).getShopPrice());
-        }
+
+    private static void printMinion(MinionAndHero minionAndHero, int counter) {
+        System.out.printf("\t\t%d : Type:Minion - Name : %s - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n",
+                counter + 1, minionAndHero.getName(), minionAndHero.getAttackType(), minionAndHero.getAP(),
+                minionAndHero.getHP(), minionAndHero.getManaPrice(), minionAndHero.getSpecialPowerType(),
+                minionAndHero.getShopPrice());
     }
 
     public boolean isValidDeck(Deck deck) {

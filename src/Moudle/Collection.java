@@ -5,52 +5,56 @@ import Controller.ControlBox;
 import java.util.ArrayList;
 
 public class Collection {
-    private static ArrayList<Collection> collections;
-    private static Collection currentCollection = Account.getMainAccount().getCollection();
+    private static ArrayList<Collection> collections = new ArrayList<>();
+    //    private static Collection currentCollection = Account.getMainAccount().getCollection();
     private Account account;
     private ArrayList<Card> cards = new ArrayList<>();
-    private ArrayList<Item> items;
+    private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<Deck> decks;
 
     public static int input(ControlBox controlBox) {
         String in = controlBox.getType();
         if (in.equals("show")) {
-            currentCollection.show();
+            Account.getMainAccount().getCollection().show();
         }
         if (in.equals("searchCollection")) {
-            currentCollection.search(controlBox.getCardName());
+            Account.getMainAccount().getCollection().search(controlBox.getCardName());
         }
         if (in.equals("save")) {
             save();
         }
         if (in.equals("createDeck")) {
-            currentCollection.createDeck(controlBox.getDeckName());
+            Account.getMainAccount().getCollection().createDeck(controlBox.getDeckName());
         }
         if (in.equals("deleteDeck")) {
-            currentCollection.deleteDeck(controlBox.getDeckName());
+            Account.getMainAccount().getCollection().deleteDeck(controlBox.getDeckName());
         }
         if (in.equals("add")) {
-            currentCollection.add(controlBox.getCardName(), controlBox.getDeckName());
+            Account.getMainAccount().getCollection().add(controlBox.getCardName(), controlBox.getDeckName());
         }
         if (in.equals("remove")) {
-            currentCollection.remove(controlBox.getCardName(), controlBox.getDeckName());
+            Account.getMainAccount().getCollection().remove(controlBox.getCardName(), controlBox.getDeckName());
         }
         if (in.equals("validateDeck")) {
-            currentCollection.validateDeck(controlBox.getDeckName());
+            Account.getMainAccount().getCollection().validateDeck(controlBox.getDeckName());
         }
         if (in.equals("selectDeck")) {
-            currentCollection.selectDeck(controlBox.getDeckName());
+            Account.getMainAccount().getCollection().selectDeck(controlBox.getDeckName());
         }
         if (in.equals("showAllDecks")) {
-            currentCollection.showAllDecks();
+            Account.getMainAccount().getCollection().showAllDecks();
         }
         if (in.equals("showDeck")) {
-            currentCollection.showDeck(controlBox.getDeckName());
+            Account.getMainAccount().getCollection().showDeck(controlBox.getDeckName());
         }
         if (in.equals("help")) {
             help();
         }
         return 0;
+    }
+
+    public static ArrayList<Collection> getCollections() {
+        return collections;
     }
 
     public static void exit() {
@@ -78,52 +82,51 @@ public class Collection {
     public void show() {
         System.out.println("Heroes :");
         int counterHero = 0;
-        for (Card card : cards) {
+        for (Card card : Account.getMainAccount().getCollection().getCards()) {
             if (card.getCardType() == 1) {
                 MinionAndHero minionAndHero = (MinionAndHero) card;
                 if (minionAndHero.isHero()) {
-                    System.out.printf("\t%d:Name:%s - AP:%d - HP:%d - Class:%s - Special power:%s - Sell Cost:%d\n",
-                            counterHero + 1, minionAndHero.getAP(), minionAndHero.getHP(),
-                            minionAndHero.getAttackType(), minionAndHero.getSpecialPowerType(), minionAndHero.getShopPrice());
+                    printMinion(minionAndHero, counterHero);
                     counterHero++;
                 }
             }
-
         }
         System.out.println("Items :");
         int counterItem = 0;
-        for (Item item : items) {
-            System.out.printf("\t%d:Name:%d - Desc: - Sell Cost:%d\n", counterItem + 1 /*description*/, items.get(counterItem).getPrice());
+        for (Item item : Account.getMainAccount().getCollection().getItems()) {
+            System.out.printf("\t%d : Name:%s - Desc: - Sell Cost:%d\n", counterItem + 1 /*description*/,
+                    item.getName(), item.getPrice());
             counterItem++;
         }
         System.out.println("Cards :");
         int counterCard = 0;
-        for (Card card : cards) {
+        for (Card card : Account.getMainAccount().getCollection().getCards()) {
             if (card.getCardType() == 1) {
                 MinionAndHero minionAndHero = (MinionAndHero) card;
-                System.out.printf("\tType:Minion - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n",
-                        minionAndHero.getAttackType(), minionAndHero.getAP(),
-                        minionAndHero.getHP(), minionAndHero.getManaPrice(), minionAndHero.getSpecialPowerType(),
-                        minionAndHero.getShopPrice());
+                printMinion(minionAndHero, counterCard);
                 counterCard++;
             }
             if (card.getCardType() == 0) {
-                System.out.printf("\tType:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", card.getName(), card.getManaPrice(),
-                        card.getShopPrice());
+                System.out.printf("\t%d : Type:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", counterCard + 1, card.getName(),
+                        card.getManaPrice(), card.getShopPrice());
             }
-        }
-        if (counterCard == 0 && counterHero == 0 && counterItem == 0) {
-            System.out.println("There is nothing to show!");
         }
     }
 
+    private static void printMinion(MinionAndHero minionAndHero, int counter) {
+        System.out.printf("\t%d : Type:Minion - Name : %s - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n",
+                counter + 1, minionAndHero.getName(), minionAndHero.getAttackType(), minionAndHero.getAP(),
+                minionAndHero.getHP(), minionAndHero.getManaPrice(), minionAndHero.getSpecialPowerType(),
+                minionAndHero.getShopPrice());
+    }
+
     public void search(String name) {
-        if (Card.findCard(name) == null && Item.findItem(name) == null) {
+        if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) == null) {
             System.out.println("There is no such card|item in collection");
-        } else if (Card.findCard(name) != null && Item.findItem(name) == null) {
-            //  System.out.printf("Your card id is %d\n", Card.findCard(name).getCardID());
-        } else if (Card.findCard(name) == null && Item.findItem(name) != null) {
-            //    System.out.printf("Your item id is %d\n", Item.findItem(name).getID());
+        } else if (Account.getMainAccount().getCollection().findCard(name) != null && Account.getMainAccount().getCollection().findItem(name) == null) {
+            System.out.println(Account.getMainAccount().getCollection().findCard(name).getName());
+        } else if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) != null) {
+            System.out.println(Account.getMainAccount().getCollection().findItem(name).getName());
         }
     }
 
@@ -171,94 +174,119 @@ public class Collection {
     }
 
     public void createDeck(String deckName) {
-        if (findDeck(deckName) != null) {
+        if (Account.getMainAccount().findDeck(deckName) != null) {
             System.out.println("There is already a deck with this name!");
         } else {
             Deck deck = new Deck();
             deck.setName(deckName);
-            decks.add(deck);
+            Account.getMainAccount().getDecks().add(deck);
+            System.out.println("Deck's been created!");
         }
     }
 
     public void deleteDeck(String deckName) {
-        if (findDeck(deckName) == null) {
+        if (Account.getMainAccount().findDeck(deckName) == null) {
             System.out.println("There is no such deck in your collection!");
         } else {
-            decks.remove(findDeck(deckName));
+            Account.getMainAccount().getDecks().remove(Account.getMainAccount().findDeck(deckName));
+            System.out.println("Deck's been deleted!");
         }
     }
 
     public void add(String name, String deckName) {
-        if (findCard(name) == null && findItem(name) == null) {
+        if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) == null) {
             System.out.println("This card|item doesn't exist in the collection!");
-        } else if (findCard(name) != null && findItem(name) == null) {
-            if (findDeck(deckName).findCard(name) != null) {
+        } else if (Account.getMainAccount().getCollection().findCard(name) != null && Account.getMainAccount().getCollection().findItem(name) == null) {
+            if (Account.getMainAccount().findDeck(deckName).findCard(name) != null) {
                 System.out.println("This card is already in deck!");
             } else {
-                if (findDeck(deckName).getCards().size() >= 21) {
+                if (Account.getMainAccount().findDeck(deckName).getCards().size() >= 21) {
                     System.out.println("You can't add anymore cards to deck!");
                 } else {
-                    findDeck(deckName).getCards().add(findCard(name));
+                    Account.getMainAccount().findDeck(deckName).getCards().add(findCard(name));
+                    System.out.println("The card's been added to the deck!");
                 }
             }
-        } else if (findCard(name) == null && findItem(name) != null) {
-            if (findDeck(deckName).getItem() != null) {
+        } else if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) != null) {
+            if (Account.getMainAccount().findDeck(deckName).getItem() != null) {
                 System.out.println("You can't add anymore items to deck!");
             } else {
-                findDeck(deckName).setItem(findItem(name));
+                Account.getMainAccount().findDeck(deckName).setItem(findItem(name));
+                System.out.println("The item's been added to the deck!");
             }
         }
     }
 
     public void remove(String name, String deckName) {
-        if (findDeck(deckName).findCard(name) == null && findDeck(deckName).getItem() == null) {
+        if (Account.getMainAccount().findDeck(deckName).findCard(name) == null && Account.getMainAccount().findDeck(deckName).getItem() == null) {
             System.out.println("This card|item doesn't exist in deck!");
-        } else if (findDeck(deckName).findCard(name) != null && findDeck(deckName).getItem() == null) {
-            findDeck(deckName).removeCard(findCard(name));
-        } else if (findDeck(deckName).findCard(name) == null && findDeck(deckName).getItem() != null) {
-            findDeck(deckName).removeItem(findItem(name));
+        } else if (Account.getMainAccount().findDeck(deckName).findCard(name) != null && Account.getMainAccount().findDeck(deckName).getItem() == null) {
+            Account.getMainAccount().findDeck(deckName).removeCard(findCard(name));
+            System.out.println("The card's been removed from the deck!");
+        } else if (Account.getMainAccount().findDeck(deckName).findCard(name) == null && Account.getMainAccount().findDeck(deckName).getItem() != null) {
+            Account.getMainAccount().findDeck(deckName).removeItem(findItem(name));
+            System.out.println("The item's been removed from the deck!");
         }
     }
 
     public void validateDeck(String deckName) {
-
+        if (Account.getMainAccount().findDeck(deckName).getCards().size() == 21) {
+            int counter = 0;
+            for (Card card : Account.getMainAccount().findDeck(deckName).getCards()) {
+                if (card.getCardType() == 1) {
+                    MinionAndHero minionAndHero = (MinionAndHero) card;
+                    if (minionAndHero.isHero()) {
+                        counter++;
+                    }
+                }
+            }
+            if (counter == 1) {
+                System.out.println("This deck is valid!");
+            }
+        } else {
+            System.out.println("This deck is not valid!");
+        }
     }
 
     public void selectDeck(String deckName) {
-        if (findDeck(deckName) == null) {
+        if (Account.getMainAccount().findDeck(deckName) == null) {
             System.out.println("There is no such deck!");
         } else {
-            account.setMainDeck(findDeck(deckName));
+            Account.getMainAccount().setMainDeck(Account.getMainAccount().findDeck(deckName));
+            System.out.println("The deck's been selected!");
         }
     }
 
     public void showAllDecks() {
-        if (account.getMainDeck() != null) {
-            System.out.println("1:" + account.getMainDeck().getName() + ":");
-            account.getMainDeck().show();
-            int counter = 2;
-            for (int i = 0; i < decks.size(); i++) {
-                if (decks.get(i) != account.getMainDeck()) {
-                    System.out.println(counter + ":" + decks.get(i).getName() + ":");
-                    decks.get(i).show();
-                    counter++;
-                }
+        if (Account.getMainAccount().getMainDeck() == null) {
+            int i = 0;
+            for (Deck deck : Account.getMainAccount().getDecks()) {
+                System.out.printf("%d : %s :\n", i + 1, deck.getName());
+                deck.show();
+                i++;
             }
         } else {
-            int counter = 1;
-            for (int i = 0; i < decks.size(); i++) {
-                System.out.println(counter + " " + decks.get(i).getName() + ":");
-                decks.get(i).show();
-                counter++;
+            System.out.printf("1 : %s :\n", Account.getMainAccount().getMainDeck().getName());
+            Account.getMainAccount().getMainDeck().show();
+            int i = 1;
+            for (Deck deck : Account.getMainAccount().getDecks()) {
+                if (!deck.getName().equals(Account.getMainAccount().getMainDeck().getName())) {
+                    System.out.printf("%d : %s :\n", i + 1, deck.getName());
+                    deck.show();
+                    i++;
+                }
             }
+        }
+        if (Account.getMainAccount().getDecks().size() == 0) {
+            System.out.println("There are no decks to show!");
         }
     }
 
     public void showDeck(String deckName) {
-        if (findDeck(deckName) == null) {
+        if (Account.getMainAccount().findDeck(deckName) == null) {
             System.out.println("There is no such deck!");
         } else {
-            findDeck(deckName).show();
+            Account.getMainAccount().findDeck(deckName).show();
         }
     }
 }
