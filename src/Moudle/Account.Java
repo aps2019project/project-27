@@ -1,6 +1,7 @@
 package Moudle;
 
 import Controller.ControlBox;
+import Controller.Controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,67 +57,17 @@ public class Account {
         return 0;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public Collection getCollection() {
-        return collection;
-    }
-
-    public int getMoney() {
-        return money;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
-    }
-
-    public void addMoney(int money) {
-        this.money += money;
-    }
-
-    public void spendMoney(int money) {
-        this.money -= money;
-    }
-
-    public ArrayList<Deck> getDecks() {
-        return decks;
-    }
-
-    public static Account findAccount(String userName){
-        for ( Account account:accounts ){
-            if ( account.userName.equals ( userName ) )
-                return account;
+    public static Account findAccount(String userName) {
+        if (accounts.size() == 0) {
+            return null;
+        } else {
+            for (int i = 0; i < accounts.size(); i++) {
+                if (accounts.get(i).userName.equals(userName)) {
+                    return accounts.get(i);
+                }
+            }
         }
         return null;
-    }
-    public Deck getMainDeck() {
-        return mainDeck;
-    }
-
-    public void setMainDeck(Deck mainDeck) {
-        this.mainDeck = mainDeck;
-    }
-
-    public void increaseWins() {
-        wins++;
-    }
-
-    public int getWins() {
-        return wins;
-    }
-
-    public void increaseLosses() {
-        losses++;
-    }
-
-    public int getLosses() {
-        return losses;
     }
 
     public static void createAccount(String userName) {
@@ -124,12 +75,13 @@ public class Account {
             System.out.println("There is an account with this userName!");
         } else {
             Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter passWord!");
             String passWord = scanner.next();
             Account account = new Account();
             account.userName = userName;
             account.passWord = passWord;
             accounts.add(account);
-            System.out.println("created");
+            System.out.println("created!");
         }
 
     }
@@ -139,9 +91,11 @@ public class Account {
             System.out.println("There is no account with this userName!");
             return false;
         } else {
+            System.out.println("Enter passWord!");
             Scanner scanner = new Scanner(System.in);
             String passWord = scanner.next();
             if (passWord.equals(findAccount(userName).passWord)) {
+                System.out.println("login successful!");
                 return true;
             } else {
                 System.out.println("Wrong passWord!");
@@ -177,6 +131,62 @@ public class Account {
     }
 
     public static void help() {
-        System.out.print("create account [user name}\nlogin [user name]\nshow leaderboard\nsave\nlogout\nhelp\n");
+        System.out.print("create account [user name]\nlogin [user name]\nshow leaderboard\nsave\nlogout\nhelp\n");
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Collection getCollection() {
+        return collection;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public void addMoney(int money) {
+        this.money += money;
+    }
+
+    public void spendMoney(int money) {
+        this.money -= money;
+    }
+
+    public ArrayList<Deck> getDecks() {
+        return decks;
+    }
+
+    public Deck getMainDeck() {
+        return mainDeck;
+    }
+
+    public void setMainDeck(Deck mainDeck) {
+        this.mainDeck = mainDeck;
+    }
+
+    public void increaseWins() {
+        wins++;
+    }
+
+    public int getWins() {
+        return wins;
+    }
+
+    public void increaseLosses() {
+        losses++;
+    }
+
+    public int getLosses() {
+        return losses;
     }
 }

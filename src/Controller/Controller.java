@@ -7,28 +7,35 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Controller {
-	public static void main (String[] args) throws FileNotFoundException {
-		//load phase
-        Load.loadAccounts ();
-        Load.loadMinionAndHeros ();
+    private static String input;
+    private static String region;
+    private static String type;
+    private final Scanner scanner = new Scanner(System.in);
+
+    private Controller(String region) {
+        this.region = region;
+    }
+
+    public static void setRegion(String region) {
+        Controller.region = region;
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        //load phase
+        Load.loadAccounts();
+        Load.loadMinionAndHeros();
         Card.addMAndH(MinionAndHero.getMinionAndHeroes());
-		Controller controller = new Controller ( "Account" );
-		int out=0;
-		ArrayList<MinionAndHero> minionAndHeroes = MinionAndHero.getMinionAndHeroes ();
-		ArrayList<Account> accounts = Account.getAccounts ();
-		ArrayList<Card> cards = Card.getCards();
-		while ( out!=-1){
-			int a=1;
-			out = controller.input();
-		}
-	}
-	private final Scanner scanner = new Scanner ( System.in );
-	private String input;
-	private String region;
-	private String type;
-	private Controller(String region){
-		this.region = region;
-	}
+        Controller controller = new Controller("Account");
+        int out = 0;
+        ArrayList<MinionAndHero> minionAndHeroes = MinionAndHero.getMinionAndHeroes();
+        ArrayList<Account> accounts = Account.getAccounts();
+        ArrayList<Card> cards = Card.getCards();
+        while (out != -1) {
+            int a = 1;
+            out = controller.input();
+        }
+    }
+
     public int input() {
         input = scanner.nextLine();
         ControlBox controlBox = new ControlBox("Battle", type);
@@ -100,6 +107,10 @@ public class Controller {
             System.out.println("3.Battle");
             System.out.println("4.Exit");
             System.out.println("5.Help");
+            if (input.equalsIgnoreCase("Enter account")){
+                region = "Account";
+                System.out.println("You entered account!");
+            }
             if (input.equalsIgnoreCase("Enter collection")) {
                 region = "Collection";
                 System.out.println("You entered the collection!");
@@ -115,19 +126,19 @@ public class Controller {
             if (input.equalsIgnoreCase("Exit")) {
                 return -1;
             }
-            if (input.equalsIgnoreCase("Enter help")) {
-                System.out.println("1.Collection");
-                System.out.println("2.Shop");
-                System.out.println("3.Battle");
-                System.out.println("4.Exit");
-                System.out.println("5.Help");
-            }
+//            if (input.equalsIgnoreCase("Enter help")) {
+//                System.out.println("1.Collection");
+//                System.out.println("2.Shop");
+//                System.out.println("3.Battle");
+//                System.out.println("4.Exit");
+//                System.out.println("5.Help");
+//            }
         }
         if (region.equals("Shop")) {
             controlBox = new ControlBox("Shop", type);
             if (input.equalsIgnoreCase("exit")) {
                 type = "exit";
-                region = "Menu";
+                region = "MainMenu";
             }
             if (input.equalsIgnoreCase("show collection")) {
                 type = "showCollection";
@@ -220,7 +231,7 @@ public class Controller {
             if (isValidLogin(input)) {
                 type = "login";
                 controlBox.setUserName(input.split(" ")[1]);
-                region = "MainMenu";
+
             }
             if (input.equals("show leaderboard")) {
                 type = "show leaderboard";
@@ -232,7 +243,7 @@ public class Controller {
                 type = "logout";
             }
             if (input.equals("help")) {
-                type = "logout";
+                type = "help";
             }
             controlBox.setType(type);
             int o = Account.input(controlBox);
@@ -243,6 +254,7 @@ public class Controller {
         }
         return 0;
     }
+
 
     private void setLocation(ControlBox controlBox, String location) {
         controlBox.setX(Integer.parseInt(String.valueOf(location.charAt(1))));

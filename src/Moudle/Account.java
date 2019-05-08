@@ -2,7 +2,6 @@ package Moudle;
 
 import Controller.ControlBox;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -38,6 +37,7 @@ public class Account {
         }
         if (in.equals("login")) {
             if (login(controlBox.getUserName())) {
+                Controller.setRegion("MainMenu");
                 return 2;
             }
         }
@@ -88,13 +88,7 @@ public class Account {
         return decks;
     }
 
-    public static Account findAccount(String userName){
-        for ( Account account:accounts ){
-            if ( account.userName.equals ( userName ) )
-                return account;
-        }
-        return null;
-    }
+
     public Deck getMainDeck() {
         return mainDeck;
     }
@@ -119,17 +113,31 @@ public class Account {
         return losses;
     }
 
+    public static Account findAccount(String userName) {
+        if (accounts.size() == 0) {
+            return null;
+        } else {
+            for (int i = 0; i < accounts.size(); i++) {
+                if (accounts.get(i).userName.equals(userName)) {
+                    return accounts.get(i);
+                }
+            }
+        }
+        return null;
+    }
+
     public static void createAccount(String userName) {
         if (findAccount(userName) != null) {
             System.out.println("There is an account with this userName!");
         } else {
             Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter passWord!");
             String passWord = scanner.next();
             Account account = new Account();
             account.userName = userName;
             account.passWord = passWord;
             accounts.add(account);
-            System.out.println("created");
+            System.out.println("created!");
         }
 
     }
@@ -139,9 +147,11 @@ public class Account {
             System.out.println("There is no account with this userName!");
             return false;
         } else {
+            System.out.println("Enter passWord!");
             Scanner scanner = new Scanner(System.in);
             String passWord = scanner.next();
             if (passWord.equals(findAccount(userName).passWord)) {
+                System.out.println("login successful!");
                 return true;
             } else {
                 System.out.println("Wrong passWord!");

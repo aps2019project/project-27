@@ -90,6 +90,7 @@ public class Deck {
     }
 
     public boolean isValidDeck(Deck deck) {
+//        todo
         return true;
     }
 }
