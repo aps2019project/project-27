@@ -7,9 +7,23 @@ public class ControlBox {
     private String userName;
     private String cardID;
     private int x, y;
+    private int battleType;
+    private int numberOfFlags;
     private String deckName;
 
-    public void setDeckName(String deckName) {
+    public int getBattleType () {
+        return battleType;
+    }
+    public void setBattleType ( int battleType ) {
+        this.battleType = battleType;
+    }
+    public int getNumberOfFlags () {
+        return numberOfFlags;
+    }
+    public void setNumberOfFlags ( int numberOfFlags ) {
+        this.numberOfFlags = numberOfFlags;
+    }
+    public void setDeckName( String deckName) {
         this.deckName = deckName;
     }
 

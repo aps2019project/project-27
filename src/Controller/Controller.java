@@ -359,5 +359,8 @@ public class Controller {
     private boolean isValidSelectUser(String input){
 	    return input.toLowerCase ().matches ( "select+ +user+ +[a-z0-9._]" );
     }
+    private boolean isValidNewGame(String input){
+	    return input.matches ( "start+ +multiplayer+ +game+ +[0|1|2]+ *+\\d*+" );
+    }
 
 }
