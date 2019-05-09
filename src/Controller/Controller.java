@@ -24,12 +24,12 @@ public class Controller {
         //Load.loadAccounts();
         Load.loadMinionAndHeros();
         Load.loadSpells ();
+        Load.loadItems ();
         Card.addMAndH(MinionAndHero.getMinionAndHeroes());
         Card.addSpells ( Spell.getSpells () );
         Controller controller = new Controller("Account");
         int out = 0;
         while (out != -1) {
-            int a = 1;
             out = controller.input();
         }
     }
