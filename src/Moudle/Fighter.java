@@ -48,6 +48,7 @@ public class Fighter extends MinionAndHero {
 		if ( buff.getAgeType ()==3 ){
 			return;
 		}
+		HP-=buff.getPoison ();
 		AP+=buff.getChangeAP ();
 		HP+=buff.getChangeHP ();
 		holyDefence+=buff.getChangeHollynes ();
