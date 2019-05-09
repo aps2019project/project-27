@@ -8,6 +8,8 @@ public class Buff {
 	private ArrayList<Fighter> fighters;
 	private int cellX,cellY;
 	private boolean isCellBuff;
+	//0:hell	1:holy		2:poison
+	private int cellEffectType;
 	private boolean isPositive;
 	private int changeAP;
 	private int changeHP;
@@ -33,6 +35,11 @@ public class Buff {
 	public int getChangeMana () {
 		return changeMana;
 	}
+
+	public int getCellEffectType() {
+		return cellEffectType;
+	}
+
 	public boolean isABuff(){
 		return exeptABuff;
 	}
@@ -68,7 +75,6 @@ public class Buff {
 	public Buff getCellBuff () {
 		return cellBuff;
 	}
-
 	public void setFighters ( ArrayList<Fighter> fighters ) {
 		this.fighters = fighters;
 	}

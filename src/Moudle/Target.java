@@ -35,6 +35,10 @@ public class Target {
 			return true;
 		return false;
 	}
+	public ArrayList<Cell> targetCells(Battle battle,int x,int y){
+		return null;
+		//todo
+	}
 	public ArrayList<Fighter> targetFighters(Battle battle,int x,int y,Player player){
 		ArrayList<Fighter> targets = new ArrayList<> (  );
 		Ground ground = battle.getGround ();

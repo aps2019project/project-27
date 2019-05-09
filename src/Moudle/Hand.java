@@ -19,6 +19,11 @@ public class Hand extends Deck {
         int i = ( int ) (Math.random ()%size);
         nextCard = deck.getCards ().get ( i );
     }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
     public void addItem() {
 
     }

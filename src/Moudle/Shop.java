@@ -89,8 +89,10 @@ public class Shop {
         for (Card card : Account.getMainAccount().getCollection().getCards()) {
             if (card.getCardType() == 1) {
                 MinionAndHero minionAndHero = (MinionAndHero) card;
-                printMinion(minionAndHero, counterCard);
-                counterCard++;
+                if (!minionAndHero.isHero()) {
+                    printMinion(minionAndHero, counterCard);
+                    counterCard++;
+                }
             }
             if (card.getCardType() == 0) {
                 System.out.printf("\t%d : Type:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", counterCard + 1, card.getName(),
@@ -206,8 +208,10 @@ public class Shop {
         for (Card card : cards) {
             if (card.getCardType() == 1) {
                 MinionAndHero minionAndHero = (MinionAndHero) card;
-                printMinion(minionAndHero, counterCard);
-                counterCard++;
+                if (!minionAndHero.isHero()) {
+                    printMinion(minionAndHero, counterCard);
+                    counterCard++;
+                }
             }
             if (card.getCardType() == 0) {
                 System.out.printf("\tType:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", card.getName(), card.getManaPrice(),
