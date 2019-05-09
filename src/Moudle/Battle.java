@@ -82,7 +82,6 @@ public class Battle {
             currentBattle.setInGroundCard(controllBox.getCardID());
         }
         if (in.equals("end turn")) {
-            int a = 1;
             currentBattle.nextTurn();
         }
         if (in.equals("use special power")) {
@@ -205,7 +204,6 @@ public class Battle {
             return;
         }
         int type = card.getCardType();
-        int a = 1;
         if (type == 0) {
             Spell spell = (Spell) card;
             if (!spell.getTarget().isValidTarget(this, x, y, playerInTurn)) {
@@ -326,11 +324,10 @@ public class Battle {
             hero = heroP1;
         else hero = heroP2;
         if (hero.getSpecialPowerType() != 8) {
-            //fosh
             return;
         }
         if (hero.getSpecialPowerCoolDown() < ((MinionAndHero) hero).getSpecialPowerCoolDown()) {
-            //fosh
+			System.out.println ("you cant use it now because of cool down" );
             return;
         }
         if (!hero.getSpecialPowerTarget().isValidTarget(this, x, y, playerInTurn)) {
@@ -532,7 +529,6 @@ public class Battle {
             return;
         }
         ground = new Ground();
-        int a = 1;
         for (Card card : player1.getHand().getDeck().getCards()) {
             if (card.getCardType() == 1) {
                 MinionAndHero minionAndHero = (MinionAndHero) card;

@@ -29,7 +29,6 @@ public class Controller {
         Controller controller = new Controller("Account");
         int out = 0;
         while (out != -1) {
-            int a = 1;
             out = controller.input();
         }
     }
@@ -42,7 +41,6 @@ public class Controller {
             if (isValidSelectUser(input)) {
                 type = "select user";
                 controlBox.setUserName(input.split(" ")[2]);
-                int a=1;
             }
             if (isValidGameInfo(input)) {
                 type = "game info";
@@ -103,7 +101,7 @@ public class Controller {
                 type = "insert";
                 String[] tmp = input.split(" ");
                 controlBox.setCardName ( tmp[1] );
-                setLocation(controlBox, tmp[3]);int a=1+2;
+                setLocation(controlBox, tmp[3]);
             }
             if (isValidShowHand(input)) {
                 type = "show hand";
