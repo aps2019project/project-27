@@ -9,6 +9,7 @@ public class Hand extends Deck {
     private Card nextCard;
 
     public void addCard() {
+        setNextCard ();
         handCards.add ( nextCard );
         nextCard = null;
     }
@@ -28,10 +29,15 @@ public class Hand extends Deck {
 
     }
     public Hand(Deck deck){
+        handCards = new ArrayList<Card> (  );
         this.deck = deck;
     }
     public void show() {
         //todo
+        if(handCards.size ()==0){
+            System.out.println ("hand is empty" );
+            return;
+        }
         for (Card card : handCards) {
             card.showCard();
         }
@@ -55,9 +61,7 @@ public class Hand extends Deck {
     }
 
     public void removeCard() {
-
     }
-
     public void removeItem() {
 
     }

@@ -5,9 +5,9 @@ import java.lang.Math;
 public class Ground {
     private Cell[][] cells = new Cell[5][9];
     public Ground(){
-        for ( Cell[] cell:cells ){
-            for ( Cell cell1:cell ){
-                cell1=new Cell ();
+        for ( int i=0;i<5;i++ ){
+            for ( int j=0;j<9;j++ ){
+                cells[i][j] = new Cell ();
             }
         }
     }

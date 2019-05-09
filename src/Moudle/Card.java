@@ -14,11 +14,15 @@ public abstract class Card {
 
  }
     public static void addMAndH ( ArrayList<MinionAndHero> minionAndHeroes ) {
-    for ( MinionAndHero minionAndHero:minionAndHeroes ){
-        cards.add ( minionAndHero );
+        for ( MinionAndHero minionAndHero:minionAndHeroes ){
+            cards.add ( minionAndHero );
+        }
     }
+    public static void addSpells(ArrayList<Spell> spells){
+        for ( Spell spell:spells ){
+            cards.add ( spell );
+        }
     }
-
     public int getCardType () {
         return cardType;
     }
@@ -32,10 +36,12 @@ public abstract class Card {
     }
     public void showCard (){
         if ( this.getCardType ()==1 ){
-            View.showFighter ( ( Fighter ) this );
+        	Fighter fighter = ( Fighter ) this;
+            View.showMinion ( fighter );
         }
         if(this.getCardType ()==0){
-            View.showSpell ( ( Spell ) this );
+        	Spell spell = ( Spell ) this;
+            View.showSpell ( spell );
         }
     }
     protected Card( String name, int shopPrice, int manaPrice, int cardType) {
