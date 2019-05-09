@@ -14,7 +14,7 @@ public class Account {
     private String userName;
     private String passWord;
     private Collection collection = new Collection();
-    private int money = 1000;
+    private int money = 10000;
     private ArrayList<Deck> decks = new ArrayList<>();
     private Deck mainDeck;
     private int wins;

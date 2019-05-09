@@ -12,11 +12,15 @@ public abstract class Card {
     private int cardType;
 
     public static void addMAndH ( ArrayList<MinionAndHero> minionAndHeroes ) {
-    for ( MinionAndHero minionAndHero:minionAndHeroes ){
-        cards.add ( minionAndHero );
+        for ( MinionAndHero minionAndHero:minionAndHeroes ){
+            cards.add ( minionAndHero );
+        }
     }
+    public static void addSpells(ArrayList<Spell> spells){
+        for ( Spell spell:spells ){
+            cards.add ( spell );
+        }
     }
-
     public int getCardType () {
         return cardType;
     }

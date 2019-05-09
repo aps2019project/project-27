@@ -6,6 +6,11 @@ public class Spell extends Card {
 	private static ArrayList<Spell> spells = new ArrayList<Spell> (  );
 	private ArrayList<Buff> buffs;
 	private Target target;
+
+	public static ArrayList<Spell> getSpells () {
+		return spells;
+	}
+
 	//todo
 	public ArrayList<Buff> getBuffs () {
 		return buffs;

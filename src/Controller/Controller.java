@@ -25,6 +25,7 @@ public class Controller {
         Load.loadMinionAndHeros();
         Load.loadSpells ();
         Card.addMAndH(MinionAndHero.getMinionAndHeroes());
+        Card.addSpells ( Spell.getSpells () );
         Controller controller = new Controller("Account");
         int out = 0;
         ArrayList<MinionAndHero> minionAndHeroes = MinionAndHero.getMinionAndHeroes();
