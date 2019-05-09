@@ -1,8 +1,6 @@
 package Controller;
 
 import Moudle.*;
-import sun.applet.Main;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,6 +23,7 @@ public class Controller {
         //load phase
         Load.loadAccounts();
         Load.loadMinionAndHeros();
+        Load.loadSpells ();
         Card.addMAndH(MinionAndHero.getMinionAndHeroes());
         Controller controller = new Controller("Account");
         int out = 0;
