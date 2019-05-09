@@ -430,6 +430,7 @@ public class Battle {
 		if ( buff.getIsCellBuff ( ) ) {
 			for (Cell cell:target.targetCells(this,x,y)){
 				cell.addCellEffect(buff);
+				buff.addToCell ( cell );
 			}
 			ground.getCell ( x , y ).addCellEffect ( buff.getCellBuff ( ) );
 
@@ -631,7 +632,8 @@ public class Battle {
 
 	private void removeBuff ( Buff buff ) {
 		if ( buff.getIsCellBuff ( ) ) {
-			//todo
+			for ( Cell cell:buff.getCells () )
+			cell.removeCellEffect ( buff );
 		} else {
 			for ( Fighter fighter : buff.getFighters ( ) ) {
 				fighter.removeFromBuff ( buff );

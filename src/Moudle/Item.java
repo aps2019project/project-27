@@ -4,8 +4,18 @@ import java.util.ArrayList;
 
 public class Item {
     private static ArrayList<Item> items = new ArrayList<>();
-    private static Item lastFlag;
-    private static Item normalFlag;
+    private static Item lastFlag=new Item ();
+    {
+        lastFlag.isLastFlag = true;
+        lastFlag.isFlag = false;
+        lastFlag.name = "last flag";
+    }
+    private static Item normalFlag = new Item ();
+    {
+        lastFlag.isLastFlag = false;
+        lastFlag.isFlag = true;
+        lastFlag.name = "normal flag";
+    }
     private String name;
     private int price;
     private boolean isFlag;

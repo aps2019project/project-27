@@ -36,13 +36,22 @@ public class Target {
 		return false;
 	}
 	public ArrayList<Cell> targetCells(Battle battle,int x,int y){
-		return null;
-		//todo
+		ArrayList<Cell> cells = new ArrayList<> (  );
+		Ground ground = battle.getGround ();
+		if ( targetType==0 ){
+			for ( int i=0;i<rectangleLength;i++ ){
+				for ( int j=0;j<rectangleLength;j++ ){
+					if ( ground.getCell ( x+i, y+j ).getCardOnCell () != null ) {
+						cells.add ( ground.getCell ( x+i,y+j ) );
+					}
+				}
+			}
+		}
+		return cells;
 	}
 	public ArrayList<Fighter> targetFighters(Battle battle,int x,int y,Player player){
 		ArrayList<Fighter> targets = new ArrayList<> (  );
 		Ground ground = battle.getGround ();
-		//todo random selection
 		if ( targetType==0 ){
 			for ( int i=0;i<rectangleLength;i++ ){
 				for ( int j=0;j<rectangleLength;j++ ){
@@ -89,6 +98,19 @@ public class Target {
 					}
 				}
 			}
+		}
+		if ( targetType==6 ){
+			int i;
+			int j;
+			if ( Math.random ()%2==0 ){
+				i=1;
+			}
+			else i=-1;
+			if ( Math.random ()%2==0 ){
+				j=1;
+			}
+			else j=-1;
+			targets.add ( (Fighter) ground.getCell ( x+i,y+j ).getCardOnCell () );
 		}
 		return targets;
 	}

@@ -1,8 +1,8 @@
 package Controller;
 
 import Moudle.*;
+
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Controller {
@@ -28,10 +28,6 @@ public class Controller {
         Card.addSpells ( Spell.getSpells () );
         Controller controller = new Controller("Account");
         int out = 0;
-        ArrayList<MinionAndHero> minionAndHeroes = MinionAndHero.getMinionAndHeroes();
-        ArrayList<Account> accounts = Account.getAccounts();
-        ArrayList<Card> cards = Card.getCards();
-        Battle battle = Battle.getCurrentBattle ();
         while (out != -1) {
             int a = 1;
             out = controller.input();
@@ -54,7 +50,8 @@ public class Controller {
             if (isValidNewGame(input)) {
                 type = "new mp";
                 controlBox.setBattleType(Integer.parseInt(input.split(" ")[3]));
-//                controlBox.setNumberOfFlags(Integer.parseInt(input.split(" ")[4]));
+                if (  Integer.parseInt(input.split(" ")[3])==1)
+                controlBox.setNumberOfFlags(Integer.parseInt(input.split(" ")[4]));
             }
             if (isValidShowItems(input)) {
                 type = "show items";
@@ -115,7 +112,6 @@ public class Controller {
             if (isValidEndTur(input)) {
                 type = "end turn";
             }
-            //todo item
             controlBox.setType(type);
             Battle.input(controlBox);
             return 0;
