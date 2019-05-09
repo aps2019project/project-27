@@ -24,12 +24,12 @@ public class Controller {
         //Load.loadAccounts();
         Load.loadMinionAndHeros();
         Load.loadSpells ();
-        Load.loadItems ();
         Card.addMAndH(MinionAndHero.getMinionAndHeroes());
         Card.addSpells ( Spell.getSpells () );
         Controller controller = new Controller("Account");
         int out = 0;
         while (out != -1) {
+            int a = 1;
             out = controller.input();
         }
     }
@@ -103,8 +103,7 @@ public class Controller {
                 type = "insert";
                 String[] tmp = input.split(" ");
                 controlBox.setCardName ( tmp[1] );
-                setLocation(controlBox, tmp[3]);
-                int a=1+2;
+                setLocation(controlBox, tmp[3]);int a=1+2;
             }
             if (isValidShowHand(input)) {
                 type = "show hand";
@@ -117,7 +116,7 @@ public class Controller {
             return 0;
         }
         if (region.equals("MainMenu")) {
-            if (input.equalsIgnoreCase("Enter Account")){
+            if (input.equalsIgnoreCase("Enter Account")) {
                 region = "Account";
                 System.out.println("You entered account!");
             }
