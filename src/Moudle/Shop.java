@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Shop {
     private static Shop currentShop = new Shop();
     private ArrayList<Card> cards = Card.getCards();
-    private ArrayList<Item> items = new ArrayList<Item>();
+    private ArrayList<Item> items = Item.getItems();
 
     public static void input(ControlBox controlBox) {
         String in = controlBox.getType();
@@ -37,7 +37,7 @@ public class Shop {
     public static void setCurrentShop() {
 
     }
-    
+
 //    public ArrayList<MinionAndHero> getHeroesAndMinions() {
 //        return heroesAndMinions;
 //    }
@@ -77,12 +77,11 @@ public class Shop {
                     counterHero++;
                 }
             }
-
         }
         System.out.println("Items :");
         int counterItem = 0;
         for (Item item : Account.getMainAccount().getCollection().getItems()) {
-            System.out.printf("\t%d:Name:%d - Desc: - Sell Cost:%d\n", counterItem + 1 /*description*/, items.get(counterItem).getPrice());
+            System.out.printf("\t%d:Name:%s - Desc: - Sell Cost:%d\n", counterItem + 1 /*description*/, item.getName(), item.getPrice());
             counterItem++;
         }
         System.out.println("Cards :");
@@ -94,12 +93,9 @@ public class Shop {
                 counterCard++;
             }
             if (card.getCardType() == 0) {
-                System.out.printf("\tType:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", card.getName(), card.getManaPrice(),
-                        card.getShopPrice());
+                System.out.printf("\t%d : Type:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", counterCard + 1, card.getName(),
+                        card.getManaPrice(), card.getShopPrice());
             }
-        }
-        if (counterCard == 0 && counterHero == 0 && counterItem == 0) {
-            System.out.println("There is nothing to show!");
         }
     }
 
@@ -128,25 +124,24 @@ public class Shop {
         return null;
     }
 
-    public String search(String name) {
+    public void search(String name) {
         if (findCard(name) != null && findItem(name) == null) {
-            return findCard(name).getName();
+            System.out.println(findCard(name).getName());
         } else if (findCard(name) == null && findItem(name) != null) {
-            return findItem(name).getName();
+            System.out.println(findItem(name).getName());
         } else {
             System.out.println("This card|item is not in the shop!");
         }
-        return null;
     }
 
-    public String searchCollection(String name) {
+    public void searchCollection(String name) {
         if (Account.getMainAccount().getCollection().findCard(name) != null && Account.getMainAccount().getCollection().findItem(name) == null) {
-            return Account.getMainAccount().getCollection().findCard(name).getName();
+            System.out.println(Account.getMainAccount().getCollection().findCard(name).getName());
         } else if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) != null) {
-            return Account.getMainAccount().getCollection().findItem(name).getName();
+            System.out.println(Account.getMainAccount().getCollection().findItem(name).getName());
+        } else {
+            System.out.println("This card|item is not in your collection!");
         }
-        System.out.println("This card|item is not in your collection!");
-        return null;
     }
 
     public void buy(String name) {
@@ -174,13 +169,13 @@ public class Shop {
     }
 
     public void sell(String name) {
-        if (findCard(name) == null && findItem(name) == null) {
+        if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) == null) {
             System.out.println("You don't have this card|item!");
-        } else if (findCard(name) != null && findItem(name) == null) {
+        } else if (Account.getMainAccount().getCollection().findCard(name) != null && Account.getMainAccount().getCollection().findItem(name) == null) {
             Account.getMainAccount().getCollection().removeFromCards(findCard(name));
             Account.getMainAccount().addMoney(findCard(name).getShopPrice());
             System.out.println("The card's been sold!");
-        } else if (findCard(name) == null && findItem(name) != null) {
+        } else if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) != null) {
             Account.getMainAccount().getCollection().removeFromItems(findItem(name));
             Account.getMainAccount().addMoney(findItem(name).getPrice());
             System.out.println("The item's been sold!");
@@ -218,9 +213,6 @@ public class Shop {
                 System.out.printf("\tType:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", card.getName(), card.getManaPrice(),
                         card.getShopPrice());
             }
-        }
-        if (counterCard == 0 && counterHero == 0 && counterItem == 0) {
-            System.out.println("There is nothing to show!");
         }
     }
 

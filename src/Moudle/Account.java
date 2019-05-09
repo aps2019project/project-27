@@ -10,21 +10,30 @@ import java.util.Scanner;
 
 public class Account {
     private static ArrayList<Account> accounts = new ArrayList<>();
-    private static Account mainAccount;
+    private static Account mainAccount = new Account();
     private String userName;
     private String passWord;
-    private Collection collection;
-    private int money;
-    private ArrayList<Deck> decks;
+    private Collection collection = new Collection();
+    private int money = 1000;
+    private ArrayList<Deck> decks = new ArrayList<>();
     private Deck mainDeck;
     private int wins;
     private int losses;
+
+    public Deck findDeck(String name) {
+        for (Deck deck : decks) {
+            if (deck.getName().equals(name)) {
+                return deck;
+            }
+        }
+        return null;
+    }
 
     public static Account getMainAccount() {
         return mainAccount;
     }
 
-    public static void setAccounts ( ArrayList<Account> accounts ) {
+    public static void setAccounts(ArrayList<Account> accounts) {
         Account.accounts = accounts;
     }
 
@@ -40,6 +49,11 @@ public class Account {
         if (in.equals("login")) {
             if (login(controlBox.getUserName())) {
                 Controller.setRegion("MainMenu");
+                System.out.println("1.Collection");
+                System.out.println("2.Shop");
+                System.out.println("3.Battle");
+                System.out.println("4.Exit");
+                System.out.println("5.Help");
                 return 2;
             }
         }
@@ -58,12 +72,96 @@ public class Account {
         return 0;
     }
 
+    public static Account findAccount(String userName) {
+        if (accounts.size() == 0) {
+            return null;
+        } else {
+            for (int i = 0; i < accounts.size(); i++) {
+                if (accounts.get(i).userName.equals(userName)) {
+                    return accounts.get(i);
+                }
+            }
+        }
+        return null;
+    }
+
+    public static void createAccount(String userName) {
+        if (findAccount(userName) != null) {
+            System.out.println("There is an account with this userName!");
+        } else {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter password:");
+            String passWord = scanner.next();
+            Account account = new Account();
+            account.userName = userName;
+            account.passWord = passWord;
+            accounts.add(account);
+//            Collection collection = new Collection();
+//            Collection.getCollections().add(collection);
+//            account.setCollection(collection);
+            System.out.println("Account's been created!");
+        }
+
+    }
+
+    public static boolean login(String userName) {
+        if (findAccount(userName) == null) {
+            System.out.println("There is no account with this userName!");
+            return false;
+        } else {
+            System.out.println("Enter password:");
+            Scanner scanner = new Scanner(System.in);
+            String passWord = scanner.next();
+            if (passWord.equals(findAccount(userName).passWord)) {
+                System.out.println("Login successful!");
+                return true;
+            } else {
+                System.out.println("Wrong password!");
+                return false;
+            }
+        }
+    }
+
+    public static void showLeaderBoard() {
+        for (int i = 0; i < accounts.size(); i++) {
+            for (int j = i + 1; j < accounts.size(); j++) {
+                if (accounts.get(j).wins > accounts.get(i).wins) {
+                    Collections.swap(accounts, i, j);
+                }
+            }
+        }
+        for (int i = 0; i < accounts.size(); i++) {
+            System.out.printf("%d-UserName : %s-Wins : %d\n", i + 1, accounts.get(i).userName, accounts.get(i).wins);
+        }
+    }
+
+    public static void save() {
+        try {
+            Load.saveAccount();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void logout() {
+        //todo
+        mainAccount = null;
+    }
+
+    public static void help() {
+        System.out.print("create account [user name]\nlogin [user name]\nshow leaderboard\nsave\nlogout\nhelp\n");
+    }
+
     public String getUserName() {
         return userName;
     }
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setCollection(Collection collection) {
+        this.collection = collection;
     }
 
     public Collection getCollection() {
@@ -90,7 +188,6 @@ public class Account {
         return decks;
     }
 
-
     public Deck getMainDeck() {
         return mainDeck;
     }
@@ -113,82 +210,5 @@ public class Account {
 
     public int getLosses() {
         return losses;
-    }
-
-    public static Account findAccount(String userName) {
-        if (accounts.size() == 0) {
-            return null;
-        } else {
-            for (int i = 0; i < accounts.size(); i++) {
-                if (accounts.get(i).userName.equals(userName)) {
-                    return accounts.get(i);
-                }
-            }
-        }
-        return null;
-    }
-
-    public static void createAccount(String userName) {
-        if (findAccount(userName) != null) {
-            System.out.println("There is an account with this userName!");
-        } else {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter passWord!");
-            String passWord = scanner.next();
-            Account account = new Account();
-            account.userName = userName;
-            account.passWord = passWord;
-            accounts.add(account);
-            System.out.println("created!");
-        }
-
-    }
-
-    public static boolean login(String userName) {
-        if (findAccount(userName) == null) {
-            System.out.println("There is no account with this userName!");
-            return false;
-        } else {
-            System.out.println("Enter passWord!");
-            Scanner scanner = new Scanner(System.in);
-            String passWord = scanner.next();
-            if (passWord.equals(findAccount(userName).passWord)) {
-                System.out.println("login successful!");
-                return true;
-            } else {
-                System.out.println("Wrong passWord!");
-                return false;
-            }
-        }
-    }
-
-    public static void showLeaderBoard() {
-        for (int i = 0; i < accounts.size(); i++) {
-            for (int j = i + 1; j < accounts.size(); j++) {
-                if (accounts.get(j).wins > accounts.get(i).wins) {
-                    Collections.swap(accounts, i, j);
-                }
-            }
-        }
-        for (int i = 0; i < accounts.size(); i++) {
-            System.out.printf("%d-UserName : %s-Wins : %d\n", i + 1, accounts.get(i).userName, accounts.get(i).wins);
-        }
-    }
-
-    public static void save() {
-        try {
-            Load.saveAccount ();
-        } catch (IOException e) {
-            e.printStackTrace ( );
-        }
-    }
-
-    public static void logout() {
-        //todo
-        mainAccount = null;
-    }
-
-    public static void help() {
-        System.out.print("create account [user name}\nlogin [user name]\nshow leaderboard\nsave\nlogout\nhelp\n");
     }
 }
