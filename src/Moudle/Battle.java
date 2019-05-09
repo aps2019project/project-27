@@ -83,7 +83,6 @@ public class Battle {
 			currentBattle.nextTurn ( );
 		}
 		if ( in.equals ( "use special power" ) ) {
-			//todo
 			currentBattle.useSpecialPowerHero ( controllBox.getX ( ) , controllBox.getY ( ) );
 		}
 		if ( in.equals ( "show hand" ) ) {
@@ -192,7 +191,6 @@ public class Battle {
 			return;
 		}
 		int type = card.getCardType ( );
-		int a=1;
 		if ( type == 0 ) {
 			Spell spell = ( Spell ) card;
 			if ( ! spell.getTarget ( ).isValidTarget ( this , x , y , playerInTurn ) ) {
@@ -208,10 +206,6 @@ public class Battle {
 		}
 		if ( type == 1 ) {
 			MinionAndHero minionAndHero = ( MinionAndHero ) card;
-			if ( ! isValidNewFighter ( minionAndHero , playerInTurn , x , y ) ) {
-				//fosh
-				return;
-			}
 			if ( ground.getCell ( x , y ).getCardOnCell ( ) != null ) {
 				//fosh
 				return;
@@ -421,15 +415,11 @@ public class Battle {
 		return fighter;
 	}
 
-	private boolean isValidNewFighter ( MinionAndHero minionAndHero , Player player , int x , int y ) {
-		//todo
-		return true;
-	}
-
 	private void buff ( Buff buff , ArrayList<Fighter> fighters,Target target , int x , int y ) {
 		if ( buff.getIsCellBuff ( ) ) {
 			for (Cell cell:target.targetCells(this,x,y)){
 				cell.addCellEffect(buff);
+				buff.addToCell ( cell );
 			}
 			ground.getCell ( x , y ).addCellEffect ( buff.getCellBuff ( ) );
 
@@ -475,17 +465,11 @@ public class Battle {
 						return false;
 					}
 				}
-			} else {
-				// TODO: 5/5/2019
 			}
 		}
 		return true;
 	}
 
-	private boolean isValidSelect () {
-		/// TODO: 5/9/2019
-		return true;
-	}
 
 	public void checkWinner () {
 		if ( battleType == 1 ) {
@@ -631,7 +615,8 @@ public class Battle {
 
 	private void removeBuff ( Buff buff ) {
 		if ( buff.getIsCellBuff ( ) ) {
-			//todo
+			for ( Cell cell:buff.getCells () )
+			cell.removeCellEffect ( buff );
 		} else {
 			for ( Fighter fighter : buff.getFighters ( ) ) {
 				fighter.removeFromBuff ( buff );

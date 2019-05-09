@@ -10,11 +10,11 @@ public class Player {
     private Hand hand;
     private int mana;
     private Account account;
-    private ArrayList<Item> collectedItems;
-    private ArrayList<Card> graveYard;
+    private ArrayList<Item> collectedItems = new ArrayList<> (  );
+    private ArrayList<Card> graveYard = new ArrayList<> (  );
     private Item mainItem;
     private boolean haveLastFlag;
-    private ArrayList<Buff> buffs;
+    private ArrayList<Buff> buffs = new ArrayList<> (  );
     private int flagInHand = 0;
 
     public void increaseFlagInHand() {
@@ -54,6 +54,7 @@ public class Player {
 
     public Player(Account account) {
 
+        this.UserName = account.getUserName ();
         this.account = account;
         hand = new Hand(account.getMainDeck());
     }
@@ -153,12 +154,12 @@ public class Player {
                 }
             }
         }
-//        System.out.println("Items :");
-//        int counterItem = 0;
-//        for (Item item : Account.getMainAccount().getCollection().getItems()) {
-//            System.out.printf("\t%d:Name:%s - Desc: - Sell Cost:%d\n", counterItem + 1 /*description*/, item.getName(), item.getPrice());
-//            counterItem++;
-//        }
+        System.out.println("Items :");
+        int counterItem = 0;
+        for (Item item : Account.getMainAccount().getCollection().getItems()) {
+            System.out.printf("\t%d:Name:%s - Desc: - Sell Cost:%d\n", counterItem + 1 /*description*/, item.getName(), item.getPrice());
+            counterItem++;
+        }
         System.out.println("Cards :");
         int counterCard = 0;
         for (Card card : graveYard) {
@@ -182,11 +183,6 @@ public class Player {
                 minionAndHero.getHP(), minionAndHero.getManaPrice(), minionAndHero.getSpecialPowerType(),
                 minionAndHero.getShopPrice());
     }
-
-    public void showNextCard() {
-
-    }
-
     public void showHand() {
         hand.show();
     }

@@ -7,6 +7,7 @@ public class Buff {
 	private boolean exeptABuff;
 	private ArrayList<Fighter> fighters;
 	private int cellX,cellY;
+	private ArrayList<Cell> cells;
 	private boolean isCellBuff;
 	//0:hell	1:holy		2:poison
 	private int cellEffectType;
@@ -33,6 +34,17 @@ public class Buff {
 		cellX=x;
 		cellY=y;
 	}
+
+	public void setCells ( ArrayList<Cell> cells ) {
+		this.cells = cells;
+	}
+	public void addToCell(Cell cell){
+		cells.add ( cell );
+	}
+	public ArrayList<Cell> getCells () {
+		return cells;
+	}
+
 	public int getChangeMana () {
 		return changeMana;
 	}
