@@ -7,6 +7,10 @@ public class Cell {
     private Item itemOnCell = null;
     public ArrayList<Buff> cellEffect = new ArrayList<>();
 
+    public ArrayList<Buff> getCellEffect() {
+        return cellEffect;
+    }
+
     public Object getCardOnCell() {
         return cardOnCell;
     }

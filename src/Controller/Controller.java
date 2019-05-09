@@ -21,7 +21,7 @@ public class Controller {
 
     public static void main(String[] args) throws FileNotFoundException {
         //load phase
-        Load.loadAccounts();
+        //Load.loadAccounts();
         Load.loadMinionAndHeros();
         Load.loadSpells ();
         Card.addMAndH(MinionAndHero.getMinionAndHeroes());
@@ -49,8 +49,10 @@ public class Controller {
             if (isValidGameInfo(input)) {
                 type = "game info";
             }
-            if (input.equalsIgnoreCase("new multi player battle")) {
+            if (isValidNewGame(input)) {
                 type = "new mp";
+                controlBox.setBattleType(Integer.parseInt(input.split(" ")[3]));
+                controlBox.setNumberOfFlags(Integer.parseInt(input.split(" ")[4]));
             }
             if (isValidShowItems(input)) {
                 type = "show items";
@@ -115,6 +117,10 @@ public class Controller {
             return 0;
         }
         if (region.equals("MainMenu")) {
+            if (input.equalsIgnoreCase("Enter Account")){
+                region = "Account";
+                System.out.println("You entered account!");
+            }
             if (input.equalsIgnoreCase("Enter shop")) {
                 region = "Shop";
                 System.out.println("You entered shop!");
@@ -146,7 +152,8 @@ public class Controller {
                 System.out.println("2.Shop");
                 System.out.println("3.Battle");
                 System.out.println("4.Exit");
-                System.out.println("5.Help");
+                System.out.println("5.Account");
+                System.out.println("6.Help");
             }
             if (input.equalsIgnoreCase("show collection")) {
                 type = "showCollection";
@@ -184,7 +191,8 @@ public class Controller {
                 System.out.println("2.Shop");
                 System.out.println("3.Battle");
                 System.out.println("4.Exit");
-                System.out.println("5.Help");
+                System.out.println("5.Account");
+                System.out.println("6.Help");
             }
             if (input.equals("show")) {
                 type = "show";

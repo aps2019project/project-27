@@ -66,10 +66,6 @@ public class MinionAndHero extends Card {
         MinionAndHero.minionAndHeroes = minionAndHeroes;
     }
 
-    public int getNation() {
-        return nation;
-    }
-
     public boolean isHero() {
         return isHero;
     }

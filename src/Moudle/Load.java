@@ -11,13 +11,15 @@ public class Load {
 		Gson gson = CreatGson.getGson ();
 		AccountTmp accountTmp= new AccountTmp ();
 		accountTmp.accounts=Account.getAccounts ();
-		FileWriter writer = new FileWriter ( "Accounts.json" );
+		FileWriter writer = new FileWriter( "Accounts.json" );
 		gson.toJson ( accountTmp,writer );
 		System.out.println ( "saved!\n" );
+		writer.close();
+		int a=1;
 	}
 	public static void loadMinionAndHeros() throws FileNotFoundException {
 		Gson gson = CreatGson.getGson ();
-		Reader reader = new FileReader ( "MinionAndHeroes.json" );
+		Reader reader = new FileReader( "MinionAndHeroes.json" );
 		MinionAndHeroTmp tmp = gson.fromJson ( reader, MinionAndHeroTmp.class);
 		MinionAndHero.setMinionAndHeroes ( tmp.minionAndHeroes );
 	}
@@ -30,7 +32,7 @@ public class Load {
 	public static void loadAccounts() throws FileNotFoundException {
 		Gson gson = CreatGson.getGson ();
 		Reader reader = new FileReader ( "Accounts.json" );
-		AccountTmp tmp = gson.fromJson ( reader, ( Type ) AccountTmp.class );
+		AccountTmp tmp = gson.fromJson ( reader, AccountTmp.class );
 		Account.setAccounts (tmp.accounts);
 	}
 	public static void loadItems() throws FileNotFoundException {

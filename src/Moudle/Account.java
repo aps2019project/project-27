@@ -53,7 +53,8 @@ public class Account {
                 System.out.println("2.Shop");
                 System.out.println("3.Battle");
                 System.out.println("4.Exit");
-                System.out.println("5.Help");
+                System.out.println("5.Account");
+                System.out.println("6.Help");
                 return 2;
             }
         }
@@ -114,6 +115,7 @@ public class Account {
             String passWord = scanner.next();
             if (passWord.equals(findAccount(userName).passWord)) {
                 System.out.println("Login successful!");
+                mainAccount = findAccount(userName);
                 return true;
             } else {
                 System.out.println("Wrong password!");

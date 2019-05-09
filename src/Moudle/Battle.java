@@ -8,20 +8,19 @@ import java.util.ArrayList;
 public class Battle {
 	private static Battle currentBattle;
 	private Fighter selectedFighter;
-	private static Account mainAccount = Account.getMainAccount ( );
 	private static Account secoundAccoun;
+	private int gift=1000;
 	private ArrayList<MinionAndHero> minionAndHeroes = new ArrayList<> ( );
 	private Ground ground;
 	private int currentTurn;
 	private Player player1;
 	private Player player2;
 	private Player playerInTurn;
-	private ArrayList<Fighter> fighters;
+	private ArrayList<Fighter> fighters = new ArrayList<>();
 	private Card selectedCard;
 	private Item selectedItem;
 	//0:hero    1:lastflag  2:flags
 	private int battleType;
-	private ArrayList<Item> flags;
 	private int numberOfFlags;
 	private Item lastFlag;
 	private Fighter heroP1;
@@ -41,15 +40,16 @@ public class Battle {
 		if ( in.equalsIgnoreCase ( "select user" ) ) {
 			Account account = Account.findAccount ( controllBox.getUserName ( ) );
 			if ( account == null ) {
-				//fosh
+				System.out.println("there is no account with this user name");
 
 			} else {
+				System.out.println("selected!");
 				secoundAccoun = account;
 			}
 
 		}
 		if ( in.equalsIgnoreCase ( "new mp" ) ) {
-			//todo
+			currentBattle = new Battle(Account.getMainAccount(),secoundAccoun,controllBox.getBattleType(),controllBox.getNumberOfFlags());
 		}
 		if(in.equals ( "show item" )){
 			currentBattle.showItem ( controllBox.getCardName () );
@@ -173,7 +173,7 @@ public class Battle {
 		}
 		ArrayList<Fighter> fighters = item.getTarget ().targetFighters ( currentBattle,x,y,playerInTurn );
 		for ( Buff buff:item.getBuffs () ){
-			buff ( buff,fighters,x,y );
+			buff ( buff,fighters,item.getTarget(),x,y );
 			if ( buff.isExeptABuff () )
 				buffs.add ( buff );
 		}
@@ -198,7 +198,7 @@ public class Battle {
 			}
 			ArrayList<Fighter> fighters = spell.getTarget ( ).targetFighters ( this , x , y , playerInTurn );
 			for ( Buff buff : spell.getBuffs ( ) ) {
-				buff ( buff , fighters , x , y );
+				buff ( buff , fighters,spell.getTarget() , x , y );
 				if ( buff.isExeptABuff ( ) )
 					buffs.add ( buff );
 			}
@@ -218,9 +218,15 @@ public class Battle {
 			}
 			minionAndHeroes.add ( minionAndHero );
 			Fighter fighter = new Fighter ( minionAndHero , minionAndHeroes , playerInTurn );
+			fighters.add(fighter);
 			executeOnSpawnBuff ( fighter );
 			newPlaceItem ( x , y , fighter );
 			ground.getCell ( x , y ).moveInCell ( fighter );
+			for (Buff buff:ground.getCell ( x , y ).getCellEffect()){
+				if (buff.getCellEffectType()==2){
+					fighter.decreaseHP(1);
+				}
+			}
 			fighter.setLocation ( x , y );
 		}
 	}
@@ -240,9 +246,21 @@ public class Battle {
 		}
 		fighter.disableCanAttack ( );
 		fighter.disableCanMove ( );
-		opponent.decreaseHP ( fighter.getAP ( ) - opponent.getHolyDefence ( ) );
+		int cellHolyFighter=0;
+		int cellHolyOpponent=0;
+		for (Buff buff:ground.getCell(fighter.getX(),fighter.getY()).cellEffect){
+			if (buff.getCellEffectType()==1){
+				cellHolyFighter=1;
+			}
+		}
+		for (Buff buff:ground.getCell(opponent.getX(),opponent.getY()).cellEffect){
+			if (buff.getCellEffectType()==1){
+				cellHolyOpponent=1;
+			}
+		}
+		opponent.decreaseHP ( fighter.getAP ( ) - opponent.getHolyDefence ( )-cellHolyFighter );
 		if ( opponent.isCanCounterAttack ( ) ) {
-			fighter.decreaseHP ( opponent.getAP ( ) - fighter.getHolyDefence ( ) );
+			fighter.decreaseHP ( opponent.getAP ( ) - fighter.getHolyDefence ( )-cellHolyOpponent );
 		}
 		fighter.addAttackedFighter ( opponent );
 		executeOnAttackAndDeBuff ( fighter , opponent );
@@ -347,7 +365,7 @@ public class Battle {
 		for ( Buff buff : fighter.getSpecialPowers ( ) ) {
 			ArrayList<Fighter> targets = fighter.getSpecialPowerTarget ( ).
 					targetFighters ( this , fighter.getX ( ) , fighter.getY ( ) , playerInTurn );
-			buff ( buff , targets , fighter.getX ( ) , fighter.getY ( ) );
+			buff ( buff , targets ,fighter.getSpecialPowerTarget(), fighter.getX ( ) , fighter.getY ( ) );
 		}
 	}
 
@@ -405,8 +423,11 @@ public class Battle {
 		return true;
 	}
 
-	private void buff ( Buff buff , ArrayList<Fighter> fighters , int x , int y ) {
+	private void buff ( Buff buff , ArrayList<Fighter> fighters,Target target , int x , int y ) {
 		if ( buff.getIsCellBuff ( ) ) {
+			for (Cell cell:target.targetCells(this,x,y)){
+				cell.addCellEffect(buff);
+			}
 			ground.getCell ( x , y ).addCellEffect ( buff.getCellBuff ( ) );
 
 		} else {
@@ -459,6 +480,7 @@ public class Battle {
 	}
 
 	private boolean isValidSelect () {
+		/// TODO: 5/9/2019
 		return true;
 	}
 
@@ -488,6 +510,24 @@ public class Battle {
 	public Battle ( Account account , Account account2 , int battleType , int numberOfFlags ) {
 		player1 = new Player ( account );
 		player2 = new Player ( account2 );
+		for (Card card:player1.getHand().getDeck().getCards()){
+			if (card.getCardType() == 1){
+				MinionAndHero minionAndHero = (MinionAndHero) card;
+				if (minionAndHero.isHero()){
+					heroP1 = new Fighter(minionAndHero,minionAndHeroes,player1);
+					ground.getCell(2,0).moveInCell(heroP1);
+				}
+			}
+		}
+		for (Card card:player2.getHand().getDeck().getCards()){
+			if (card.getCardType() == 1){
+				MinionAndHero minionAndHero = (MinionAndHero) card;
+				if (minionAndHero.isHero()){
+					heroP2 = new Fighter(minionAndHero,minionAndHeroes,player2);
+					ground.getCell(2,9).moveInCell(heroP2);
+				}
+			}
+		}
 		this.battleType = 0;
 		ground = new Ground ( );
 		currentTurn = 0;
@@ -535,6 +575,11 @@ public class Battle {
 			playerInTurn.addItem ( ground.getCell ( x , y ).getItemOnCell ( ) );
 		}
 		ground.getCell ( targetX , targetY ).moveFromCell ( );
+		for (Buff buff:ground.getCell ( x , y ).getCellEffect()){
+			if (buff.getCellEffectType()==2){
+				fighter.decreaseHP(1);
+			}
+		}
 	}
 
 	private void newPlaceItem ( int x , int y , Fighter fighter ) {
@@ -578,7 +623,7 @@ public class Battle {
 
 	private void removeBuff ( Buff buff ) {
 		if ( buff.getIsCellBuff ( ) ) {
-
+			//todo
 		} else {
 			for ( Fighter fighter : buff.getFighters ( ) ) {
 				fighter.removeFromBuff ( buff );
@@ -589,6 +634,22 @@ public class Battle {
 	public void nextTurn () {
 		for ( Fighter fighter : fighters ) {
 			fighter.preTurnProcces ( );
+		}
+		for (Cell[] cell:ground.getCells()){
+			for (Cell cell1:cell){
+				if (cell1.getCellEffect().size()!=0){
+					Fighter fighter = (Fighter) cell1.getCardOnCell();
+					if (fighter == null) {
+						break;
+					}
+					for (Buff buff:cell1.getCellEffect()){
+						if (buff.getCellEffectType()==0){
+							fighter.decreaseHP(2);
+							isDeath(fighter);
+						}
+					}
+				}
+			}
 		}
 		if ( battleType == 1 ) {
 			if ( player1.isHaveLastFlag ( ) ) {
@@ -613,6 +674,7 @@ public class Battle {
 
 	private void winner ( Player player ) {
 		player.getAccount ( ).increaseWins ( );
+		player.getAccount().addMoney(gift);
 		if ( player == player1 )
 			player2.getAccount ( ).increaseLosses ( );
 		else player1.getAccount ( ).increaseLosses ( );
