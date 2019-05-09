@@ -100,7 +100,7 @@ public class Battle {
 		if ( in.equals ( "attack" ) ) {
 			Fighter opponent = currentBattle.findFighter ( controllBox.getCardID ( ) , currentBattle.offTurn ( ) );
 			if ( opponent == null ) {
-				//fosh
+				System.out.println("There is no opponent to attack!");
 				return;
 			}
 			currentBattle.attack ( currentBattle.selectedFighter , opponent );
@@ -118,7 +118,7 @@ public class Battle {
 	private void setInGroundCard ( String cardID ) {
 		Fighter fighter = findFighter ( cardID , playerInTurn );
 		if ( fighter == null ) {
-			//fosh
+			System.out.println("You don't have this fighter!");
 		} else {
 			selectedFighter = fighter;
 			//accept;
@@ -149,7 +149,7 @@ public class Battle {
 	private void showCardInfo ( String cardID ) {
 		Fighter fighter = findFighter ( cardID );
 		if ( fighter == null ) {
-			//fosh
+			System.out.println("You don't have this fighter!");
 			return;
 		}
 		View.showMinion ( fighter );
@@ -184,11 +184,11 @@ public class Battle {
 	public void insert ( String cardName , int x , int y ) {
 		Card card = Card.findCard ( cardName , playerInTurn.getHand ( ).getCards ( ) );
 		if ( card == null ) {
-			//fosh
+			System.out.println("You don't have this card!");
 			return;
 		}
 		if ( isValidInsert ( card ) ) {
-			//fosh
+			System.out.println("Inserted");
 			return;
 		}
 		int type = card.getCardType ( );
@@ -209,11 +209,11 @@ public class Battle {
 		if ( type == 1 ) {
 			MinionAndHero minionAndHero = ( MinionAndHero ) card;
 			if ( ! isValidNewFighter ( minionAndHero , playerInTurn , x , y ) ) {
-				//fosh
+				System.out.println("This fighter isn't valid!");
 				return;
 			}
 			if ( ground.getCell ( x , y ).getCardOnCell ( ) != null ) {
-				//fosh
+				System.out.println("There is already a card there!");
 				return;
 			}
 			if ( ground.getCell ( x , y ).getItemOnCell ( ) != null ) {
@@ -321,7 +321,7 @@ public class Battle {
 			return;
 		}
 		if ( ! hero.getSpecialPowerTarget ( ).isValidTarget ( this , x , y , playerInTurn ) ) {
-			//fosh
+			System.out.println("Target is not valid!");
 			return;
 		}
 		if ( playerInTurn.getMana ( ) >= hero.getSpecialPowerMana ( ) ) {
@@ -346,7 +346,7 @@ public class Battle {
 				}
 			}
 		} else {
-			//fosh
+			System.out.println("You don't have enough mana!");
 			return;
 		}
 
@@ -445,33 +445,33 @@ public class Battle {
 		if ( Ground.getDistance ( x1 , y1 , x2 , y2 ) > 2 )
 			return false;
 		if ( ground.getCell ( x2 , y2 ).getCardOnCell ( ) != null ) {
-			//fosh
+			System.out.println("This cell is occupied!");
 			return false;
 		}
 		if ( Ground.getDistance ( x1 , y1 , x2 , y2 ) == 2 ) {
 			if ( x1 == x2 ) {
 				if ( y1 > y2 ) {
 					if ( ground.getCell ( x1 , y1 - 1 ).getCardOnCell ( ) != null || ground.getCell ( x1 , y1 - 2 ).getCardOnCell ( ) != null ) {
-						//fosh
+						System.out.println("This cell is occupied!");
 						return false;
 					}
 				}
 				if ( y2 > y1 ) {
 					if ( ground.getCell ( x1 , y1 + 1 ).getCardOnCell ( ) != null || ground.getCell ( x1 , y1 + 2 ).getCardOnCell ( ) != null ) {
-						//fosh
+						System.out.println("This cell is occupied!");
 						return false;
 					}
 				}
 			} else if ( y1 == y2 ) {
 				if ( x1 > x2 ) {
 					if ( ground.getCell ( x1 - 1 , y1 ).getCardOnCell ( ) != null || ground.getCell ( x1 - 2 , y1 ).getCardOnCell ( ) != null ) {
-						//fosh
+						System.out.println("This cell is occupied!");
 						return false;
 					}
 				}
 				if ( x2 > x1 ) {
 					if ( ground.getCell ( x1 + 1 , y1 ).getCardOnCell ( ) != null || ground.getCell ( x1 + 2 , y1 ).getCardOnCell ( ) != null ) {
-						//fosh
+						System.out.println("This cell is occupied!");
 						return false;
 					}
 				}
@@ -564,16 +564,16 @@ public class Battle {
 
 	private void move ( int targetX , int targetY , int x , int y ) {
 		if ( ! isValidMove ( targetX , targetY , x , y ) ) {
-			//fosh
+			System.out.println("Your move isn't valid!");
 			return;
 		}
 		if ( ! isValidTargetForMove ( targetX , targetY ) ) {
-			//fosh
+			System.out.println("Your target for moving isn't valid!");
 			return;
 		}
 		Fighter fighter = ( Fighter ) this.ground.getCell ( x , y ).getCardOnCell ( );
 		if ( fighter.isCanMove ( ) ) {
-			//fosh
+			System.out.println("Moved!");
 			return;
 		}
 		newPlaceItem ( x , y , fighter );
