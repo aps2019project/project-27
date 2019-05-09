@@ -16,6 +16,7 @@ public class Buff {
 	private int changeMana;
 	private int changeHollynes;
 	private boolean noHolynessForOpponent;
+	private int poison;
 	private int changeOpponentHolyness;
 	//boolean change int:	0:nothing	1:true	2:false	3:not
 	private int changeCanMove;
@@ -43,6 +44,11 @@ public class Buff {
 	public boolean isABuff(){
 		return exeptABuff;
 	}
+
+	public int getPoison () {
+		return poison;
+	}
+
 	public boolean isDisableNegativeBuffs () {
 		return disableNegativeBuffs;
 	}
