@@ -50,6 +50,7 @@ public class Battle {
 		}
 		if ( in.equalsIgnoreCase ( "new mp" ) ) {
 			currentBattle = new Battle(Account.getMainAccount(),secoundAccoun,controllBox.getBattleType(),controllBox.getNumberOfFlags());
+			System.out.println ( "started!" );
 		}
 		if(in.equals ( "show item" )){
 			currentBattle.showItem ( controllBox.getCardName () );
@@ -78,6 +79,7 @@ public class Battle {
 			currentBattle.setInGroundCard ( controllBox.getCardID ( ) );
 		}
 		if ( in.equals ( "end turn" ) ) {
+			int a=1;
 			currentBattle.nextTurn ( );
 		}
 		if ( in.equals ( "use special power" ) ) {
@@ -150,7 +152,7 @@ public class Battle {
 			//fosh
 			return;
 		}
-		View.showFighter ( fighter );
+		View.showMinion ( fighter );
 	}
 
 	private Player offTurn () {
@@ -190,6 +192,7 @@ public class Battle {
 			return;
 		}
 		int type = card.getCardType ( );
+		int a=1;
 		if ( type == 0 ) {
 			Spell spell = ( Spell ) card;
 			if ( ! spell.getTarget ( ).isValidTarget ( this , x , y , playerInTurn ) ) {
@@ -510,6 +513,12 @@ public class Battle {
 	public Battle ( Account account , Account account2 , int battleType , int numberOfFlags ) {
 		player1 = new Player ( account );
 		player2 = new Player ( account2 );
+		if ( !player1.getHand ().getDeck ().isvalid()||player2.getHand ().getDeck ().isvalid () ){
+			System.out.println ("selected deck is not valid" );
+			return;
+		}
+		ground = new Ground ( );
+		int a=1;
 		for (Card card:player1.getHand().getDeck().getCards()){
 			if (card.getCardType() == 1){
 				MinionAndHero minionAndHero = (MinionAndHero) card;
@@ -524,14 +533,14 @@ public class Battle {
 				MinionAndHero minionAndHero = (MinionAndHero) card;
 				if (minionAndHero.isHero()){
 					heroP2 = new Fighter(minionAndHero,minionAndHeroes,player2);
-					ground.getCell(2,9).moveInCell(heroP2);
+					ground.getCell(2,8).moveInCell(heroP2);
 				}
 			}
 		}
+		Battle.currentBattle = this;
 		this.battleType = 0;
-		ground = new Ground ( );
 		currentTurn = 0;
-		this.battleType = battleType;
+		//this.battleType = battleType;
 		if ( battleType == 1 ) {
 			lastFlag = Item.getLastFlag ( );
 			ground.getCell ( ( int ) Math.random ( ) % 5 , ( int ) Math.random ( ) % 9 ).setItemOnCell ( lastFlag );
@@ -551,7 +560,6 @@ public class Battle {
 			}
 		}
 		nextTurn ( );
-		currentBattle = this;
 	}
 
 	private void move ( int targetX , int targetY , int x , int y ) {
@@ -661,6 +669,7 @@ public class Battle {
 		}
 		player1.preTurnProcess ( );
 		player2.preTurnProcess ( );
+		playerInTurn = player1;
 		checkBuffs ( );
 		currentTurn++;
 		setMana ( );
@@ -672,13 +681,17 @@ public class Battle {
 
 	}
 
+	public static Battle getCurrentBattle () {
+		return currentBattle;
+	}
+
 	private void winner ( Player player ) {
 		player.getAccount ( ).increaseWins ( );
 		player.getAccount().addMoney(gift);
 		if ( player == player1 )
 			player2.getAccount ( ).increaseLosses ( );
 		else player1.getAccount ( ).increaseLosses ( );
-		System.out.println ( );
+		System.out.println ("player wins" );
 		currentBattle = null;
 	}
 

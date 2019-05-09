@@ -40,7 +40,7 @@ public class View {
         //todo
 
     }
-    public static void showFighter(Fighter fighter){
+    public static void showMinion ( Fighter fighter){
         System.out.println ( fighter.getID ()+": health :" +fighter.getHP () +" attack : "+fighter.getAP ()
                 +" location : x="+fighter.getX ()+" y="+fighter.getY ());
 

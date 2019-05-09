@@ -18,7 +18,9 @@ public class Deck {
         }
         return null;
     }
-
+    public boolean isvalid(){
+        return true;
+    }
     public String getName() {
         return name;
     }

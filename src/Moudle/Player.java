@@ -53,6 +53,7 @@ public class Player {
     }
 
     public Player(Account account) {
+
         this.account = account;
         hand = new Hand(account.getMainDeck());
     }
@@ -123,7 +124,7 @@ public class Player {
 
     public void showFighters() {
         for (Fighter fighter : fighters) {
-            View.showFighter(fighter);
+            View.showMinion (fighter);
         }
     }
 

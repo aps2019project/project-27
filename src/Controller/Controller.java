@@ -31,6 +31,7 @@ public class Controller {
         ArrayList<MinionAndHero> minionAndHeroes = MinionAndHero.getMinionAndHeroes();
         ArrayList<Account> accounts = Account.getAccounts();
         ArrayList<Card> cards = Card.getCards();
+        Battle battle = Battle.getCurrentBattle ();
         while (out != -1) {
             int a = 1;
             out = controller.input();
@@ -45,6 +46,7 @@ public class Controller {
             if (isValidSelectUser(input)) {
                 type = "select user";
                 controlBox.setUserName(input.split(" ")[2]);
+                int a=1;
             }
             if (isValidGameInfo(input)) {
                 type = "game info";
@@ -52,7 +54,7 @@ public class Controller {
             if (isValidNewGame(input)) {
                 type = "new mp";
                 controlBox.setBattleType(Integer.parseInt(input.split(" ")[3]));
-                controlBox.setNumberOfFlags(Integer.parseInt(input.split(" ")[4]));
+//                controlBox.setNumberOfFlags(Integer.parseInt(input.split(" ")[4]));
             }
             if (isValidShowItems(input)) {
                 type = "show items";
@@ -102,8 +104,10 @@ public class Controller {
             }
             if (isValidInsert(input)) {
                 type = "insert";
-                String[] tmp = input.toLowerCase().split(" ");
+                String[] tmp = input.split(" ");
+                controlBox.setCardName ( tmp[1] );
                 setLocation(controlBox, tmp[3]);
+                int a=1+2;
             }
             if (isValidShowHand(input)) {
                 type = "show hand";
@@ -390,7 +394,7 @@ public class Controller {
     }
 
     private boolean isValidSelectUser(String input) {
-        return input.toLowerCase().matches("select+ +user+ +[a-z0-9._]");
+        return input.toLowerCase().matches("select+ +user+ +[a-z0-9._]+");
     }
 
     private boolean isValidNewGame(String input) {
