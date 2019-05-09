@@ -21,13 +21,13 @@ public class View {
                 if (cardOnCell[i][j] == null && itemOnCell[i][j] == null) {
                     continue;
                 } else if (cardOnCell[i][j] != null) {
-                    if ( cardOnCell[ i ][ j ].isHero ( ) ) {
+                    if (cardOnCell[i][j].isHero()) {
                         System.out.print(cardOnCell[i][j].getPlayer() + "|" + "Hero" + "|" + cardOnCell[i][j].getAP() + "|" + cardOnCell[i][j].getHP() + "|" + cardOnCell[i][j].getID());
                     } else {
                         System.out.print(cardOnCell[i][j].getPlayer() + "|" + "Minion" + "|" + cardOnCell[i][j].getAP() + "|" + cardOnCell[i][j].getHP() + "|" + cardOnCell[i][j].getID());
                     }
                 } else if (itemOnCell[i][j] != null) {
-                    if( itemOnCell[ i ][ j ].isFlag ( ) ) {
+                    if (itemOnCell[i][j].isFlag()) {
                         System.out.print(itemOnCell[i][j].getName() + "| flag");
                     } else {
                         System.out.print(itemOnCell[i][j].getName());
@@ -36,13 +36,14 @@ public class View {
             }
         }
     }
-    public static void showSpell(Spell spell){
-        //todo
+
+    public static void showSpell(Spell spell) {
+        System.out.printf("%Name : %s - MP : %d - Desc : ", spell.getName(), spell.getManaPrice());
 
     }
-    public static void showMinion ( Fighter fighter){
-        System.out.println ( fighter.getID ()+": health :" +fighter.getHP () +" attack : "+fighter.getAP ()
-                +" location : x="+fighter.getX ()+" y="+fighter.getY ());
 
+    public static void showMinion(Fighter fighter) {
+        System.out.printf("%d : health : %d - attack : %d - location : x=%d y=%d",
+                fighter.getID(), fighter.getHP(), fighter.getAP(), fighter.getX(), fighter.getY());
     }
 }

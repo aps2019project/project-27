@@ -23,9 +23,9 @@ public class Controller {
         //load phase
         //Load.loadAccounts();
         Load.loadMinionAndHeros();
-        Load.loadSpells ();
+        Load.loadSpells();
         Card.addMAndH(MinionAndHero.getMinionAndHeroes());
-        Card.addSpells ( Spell.getSpells () );
+        Card.addSpells(Spell.getSpells());
         Controller controller = new Controller("Account");
         int out = 0;
         while (out != -1) {
@@ -36,13 +36,25 @@ public class Controller {
 
     public int input() {
         input = scanner.nextLine();
-        ControlBox controlBox = new ControlBox("Battle", type);
         type = "empty";
         if (region.equals("Battle")) {
+            ControlBox controlBox = new ControlBox("Battle", type);
+            if (input.equalsIgnoreCase("exit")) {
+                region = "MainMenu";
+                System.out.println("1.Collection");
+                System.out.println("2.Shop");
+                System.out.println("3.Battle");
+                System.out.println("4.Exit");
+                System.out.println("5.Account");
+                System.out.println("6.Help");
+            }
+            if (input.equalsIgnoreCase("help")) {
+                type = "help";
+            }
             if (isValidSelectUser(input)) {
                 type = "select user";
                 controlBox.setUserName(input.split(" ")[2]);
-                int a=1;
+                int a = 1;
             }
             if (isValidGameInfo(input)) {
                 type = "game info";
@@ -50,8 +62,8 @@ public class Controller {
             if (isValidNewGame(input)) {
                 type = "new mp";
                 controlBox.setBattleType(Integer.parseInt(input.split(" ")[3]));
-                if (  Integer.parseInt(input.split(" ")[3])==1)
-                controlBox.setNumberOfFlags(Integer.parseInt(input.split(" ")[4]));
+                if (Integer.parseInt(input.split(" ")[3]) == 1)
+                    controlBox.setNumberOfFlags(Integer.parseInt(input.split(" ")[4]));
             }
             if (isValidShowItems(input)) {
                 type = "show items";
@@ -102,9 +114,9 @@ public class Controller {
             if (isValidInsert(input)) {
                 type = "insert";
                 String[] tmp = input.split(" ");
-                controlBox.setCardName ( tmp[1] );
+                controlBox.setCardName(tmp[1]);
                 setLocation(controlBox, tmp[3]);
-                int a=1+2;
+                int a = 1 + 2;
             }
             if (isValidShowHand(input)) {
                 type = "show hand";
@@ -117,7 +129,7 @@ public class Controller {
             return 0;
         }
         if (region.equals("MainMenu")) {
-            if (input.equalsIgnoreCase("Enter Account")){
+            if (input.equalsIgnoreCase("Enter Account")) {
                 region = "Account";
                 System.out.println("You entered account!");
             }
@@ -145,7 +157,7 @@ public class Controller {
             }
         }
         if (region.equals("Shop")) {
-            controlBox = new ControlBox("Shop", type);
+            ControlBox controlBox = new ControlBox("Shop", type);
             if (input.equalsIgnoreCase("exit")) {
                 region = "MainMenu";
                 System.out.println("1.Collection");
@@ -184,7 +196,7 @@ public class Controller {
             Shop.input(controlBox);
         }
         if (region.equals("Collection")) {
-            controlBox = new ControlBox("Collection", type);
+            ControlBox controlBox = new ControlBox("Collection", type);
             if (input.equals("exit")) {
                 region = "MainMenu";
                 System.out.println("1.Collection");
@@ -244,7 +256,7 @@ public class Controller {
             Collection.input(controlBox);
         }
         if (region.equals("Account")) {
-            controlBox = new ControlBox("Account", type);
+            ControlBox controlBox = new ControlBox("Account", type);
             if (isValidCreateAccount(input)) {
                 type = "create account";
                 controlBox.setUserName(input.split(" ")[2]);
