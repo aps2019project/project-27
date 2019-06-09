@@ -2,7 +2,7 @@ package Moudle;
 import View.View;
 
 import java.util.ArrayList;
-public abstract class Card {
+public class Card {
     private static ArrayList<Card> cards = new ArrayList<>();
     private String name;
     private int cardID;
@@ -36,8 +36,8 @@ public abstract class Card {
     }
     public void showCard (){
         if ( this.getCardType ()==1 ){
-        	Fighter fighter = ( Fighter ) this;
-            View.showMinion ( fighter );
+        	MinionAndHero fighter = ( MinionAndHero ) this;
+            View.printMinion ( fighter );
         }
         if(this.getCardType ()==0){
         	Spell spell = ( Spell ) this;

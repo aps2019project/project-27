@@ -10,7 +10,6 @@ public class MinionAndHero extends Card {
     private int nation;
     private int range;
     private int attackType;
-    private String[] abilities;
     private ArrayList<Buff> specialPowers = new ArrayList<>();
     private int specialPowerMana;
     private int specialPowerCoolDown;
@@ -52,6 +51,16 @@ public class MinionAndHero extends Card {
 
     protected MinionAndHero(MinionAndHero minionAndHero) {
         super(minionAndHero.getName(), minionAndHero.getShopPrice(), minionAndHero.getManaPrice(), 1);
+        AP = minionAndHero.AP;
+        HP = minionAndHero.HP;
+        isHero = minionAndHero.isHero;
+        range = minionAndHero.range;
+        attackType = minionAndHero.attackType;
+        specialPowerMana = minionAndHero.specialPowerMana;
+        specialPowerCoolDown = minionAndHero.specialPowerCoolDown;
+        specialPowerType = minionAndHero.specialPowerType;
+        specialPowers = minionAndHero.specialPowers;
+        specialPowerTarget = minionAndHero.specialPowerTarget;
     }
 
     public int getAP() {

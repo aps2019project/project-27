@@ -7,12 +7,12 @@ import java.util.Scanner;
 
 public class Controller {
     private static String input;
-    private static String region;
+    private static String region = "";
     private static String type;
-    private final Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     private Controller(String region) {
-        this.region = region;
+        Controller.region = region;
     }
 
     public static void setRegion(String region) {
@@ -21,19 +21,21 @@ public class Controller {
 
     public static void main(String[] args) throws FileNotFoundException {
         //load phase
-        //Load.loadAccounts();
+        Load.loadAccounts();
         Load.loadMinionAndHeros();
         Load.loadSpells ();
+        Load.loadItems ();
+        Battle.setCollectibleItems ( Item.getItems () );
         Card.addMAndH(MinionAndHero.getMinionAndHeroes());
         Card.addSpells ( Spell.getSpells () );
-        Controller controller = new Controller("Account");
+        region = "Account";
         int out = 0;
         while (out != -1) {
-            out = controller.input();
+            out = Controller.input();
         }
     }
 
-    public int input() {
+    public static int input() {
         input = scanner.nextLine();
         ControlBox controlBox = new ControlBox("Battle", type);
         type = "empty";
@@ -42,13 +44,32 @@ public class Controller {
                 type = "select user";
                 controlBox.setUserName(input.split(" ")[2]);
             }
+            if ( input.equalsIgnoreCase ( "help" )){
+                type = "help";
+            }
+            if ( input.equalsIgnoreCase ( "show graveyard" ) ){
+                type = "graveyard";
+            }
+            if ( input.equalsIgnoreCase ( "exit" ) ){
+                type = "exit";
+                region = "MainMenu";
+                printInMenu ();
+                controlBox.setRegion ( "MainMenu" );
+            }
             if (isValidGameInfo(input)) {
                 type = "game info";
             }
             if (isValidNewGame(input)) {
                 type = "new mp";
-                controlBox.setBattleType(Integer.parseInt(input.split(" ")[3]));
-                if (  Integer.parseInt(input.split(" ")[3])==1)
+                if ( "flags".equals ( input.toLowerCase ( ).split ( " " )[ 3 ] ) ) {
+                    controlBox.setBattleType ( 1 );
+                } else if ( "hero".equals ( input.toLowerCase ( ).split ( " " )[ 3 ] ) ) {
+                    controlBox.setBattleType ( 0 );
+                } else if ( "oneflag".equals ( input.toLowerCase ( ).split ( " " )[ 3 ] ) ) {
+                    controlBox.setBattleType ( 2 );
+                }
+                else type = "";
+                if (input.split(" ")[3].equals ( "flags" ))
                 controlBox.setNumberOfFlags(Integer.parseInt(input.split(" ")[4]));
             }
             if (isValidShowItems(input)) {
@@ -60,13 +81,12 @@ public class Controller {
             }
             if (isValidUseItem(input)) {
                 type = "use item";
-                controlBox.setCardName(input.split(" ")[1]);
-                setLocation(controlBox, input.split(" ")[2]);
+                controlBox.setCardName(input.split(" ")[2]);
+                setLocation(controlBox, input.split(" ")[3]);
             }
             if (isValidNextCard(input)) {
                 type = "next card";
             }
-            Battle.input(new ControlBox(region, type));
             if (isValidShowMyMinion(input)) {
                 type = "show my minions";
             }
@@ -80,7 +100,7 @@ public class Controller {
             }
             if (isValidSelectCard(input)) {
                 type = "select card";
-                String[] tmp = input.toLowerCase().split(" ");
+                String[] tmp = input.split(" ");
                 controlBox.setCardID(tmp[2]);
             }
             if (isValidMove(input)) {
@@ -90,7 +110,7 @@ public class Controller {
             }
             if (isValidAttack(input)) {
                 type = "attack";
-                controlBox.setCardID(input.toLowerCase().split(" ")[1]);
+                controlBox.setCardID(input.split(" ")[1]);
             }
             if (useSpecialPower(input)) {
                 type = "use special power";
@@ -114,6 +134,10 @@ public class Controller {
             return 0;
         }
         if (region.equals("MainMenu")) {
+            if (input.equals("logout")) {
+                type = "logout";
+                region = "Account";
+            }
             if (input.equalsIgnoreCase("Enter Account")) {
                 region = "Account";
                 System.out.println("You entered account!");
@@ -145,12 +169,7 @@ public class Controller {
             controlBox = new ControlBox("Shop", type);
             if (input.equalsIgnoreCase("exit")) {
                 region = "MainMenu";
-                System.out.println("1.Collection");
-                System.out.println("2.Shop");
-                System.out.println("3.Battle");
-                System.out.println("4.Exit");
-                System.out.println("5.Account");
-                System.out.println("6.Help");
+                printInMenu ( );
             }
             if (input.equalsIgnoreCase("show collection")) {
                 type = "showCollection";
@@ -184,12 +203,7 @@ public class Controller {
             controlBox = new ControlBox("Collection", type);
             if (input.equals("exit")) {
                 region = "MainMenu";
-                System.out.println("1.Collection");
-                System.out.println("2.Shop");
-                System.out.println("3.Battle");
-                System.out.println("4.Exit");
-                System.out.println("5.Account");
-                System.out.println("6.Help");
+                printInMenu ( );
             }
             if (input.equals("show")) {
                 type = "show";
@@ -272,69 +286,78 @@ public class Controller {
         return 0;
     }
 
+    public static void printInMenu () {
+        System.out.println ( "1.Collection" );
+        System.out.println ( "2.Shop" );
+        System.out.println ( "3.Battle" );
+        System.out.println ( "4.Exit" );
+        System.out.println ( "5.Account" );
+        System.out.println ( "6.Help" );
+    }
 
-    private void setLocation(ControlBox controlBox, String location) {
+
+    private static void setLocation ( ControlBox controlBox , String location ) {
         controlBox.setX(Integer.parseInt(String.valueOf(location.charAt(1))));
         controlBox.setY(Integer.parseInt(String.valueOf(location.charAt(3))));
     }
 
-    private boolean isValidSearchShopCollection(String input) {
+    private static boolean isValidSearchShopCollection ( String input ) {
         return input.toLowerCase().matches("search+ +collection+ +[a-z0-9_.]+");
     }
 
-    private boolean isValidBuy(String input) {
+    private static boolean isValidBuy ( String input ) {
         return input.toLowerCase().matches("buy+ +[a-z0-9_.]+");
     }
 
-    private boolean isValidSell(String input) {
+    private static boolean isValidSell ( String input ) {
         return input.toLowerCase().matches("sell+ +[a-z0-9_.]+");
     }
 
-    private boolean isValidSearchCollection(String input) {
+    private static boolean isValidSearchCollection ( String input ) {
         return input.toLowerCase().matches("search+ +[a-z0-9]+");
     }
 
-    private boolean isValidCreateDeck(String input) {
+    private static boolean isValidCreateDeck ( String input ) {
         return input.toLowerCase().matches("create+ +deck+ +[a-z0-9]+");
     }
 
-    private boolean isValidDeleteDeck(String input) {
+    private static boolean isValidDeleteDeck ( String input ) {
         return input.toLowerCase().matches("delete+ +deck+ +[a-z0-9]+");
     }
 
-    private boolean isValidAdd(String input) {
+    private static boolean isValidAdd ( String input ) {
         return input.toLowerCase().matches("add+ +[a-z0-9_.]+ +to+ +deck+ +[a-z0-9_.]+");
     }
 
-    private boolean isValidRemove(String input) {
+    private static boolean isValidRemove ( String input ) {
         return input.toLowerCase().matches("remove+ +[a-z0-9_.]+ +from+ +deck+ +[a-z0-9_.]+");
     }
 
-    private boolean isValidValidateDeck(String input) {
+    private static boolean isValidValidateDeck ( String input ) {
         return input.toLowerCase().matches("validate+ +deck+ +[a-z0-9_.]+");
     }
 
-    private boolean isValidSelectDeck(String input) {
+    private static boolean isValidSelectDeck ( String input ) {
         return input.toLowerCase().matches("select+ +deck+ +[a-z0-9_.]+");
     }
 
-    private boolean isValidShowDeck(String input) {
+    private static boolean isValidShowDeck ( String input ) {
         return input.toLowerCase().matches("show+ +deck+ +[a-z0-9_.]+");
     }
 
-    private boolean isValidSelectCard(String input) {
+    private static boolean isValidSelectCard ( String input ) {
         return input.toLowerCase().matches("select+ +card+ +[\\w_]+");
     }
 
-    private boolean isValidShowHand(String input) {
+    private static boolean isValidShowHand ( String input ) {
         return input.toLowerCase().equals("show hand");
     }
 
-    private boolean isValidShowOpMinion(String input) {
-        return input.toLowerCase().equals("show my opponenet minions");
+    private static boolean isValidShowOpMinion ( String input ) {
+        return input.toLowerCase().equals("show my opponent minions");
     }
 
-    private boolean isValidShowMyMinion(String input) {
+    private static boolean isValidShowMyMinion ( String input ) {
         return input.toLowerCase().equals("show my minions");
     }
 
@@ -342,67 +365,67 @@ public class Controller {
         return input.matches("[a-zA-Z0-9]");
     }
 
-    private boolean isValidLogin(String input) {
+    private static boolean isValidLogin ( String input ) {
         return input.matches("login+ +[a-zA-Z0-9]+");
     }
 
-    private boolean isValidCreateAccount(String input) {
+    private static boolean isValidCreateAccount ( String input ) {
         return input.matches("create account+ +[a-zA-Z0-9]+");
     }
 
-    private boolean isValidSearchShop(String input) {
+    private static boolean isValidSearchShop ( String input ) {
         return input.toLowerCase().matches("search+ +[a-z0-9]+");
     }
 
-    private boolean isValidShowCardInfo(String input) {
+    private static boolean isValidShowCardInfo ( String input ) {
         return input.toLowerCase().matches("show+ +card+ +info+ +[\\w_]+");
     }
 
-    private boolean isValidGameInfo(String input) {
+    private static boolean isValidGameInfo ( String input ) {
         return input.equalsIgnoreCase("game info");
     }
 
-    private boolean isValidMove(String input) {
+    private static boolean isValidMove ( String input ) {
         return input.toLowerCase().matches("move+ +to+ +[(]\\d,\\d[)]");
     }
 
-    private boolean isValidAttack(String input) {
-        return input.toLowerCase().matches("attack+ +[a-zA-Z0-9]+");
+    private static boolean isValidAttack ( String input ) {
+        return input.toLowerCase().matches("attack+ +[a-zA-Z0-9_]+");
     }
 
-    private boolean useSpecialPower(String input) {
+    private static boolean useSpecialPower ( String input ) {
         return input.toLowerCase().matches("Use+ +special+ +power+ +[(]\\d,\\d[)]");
     }
 
-    private boolean isValidInsert(String input) {
+    private static boolean isValidInsert ( String input ) {
         return input.toLowerCase().matches("insert+ +[a-z]+ +in+ +[(]\\d,\\d[)]");
     }
 
-    private boolean isValidEndTur(String input) {
+    private static boolean isValidEndTur ( String input ) {
         return input.equalsIgnoreCase("end turn");
     }
 
-    private boolean isValidNextCard(String input) {
+    private static boolean isValidNextCard ( String input ) {
         return input.equalsIgnoreCase("show next card");
     }
 
-    private boolean isValidSelectUser(String input) {
+    private static boolean isValidSelectUser ( String input ) {
         return input.toLowerCase().matches("select+ +user+ +[a-z0-9._]+");
     }
 
-    private boolean isValidNewGame(String input) {
-        return input.matches("start+ +multiplayer+ +game+ +[0|1|2]+ *+\\d*+");
+    private static boolean isValidNewGame ( String input ) {
+        return input.toLowerCase ().matches("start+ +multiplayer+ +game+ +[hero|flags|oneflag]+ *+\\d*+");
     }
 
-    private boolean isValidShowItems(String input) {
+    private static boolean isValidShowItems ( String input ) {
         return input.toLowerCase().matches("show+ +items");
     }
 
-    private boolean isValidShowItemInfo(String input) {
+    private static boolean isValidShowItemInfo ( String input ) {
         return input.toLowerCase().matches("show+ +info+ +[a-z0-9]");
     }
 
-    private boolean isValidUseItem(String input) {
+    private static boolean isValidUseItem ( String input ) {
         return input.toLowerCase().matches("use+ +item+ +[0-9a-z]+ +[(]\\d,\\d[)]");
     }
 }

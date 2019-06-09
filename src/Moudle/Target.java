@@ -65,24 +65,33 @@ public class Target {
 			targets.add ( ( Fighter ) ground.getCell ( x, y ).getCardOnCell () );
 		}
 		if ( targetType==2 ){
-			for ( int i=0;i<8;i++ ){
-				for(int j=0;j<5;j++){
+			for ( int i=0;i<5;i++ ){
+				for(int j=0;j<9;j++){
 					Fighter fighter = ( Fighter ) ground.getCell ( i, j ).getCardOnCell ();
+					if ( fighter == null ) {
+						break;
+					}
 					if ( checkFriendAndDegreeType ( fighter,player ) )
 						targets.add ( fighter );
 				}
 			}
 		}
 		if ( targetType==3 ){
-			for ( int i=0;i<8;i++ ){
+			for ( int i=0;i<5;i++ ){
 				Fighter fighter = ( Fighter ) ground.getCell ( i, y ).getCardOnCell ();
+				if ( fighter == null ) {
+					break;
+				}
 				if ( checkFriendAndDegreeType ( fighter,player ) )
 					targets.add ( fighter );
 			}
 		}
 		if ( targetType==4 ){
-			for ( int j=0;j<5;j++ ){
+			for ( int j=0;j<9;j++ ){
 				Fighter fighter = ( Fighter ) ground.getCell ( x, j ).getCardOnCell ();
+				if ( fighter == null ) {
+					break;
+				}
 				if ( checkFriendAndDegreeType ( fighter,player ) )
 					targets.add ( fighter );
 			}
@@ -90,9 +99,14 @@ public class Target {
 		if ( targetType==5 ){
 			for ( int i=-1;i<2;i++ ){
 				for(int j=-1;j<2;j++){
+					if ( isOutOfSide ( x+i,y+j ) )
+						break;
 					if ( i==0&&j==0 )
 						break;
 					Fighter fighter = (Fighter) ground.getCell ( x+i,y+j ).getCardOnCell ();
+					if ( fighter == null ) {
+						break;
+					}
 					if ( checkFriendAndDegreeType ( fighter,player ) ){
 						targets.add ( fighter );
 					}

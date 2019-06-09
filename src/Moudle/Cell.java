@@ -28,7 +28,7 @@ public class Cell {
     }
 
     public void moveFromCell() {
-
+    cardOnCell = null;
     }
     public void setItemOnCell(Item itemOnCell){
         this.itemOnCell = itemOnCell;
@@ -37,5 +37,6 @@ public class Cell {
         itemOnCell = null;
     }
     public void moveInCell(Object object) {
+        cardOnCell = (Card)object;
     }
 }

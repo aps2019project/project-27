@@ -1,6 +1,7 @@
 package Moudle;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Hand extends Deck {
     private Deck deck;
@@ -14,11 +15,11 @@ public class Hand extends Deck {
         nextCard = null;
     }
     public void setNextCard(){
+        Random random = new Random (  );
         if ( nextCard!=null )
             return;
         int size = deck.getCards ().size ();
-        int i = ( int ) (Math.random ()%size);
-        nextCard = deck.getCards ().get ( i );
+        nextCard = deck.getCards ().get ( random.nextInt (size) );
     }
 
     public Deck getDeck() {
@@ -33,7 +34,6 @@ public class Hand extends Deck {
         this.deck = deck;
     }
     public void show() {
-        //todo
         if(handCards.size ()==0){
             System.out.println ("hand is empty" );
             return;
@@ -60,7 +60,8 @@ public class Hand extends Deck {
         return this.nextCard;
     }
 
-    public void removeCard() {
+    public void removeCard(Card card) {
+        handCards.remove ( card );
     }
     public void removeItem() {
 

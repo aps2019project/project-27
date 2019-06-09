@@ -1,6 +1,7 @@
 package Moudle;
 
 import Controller.ControlBox;
+import View.View;
 
 import java.util.ArrayList;
 
@@ -73,7 +74,7 @@ public class Shop {
 			if ( card.getCardType ( ) == 1 ) {
 				MinionAndHero minionAndHero = ( MinionAndHero ) card;
 				if ( minionAndHero.isHero ( ) ) {
-					printMinion ( minionAndHero , counterHero );
+					View.printMinion ( minionAndHero , counterHero );
 					counterHero++;
 				}
 			}
@@ -89,7 +90,7 @@ public class Shop {
 		for ( Card card : Account.getMainAccount ( ).getCollection ( ).getCards ( ) ) {
 			if ( card.getCardType ( ) == 1 ) {
 				MinionAndHero minionAndHero = ( MinionAndHero ) card;
-				printMinion ( minionAndHero , counterCard );
+				View.printMinion ( minionAndHero , counterCard );
 				counterCard++;
 			}
 			if ( card.getCardType ( ) == 0 ) {
@@ -97,13 +98,6 @@ public class Shop {
 						card.getManaPrice ( ) , card.getShopPrice ( ) );
 			}
 		}
-	}
-
-	private static void printMinion ( MinionAndHero minionAndHero , int counter ) {
-		System.out.printf ( "\t%d : Type:Minion - Name : %s - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n" ,
-				counter + 1 , minionAndHero.getName ( ) , minionAndHero.getAttackType ( ) , minionAndHero.getAP ( ) ,
-				minionAndHero.getHP ( ) , minionAndHero.getManaPrice ( ) , minionAndHero.getSpecialPowerType ( ) ,
-				minionAndHero.getShopPrice ( ) );
 	}
 
 	public Card findCard ( String name ) {
@@ -189,7 +183,7 @@ public class Shop {
 			if ( card.getCardType ( ) == 1 ) {
 				MinionAndHero minionAndHero = ( MinionAndHero ) card;
 				if ( minionAndHero.isHero ( ) ) {
-					printMinion ( minionAndHero , counterHero );
+					View.printMinion ( minionAndHero , counterHero );
 					counterHero++;
 				}
 			}
@@ -198,7 +192,7 @@ public class Shop {
 		System.out.println ( "Items :" );
 		int counterItem = 0;
 		for ( Item item : items ) {
-			System.out.printf ( "\t%d:Name:%d - Desc: - Sell Cost:%d\n" , counterItem + 1 /*description*/ , items.get ( counterItem ).getPrice ( ) );
+			System.out.printf ( "\t%d:Name:%s - Desc: - Sell Cost:%d\n" , counterItem + 1,item.getName () /*description*/ , item.getPrice ( ) );
 			counterItem++;
 		}
 		System.out.println ( "Cards :" );
@@ -207,7 +201,7 @@ public class Shop {
 			if ( card.getCardType ( ) == 1 ) {
 				MinionAndHero minionAndHero = ( MinionAndHero ) card;
 				if ( ! minionAndHero.isHero ( ) ) {
-					printMinion ( minionAndHero , counterCard );
+					View.printMinion ( minionAndHero , counterCard );
 					counterCard++;
 				}
 			}

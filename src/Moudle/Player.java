@@ -85,6 +85,7 @@ public class Player {
     }
 
     public void addToGraveYard(Fighter fighter) {
+        fighters.remove ( fighter );
         graveYard.add(fighter);
     }
 
@@ -125,23 +126,9 @@ public class Player {
 
     public void showFighters() {
         for (Fighter fighter : fighters) {
-            View.showMinion (fighter);
+            View.showFighter (fighter);
         }
     }
-
-    public void useItem(Item item) {
-
-    }
-
-    public void showCardInGraveYard(String name) {
-        for (Card card : graveYard) {
-            if (card.getName().equals(name)) {
-                MinionAndHero minionAndHero = (MinionAndHero) card;
-                printMinion(minionAndHero, 0);
-            }
-        }
-    }
-
     public void showGraveYard() {
         System.out.println("Heroes :");
         int counterHero = 0;
@@ -149,7 +136,7 @@ public class Player {
             if (card.getCardType() == 1) {
                 MinionAndHero minionAndHero = (MinionAndHero) card;
                 if (minionAndHero.isHero()) {
-                    printMinion(minionAndHero, counterHero);
+                    View.printMinion(minionAndHero, counterHero);
                     counterHero++;
                 }
             }
@@ -166,7 +153,7 @@ public class Player {
             if (card.getCardType() == 1) {
                 MinionAndHero minionAndHero = (MinionAndHero) card;
                 if (!minionAndHero.isHero()) {
-                    printMinion(minionAndHero, counterCard);
+                    View.printMinion(minionAndHero, counterCard);
                     counterCard++;
                 }
             }
@@ -175,13 +162,6 @@ public class Player {
                         card.getManaPrice(), card.getShopPrice());
             }
         }
-    }
-
-    private static void printMinion(MinionAndHero minionAndHero, int counter) {
-        System.out.printf("\t%d : Type:Minion - Name : %s - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n",
-                counter + 1, minionAndHero.getName(), minionAndHero.getAttackType(), minionAndHero.getAP(),
-                minionAndHero.getHP(), minionAndHero.getManaPrice(), minionAndHero.getSpecialPowerType(),
-                minionAndHero.getShopPrice());
     }
     public void showHand() {
         hand.show();

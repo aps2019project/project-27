@@ -5,16 +5,16 @@ import java.util.ArrayList;
 public class Item {
     private static ArrayList<Item> items = new ArrayList<>();
     private static Item lastFlag=new Item ();
-    {
+    static {
         lastFlag.isLastFlag = true;
         lastFlag.isFlag = false;
         lastFlag.name = "last flag";
     }
     private static Item normalFlag = new Item ();
-    {
-        lastFlag.isLastFlag = false;
-        lastFlag.isFlag = true;
-        lastFlag.name = "normal flag";
+    static {
+        normalFlag.isLastFlag = false;
+        normalFlag.isFlag = true;
+        normalFlag.name = "normal flag";
     }
     private String name;
     private int price;
@@ -77,7 +77,6 @@ public class Item {
     }
 
     public void showItem() {
-        //todo
     }
 
     public static void setItems(ArrayList<Item> items) {

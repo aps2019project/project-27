@@ -38,12 +38,27 @@ public class View {
     }
 
     public static void showSpell(Spell spell) {
-        System.out.printf("%Name : %s - MP : %d - Desc : ", spell.getName(), spell.getManaPrice());
+        System.out.printf("Name : %s - MP : %d - Desc : \n", spell.getName(), spell.getManaPrice());
 
     }
+    public static void showSpell(Spell spell,int counter) {
+        System.out.printf("Name : %s - MP : %d - Desc : \n", spell.getName(), spell.getManaPrice());
 
-    public static void showMinion(Fighter fighter) {
-        System.out.printf("%d : health : %d - attack : %d - location : x=%d y=%d",
-                fighter.getID(), fighter.getHP(), fighter.getAP(), fighter.getX(), fighter.getY());
+    }
+    public static void printMinion ( MinionAndHero minionAndHero , int counter ) {
+        System.out.printf ( "\t%d : Type:Minion - Name : %s - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n" ,
+                counter + 1 , minionAndHero.getName ( ) , minionAndHero.getAttackType ( ) , minionAndHero.getAP ( ) ,
+                minionAndHero.getHP ( ) , minionAndHero.getManaPrice ( ) , minionAndHero.getSpecialPowerType ( ) ,
+                minionAndHero.getShopPrice ( ) );
+    }
+    public static void printMinion ( MinionAndHero minionAndHero  ) {
+        System.out.printf ( "\tType:Minion - Name : %s - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n" ,
+                  minionAndHero.getName ( ) , minionAndHero.getAttackType ( ) , minionAndHero.getAP ( ) ,
+                minionAndHero.getHP ( ) , minionAndHero.getManaPrice ( ) , minionAndHero.getSpecialPowerType ( ) ,
+                minionAndHero.getShopPrice ( ) );
+    }
+    public static void showFighter ( Fighter fighter) {
+        System.out.printf("%s : health : %d - attack : %d - attack type : %d - range : %d - location : x=%d y=%d\n",
+                fighter.getID(), fighter.getHP(), fighter.getAP(),fighter.getAttackType (),fighter.getRange (), fighter.getX(), fighter.getY());
     }
 }

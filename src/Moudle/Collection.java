@@ -1,14 +1,14 @@
 package Moudle;
 
 import Controller.ControlBox;
+import View.View;
 
 import java.util.ArrayList;
 
 public class Collection {
     private static ArrayList<Collection> collections = new ArrayList<>();
-    //    private static Collection currentCollection = Account.getMainAccount().getCollection();
-    private Account account;
-    private ArrayList<Card> cards = new ArrayList<>();
+    private ArrayList<Spell> spells = new ArrayList<> ();
+    private ArrayList<MinionAndHero> minionAndHeroes = new ArrayList<> ();
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<Deck> decks;
 
@@ -72,6 +72,9 @@ public class Collection {
     }
 
     public ArrayList<Card> getCards() {
+        ArrayList<Card> cards = new ArrayList<> (  );
+        cards.addAll ( spells);
+        cards.addAll ( minionAndHeroes );
         return cards;
     }
 
@@ -82,15 +85,11 @@ public class Collection {
     public void show() {
         System.out.println("Heroes :");
         int counterHero = 0;
-        for (Card card : Account.getMainAccount().getCollection().getCards()) {
-            if (card.getCardType() == 1) {
-                int a=1;
-                MinionAndHero minionAndHero = (MinionAndHero) card;
+        for (MinionAndHero minionAndHero:minionAndHeroes) {
                 if (minionAndHero.isHero()) {
-                    printMinion(minionAndHero, counterHero);
+                    View.printMinion (minionAndHero, counterHero);
                     counterHero++;
                 }
-            }
         }
         System.out.println("Items :");
         int counterItem = 0;
@@ -101,28 +100,17 @@ public class Collection {
         }
         System.out.println("Cards :");
         int counterCard = 0;
-        for (Card card : Account.getMainAccount().getCollection().getCards()) {
-            if (card.getCardType() == 1) {
-                MinionAndHero minionAndHero = (MinionAndHero) card;
-                if (!minionAndHero.isHero()) {
-                    printMinion(minionAndHero, counterCard);
-                    counterCard++;
-                }
-            }
-            if (card.getCardType() == 0) {
-                System.out.printf("\t%d : Type:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", counterCard + 1, card.getName(),
-                        card.getManaPrice(), card.getShopPrice());
+        for (MinionAndHero minionAndHero:minionAndHeroes) {
+            if ( ! minionAndHero.isHero ( ) ) {
+                View.printMinion ( minionAndHero , counterCard );
+                counterCard++;
             }
         }
+            for ( Spell spell:spells){
+                System.out.printf("\t%d : Type:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", counterCard + 1, spell.getName(),
+                        spell.getManaPrice(), spell.getShopPrice());
+            }
     }
-
-    private static void printMinion(MinionAndHero minionAndHero, int counter) {
-        System.out.printf("\t%d : Type:Minion - Name : %s - Class:%s - AP:%d - HP:%d - MP:%d - Special power:%s - Sell Cost:%d\n",
-                counter + 1, minionAndHero.getName(), minionAndHero.getAttackType(), minionAndHero.getAP(),
-                minionAndHero.getHP(), minionAndHero.getManaPrice(), minionAndHero.getSpecialPowerType(),
-                minionAndHero.getShopPrice());
-    }
-
     public void search(String name) {
         if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) == null) {
             System.out.println("There is no such card|item in collection");
@@ -134,6 +122,9 @@ public class Collection {
     }
 
     public Card findCard(String cardName) {
+        ArrayList<Card> cards = new ArrayList (  );
+        cards.addAll ( minionAndHeroes );
+        cards.addAll ( spells );
         for (int i = 0; i < cards.size(); i++) {
             if (cards.get(i).getName().equals(cardName)) {
                 return cards.get(i);
@@ -161,11 +152,18 @@ public class Collection {
     }
 
     public void addToCards(Card card) {
-        cards.add(card);
+        if ( card.getCardType ()==0 )
+            spells.add ( ( Spell ) card );
+        if ( card.getCardType ()==1 )
+            minionAndHeroes.add ( ( MinionAndHero ) card );
+
     }
 
     public void removeFromCards(Card card) {
-        cards.remove(card);
+        if ( card.getCardType ()==0 )
+            spells.remove ( ( Spell ) card );
+        if ( card.getCardType ()==1 )
+            minionAndHeroes.remove ( ( MinionAndHero ) card );
     }
 
     public void addToItems(Item item) {
@@ -198,28 +196,30 @@ public class Collection {
 
     public void add(String name, String deckName) {
         Account account = Account.getMainAccount();
-        if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) == null) {
+        if (account.getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) == null) {
             System.out.println("This card|item doesn't exist in the collection!");
-        } else if (Account.getMainAccount().getCollection().findCard(name) != null && Account.getMainAccount().getCollection().findItem(name) == null) {
-            if (Account.getMainAccount().findDeck(deckName).findCard(name) != null) {
-                System.out.println("This card is already in deck!");
-            } else {
-                if (Account.getMainAccount().findDeck(deckName).getCards().size() >= 21) {
+        } else if (account.getCollection().findCard(name) != null && Account.getMainAccount().getCollection().findItem(name) == null) {
+           //if (account.findDeck(deckName).findCard(name) != null) {
+             //   System.out.println("This card is already in deck!");
+            //}
+            //else
+                {
+                if (account.findDeck(deckName).getCards().size() >= 21) {
                     System.out.println("You can't add anymore cards to deck!");
                 } else {
-                    Account.getMainAccount().findDeck(deckName).getCards().add(findCard(name));
+                    account.findDeck(deckName).addToCarts(findCard(name));
+                    Deck deck = account.findDeck ( deckName );
                     System.out.println("The card's been added to the deck!");
                 }
             }
-        } else if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) != null) {
-            if (Account.getMainAccount().findDeck(deckName).getItem() != null) {
+        } else if (account.getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) != null) {
+            if (account.findDeck(deckName).getItem() != null) {
                 System.out.println("You can't add anymore items to deck!");
             } else {
-                Account.getMainAccount().findDeck(deckName).setItem(findItem(name));
+                account.findDeck(deckName).setItem(findItem(name));
                 System.out.println("The item's been added to the deck!");
             }
         }
-        int a=1;
     }
 
     public void remove(String name, String deckName) {
@@ -234,10 +234,19 @@ public class Collection {
         }
     }
 
-    public void validateDeck(String deckName) {
-        if (Account.getMainAccount().findDeck(deckName).getCards().size() == 21) {
+    public boolean validateDeck(String deckName) {
+        Deck deck = Account.getMainAccount().findDeck(deckName);
+        return isValidDeck ( deck );
+    }
+
+    public static boolean isValidDeck (  Deck deck ) {
+        if ( deck == null ) {
+            System.out.println ("you havent this deck" );
+            return false;
+        }
+        if ( deck.getCards().size() == 21) {
             int counter = 0;
-            for (Card card : Account.getMainAccount().findDeck(deckName).getCards()) {
+            for ( Card card : deck.getCards()) {
                 if (card.getCardType() == 1) {
                     MinionAndHero minionAndHero = (MinionAndHero) card;
                     if (minionAndHero.isHero()) {
@@ -247,10 +256,13 @@ public class Collection {
             }
             if (counter == 1) {
                 System.out.println("This deck is valid!");
+                return true;
             }
         } else {
             System.out.println("This deck is not valid!");
+            return false;
         }
+        return true;
     }
 
     public void selectDeck(String deckName) {

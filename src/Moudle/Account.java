@@ -14,9 +14,9 @@ public class Account {
     private String userName;
     private String passWord;
     private Collection collection = new Collection();
-    private int money = 10000;
+    private int money = 100000;
     private ArrayList<Deck> decks = new ArrayList<>();
-    private Deck mainDeck;
+    private Deck mainDeck = new Deck ();
     private int wins;
     private int losses;
 
@@ -49,12 +49,7 @@ public class Account {
         if (in.equals("login")) {
             if (login(controlBox.getUserName())) {
                 Controller.setRegion("MainMenu");
-                System.out.println("1.Collection");
-                System.out.println("2.Shop");
-                System.out.println("3.Battle");
-                System.out.println("4.Exit");
-                System.out.println("5.Account");
-                System.out.println("6.Help");
+                Controller.printInMenu ();
                 return 2;
             }
         }
@@ -97,9 +92,6 @@ public class Account {
             account.userName = userName;
             account.passWord = passWord;
             accounts.add(account);
-//            Collection collection = new Collection();
-//            Collection.getCollections().add(collection);
-//            account.setCollection(collection);
             System.out.println("Account's been created!");
         }
 
@@ -146,8 +138,8 @@ public class Account {
     }
 
     public static void logout() {
-        //todo
         mainAccount = null;
+        System.out.println ("logout successfully" );
     }
 
     public static void help() {
@@ -158,9 +150,6 @@ public class Account {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public void setCollection(Collection collection) {
         this.collection = collection;
@@ -201,16 +190,7 @@ public class Account {
     public void increaseWins() {
         wins++;
     }
-
-    public int getWins() {
-        return wins;
-    }
-
     public void increaseLosses() {
         losses++;
-    }
-
-    public int getLosses() {
-        return losses;
     }
 }
