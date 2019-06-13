@@ -12,7 +12,7 @@ public class Buff {
 	//0:hell	1:holy		2:poison
 	private int cellEffectType;
 	private boolean isPositive;
-	private int chanfgeAP;
+	private int changeAP;
 	private int changeHP;
 	private int changeMana;
 	private int changeHollynes;

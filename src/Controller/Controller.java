@@ -1,11 +1,16 @@
 package Controller;
 
 import Moudle.*;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
-public class Controller {
+public class Controller extends Application {
     private static String input;
     private static String region = "";
     private static String type;
@@ -19,7 +24,8 @@ public class Controller {
         Controller.region = region;
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
+        launch ( args );
         //load phase
         Load.loadAccounts();
         Load.loadMinionAndHeros();
@@ -427,5 +433,13 @@ public class Controller {
 
     private static boolean isValidUseItem ( String input ) {
         return input.toLowerCase().matches("use+ +item+ +[0-9a-z]+ +[(]\\d,\\d[)]");
+    }
+
+    @Override
+    public void start ( Stage primaryStage ) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("test.fxml"));
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene (root, 300, 275));
+        primaryStage.show();
     }
 }
