@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Accountfxml">
+   <children>
+      <Button fx:id="showLeaderBoard" layoutX="63.0" layoutY="61.0" mnemonicParsing="false" text="show leaderboard" />
+      <Button fx:id="save" layoutX="63.0" layoutY="141.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="save" />
+      <Button fx:id="logout" layoutX="63.0" layoutY="217.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="logout" />
+      <Button fx:id="help" layoutX="63.0" layoutY="300.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="help" />
+      <TextField fx:id="userName" layoutX="336.0" layoutY="116.0" />
+      <Label layoutX="336.0" layoutY="99.0" text="user name" />
+      <TextField fx:id="passWord" layoutX="336.0" layoutY="188.0" />
+      <Button fx:id="createAccount" layoutX="411.0" layoutY="263.0" mnemonicParsing="false" text="create account" />
+      <Button fx:id="login" layoutX="282.0" layoutY="263.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" text="login" />
+      <Label layoutX="336.0" layoutY="171.0" text="password" />
+      <Button fx:id="Menu" layoutX="366.0" layoutY="313.0" mnemonicParsing="false" text="menu" />
+   </children>
+</AnchorPane>

@@ -41,17 +41,18 @@ public class Account {
         return accounts;
     }
 
-    public static int input(ControlBox controlBox) {
+    public static ControlBox input(ControlBox controlBox) {
         String in = controlBox.getType();
         if (in.equals("create account")) {
-            createAccount(controlBox.getUserName());
+            return createAccount(controlBox.getUserName(),controlBox.getPass ());
         }
         if (in.equals("login")) {
-            if (login(controlBox.getUserName())) {
+            ControlBox controlBox1 = login(controlBox.getUserName());
+            if (controlBox1.isSucces ()) {
                 Controller.setRegion("MainMenu");
                 Controller.printInMenu ();
-                return 2;
             }
+            return controlBox1;
         }
         if (in.equals("show leaderboard")) {
             showLeaderBoard();
@@ -65,7 +66,7 @@ public class Account {
         if (in.equals("help")) {
             help();
         }
-        return 0;
+        return new ControlBox (  );
     }
 
     public static Account findAccount(String userName) {
@@ -81,26 +82,25 @@ public class Account {
         return null;
     }
 
-    public static void createAccount(String userName) {
+    public static ControlBox createAccount(String userName,String passWord) {
+        ControlBox controlBox = new ControlBox (  );
         if (findAccount(userName) != null) {
-            System.out.println("There is an account with this userName!");
+            controlBox.setSucces ( false );
         } else {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter password:");
-            String passWord = scanner.next();
             Account account = new Account();
             account.userName = userName;
             account.passWord = passWord;
             accounts.add(account);
-            System.out.println("Account's been created!");
+            controlBox.setSucces ( true );
         }
-
+        return controlBox;
     }
 
-    public static boolean login(String userName) {
+    public static ControlBox login(String userName) {
+        ControlBox controlBox = new ControlBox (  );
         if (findAccount(userName) == null) {
-            System.out.println("There is no account with this userName!");
-            return false;
+            controlBox.setSucces ( false );
+            controlBox.setDescription ( "no user" );
         } else {
             System.out.println("Enter password:");
             Scanner scanner = new Scanner(System.in);
@@ -108,12 +108,13 @@ public class Account {
             if (passWord.equals(findAccount(userName).passWord)) {
                 System.out.println("Login successful!");
                 mainAccount = findAccount(userName);
-                return true;
+                controlBox.setSucces ( true );
             } else {
-                System.out.println("Wrong password!");
-                return false;
+                controlBox.setDescription ( "wrong pass" );
+                controlBox.setSucces ( false );
             }
         }
+        return controlBox;
     }
 
     public static void showLeaderBoard() {

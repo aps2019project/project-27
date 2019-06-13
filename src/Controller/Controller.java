@@ -1,16 +1,12 @@
 package Controller;
 
 import Moudle.*;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import View.Graphic;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Controller extends Application {
+public class Controller {
     private static String input;
     private static String region = "";
     private static String type;
@@ -25,7 +21,6 @@ public class Controller extends Application {
     }
 
     public static void main(String[] args) throws IOException {
-        launch ( args );
         //load phase
         Load.loadAccounts();
         Load.loadMinionAndHeros();
@@ -34,6 +29,7 @@ public class Controller extends Application {
         Battle.setCollectibleItems ( Item.getItems () );
         Card.addMAndH(MinionAndHero.getMinionAndHeroes());
         Card.addSpells ( Spell.getSpells () );
+        Graphic.main ( new String[2] );
         region = "Account";
         int out = 0;
         while (out != -1) {
@@ -283,15 +279,27 @@ public class Controller extends Application {
                 type = "help";
             }
             controlBox.setType(type);
-            int o = Account.input(controlBox);
-            if (o == 2) {
+            boolean o = Account.input(controlBox).isSucces ();
+            if (o) {
                 region = "MainMenu";
             }
-            return o;
+            return -1;
         }
         return 0;
     }
+	public static ControlBox giveFromGraphic(ControlBox controlBox){
+    	switch ( controlBox.getRegion () ){
+			case "Account":
+				return Account.input ( controlBox );
+			case "MainMenu":
+				//todo
+				break;
+		}
+		return new ControlBox (  );
+	}
+	public static void answer(ControlBox controlBox){
 
+    }
     public static void printInMenu () {
         System.out.println ( "1.Collection" );
         System.out.println ( "2.Shop" );
@@ -433,13 +441,5 @@ public class Controller extends Application {
 
     private static boolean isValidUseItem ( String input ) {
         return input.toLowerCase().matches("use+ +item+ +[0-9a-z]+ +[(]\\d,\\d[)]");
-    }
-
-    @Override
-    public void start ( Stage primaryStage ) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("test.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene (root, 300, 275));
-        primaryStage.show();
     }
 }

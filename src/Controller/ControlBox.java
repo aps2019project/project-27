@@ -10,6 +10,33 @@ public class ControlBox {
     private int battleType;
     private int numberOfFlags;
     private String deckName;
+    private boolean succes;
+    private String pass;
+    private String description;
+
+    public void setDescription ( String description ) {
+        this.description = description;
+    }
+
+    public String getDescription () {
+        return description;
+    }
+
+    public void setPass ( String pass ) {
+        this.pass = pass;
+    }
+
+    public String getPass () {
+        return pass;
+    }
+
+    public void setSucces ( boolean succes ) {
+        this.succes = succes;
+    }
+
+    public boolean isSucces () {
+        return succes;
+    }
 
     public int getBattleType () {
         return battleType;
