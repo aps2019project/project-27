@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<?import javafx.scene.control.Label?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.HelpCollectionfxml">
+   <children>
+      <Label layoutX="66.0" layoutY="108.0" prefHeight="31.0" prefWidth="218.0" text="show" />
+      <Label layoutX="66.0" layoutY="139.0" prefHeight="31.0" prefWidth="218.0" text="search [card name|item name]" />
+      <Label layoutX="66.0" layoutY="170.0" prefHeight="31.0" prefWidth="218.0" text="save" />
+      <Label layoutX="66.0" layoutY="201.0" prefHeight="31.0" prefWidth="218.0" text="create deck [deck name]" />
+      <Label layoutX="66.0" layoutY="232.0" prefHeight="31.0" prefWidth="218.0" text="delete deck [deck name]" />
+      <Label layoutX="66.0" layoutY="262.0" prefHeight="31.0" prefWidth="386.0" text="add [card id|item id|hero id] to deck [deck name]" />
+      <Label layoutX="66.0" layoutY="293.0" prefHeight="31.0" prefWidth="386.0" text="remove [card id|item id|hero id] from deck [deck name]" />
+      <Label layoutX="342.0" layoutY="77.0" prefHeight="31.0" prefWidth="193.0" text="validate deck [deck name]" />
+      <Label layoutX="342.0" layoutY="108.0" prefHeight="31.0" prefWidth="193.0" text="select deck [deck name]" />
+      <Label layoutX="342.0" layoutY="139.0" prefHeight="31.0" prefWidth="193.0" text="show all decks" />
+      <Label layoutX="342.0" layoutY="170.0" prefHeight="31.0" prefWidth="193.0" text="show deck [deck name]" />
+      <Label layoutX="342.0" layoutY="201.0" prefHeight="31.0" prefWidth="193.0" text="help" />
+      <Label layoutX="66.0" layoutY="77.0" prefHeight="31.0" prefWidth="218.0" text="exit" />
+      <Button fx:id="Back" layoutX="14.0" layoutY="355.0" mnemonicParsing="false" text="Back to Collection" />
+   </children>
+</AnchorPane>
