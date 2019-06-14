@@ -9,30 +9,19 @@ import javafx.scene.control.Button;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainMenufxml implements Initializable {
-    public Button Account;
-    public Button CostomeCard;
-    public Button Battle;
-    public Button Shop;
-    public Button Exit;
-    public Button Collection;
-    public Button Help;
+public class HelpMenufxml implements Initializable {
+
+    public Button Back;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                Account.setOnAction(new EventHandler<ActionEvent>() {
+                Back.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        Graphic.setRegion("Account");
-                    }
-                });
-                Help.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        Graphic.setRegion("HelpMenu");
+                        Graphic.setRegion("MainMenu");
                     }
                 });
             }

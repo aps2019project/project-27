@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.HelpAccountfxml">
+    <children>
+        <Label layoutX="203.0" layoutY="51.0" prefHeight="31.0" prefWidth="237.0" text="create account [userName]" textAlignment="CENTER" />
+        <Label layoutX="203.0" layoutY="94.0" prefHeight="31.0" prefWidth="237.0" text="login [userName]" textAlignment="CENTER" />
+        <Label layoutX="203.0" layoutY="139.0" prefHeight="31.0" prefWidth="237.0" text="show leaderboard" textAlignment="CENTER" />
+        <Label layoutX="203.0" layoutY="185.0" prefHeight="31.0" prefWidth="237.0" text="save" textAlignment="CENTER" />
+        <Label layoutX="203.0" layoutY="232.0" prefHeight="31.0" prefWidth="237.0" text="logout" textAlignment="CENTER" />
+        <Label layoutX="203.0" layoutY="281.0" prefHeight="31.0" prefWidth="237.0" text="help" textAlignment="CENTER" />
+        <Button fx:id="Back" layoutX="14.0" layoutY="355.0" mnemonicParsing="false" text="Back to Account" />
+    </children>
+</AnchorPane>
