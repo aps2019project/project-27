@@ -48,18 +48,18 @@ public class Graphic extends Application implements Runnable {
                 root = FXMLLoader.load(getClass().getResource("HelpMenufxml.fxml"));
                 primaryStage.setTitle("HelpMenu");
                 scene = new Scene(root, 600, 400);
-            case "HelpShop":
-                root = FXMLLoader.load(getClass().getResource("HelpShopfxml.fxml"));
-                primaryStage.setTitle("HelpShop");
-                scene = new Scene(root, 600, 400);
-            case "HelpCollection":
-                root = FXMLLoader.load(getClass().getResource("HelpCollectionfxml.fxml"));
-                primaryStage.setTitle("HelpCollection");
-                scene = new Scene(root, 600, 400);
-            case "HelpBattle":
-                root = FXMLLoader.load(getClass().getResource("HelpBattle.fxml"));
-                primaryStage.setTitle("HelpBattle");
-                scene = new Scene(root, 600, 400);
+//            case "HelpShop":
+//                root = FXMLLoader.load(getClass().getResource("HelpShopfxml.fxml"));
+//                primaryStage.setTitle("HelpShop");
+//                scene = new Scene(root, 600, 400);
+//            case "HelpCollection":
+//                root = FXMLLoader.load(getClass().getResource("HelpCollectionfxml.fxml"));
+//                primaryStage.setTitle("HelpCollection");
+//                scene = new Scene(root, 600, 400);
+//            case "HelpBattle":
+//                root = FXMLLoader.load(getClass().getResource("HelpBattle.fxml"));
+//                primaryStage.setTitle("HelpBattle");
+//                scene = new Scene(root, 600, 400);
         }
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override

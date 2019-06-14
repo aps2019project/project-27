@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.HelpAccountfxml">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@Backgrounds/HelpAccountBackground.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.HelpAccountfxml">
     <children>
         <Label layoutX="203.0" layoutY="51.0" prefHeight="31.0" prefWidth="237.0" text="create account [userName]" textAlignment="CENTER" />
         <Label layoutX="203.0" layoutY="94.0" prefHeight="31.0" prefWidth="237.0" text="login [userName]" textAlignment="CENTER" />

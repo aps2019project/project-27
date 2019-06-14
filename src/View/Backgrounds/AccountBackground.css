@@ -1,0 +1,4 @@
+  .bodybg{
+    -fx-background-image: url("/View/Backgrounds/Account.png");
+    -fx-background-size:100% 100%;
+  }
