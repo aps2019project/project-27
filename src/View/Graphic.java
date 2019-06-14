@@ -37,6 +37,11 @@ public class Graphic extends Application implements Runnable {
 				primaryStage.setTitle ( "Hello World" );
 				scene= new Scene ( root , 270 , 400 );
 				break;
+			case "BattleMenu":
+				root = FXMLLoader.load ( getClass ( ).getResource ( "BattleMenu.fxml" ) );
+				primaryStage.setTitle ( "Battle menu" );
+				scene = new Scene ( root , 600 , 400 );
+				break;
 		}
 		AnimationTimer animationTimer = new AnimationTimer ( ) {
 			@Override

@@ -21,6 +21,7 @@ public class Accountfxml implements Initializable {
 	public TextField userName;
 	public TextField passWord;
 	public Button Menu;
+
 	@Override
 	public void initialize ( URL location , ResourceBundle resources ) {
 		ControlBox controlBox = new ControlBox (  );

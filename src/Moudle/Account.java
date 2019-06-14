@@ -6,7 +6,6 @@ import Controller.Controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
 
 public class Account {
     private static ArrayList<Account> accounts = new ArrayList<>();
@@ -47,7 +46,7 @@ public class Account {
             return createAccount(controlBox.getUserName(),controlBox.getPass ());
         }
         if (in.equals("login")) {
-            ControlBox controlBox1 = login(controlBox.getUserName());
+            ControlBox controlBox1 = login(controlBox);
             if (controlBox1.isSucces ()) {
                 Controller.setRegion("MainMenu");
                 Controller.printInMenu ();
@@ -96,18 +95,16 @@ public class Account {
         return controlBox;
     }
 
-    public static ControlBox login(String userName) {
+    public static ControlBox login(ControlBox in) {
         ControlBox controlBox = new ControlBox (  );
-        if (findAccount(userName) == null) {
+        if (findAccount(in.getUserName ()) == null) {
             controlBox.setSucces ( false );
             controlBox.setDescription ( "no user" );
         } else {
-            System.out.println("Enter password:");
-            Scanner scanner = new Scanner(System.in);
-            String passWord = scanner.next();
-            if (passWord.equals(findAccount(userName).passWord)) {
+                String passWord = in.getPass ();
+            if (passWord.equals(findAccount(in.getUserName ()).passWord)) {
                 System.out.println("Login successful!");
-                mainAccount = findAccount(userName);
+                mainAccount = findAccount(in.getUserName ());
                 controlBox.setSucces ( true );
             } else {
                 controlBox.setDescription ( "wrong pass" );
