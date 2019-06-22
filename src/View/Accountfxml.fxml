@@ -5,12 +5,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@Backgrounds/AccountBackground.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Accountfxml">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@Backgrounds/AccountBackground.css" xmlns="http://javafx.com/javafx/8.0.172" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Accountfxml">
    <children>
       <Button fx:id="showLeaderBoard" layoutX="63.0" layoutY="61.0" mnemonicParsing="false" text="show leaderboard" />
       <Button fx:id="save" layoutX="63.0" layoutY="140.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="save" />
       <Button fx:id="logout" layoutX="63.0" layoutY="217.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="logout" />
-      <Button fx:id="help" layoutX="63.0" layoutY="300.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="help" />
+      <Button fx:id="help" layoutX="63.0" layoutY="301.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="112.0" text="help" />
       <TextField fx:id="userName" layoutX="336.0" layoutY="116.0" />
       <Label layoutX="336.0" layoutY="99.0" text="user name" />
       <TextField fx:id="passWord" layoutX="336.0" layoutY="188.0" />
