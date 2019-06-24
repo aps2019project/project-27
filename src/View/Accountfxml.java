@@ -1,4 +1,5 @@
 package View;
+
 import Controller.ControlBox;
 import Controller.Controller;
 import javafx.animation.AnimationTimer;
@@ -52,12 +53,18 @@ public class Accountfxml implements Initializable {
                         }
                     }
                 });
-//                logout.setOnAction(new EventHandler<ActionEvent>() {
-//                    @Override
-//                    public void handle(ActionEvent event) {
-//                        controlBox.setType("logout");
-//                    }
-//                });
+                save.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        controlBox.setType("save");
+                    }
+                });
+                logout.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        controlBox.setType("logout");
+                    }
+                });
                 Menu.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {

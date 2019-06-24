@@ -41,12 +41,22 @@ public class Graphic extends Application implements Runnable {
                 break;
             case "MainMenu":
                 root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-                primaryStage.setTitle("Hello World");
+                primaryStage.setTitle("Main menu");
                 scene = new Scene(root, 600, 400);
                 break;
             case "BattleMenu":
                 root = FXMLLoader.load(getClass().getResource("BattleMenu.fxml"));
                 primaryStage.setTitle("Battle menu");
+                scene = new Scene(root, 600, 400);
+                break;
+            case "Shop":
+                root = FXMLLoader.load(getClass().getResource("Shopfxml.fxml"));
+                primaryStage.setTitle("Shop menu");
+                scene = new Scene(root, 600, 400);
+                break;
+            case "Collection":
+                root = FXMLLoader.load(getClass().getResource("Collectionfxml.fxml"));
+                primaryStage.setTitle("Collection menu");
                 scene = new Scene(root, 600, 400);
                 break;
             case "HelpAccount":
