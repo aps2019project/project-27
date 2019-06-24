@@ -294,6 +294,8 @@ public class Controller {
 			case "MainMenu":
 				//todo
 				break;
+            case "Battle":
+                return Battle.input ( controlBox );
 		}
 		return new ControlBox (  );
 	}

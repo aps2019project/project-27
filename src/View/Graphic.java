@@ -28,6 +28,11 @@ public class Graphic extends Application implements Runnable {
         Parent root;
         stage = primaryStage;
         switch (region) {
+            case "endBattle":
+                root = FXMLLoader.load(getClass().getResource("endBattle.fxml"));
+                primaryStage.setTitle("Account");
+                scene = new Scene(root, 600, 400);
+                break;
             case "Account":
                 root = FXMLLoader.load(getClass().getResource("Accountfxml.fxml"));
                 primaryStage.setTitle("Account");
@@ -52,6 +57,17 @@ public class Graphic extends Application implements Runnable {
                 root = FXMLLoader.load(getClass().getResource("HelpMenufxml.fxml"));
                 primaryStage.setTitle("HelpMenu");
                 scene = new Scene(root, 600, 400);
+                break;
+            case "Battle":
+                root = FXMLLoader.load(getClass().getResource("Battlefxml.fxml"));
+                primaryStage.setTitle("HelpMenu");
+                scene = new Scene(root, 1260, 900);
+                break;
+            case "CostomCard":
+                root = FXMLLoader.load(getClass().getResource("CostomCard.fxml"));
+                primaryStage.setTitle("HelpMenu");
+                scene = new Scene(root, 600, 400);
+                break;
 //            case "HelpShop":
 //                root = FXMLLoader.load(getClass().getResource("HelpShopfxml.fxml"));
 //                primaryStage.setTitle("HelpShop");
@@ -102,3 +118,4 @@ public class Graphic extends Application implements Runnable {
         }
     }
 }
+

@@ -3,6 +3,7 @@ package Moudle;
 import Controller.ControlBox;
 import Controller.Controller;
 import View.View;
+import View.Battlefxml;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -41,11 +42,23 @@ public class Battle {
 			}
 		}
 	}
-	public static void input ( ControlBox controllBox ) {
+
+	public static Battle getCurrentBattle () {
+		return currentBattle;
+	}
+
+	public Player getPlayerInTurn () {
+		return playerInTurn;
+	}
+
+	public static ControlBox input ( ControlBox controllBox ) {
 		String in = controllBox.getType ( );
+		if ( in.equals ( "insert select" ) ){
+			currentBattle.selectedCard = currentBattle.playerInTurn.getHand ().getCards ().get ( controllBox.getN () );
+		}
 		if ( in.equals ( "game info" ) ) {
 			currentBattle.showInfo ( );
-			return;
+			return null;
 		}
 		if ( in.equals ( "help" ) ) {
 			help ( );
@@ -54,18 +67,22 @@ public class Battle {
 			currentBattle.playerInTurn.showGraveYard ();
 		}
 		if ( in.equalsIgnoreCase ( "select user" ) ) {
+			ControlBox controlBox = new ControlBox (  );
 			Account account = Account.findAccount ( controllBox.getUserName ( ) );
 			if ( account == null ) {
 				System.out.println ( "there is no account with this user name" );
-
+				controlBox.setSucces ( false );
+				controlBox.setDescription ( "no user" );
 			} else {
 				System.out.println ( "selected!" );
 				secondAccount = account;
+				controlBox.setSucces ( true );
 			}
+			return controlBox;
 
 		}
 		if ( in.equalsIgnoreCase ( "new mp" ) ) {
-			currentBattle = new Battle ( Account.getMainAccount ( ) , secondAccount , controllBox.getBattleType ( ) , controllBox.getNumberOfFlags ( ) );
+			return newBattle ( Account.getMainAccount ( ) , secondAccount , controllBox.getBattleType ( ) , controllBox.getN ( ) );
 		}
 		if ( in.equals ( "show item" ) ) {
 			currentBattle.showItem ( controllBox.getCardName ( ) );
@@ -74,7 +91,7 @@ public class Battle {
 			Item item = Item.findItem ( controllBox.getCardName ( ) , currentBattle.playerInTurn.getCollectedItems ( ) );
 			if ( item == null ) {
 				System.out.println ( "you havent this item" );
-				return;
+				return null;
 			}
 			currentBattle.useItem ( item , controllBox.getX ( ) , controllBox.getY ( ) );
 		}
@@ -95,9 +112,10 @@ public class Battle {
 		}
 		if ( in.equals ( "select card" ) ) {
 			currentBattle.setInGroundCard ( controllBox.getCardID ( ) );
+			return currentBattle.setInGroundCard ( controllBox.getX (),controllBox.getY () );
 		}
 		if ( in.equals ( "end turn" ) ) {
-			currentBattle.nextTurn ( );
+			return currentBattle.nextTurn ( );
 		}
 		if ( in.equals ( "use special power" ) ) {
 			currentBattle.useSpecialPowerHero ( controllBox.getX ( ) , controllBox.getY ( ) );
@@ -107,26 +125,27 @@ public class Battle {
 
 		}
 		if ( in.equals ( "insert" ) ) {
-			currentBattle.insert ( controllBox.getCardName ( ) , controllBox.getX ( ) , controllBox.getY ( ) );
+			return currentBattle.insert ( currentBattle.selectedCard , controllBox.getX ( ) , controllBox.getY ( ) );
 		}
 		if ( in.equals ( "move" ) ) {
 			if ( currentBattle.selectedFighter == null ) {
 				System.out.println ( "no card selected!" );
-				return;
+				return null;
 			}
-			currentBattle.move ( controllBox.getX ( ) , controllBox.getY ( ) , currentBattle.selectedFighter );
+			return currentBattle.move ( controllBox.getX ( ) , controllBox.getY ( ) , currentBattle.selectedFighter );
 		}
 		if ( in.equals ( "attack" ) ) {
-			Fighter opponent = currentBattle.findFighter ( controllBox.getCardID ( ) , currentBattle.offTurn ( ) );
+			Fighter opponent = ( Fighter ) currentBattle.ground.getCell ( controllBox.getX (),controllBox.getY () ).getCardOnCell ();
 			if ( opponent == null ) {
 				System.out.println ( "There is no opponent to attack!" );
-				return;
+				return null;
 			}
 			if ( currentBattle.selectedFighter == null ) {
 				System.out.println ( "fighter dont selected" );
 			}
-			currentBattle.attack ( currentBattle.selectedFighter , opponent );
+			return currentBattle.attack ( currentBattle.selectedFighter , opponent );
 		}
+		return null;
 	}
 
 	public static void help () {
@@ -153,6 +172,18 @@ public class Battle {
 			selectedFighter = fighter;
 			System.out.println ( "card selected!" );
 		}
+	}
+	private ControlBox setInGroundCard ( int x, int y ) {
+		ControlBox controlBox = new ControlBox (  );
+		Fighter fighter = ( Fighter ) ground.getCell ( x, y ).getCardOnCell ();
+		if ( fighter == null ){
+			controlBox.setSucces ( false );
+		}
+		else if(fighter.getPlayer () == playerInTurn) {
+			selectedFighter = fighter;
+			controlBox.setSucces ( true );
+		}
+		return controlBox;
 	}
 
 	private void showHand () {
@@ -185,7 +216,7 @@ public class Battle {
 		View.showFighter ( fighter );
 	}
 
-	private Player offTurn () {
+	public Player offTurn () {
 		if ( player1 == playerInTurn )
 			return player2;
 		return player1;
@@ -213,23 +244,30 @@ public class Battle {
 
 	}
 
-	public void insert ( String cardName , int x , int y ) {
-		Card card = Card.findCard ( cardName , playerInTurn.getHand ( ).getCards ( ) );
+	public ControlBox insert ( Card card , int x , int y ) {
+		ControlBox controlBox = new ControlBox (  );
 		if ( card == null ) {
 			System.out.println ( "You don't have this card!" );
-			return;
+			controlBox.setSucces ( false );
+			return controlBox;
 		}
 		if ( !isValidInsert ( card ) ) {
 			System.out.println ("you have not enough mana" );
-		return;
+			controlBox.setSucces ( false );
+		return controlBox;
 		}
 		int type = card.getCardType ( );
 		if ( type == 0 ) {
-			if ( insertSpell ( x , y , card ) ) return;
+			if ( insertSpell ( x , y , card ) ) {
+				controlBox.setSucces ( false );
+				return controlBox;
+			}
 		}
 		if ( type == 1 ) {
-			insertMinion ( x , y , card );
+			if ( insertMinion ( x , y , card ))
+				controlBox.setSucces ( true );
 		}
+		return controlBox;
 	}
 
 	public boolean insertSpell ( int x , int y , Card card ) {
@@ -249,11 +287,11 @@ public class Battle {
 		return false;
 	}
 
-	public void insertMinion ( int x , int y , Card card ) {
+	public boolean insertMinion ( int x , int y , Card card ) {
 		MinionAndHero minionAndHero = ( MinionAndHero ) card;
 		if ( ground.getCell ( x , y ).getCardOnCell ( ) != null ) {
 			System.out.println ( "There is already a card there!" );
-			return;
+			return false;
 		}
 		if ( ground.getCell ( x , y ).getItemOnCell ( ) != null ) {
 			playerInTurn.addItem ( ground.getCell ( x , y ).getItemOnCell ( ) );
@@ -273,21 +311,26 @@ public class Battle {
 		}
 		System.out.println ("inserted!" );
 		fighter.setLocation ( x , y );
+		return true;
 	}
 
-	public void attack ( Fighter fighter , Fighter opponent ) {
+	public ControlBox attack ( Fighter fighter , Fighter opponent ) {
+		ControlBox controlBox = new ControlBox (  );
 		int targetX = opponent.getX ( );
 		int targetY = opponent.getY ( );
 		int baseX = fighter.getX ( );
 		int baseY = fighter.getY ( );
 		if ( ! isValidDistanceForAttack ( baseX , baseY , targetX , targetY , fighter ) ) {
 			System.out.println ( "distance is not valid" );
-			return;
+			controlBox.setSucces ( false );
+			return controlBox;
 		}
 		if ( ! fighter.CanAttack ( ) ) {
 			System.out.println ( "this fighter cant attack now" );
-			return;
+			controlBox.setSucces ( false );
+			return controlBox;
 		}
+		controlBox.setSucces ( true );
 		fighter.disableCanAttack ( );
 		fighter.disableCanMove ( );
 		int cellHolyFighter = 0;
@@ -310,6 +353,7 @@ public class Battle {
 		executeOnAttackAndDeBuff ( fighter , opponent );
 		isDeath ( opponent );
 		isDeath ( fighter );
+		return controlBox;
 	}
 
 	private void executeOnAttackAndDeBuff ( Fighter offender , Fighter defender ) {
@@ -509,12 +553,17 @@ public class Battle {
 		return true;
 	}
 
-	public void checkWinner () {
+	public ControlBox checkWinner () {
+		 ControlBox controlBox = new ControlBox (  );
 		if ( battleType == 2 ) {
-			if ( player1.getFlagInHand ( ) >= 6 )
+			if ( player1.getFlagInHand ( ) >= 6 ) {
 				winner ( player1 );
-			if ( player2.getFlagInHand ( ) >= 6 )
+				controlBox.setSucces (  true);
+			}
+			if ( player2.getFlagInHand ( ) >= 6 ) {
 				winner ( player2 );
+				controlBox.setSucces ( true );
+			}
 		}
 		if ( battleType == 1 ) {
 			int victoryNumber;
@@ -524,11 +573,16 @@ public class Battle {
 			else {
 				victoryNumber = (numberOfFlags-1)/2+1;
 			}
-			if ( player1.getFlagInHand ( ) >= victoryNumber )
+			if ( player1.getFlagInHand ( ) >= victoryNumber ) {
 				winner ( player1 );
-			if ( player2.getFlagInHand ( ) >= victoryNumber )
+				controlBox.setSucces ( true );
+			}
+			if ( player2.getFlagInHand ( ) >= victoryNumber ) {
 				winner ( player2 );
+				controlBox.setSucces ( true );
+			}
 		}
+		return controlBox;
 	}
 
 	public void setMana () {
@@ -538,17 +592,13 @@ public class Battle {
 			player1.setMana ( ( currentTurn - 1 ) / 2 + 2 );
 		}
 	}
-
+	public int getBattleType(){
+		return battleType;
+	}
 	public Battle ( Account account , Account account2 , int battleType , int numberOfFlags ) {
-		if ( account2 == null ) {
-			System.out.println ( "second player dont selected" );
-			return;
-		}
+		Battle.currentBattle = this;
 		player1 = new Player ( account );
 		player2 = new Player ( account2 );
-		if ( ! player1.getHand ( ).getDeck ( ).isValidDeck ( ) || ! player2.getHand ( ).getDeck ( ).isValidDeck ( ) ) {
-			return;
-		}
 		ground = new Ground ( );
 		for ( Card card : player1.getHand ( ).getDeck ( ).getCards ( ) ) {
 			if ( card.getCardType ( ) == 1 ) {
@@ -574,7 +624,6 @@ public class Battle {
 				}
 			}
 		}
-		Battle.currentBattle = this;
 		currentTurn = 0;
 		if ( battleType == 2 ) {
 			lastFlag = Item.getLastFlag ( );
@@ -599,23 +648,57 @@ public class Battle {
 		System.out.println ( "started!" );
 	}
 
-	private void move ( int targetX , int targetY , Fighter fighter ) {
+	public Fighter getHeroP1 () {
+		return heroP1;
+	}
+
+	public Fighter getHeroP2 () {
+		return heroP2;
+	}
+
+	public Player getPlayer1 () {
+		return player1;
+	}
+
+	public static ControlBox newBattle ( Account account , Account account2 , int battleType , int numberOfFlags ) {
+		ControlBox controlBox = new ControlBox (  );
+		controlBox.setSucces ( true );
+		if ( account2 == null ) {
+			System.out.println ( "second player dont selected" );
+			controlBox.setSucces ( false );
+		}
+		if ( ! new Player ( account ).getHand ( ).getDeck ( ).isValidDeck ( ) || ! new Player ( account2 ).getHand ( ).getDeck ( ).isValidDeck ( ) ) {
+			controlBox.setSucces ( false );
+		}
+
+		if ( controlBox.isSucces () )
+			new Battle ( account, account2, battleType, numberOfFlags );
+		return controlBox;
+	}
+
+	private ControlBox move ( int targetX , int targetY , Fighter fighter ) {
 		int x = fighter.getX ( );
 		int y = fighter.getY ( );
+		ControlBox controlBox = new ControlBox (  );
 		if ( ! isValidMove ( x , y , targetX , targetY ) ) {
 			System.out.println ( "Your move isn't valid!" );
-			return;
+			controlBox.setSucces ( false );
+			return controlBox;
 		}
 		if ( ! isValidTargetForMove ( targetX , targetY ) ) {
 			System.out.println ( "Your target for moving isn't valid!" );
-			return;
+			controlBox.setSucces ( false );
+			return controlBox;
 		}
 		if ( fighter.isCanMove ( ) ) {
 			System.out.println ( "Moved!" );
+			controlBox.setSucces ( true );
 		} else {
 			System.out.println ("this fighter cant move now" );
-			return;
+			controlBox.setSucces ( false );
+			return controlBox;
 		}
+		fighter.disableCanMove ();
 		newPlaceItem ( targetX , targetY , fighter );
 		ground.getCell ( targetX , targetY ).moveInCell ( fighter );
 		fighter.setLocation ( targetX , targetY );
@@ -628,6 +711,7 @@ public class Battle {
 				fighter.decreaseHP ( 1 );
 			}
 		}
+		return controlBox;
 	}
 
 	private void newPlaceItem ( int x , int y , Fighter fighter ) {
@@ -684,7 +768,8 @@ public class Battle {
 			}
 		}
 	}
-	public void nextTurn () {
+	public ControlBox nextTurn () {
+		ControlBox controlBox = new ControlBox (  );
 		for ( Fighter fighter : fighters ) {
 			fighter.preTurnProcces ( );
 		}
@@ -719,13 +804,14 @@ public class Battle {
 		currentTurn++;
 		setMana ( );
 		setPlayerInTurn ( );
-		checkWinner ( );
+		controlBox = checkWinner ( );
 		selectedFighter = null;
 		selectedItem = null;
-		if (random.nextInt ( 1 ) == 0){
+		if (random.nextInt ( 10 ) == 0){
 			insertCollectibleItem ();
 		}
 		System.out.printf ("start turn %d player : %s\n",currentTurn,playerInTurn.getUserName ());
+		return null;
 	}
 	private void insertCollectibleItem(){
 		int size = collectibleItems.size ();
@@ -793,6 +879,7 @@ public class Battle {
 		System.out.printf ( "%s wins\n",player.getUserName () );
 		currentBattle = null;
 		Controller.input ();
+		Battlefxml.winner ();
 	}
 
 	private void setPlayerInTurn () {

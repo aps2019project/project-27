@@ -45,12 +45,12 @@ public class MinionAndHero extends Card {
         return specialPowers;
     }
 
-    protected MinionAndHero(String name, int shopPrice, int manaPrice) {
-        super(name, shopPrice, manaPrice, 1);
+    protected MinionAndHero(String name, int shopPrice, int manaPrice,String image) {
+        super(name, shopPrice, manaPrice, 1,image);
     }
 
     protected MinionAndHero(MinionAndHero minionAndHero) {
-        super(minionAndHero.getName(), minionAndHero.getShopPrice(), minionAndHero.getManaPrice(), 1);
+        super(minionAndHero.getName(), minionAndHero.getShopPrice(), minionAndHero.getManaPrice(), 1,minionAndHero.getImage ());
         AP = minionAndHero.AP;
         HP = minionAndHero.HP;
         isHero = minionAndHero.isHero;

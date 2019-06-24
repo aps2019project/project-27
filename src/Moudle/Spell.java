@@ -19,7 +19,7 @@ public class Spell extends Card {
 	public static void setSpells ( ArrayList<Spell> spells ) {
 		Spell.spells = spells;
 	}
-	protected Spell ( String name , int cardID , int shopPrice , int manaPrice ) {
-		super ( name , cardID , shopPrice , manaPrice );
+	protected Spell ( String name , int cardID , int shopPrice , int manaPrice,String image ) {
+		super ( name , cardID , shopPrice , manaPrice,image );
 	}
 }

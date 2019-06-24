@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 
 public class MainMenufxml implements Initializable {
 	public Button Account;
-	public Button CostomeCard;
+	public Button CostumeCard;
 	public Button Battle;
 	public Button Shop;
 	public Button Exit;
@@ -60,6 +60,12 @@ public class MainMenufxml implements Initializable {
 					@Override
 					public void handle ( ActionEvent event ) {
 						Graphic.setRegion ( "BattleMenu" );
+					}
+				} );
+				CostumeCard.setOnAction ( new EventHandler<ActionEvent> ( ) {
+					@Override
+					public void handle ( ActionEvent event ) {
+						Graphic.setRegion ( "CostomCard" );
 					}
 				} );
 			}

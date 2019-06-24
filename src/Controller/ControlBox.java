@@ -13,6 +13,15 @@ public class ControlBox {
     private boolean succes;
     private String pass;
     private String description;
+    private int n;
+
+    public void setN ( int n ) {
+        this.n = n;
+    }
+
+    public int getN () {
+        return n;
+    }
 
     public void setDescription ( String description ) {
         this.description = description;

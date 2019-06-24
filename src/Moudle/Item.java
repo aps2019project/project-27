@@ -4,17 +4,21 @@ import java.util.ArrayList;
 
 public class Item {
     private static ArrayList<Item> items = new ArrayList<>();
+    private String image;
     private static Item lastFlag=new Item ();
     static {
         lastFlag.isLastFlag = true;
         lastFlag.isFlag = false;
         lastFlag.name = "last flag";
+        lastFlag.image = "src\\View\\images\\flag.gif";
     }
     private static Item normalFlag = new Item ();
     static {
         normalFlag.isLastFlag = false;
         normalFlag.isFlag = true;
         normalFlag.name = "normal flag";
+        normalFlag.image = "src\\View\\images\\flag.gif";
+
     }
     private String name;
     private int price;
@@ -23,6 +27,10 @@ public class Item {
     private Target target;
     private ArrayList<Buff> buffs;
     private boolean isCollectible;
+
+    public String getImage () {
+        return image;
+    }
 
     public static ArrayList<Item> getItems() {
         return items;

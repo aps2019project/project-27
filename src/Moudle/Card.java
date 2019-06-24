@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Card {
     private static ArrayList<Card> cards = new ArrayList<>();
     private String name;
+    private String image;
     private int cardID;
     private int shopPrice;
     private int manaPrice;
@@ -23,6 +24,11 @@ public class Card {
             cards.add ( spell );
         }
     }
+
+    public String getImage () {
+        return image;
+    }
+
     public int getCardType () {
         return cardType;
     }
@@ -44,11 +50,12 @@ public class Card {
             View.showSpell ( spell );
         }
     }
-    protected Card( String name, int shopPrice, int manaPrice, int cardType) {
+    protected Card( String name, int shopPrice, int manaPrice, int cardType,String image) {
         this.name = name;
         this.shopPrice = shopPrice;
         this.manaPrice = manaPrice;
         this.cardType= cardType;
+        this.image = image;
         cards.add(this);
     }
     public String getName() {
