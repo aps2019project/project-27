@@ -21,6 +21,7 @@ public class Graphic extends Application implements Runnable {
             flag = true;
         }
     }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Thread thread = new Thread(this);
@@ -38,16 +39,31 @@ public class Graphic extends Application implements Runnable {
                 primaryStage.setTitle("Account");
                 scene = new Scene(root, 600, 400);
                 break;
+            case "LeaderBoard":
+                root = FXMLLoader.load(getClass().getResource("LeaderBoardfxml.fxml"));
+                primaryStage.setTitle("LeaderBoard");
+                scene = new Scene(root, 600, 400);
+                break;
             case "MainMenu":
                 root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-                primaryStage.setTitle("Hello World");
-                scene = new Scene(root, 270, 400);
+                primaryStage.setTitle("Main menu");
+                scene = new Scene(root, 600, 400);
                 break;
-			case "BattleMenu":
-				root = FXMLLoader.load ( getClass ( ).getResource ( "BattleMenu.fxml" ) );
-				primaryStage.setTitle ( "Battle menu" );
-				scene = new Scene ( root , 600 , 400 );
-				break;
+            case "BattleMenu":
+                root = FXMLLoader.load(getClass().getResource("BattleMenu.fxml"));
+                primaryStage.setTitle("Battle menu");
+                scene = new Scene(root, 600, 400);
+                break;
+            case "Shop":
+                root = FXMLLoader.load(getClass().getResource("Shopfxml.fxml"));
+                primaryStage.setTitle("Shop menu");
+                scene = new Scene(root, 600, 400);
+                break;
+            case "Collection":
+                root = FXMLLoader.load(getClass().getResource("Collectionfxml.fxml"));
+                primaryStage.setTitle("Collection menu");
+                scene = new Scene(root, 600, 400);
+                break;
             case "HelpAccount":
                 root = FXMLLoader.load(getClass().getResource("HelpAccountfxml.fxml"));
                 primaryStage.setTitle("HelpAccount");

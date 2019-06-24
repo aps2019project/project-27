@@ -1,6 +1,8 @@
 package View;
+
 import Controller.ControlBox;
 import Controller.Controller;
+import Moudle.Account;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -52,10 +54,29 @@ public class Accountfxml implements Initializable {
                         }
                     }
                 });
+                save.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        controlBox.setType("save");
+                    }
+                });
+                logout.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        System.out.println("logout3");
+                        controlBox.setType("logout");
+                    }
+                });
                 Menu.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         Graphic.setRegion("MainMenu");
+                    }
+                });
+                showLeaderBoard.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Graphic.setRegion("LeaderBoard");
                     }
                 });
                 help.setOnAction(new EventHandler<ActionEvent>() {
@@ -64,6 +85,7 @@ public class Accountfxml implements Initializable {
                         Graphic.setRegion("HelpAccount");
                     }
                 });
+                Account.input(controlBox);
             }
         };
         animationTimer.start();

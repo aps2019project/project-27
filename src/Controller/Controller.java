@@ -273,6 +273,7 @@ public class Controller {
                 type = "save";
             }
             if (input.equals("logout")) {
+                System.out.println("logout2");
                 type = "logout";
             }
             if (input.equals("help")) {
