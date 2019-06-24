@@ -52,10 +52,22 @@ public class Accountfxml implements Initializable {
                         }
                     }
                 });
+//                logout.setOnAction(new EventHandler<ActionEvent>() {
+//                    @Override
+//                    public void handle(ActionEvent event) {
+//                        controlBox.setType("logout");
+//                    }
+//                });
                 Menu.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         Graphic.setRegion("MainMenu");
+                    }
+                });
+                showLeaderBoard.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Graphic.setRegion("LeaderBoard");
                     }
                 });
                 help.setOnAction(new EventHandler<ActionEvent>() {

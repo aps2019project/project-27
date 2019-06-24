@@ -15,7 +15,7 @@ public class Account {
     private Collection collection = new Collection();
     private int money = 100000;
     private ArrayList<Deck> decks = new ArrayList<>();
-    private Deck mainDeck = new Deck ();
+    private Deck mainDeck = new Deck();
     private int wins;
     private int losses;
 
@@ -43,13 +43,13 @@ public class Account {
     public static ControlBox input(ControlBox controlBox) {
         String in = controlBox.getType();
         if (in.equals("create account")) {
-            return createAccount(controlBox.getUserName(),controlBox.getPass ());
+            return createAccount(controlBox.getUserName(), controlBox.getPass());
         }
         if (in.equals("login")) {
             ControlBox controlBox1 = login(controlBox);
-            if (controlBox1.isSucces ()) {
+            if (controlBox1.isSucces()) {
                 Controller.setRegion("MainMenu");
-                Controller.printInMenu ();
+                Controller.printInMenu();
             }
             return controlBox1;
         }
@@ -65,7 +65,7 @@ public class Account {
         if (in.equals("help")) {
             help();
         }
-        return new ControlBox (  );
+        return new ControlBox();
     }
 
     public static Account findAccount(String userName) {
@@ -81,40 +81,40 @@ public class Account {
         return null;
     }
 
-    public static ControlBox createAccount(String userName,String passWord) {
-        ControlBox controlBox = new ControlBox (  );
+    public static ControlBox createAccount(String userName, String passWord) {
+        ControlBox controlBox = new ControlBox();
         if (findAccount(userName) != null) {
-            controlBox.setSucces ( false );
+            controlBox.setSucces(false);
         } else {
             Account account = new Account();
             account.userName = userName;
             account.passWord = passWord;
             accounts.add(account);
-            controlBox.setSucces ( true );
+            controlBox.setSucces(true);
         }
         return controlBox;
     }
 
     public static ControlBox login(ControlBox in) {
-        ControlBox controlBox = new ControlBox (  );
-        if (findAccount(in.getUserName ()) == null) {
-            controlBox.setSucces ( false );
-            controlBox.setDescription ( "no user" );
+        ControlBox controlBox = new ControlBox();
+        if (findAccount(in.getUserName()) == null) {
+            controlBox.setSucces(false);
+            controlBox.setDescription("no user");
         } else {
-                String passWord = in.getPass ();
-            if (passWord.equals(findAccount(in.getUserName ()).passWord)) {
+            String passWord = in.getPass();
+            if (passWord.equals(findAccount(in.getUserName()).passWord)) {
                 System.out.println("Login successful!");
-                mainAccount = findAccount(in.getUserName ());
-                controlBox.setSucces ( true );
+                mainAccount = findAccount(in.getUserName());
+                controlBox.setSucces(true);
             } else {
-                controlBox.setDescription ( "wrong pass" );
-                controlBox.setSucces ( false );
+                controlBox.setDescription("wrong pass");
+                controlBox.setSucces(false);
             }
         }
         return controlBox;
     }
 
-    public static void showLeaderBoard() {
+    public static String showLeaderBoard() {
         for (int i = 0; i < accounts.size(); i++) {
             for (int j = i + 1; j < accounts.size(); j++) {
                 if (accounts.get(j).wins > accounts.get(i).wins) {
@@ -122,9 +122,12 @@ public class Account {
                 }
             }
         }
+        String answer = new String();
         for (int i = 0; i < accounts.size(); i++) {
             System.out.printf("%d-UserName : %s-Wins : %d\n", i + 1, accounts.get(i).userName, accounts.get(i).wins);
+            answer += String.format("%d-UserName : %s-Wins : %d\n", i + 1, accounts.get(i).userName, accounts.get(i).wins);
         }
+        return answer;
     }
 
     public static void save() {
@@ -135,9 +138,12 @@ public class Account {
         }
     }
 
-    public static void logout() {
+    public static ControlBox logout() {
+        ControlBox controlBox = new ControlBox();
         mainAccount = null;
-        System.out.println ("logout successfully" );
+        controlBox.setDescription("logout successfully");
+//        controlBox.setSucces(true);
+        return controlBox;
     }
 
     public static void help() {
@@ -188,6 +194,7 @@ public class Account {
     public void increaseWins() {
         wins++;
     }
+
     public void increaseLosses() {
         losses++;
     }
