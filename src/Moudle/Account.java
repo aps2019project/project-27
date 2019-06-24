@@ -60,6 +60,7 @@ public class Account {
             save();
         }
         if (in.equals("logout")) {
+            System.out.println("logout1");
             logout();
         }
         if (in.equals("help")) {
@@ -90,6 +91,7 @@ public class Account {
             account.userName = userName;
             account.passWord = passWord;
             accounts.add(account);
+            mainAccount = account;
             controlBox.setSucces(true);
         }
         return controlBox;
@@ -139,8 +141,9 @@ public class Account {
     }
 
     public static ControlBox logout() {
-        ControlBox controlBox = new ControlBox();
+        System.out.println("logout successful");
         mainAccount = null;
+        ControlBox controlBox = new ControlBox();
         controlBox.setDescription("logout successfully");
 //        controlBox.setSucces(true);
         return controlBox;

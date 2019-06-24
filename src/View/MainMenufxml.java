@@ -1,5 +1,6 @@
 package View;
 
+import Moudle.Account;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,7 +15,7 @@ import java.util.ResourceBundle;
 
 public class MainMenufxml implements Initializable {
     public Button Account;
-    public Button CostomeCard;
+    public Button CostumeCard;
     public Button Battle;
     public Button Shop;
     public Button Exit;
@@ -24,13 +25,12 @@ public class MainMenufxml implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Moudle.Account account = Moudle.Account.getMainAccount();
 
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (account != null) {
-                    AccountLable.setText(account.getUserName());
+                if (Moudle.Account.getMainAccount() != null) {
+                    AccountLable.setText(Moudle.Account.getMainAccount().getUserName());
                 }
                 Account.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -71,8 +71,7 @@ public class MainMenufxml implements Initializable {
 
     @FXML
     private void closeButtonAction() {
-        Stage stage = new Stage();
-        stage = (Stage) Exit.getScene().getWindow();
+        Stage stage = (Stage) Exit.getScene().getWindow();
         stage.close();
     }
 }

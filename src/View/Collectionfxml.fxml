@@ -5,13 +5,20 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@Backgrounds/CollectionBackground.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Collectionfxml">
    <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="444.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" width="149.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="444.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="149.0" />
+      <Label fx:id="cardSelected" layoutX="444.0" layoutY="16.0" prefHeight="21.0" prefWidth="149.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="337.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="337.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
       <ScrollPane layoutX="14.0" layoutY="14.0" prefHeight="372.0" prefWidth="133.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="241.0">
                <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutY="4.0" stroke="BLACK" strokeType="INSIDE" width="133.0" />
                   <Label layoutY="4.0" prefHeight="21.0" prefWidth="133.0" text="Cards" />
                </children></AnchorPane>
         </content>
@@ -27,14 +34,14 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="492.0" prefWidth="214.0">
                <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="-17.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" width="133.0" />
                   <Label layoutY="4.0" prefHeight="21.0" prefWidth="133.0" text="Decks" />
                </children>
             </AnchorPane>
         </content>
       </ScrollPane>
-      <Label layoutX="352.0" layoutY="14.0" text="Card selected" />
-      <Label layoutX="352.0" layoutY="35.0" text="Deck selected" />
-      <Label fx:id="cardSelected" layoutX="444.0" layoutY="14.0" prefHeight="21.0" prefWidth="149.0" />
+      <Label layoutX="342.0" layoutY="16.0" text="Card selected" />
+      <Label layoutX="341.0" layoutY="35.0" text="Deck selected" />
       <Label fx:id="deckSelected" layoutX="444.0" layoutY="35.0" prefWidth="149.0" />
       <TextField fx:id="text" layoutX="394.0" layoutY="254.0" />
    </children>

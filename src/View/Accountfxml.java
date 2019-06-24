@@ -2,6 +2,7 @@ package View;
 
 import Controller.ControlBox;
 import Controller.Controller;
+import Moudle.Account;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -62,6 +63,7 @@ public class Accountfxml implements Initializable {
                 logout.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+                        System.out.println("logout3");
                         controlBox.setType("logout");
                     }
                 });
@@ -83,6 +85,7 @@ public class Accountfxml implements Initializable {
                         Graphic.setRegion("HelpAccount");
                     }
                 });
+                Account.input(controlBox);
             }
         };
         animationTimer.start();

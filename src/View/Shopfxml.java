@@ -6,6 +6,7 @@ import Moudle.Shop;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,9 +22,16 @@ public class Shopfxml implements Initializable {
     public Label label;
     public Label money;
     public TextField search;
+    @FXML
+    public Button hesan;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        hesan = new Button();
+        hesan.setText("HESAN");
+        hesan.setLayoutX(200.0);
+        hesan.setLayoutY(200.0);
         ControlBox controlBox = new ControlBox();
         controlBox.setRegion("Shop");
         money.setText(String.format("%d", Account.getMainAccount().getMoney()));
