@@ -240,6 +240,7 @@ public class Battlefxml implements Initializable {
 					cardGroup cardGroup = new cardGroup(i,j, ( Card ) cell[i][j].getCardOnCell (),false,0);
 					cardGroups.add ( cardGroup );
 					mainPane.getChildren ().addAll ( cardGroup.getNodes () );
+
 				}
 			}
 		}

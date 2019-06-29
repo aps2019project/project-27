@@ -7,7 +7,6 @@ public class MinionAndHero extends Card {
     private boolean isHero;
     private int AP;
     private int HP;
-    private int nation;
     private int range;
     private int attackType;
     private ArrayList<Buff> specialPowers = new ArrayList<>();
@@ -16,7 +15,38 @@ public class MinionAndHero extends Card {
     //0:onSpawn 2:passive   3:onDeath   4:onAttack  5:onDe  6:combo 7:use with select
     private int specialPowerType;
     private Target specialPowerTarget;
-
+    public MinionAndHero(
+            String name,
+            String AP,
+            String HP,
+            String AType,
+            String range,
+            String SPMan,
+            String SPTyp,
+            Buff buff,
+            Target targe,
+            String image,
+            String cost,
+            String mana,
+            boolean isHero
+    ){
+        super (name,image,cost,mana,1 );
+        this.AP = Integer.parseInt ( AP );
+        this.HP = Integer.parseInt ( HP );
+        this.attackType = Integer.parseInt ( AType );
+        this.range = Integer.parseInt ( range );
+        this.isHero = isHero;
+        this.specialPowerTarget = targe;
+        this.specialPowers.add ( buff );
+        this.specialPowerType = Integer.parseInt ( SPTyp );
+        if ( isHero ){
+            specialPowerCoolDown = Integer.parseInt ( SPMan );
+        }
+        else {
+            specialPowerMana = Integer.parseInt ( SPMan );
+        }
+        minionAndHeroes.add ( this );
+    }
     public static ArrayList<MinionAndHero> getMinionAndHeroes () {
         return minionAndHeroes;
     }
