@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Item {
     private static ArrayList<Item> items = new ArrayList<>();
-    private String image;
+    private transient String image;
     private static Item lastFlag = new Item();
 
     static {
