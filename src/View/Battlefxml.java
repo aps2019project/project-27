@@ -220,12 +220,12 @@ public class Battlefxml implements Initializable {
 		mana.setText ( String.valueOf ( player.getMana () ) );
 		Cell[][] cell = battle.getGround ().getCells ();
 		ArrayList<Card> cards = battle.getPlayerInTurn ().getHand ().getCards ();
+		int a=1;
 		for ( int n=0;n<cards.size ();n++ ){
 			Card card = cards.get ( n );
 			cardGroup cardGroup = new cardGroup ( 0,0, card,true,n );
 			cardGroups.add ( cardGroup );
 			mainPane.getChildren ().addAll ( cardGroup.getNodes () );
-			n++;
 		}
 		for ( int i = 0 ; i <5  ; i++ ) {
 			for ( int j = 0 ; j <9  ; j++ ) {
@@ -256,7 +256,7 @@ class cardGroup{
 	private boolean isHand = false;
 	public cardGroup(int x,int y , Card card,boolean isHand,int i){
 		this.card = card;
-		newGroup ( x , y  , isHand , i );
+		newGroup ( x , y  , isHand , i ,card.getName ());
 		File file;
 		if ( card.getImage ()==null||card.getImage ().isEmpty () )
 			file = new File ( "src\\View\\images\\boss_antiswarm_breathing.gif" );
@@ -269,7 +269,7 @@ class cardGroup{
 		}
 	}
 
-	public void newGroup ( int x , int y  , boolean isHand , int i ) {
+	public void newGroup ( int x , int y  , boolean isHand , int i,String name) {
 		imageView = new ImageView (  );
 		if ( isHand ){
 			imageView.relocate ( 150+140*i , 720 );
@@ -284,6 +284,13 @@ class cardGroup{
 		this.i = i;
 		Label AP = new Label (  );
 		Label HP = new Label (  );
+		Label nameLable = new Label (  );
+		nameLable.setText ( name );
+		if ( isHand ) {
+			nameLable.relocate ( 150 + 140 * i+50 , 820 );
+		} else {
+			nameLable.relocate ( y * 140 + 50 , x * 140 + 100 );
+		}
 		if ( card!=null ) {
 			if ( isHand ) {
 				if ( card.getCardType ( ) == 1 ) {
@@ -305,13 +312,14 @@ class cardGroup{
 				HP.relocate ( y * 140 + 100 , x * 140 + 100 );
 			}
 		}
+		nodes.add ( nameLable );
 		nodes.add ( imageView );
 		nodes.add ( AP );
 		nodes.add ( HP );
 	}
 
 	public cardGroup ( int x , int y , Item item , boolean isHand , int i ) {
-		newGroup (x,y,isHand,i );
+		newGroup (x,y,isHand,i ,item.getName ());
 		File file;
 		if ( item.getImage ()==null||item.getImage ().isEmpty () )
 			file = new File ( "src\\View\\images\\boss_antiswarm_breathing.gif" );

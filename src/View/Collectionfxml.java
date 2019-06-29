@@ -40,7 +40,7 @@ public class Collectionfxml implements Initializable {
     public ListView infoList;
     public ScrollPane infoPane;
     public AnchorPane insideInfo;
-    public Label name;
+    public TextField fileName;
     public Button impor;
     public Button export;
     private Deck selectedDeck;
@@ -93,7 +93,7 @@ public class Collectionfxml implements Initializable {
                 impor.setOnAction ( new EventHandler<ActionEvent> ( ) {
                     @Override
                     public void handle ( ActionEvent event ) {
-                        File file = new File ( name.getText ()+".json" );
+                        File file = new File ( fileName.getText ()+".json" );
                         if ( file.exists ()){
                             System.out.println ("already exist" );
                         }
@@ -102,7 +102,7 @@ public class Collectionfxml implements Initializable {
                             Gson gson = gsonBuilder.create ( );
                             FileWriter fileWriter = null;
                             try {
-                                fileWriter = new FileWriter ( name.getAccessibleText ()+".json" );
+                                fileWriter = new FileWriter ( fileName.getAccessibleText ()+".json" );
                             } catch (IOException e) {
                                 e.printStackTrace ( );
                             }
@@ -120,7 +120,7 @@ public class Collectionfxml implements Initializable {
                 export.setOnAction ( new EventHandler<ActionEvent> ( ) {
                     @Override
                     public void handle ( ActionEvent event ) {
-                        File file = new File ( name.getText ()+".json" );
+                        File file = new File ( fileName.getText ()+".json" );
                         if ( file.exists () ){
                             Deck deck = null;
                             GsonBuilder gsonBuilder = new GsonBuilder ( );

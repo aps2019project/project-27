@@ -1,5 +1,6 @@
 package View;
 
+import Moudle.Battle;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +17,8 @@ public class EndBattle implements Initializable {
 	public Label gift;
 	@Override
 	public void initialize ( URL location , ResourceBundle resources ) {
+		winner.setText ( Battle.getWinner () );
+		gift.setText ( Battle.getLastGift () );
 		AnimationTimer animationTimer = new AnimationTimer ( ) {
 			@Override
 			public void handle ( long now ) {

@@ -1,15 +1,16 @@
 package Moudle;
 
 import Controller.ControlBox;
-import Controller.Controller;
-import View.View;
 import View.Battlefxml;
+import View.View;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Battle {
 	private static Battle currentBattle;
+	private static String winner;
+	private static String lastGift;
 	private Fighter selectedFighter;
 	private static Account secondAccount;
 	private int gift = 1000;
@@ -31,6 +32,14 @@ public class Battle {
 	private Fighter heroP2;
 	private ArrayList<Buff> buffs = new ArrayList<> ( );
 	private static ArrayList<Item> collectibleItems = new ArrayList<> (  );
+
+	public static String getLastGift () {
+		return lastGift;
+	}
+
+	public static String getWinner () {
+		return winner;
+	}
 
 	public Ground getGround () {
 		return ground;
@@ -877,11 +886,12 @@ public class Battle {
 			player2.getAccount ( ).increaseLosses ( );
 		else player1.getAccount ( ).increaseLosses ( );
 		System.out.printf ( "%s wins\n",player.getUserName () );
-		currentBattle = null;
-		Controller.input ();
+		lastGift = String.valueOf ( gift );
+		winner = player.getUserName ();
+		//Controller.input ();
 		Battlefxml.winner ();
+		currentBattle = null;
 	}
-
 	private void setPlayerInTurn () {
 		if ( playerInTurn == ( player1 ) )
 			playerInTurn = player2;
