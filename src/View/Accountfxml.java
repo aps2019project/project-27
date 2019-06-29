@@ -41,6 +41,7 @@ public class Accountfxml implements Initializable {
                             Graphic.setRegion("MainMenu");
                         }
                     }
+                    Account.input(controlBox);
                 });
                 login.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -52,12 +53,14 @@ public class Accountfxml implements Initializable {
                         if (answer.isSucces()) {
                             Graphic.setRegion("MainMenu");
                         }
+                        Account.input(controlBox);
                     }
                 });
                 save.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         controlBox.setType("save");
+                        Account.input(controlBox);
                     }
                 });
                 logout.setOnAction(new EventHandler<ActionEvent>() {
@@ -65,6 +68,7 @@ public class Accountfxml implements Initializable {
                     public void handle(ActionEvent event) {
                         System.out.println("logout3");
                         controlBox.setType("logout");
+                        Account.input(controlBox);
                     }
                 });
                 Menu.setOnAction(new EventHandler<ActionEvent>() {
@@ -85,7 +89,7 @@ public class Accountfxml implements Initializable {
                         Graphic.setRegion("HelpAccount");
                     }
                 });
-                Account.input(controlBox);
+
             }
         };
         animationTimer.start();

@@ -5,14 +5,17 @@ import java.util.ArrayList;
 public class Item {
     private static ArrayList<Item> items = new ArrayList<>();
     private String image;
-    private static Item lastFlag=new Item ();
+    private static Item lastFlag = new Item();
+
     static {
         lastFlag.isLastFlag = true;
         lastFlag.isFlag = false;
         lastFlag.name = "last flag";
         lastFlag.image = "src\\View\\images\\flag.gif";
     }
-    private static Item normalFlag = new Item ();
+
+    private static Item normalFlag = new Item();
+
     static {
         normalFlag.isLastFlag = false;
         normalFlag.isFlag = true;
@@ -20,7 +23,9 @@ public class Item {
         normalFlag.image = "src\\View\\images\\flag.gif";
 
     }
+
     private String name;
+    private String description;
     private int price;
     private boolean isFlag;
     private boolean isLastFlag;
@@ -28,7 +33,11 @@ public class Item {
     private ArrayList<Buff> buffs;
     private boolean isCollectible;
 
-    public String getImage () {
+    public String getDescription() {
+        return description;
+    }
+
+    public String getImage() {
         return image;
     }
 
