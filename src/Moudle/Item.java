@@ -30,6 +30,7 @@ public class Item {
     private Target target;
     private ArrayList<Buff> buffs;
     private boolean isCollectible;
+    private String description;
 
     public String getDescription() {
         return description;

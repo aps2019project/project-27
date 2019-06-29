@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@Backgrounds/CollectionBackground.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Collectionfxml">
+<AnchorPane prefHeight="508.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@Backgrounds/CollectionBackground.css" xmlns="http://javafx.com/javafx/8.0.172" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Collectionfxml">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="444.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" width="149.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="444.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="149.0" />
@@ -17,13 +17,12 @@
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="337.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="14.0" layoutY="25.0" stroke="BLACK" strokeType="INSIDE" width="133.0" />
         <Label layoutX="15.0" layoutY="25.0" prefHeight="21.0" prefWidth="133.0" text="Cards" />
-        <Button fx:id="back" layoutX="437.0" layoutY="355.0" mnemonicParsing="false" text="Back to Main Menu" />
-        <Button fx:id="save" layoutX="300.0" layoutY="355.0" mnemonicParsing="false" text="Save" />
+        <Button fx:id="back" layoutX="439.0" layoutY="457.0" mnemonicParsing="false" text="Back to Main Menu" />
         <Button fx:id="createDeck" layoutX="31.0" layoutY="254.0" mnemonicParsing="false" text="Create Deck" />
-        <Button fx:id="deleteDeck" layoutX="302.0" layoutY="239.0" mnemonicParsing="false" text="Delete Deck" />
-        <Button fx:id="addToDeck" layoutX="251.0" layoutY="270.0" mnemonicParsing="false" text="add to Deck" />
-        <Button fx:id="removeFromDeck" layoutX="280.0" layoutY="301.0" mnemonicParsing="false" text="remove from Deck" />
-        <Button fx:id="validateDeck" layoutX="352.0" layoutY="270.0" mnemonicParsing="false" text="validate Deck" />
+        <Button fx:id="deleteDeck" layoutX="419.0" layoutY="260.0" mnemonicParsing="false" text="Delete Deck" />
+        <Button fx:id="addToDeck" layoutX="368.0" layoutY="291.0" mnemonicParsing="false" text="add to Deck" />
+        <Button fx:id="removeFromDeck" layoutX="397.0" layoutY="322.0" mnemonicParsing="false" text="remove from Deck" />
+        <Button fx:id="validateDeck" layoutX="469.0" layoutY="291.0" mnemonicParsing="false" text="validate Deck" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="147.0" layoutY="27.0" stroke="BLACK" strokeType="INSIDE" width="133.0" />
         <Label layoutX="147.0" layoutY="25.0" prefHeight="21.0" prefWidth="133.0" text="Decks" />
         <Label layoutX="342.0" layoutY="16.0" text="Card selected" />
@@ -57,5 +56,9 @@
             </AnchorPane>
         </content>
       </ScrollPane>
+      <Label layoutX="31.0" layoutY="367.0" text="name" />
+      <TextField fx:id="name" layoutX="81.0" layoutY="363.0" />
+      <Button fx:id="impor" layoutX="71.0" layoutY="413.0" mnemonicParsing="false" text="import" />
+      <Button fx:id="export" layoutX="148.0" layoutY="413.0" mnemonicParsing="false" text="export" />
     </children>
 </AnchorPane>

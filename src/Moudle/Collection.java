@@ -20,9 +20,6 @@ public class Collection {
         if (in.equals("searchCollection")) {
             Account.getMainAccount().getCollection().search(controlBox.getCardName());
         }
-        if (in.equals("save")) {
-            save();
-        }
         if (in.equals("createDeck")) {
             Account.getMainAccount().getCollection().createDeck(controlBox.getDeckName());
         }
@@ -61,9 +58,7 @@ public class Collection {
 
     }
 
-    public static void save() {
 
-    }
 
     public static void help() {
         System.out.printf("exit\nshow\nsearch [card name | item name]\nsave\ncreate deck[deck name]\ndelete deck [deck name]\n" +
