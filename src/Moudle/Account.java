@@ -201,6 +201,7 @@ public class Account {
 
     public void setMainDeck(Deck mainDeck) {
         this.mainDeck = mainDeck;
+        System.out.printf("mainDeck is %s", mainDeck.getName());
     }
 
     public void increaseWins() {

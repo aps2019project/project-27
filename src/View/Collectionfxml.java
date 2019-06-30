@@ -11,6 +11,7 @@ import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -45,6 +46,7 @@ public class Collectionfxml implements Initializable {
     public Button export;
     private Deck selectedDeck;
     public ObservableList<Button> decks = FXCollections.observableArrayList();
+    public Button mainDeck;
 
     public void showDecks() {
         for (int i = 0; i < Account.getMainAccount().getDecks().size(); i++) {
@@ -88,6 +90,17 @@ public class Collectionfxml implements Initializable {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                mainDeck.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Deck deck = null;
+                        for (Deck deck1:Account.getMainAccount().getDecks()){
+                            if (deckSelected.getText().equals(deck1.getName()))
+                                deck = deck1;
+                        }
+                        Account.getMainAccount().setMainDeck(deck);
+                    }
+                });
                 impor.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
