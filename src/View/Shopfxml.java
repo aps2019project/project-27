@@ -61,6 +61,7 @@ public class Shopfxml implements Initializable {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+
                 for (int i = 0; i < cards.length; i++) {
                     int finalI = i;
                     cards[i].setOnAction(new EventHandler<ActionEvent>() {
@@ -129,14 +130,21 @@ public class Shopfxml implements Initializable {
                     }
                 }
                 Back.setOnAction(new EventHandler<ActionEvent>() {
+
                     @Override
                     public void handle(ActionEvent event) {
+                        for (Button card : buttons) {
+                            card.setStyle("");
+                        }
                         Graphic.setRegion("MainMenu");
                     }
                 });
                 Buy.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+                        for (Button card : buttons) {
+                            card.setStyle("");
+                        }
                         controlBox.setCardName(selected.getText());
                         controlBox.setType("buy");
 //                        Shop.buy(label.getText());
@@ -147,6 +155,9 @@ public class Shopfxml implements Initializable {
                 Sell.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+                        for (Button card : buttons) {
+                            card.setStyle("");
+                        }
                         controlBox.setCardName(selected.getText());
                         controlBox.setType("sell");
 //                        Shop.sell(label.getText());
@@ -157,10 +168,20 @@ public class Shopfxml implements Initializable {
                 search.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+                        for (Button card : buttons) {
+                            card.setStyle("");
+                        }
                         controlBox.setCardName(search.getText());
                         controlBox.setType("search");
 //                        Shop.search(search.getText());
                         Shop.input(controlBox);
+                        for (Button card : buttons) {
+                            for (int i=1 ; i<search.getText().length() ; i++) {
+                                if (card.getText().contains(search.getText().subSequence(0, i))) {
+                                    card.setStyle("-fx-background-color: Blue;");
+                                }
+                            }
+                        }
                     }
                 });
 

@@ -20,7 +20,7 @@ public class MainMenufxml implements Initializable {
     public Button Exit;
     public Button Collection;
     public Label AccountLable;
-    public Button Help;
+//    public Button Help;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -37,12 +37,12 @@ public class MainMenufxml implements Initializable {
                         Graphic.setRegion("Account");
                     }
                 });
-                Help.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        Graphic.setRegion("HelpMenu");
-                    }
-                });
+//                Help.setOnAction(new EventHandler<ActionEvent>() {
+//                    @Override
+//                    public void handle(ActionEvent event) {
+//                        Graphic.setRegion("HelpMenu");
+//                    }
+//                });
                 Collection.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {

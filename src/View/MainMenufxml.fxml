@@ -10,7 +10,7 @@
       <Button layoutX="243.0" layoutY="120.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Shop" />
       <Button layoutX="243.0" layoutY="160.0" mnemonicParsing="false" text="Costume Card" />
       <Button layoutX="243.0" layoutY="200.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Account" />
-      <Button layoutX="268.0" layoutY="240.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Exit" />
-      <Button layoutX="268.0" layoutY="280.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Help" />
+      <Button layoutX="243.0" layoutY="241.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Exit" />
+      <Button layoutX="243.0" layoutY="280.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Help" />
    </children>
 </AnchorPane>

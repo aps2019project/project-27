@@ -6,8 +6,8 @@ public class Deck {
     private static ArrayList<Deck> decks = new ArrayList<>();
     private String name;
     //private ArrayList<Card> cards = new ArrayList<>();
-    private ArrayList<MinionAndHero> minionAndHeroes = new ArrayList<> (  );
-    private ArrayList<Spell> spells = new ArrayList<> (  );
+    private ArrayList<MinionAndHero> minionAndHeroes = new ArrayList<>();
+    private ArrayList<Spell> spells = new ArrayList<>();
     private Item item;
 
     public static Deck findDeck(String deckName) {
@@ -18,6 +18,7 @@ public class Deck {
         }
         return null;
     }
+
     public String getName() {
         return name;
     }
@@ -27,22 +28,24 @@ public class Deck {
     }
 
     public ArrayList<Card> getCards() {
-        ArrayList<Card> cards =new ArrayList<> (  );
-        cards.addAll ( spells );
-        cards.addAll ( minionAndHeroes );
+        ArrayList<Card> cards = new ArrayList<>();
+        cards.addAll(spells);
+        cards.addAll(minionAndHeroes);
         return cards;
     }
-    public void addToCarts(Card card){
-        if ( card.getCardType ()==0 )
-            spells.add ( ( Spell ) card );
-        if ( card.getCardType ()==1 )
-            minionAndHeroes.add ( ( MinionAndHero ) card );
+
+    public void addToCarts(Card card) {
+        if (card.getCardType() == 0)
+            spells.add((Spell) card);
+        if (card.getCardType() == 1)
+            minionAndHeroes.add((MinionAndHero) card);
     }
-    public ArrayList<MinionAndHero> getMinionAndHeroes () {
+
+    public ArrayList<MinionAndHero> getMinionAndHeroes() {
         return minionAndHeroes;
     }
 
-    public ArrayList<Spell> getSpells () {
+    public ArrayList<Spell> getSpells() {
         return spells;
     }
 
@@ -55,12 +58,12 @@ public class Deck {
     }
 
     public Card findCard(String cardName) {
-        for (Card card:minionAndHeroes) {
+        for (Card card : minionAndHeroes) {
             if (card.getName().equals(cardName)) {
                 return card;
             }
         }
-        for (Card card:spells) {
+        for (Card card : spells) {
             if (card.getName().equals(cardName)) {
                 return card;
             }
@@ -69,11 +72,7 @@ public class Deck {
     }
 
     public void removeCard(Card card) {
-        if ( card.getCardType ()==0 )
-            spells.remove ( (Spell)card );
-        if ( card.getCardType ()==1 )
-            minionAndHeroes.remove ( (MinionAndHero)card );
-
+//            for(Card card1:)
     }
 
     public void removeItem(Item item) {
@@ -83,11 +82,11 @@ public class Deck {
     public void show() {
         System.out.println("\tHeroes :");
         int counterHero = 0;
-        for (MinionAndHero minionAndHero:minionAndHeroes) {
-                if (minionAndHero.isHero()) {
-                    printMinion(minionAndHero, counterHero);
-                    counterHero++;
-                }
+        for (MinionAndHero minionAndHero : minionAndHeroes) {
+            if (minionAndHero.isHero()) {
+                printMinion(minionAndHero, counterHero);
+                counterHero++;
+            }
         }
         System.out.println("\tItems :");
         if (item != null) {
@@ -96,16 +95,16 @@ public class Deck {
         }
         System.out.println("\tCards :");
         int counterCard = 0;
-        for (MinionAndHero minionAndHero:minionAndHeroes) {
-                if ( ! minionAndHero.isHero ( ) ) {
-                    printMinion ( minionAndHero , counterCard );
-                    counterCard++;
-                }
-        }
-            for ( Spell spell:spells ){
-                System.out.printf ( "\t\t%d : Type:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n" , counterCard + 1 , spell.getName ( ) ,
-                        spell.getManaPrice ( ) , spell.getShopPrice ( ) );
+        for (MinionAndHero minionAndHero : minionAndHeroes) {
+            if (!minionAndHero.isHero()) {
+                printMinion(minionAndHero, counterCard);
+                counterCard++;
             }
+        }
+        for (Spell spell : spells) {
+            System.out.printf("\t\t%d : Type:Spell - Name:%s - MP:%s - Desc: - Sell Cost:%d\n", counterCard + 1, spell.getName(),
+                    spell.getManaPrice(), spell.getShopPrice());
+        }
     }
 
 
@@ -117,6 +116,6 @@ public class Deck {
     }
 
     public boolean isValidDeck() {
-        return Collection.isValidDeck ( this );
+        return Collection.isValidDeck(this);
     }
 }
