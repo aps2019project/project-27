@@ -129,6 +129,11 @@ public class Player {
             View.showFighter (fighter);
         }
     }
+
+    public ArrayList<Card> getGraveYard () {
+        return graveYard;
+    }
+
     public void showGraveYard() {
         System.out.println("Heroes :");
         int counterHero = 0;
