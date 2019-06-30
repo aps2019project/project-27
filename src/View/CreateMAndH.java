@@ -33,7 +33,7 @@ public class CreateMAndH implements Initializable {
 	private Buff selectedBuff;
 	private Target selectedTarget;
 	public CheckBox isHero;
-
+	public Button back;
 	@Override
 	public void initialize ( URL location , ResourceBundle resources ) {
 		AnimationTimer animationTimer = new AnimationTimer ( ) {
@@ -61,6 +61,8 @@ public class CreateMAndH implements Initializable {
 						}
 					}
 				} );
+				back.setOnAction ( event -> Graphic.setRegion ( "CostomCard" ) );
+
 				creat.setOnAction ( new EventHandler<ActionEvent> ( ) {
 					@Override
 					public void handle ( ActionEvent event ) {
@@ -78,6 +80,7 @@ public class CreateMAndH implements Initializable {
 								mana.getText ( ) ,
 								isHero.isSelected ()
 						);
+						Graphic.setRegion ( "CostomCard" );
 					}
 				} );
 			}

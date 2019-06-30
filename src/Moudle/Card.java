@@ -23,12 +23,17 @@ public class Card {
             cards.add ( minionAndHero );
         }
     }
+    public static void addMAndH ( MinionAndHero minionAndHeroes ) {
+            cards.add ( minionAndHeroes );
+    }
     public static void addSpells(ArrayList<Spell> spells){
         for ( Spell spell:spells ){
             cards.add ( spell );
         }
     }
-
+    public static void addSpells(Spell spells){
+            cards.add ( spells );
+    }
     public String getImage () {
         return image;
     }

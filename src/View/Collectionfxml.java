@@ -47,7 +47,8 @@ public class Collectionfxml implements Initializable {
     public ObservableList<Button> decks = FXCollections.observableArrayList();
 
     public void showDecks() {
-
+        if ( decks.size()==0 )
+            return;
 
         for (int i = 0; i < Account.getMainAccount().getDecks().size(); i++) {
             decks.add(new Button(Account.getMainAccount().getDecks().get(i).getName()));
@@ -81,6 +82,8 @@ public class Collectionfxml implements Initializable {
             buttons.add(items[i]);
         }
         cardList.setItems(buttons);
+        if(items.length ==0 )
+            return;
         cardList.setPrefHeight(items[items.length - 1].getLayoutY() + 20);
         insideCard.setPrefHeight(cardList.getPrefHeight());
         cardPane.setContent(cardList);

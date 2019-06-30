@@ -36,5 +36,6 @@
       <Button fx:id="selectTarget" layoutX="573.0" layoutY="117.0" mnemonicParsing="false" text="select" />
       <Button fx:id="creat" layoutX="434.0" layoutY="307.0" mnemonicParsing="false" text="creat" />
       <CheckBox fx:id="isHero" layoutX="128.0" layoutY="84.0" mnemonicParsing="false" text="is hero" />
+      <Button fx:id="back" layoutX="491.0" layoutY="307.0" mnemonicParsing="false" text="back" />
    </children>
 </AnchorPane>

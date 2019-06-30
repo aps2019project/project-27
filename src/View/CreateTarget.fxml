@@ -18,5 +18,6 @@
       <Label layoutX="28.0" layoutY="123.0" text="length" />
       <TextField fx:id="length" layoutX="97.0" layoutY="119.0" />
       <Button fx:id="create" layoutX="379.0" layoutY="119.0" mnemonicParsing="false" text="create" />
+      <Button fx:id="back" layoutX="441.0" layoutY="119.0" mnemonicParsing="false" text="back" />
    </children>
 </AnchorPane>

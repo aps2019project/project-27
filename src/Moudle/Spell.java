@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Spell extends Card {
 	private static ArrayList<Spell> spells = new ArrayList<> (  );
-	private ArrayList<Buff> buffs;
+	private ArrayList<Buff> buffs = new ArrayList<> (  );
 	private Target target;
 
 	public static ArrayList<Spell> getSpells () {
@@ -30,5 +30,6 @@ public class Spell extends Card {
 		this.target = target;
 		this.buffs.add ( buff );
 		spells.add ( this );
+		Card.addSpells ( this );
 	}
 }

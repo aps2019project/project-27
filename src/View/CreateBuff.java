@@ -24,6 +24,7 @@ public class CreateBuff implements Initializable {
 	public TextField ageType;
 	public TextField age;
 	public Button create;
+	public Button back;
 
 	@Override
 	public void initialize ( URL location , ResourceBundle resources ) {
@@ -48,6 +49,7 @@ public class CreateBuff implements Initializable {
 							);
 					}
 				} );
+				back.setOnAction ( event -> Graphic.setRegion ( "CostomCard") );
 			}
 		};
 		animationTimer.start ( );

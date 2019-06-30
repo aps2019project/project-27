@@ -18,6 +18,7 @@ public class CreateTarget implements Initializable {
 	public TextField friendType;
 	public TextField degree;
 	public Button create;
+	public Button back;
 
 	@Override
 	public void initialize ( URL location , ResourceBundle resources ) {
@@ -38,6 +39,13 @@ public class CreateTarget implements Initializable {
 						}
 					}
 				} );
+				back.setOnAction ( new EventHandler<ActionEvent> ( ) {
+					@Override
+					public void handle ( ActionEvent event ) {
+						Graphic.setRegion ( "CostomCard" );
+					}
+				} );
+
 			}
 		};
 	}

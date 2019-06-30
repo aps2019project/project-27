@@ -22,5 +22,6 @@
       <Button fx:id="selectBuff" layoutX="521.0" layoutY="83.0" mnemonicParsing="false" text="select" />
       <Button fx:id="selectTarget" layoutX="521.0" layoutY="123.0" mnemonicParsing="false" text="select" />
       <Button fx:id="creat" layoutX="400.0" layoutY="175.0" mnemonicParsing="false" text="creat" />
+      <Button fx:id="back" layoutX="458.0" layoutY="175.0" mnemonicParsing="false" text="back" />
    </children>
 </AnchorPane>

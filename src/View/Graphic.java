@@ -82,7 +82,7 @@ public class Graphic extends Application implements Runnable {
             case "CostomCard":
                 root = FXMLLoader.load(getClass().getResource("CostomCard.fxml"));
                 primaryStage.setTitle("HelpMenu");
-                scene = new Scene(root, 96, 272);
+                scene = new Scene(root, 196, 330);
                 break;
             case "creatSpell":
                 root = FXMLLoader.load(getClass().getResource("CreatSpell.fxml"));
@@ -95,12 +95,16 @@ public class Graphic extends Application implements Runnable {
                 scene = new Scene(root, 665, 338);
                 break;
             case "creatTarget":
-                root = FXMLLoader.load(getClass().getResource("CreatTarget.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader (  );
+                fxmlLoader.setLocation(getClass().getResource("CreatTarget.fxml"));
+                root = fxmlLoader.load ();
                 primaryStage.setTitle("HelpMenu");
                 scene = new Scene(root, 600, 175);
                 break;
             case "creatBuff":
-                root = FXMLLoader.load(getClass().getResource("CreatBuff.fxml"));
+                FXMLLoader fxmlLoader1 = new FXMLLoader (  );
+                fxmlLoader1.setLocation(getClass().getResource("creatBuff.fxml"));
+                root = fxmlLoader1.load ();
                 primaryStage.setTitle("HelpMenu");
                 scene = new Scene(root, 636, 366);
                 break;

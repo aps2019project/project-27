@@ -28,6 +28,7 @@ public class CreatSpell implements Initializable {
 	public Label buffLable;
 	private Buff selectedBuff;
 	private Target selectedTarget;
+	public Button back;
 	@Override
 	public void initialize ( URL location , ResourceBundle resources ) {
 		AnimationTimer animationTimer = new AnimationTimer ( ) {
@@ -44,6 +45,7 @@ public class CreatSpell implements Initializable {
 						}
 					}
 				} );
+				back ( );
 				selectTarget.setOnAction ( new EventHandler<ActionEvent> ( ) {
 					@Override
 					public void handle ( ActionEvent event ) {
@@ -66,8 +68,13 @@ public class CreatSpell implements Initializable {
 								 selectedBuff,
 								 selectedTarget
 						);
+						Graphic.setRegion ( "CostomCard" );
 					}
 				} );
+			}
+
+			public void back () {
+				back.setOnAction ( event -> Graphic.setRegion ( "CostomCard" ) );
 			}
 		};
 		animationTimer.start ();

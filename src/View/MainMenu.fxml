@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@Backgrounds/MainMenuBackground.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainMenufxml">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@Backgrounds/MainMenuBackground.css" xmlns="http://javafx.com/javafx/8.0.172" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainMenufxml">
     <children>
       <VBox layoutX="15.0" layoutY="17.0" prefHeight="25.0" prefWidth="91.0">
          <children>
@@ -34,17 +34,22 @@
          <children>
               <Button fx:id="CostumeCard" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Costume Card" />
          </children></VBox>
-      <VBox layoutX="225.0" layoutY="206.0" prefHeight="31.0" prefWidth="114.0">
+      <VBox layoutX="225.0" layoutY="241.0" prefHeight="31.0" prefWidth="114.0">
          <children>
               <Button fx:id="Account" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Account" />
          </children></VBox>
-      <VBox layoutX="225.0" layoutY="251.0" prefHeight="31.0" prefWidth="114.0">
+      <VBox layoutX="225.0" layoutY="286.0" prefHeight="31.0" prefWidth="114.0">
          <children>
               <Button fx:id="Help" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Help" />
          </children></VBox>
-      <VBox layoutX="225.0" layoutY="295.0" prefHeight="31.0" prefWidth="114.0">
+      <VBox layoutX="225.0" layoutY="330.0" prefHeight="31.0" prefWidth="114.0">
          <children>
               <Button fx:id="Exit" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="31.0" prefWidth="114.0" text="Exit" />
          </children></VBox>
+      <VBox layoutX="225.0" layoutY="200.0" prefHeight="31.0" prefWidth="114.0">
+         <children>
+            <Button fx:id="save" mnemonicParsing="false" prefHeight="31.0" prefWidth="114.0" text="Save" />
+         </children>
+      </VBox>
     </children>
 </AnchorPane>

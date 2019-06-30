@@ -46,6 +46,7 @@ public class MinionAndHero extends Card {
             specialPowerMana = Integer.parseInt ( SPMan );
         }
         minionAndHeroes.add ( this );
+        Card.addMAndH ( this );
     }
     public static ArrayList<MinionAndHero> getMinionAndHeroes () {
         return minionAndHeroes;

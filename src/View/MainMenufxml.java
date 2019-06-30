@@ -21,6 +21,7 @@ public class MainMenufxml implements Initializable {
     public Button Collection;
     public Label AccountLable;
     public Button Help;
+    public Button save;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,6 +44,12 @@ public class MainMenufxml implements Initializable {
                         Graphic.setRegion("HelpMenu");
                     }
                 });
+                save.setOnAction ( new EventHandler<ActionEvent> ( ) {
+                    @Override
+                    public void handle ( ActionEvent event ) {
+                        Moudle.Account.save ();
+                    }
+                } );
                 Collection.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
