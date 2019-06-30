@@ -318,6 +318,7 @@ public class Battle {
 
 	public boolean insertSpell ( int x , int y , Card card ) {
 		Spell spell = ( Spell ) card;
+		if ( spell.getTarget ()!= null )
 		if ( ! spell.getTarget ( ).isValidTarget ( this , x , y , playerInTurn ) ) {
 			System.out.println ( "invalid target" );
 			Alert alert = new Alert(Alert.AlertType.ERROR);

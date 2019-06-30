@@ -37,6 +37,7 @@ public class CreateTarget implements Initializable {
 									degree.getText ( )
 							);
 						}
+						Graphic.setRegion ( "CostomCard" );
 					}
 				} );
 				back.setOnAction ( new EventHandler<ActionEvent> ( ) {

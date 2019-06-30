@@ -27,12 +27,13 @@ import java.util.ResourceBundle;
 public class Battlefxml implements Initializable {
 	public Label name;
 	public Label mana;
-	public Button stop;
+	public Button grave;
 	public Label detail;
 	public ArrayList<cardGroup> cardGroups = new ArrayList<> (  );
 	public Button endTurn;
 	public ImageView img;
 	public AnchorPane mainPane;
+	public Button heroPower;
 	private boolean fighterSelected = false;
 	private boolean hendSelected = false;
 	public Pane[][] panes = new Pane[5][9];
@@ -54,8 +55,20 @@ public class Battlefxml implements Initializable {
 		AnimationTimer animationTimer = new AnimationTimer ( ) {
 			@Override
 			public void handle ( long now ) {
+				heroPower.setOnAction ( new EventHandler<ActionEvent> ( ) {
+					@Override
+					public void handle ( ActionEvent event ) {
+						ControlBox controlBox = new ControlBox (  );
+						controlBox.setRegion ( "Battle" );
+						controlBox.setType ("use special power");
+						controlBox.setX ( 0 );
+						controlBox.setY ( 0 );
+						Controller.giveFromGraphic ( controlBox );
+					}
+				} );
 				for ( int i = 0 ; i <5  ; i++ ) {
 					int finalI = i;
+					int finalI1 = i;
 					handPane[i].setOnMouseClicked ( new EventHandler<MouseEvent> ( ) {
 						@Override
 						public void handle ( MouseEvent event ) {
@@ -65,6 +78,7 @@ public class Battlefxml implements Initializable {
 							controlBox.setN ( finalI);
 							ControlBox answer = Controller.giveFromGraphic ( controlBox );
 							hendSelected = true;
+							handPane[ finalI1 ].setStyle ( "-fx-background-color: Red;" );
 						}
 					} );
 				}
@@ -136,15 +150,15 @@ public class Battlefxml implements Initializable {
 								}
 							}
 						} );
+						grave.setOnAction ( new EventHandler<ActionEvent> ( ) {
+							@Override
+							public void handle ( ActionEvent event ) {
+
+								Graphic.setRegion ( "grave" );
+							}
+						} );
 					}
 				}
-				stop.setOnAction ( new EventHandler<ActionEvent> ( ) {
-					@Override
-					public void handle ( ActionEvent event ) {
-						Battlefxml battlefxml = Battlefxml.this;
-						int x=1;
-					}
-				} );
 				endTurn.setOnAction ( event -> {
 					ControlBox controlBox = new ControlBox (  );
 					controlBox.setRegion ( "Battle" );
@@ -249,6 +263,12 @@ public class Battlefxml implements Initializable {
 
 				}
 			}
+		}
+		Card next = battle.getPlayerInTurn ().getHand ().getNextCard ();
+		if ( next != null ){
+			cardGroup cardGroup = new cardGroup ( 0,0, next,true,5 );
+			cardGroups.add ( cardGroup );
+			mainPane.getChildren ().addAll ( cardGroup.getNodes () );
 		}
 	}
 }

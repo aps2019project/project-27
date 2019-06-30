@@ -95,16 +95,17 @@ public class Graphic extends Application implements Runnable {
                 scene = new Scene(root, 665, 338);
                 break;
             case "creatTarget":
-                FXMLLoader fxmlLoader = new FXMLLoader (  );
-                fxmlLoader.setLocation(getClass().getResource("CreatTarget.fxml"));
-                root = fxmlLoader.load ();
+                root = FXMLLoader.load(getClass().getResource("targetCreator.fxml"));
                 primaryStage.setTitle("HelpMenu");
                 scene = new Scene(root, 600, 175);
                 break;
+            case "grave":
+                root = FXMLLoader.load(getClass().getResource("GraveYardfxml.fxml"));
+                primaryStage.setTitle("HelpMenu");
+                scene = new Scene(root, 600, 500);
+                break;
             case "creatBuff":
-                FXMLLoader fxmlLoader1 = new FXMLLoader (  );
-                fxmlLoader1.setLocation(getClass().getResource("creatBuff.fxml"));
-                root = fxmlLoader1.load ();
+                root = FXMLLoader.load(getClass().getResource("buffCreator.fxml"));
                 primaryStage.setTitle("HelpMenu");
                 scene = new Scene(root, 636, 366);
                 break;
