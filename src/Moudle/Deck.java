@@ -40,7 +40,12 @@ public class Deck {
         if (card.getCardType() == 1)
             minionAndHeroes.add((MinionAndHero) card);
     }
-
+    public void removeCard(Card card) {
+        if (card.getCardType() == 0)
+            spells.remove((Spell) card);
+        if (card.getCardType() == 1)
+            minionAndHeroes.remove((MinionAndHero) card);
+    }
     public ArrayList<MinionAndHero> getMinionAndHeroes() {
         return minionAndHeroes;
     }
@@ -71,9 +76,7 @@ public class Deck {
         return null;
     }
 
-    public void removeCard(Card card) {
-//            for(Card card1:)
-    }
+
 
     public void removeItem(Item item) {
         this.item = null;
