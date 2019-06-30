@@ -93,53 +93,50 @@ public class Collectionfxml implements Initializable {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                impor.setOnAction ( new EventHandler<ActionEvent> ( ) {
+                impor.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
-                    public void handle ( ActionEvent event ) {
-                        File file = new File ( fileName.getText ()+".json" );
-                        if ( file.exists ()){
-                            System.out.println ("already exist" );
-                        }
-                        else {
-                            GsonBuilder gsonBuilder = new GsonBuilder ( );
-                            Gson gson = gsonBuilder.create ( );
+                    public void handle(ActionEvent event) {
+                        File file = new File(fileName.getText() + ".json");
+                        if (file.exists()) {
+                            System.out.println("already exist");
+                        } else {
+                            GsonBuilder gsonBuilder = new GsonBuilder();
+                            Gson gson = gsonBuilder.create();
                             FileWriter fileWriter = null;
                             try {
-                                fileWriter = new FileWriter ( fileName.getAccessibleText ()+".json" );
+                                fileWriter = new FileWriter(fileName.getAccessibleText() + ".json");
                             } catch (IOException e) {
-                                e.printStackTrace ( );
+                                e.printStackTrace();
                             }
-                            if ( !deckSelected.getText ().isEmpty () ) {
-                                selectedDeck = Deck.findDeck ( deckSelected.getText ( ) );
-                                gson.toJson ( selectedDeck,fileWriter );
-                            }
-                            else {
+                            if (!deckSelected.getText().isEmpty()) {
+                                selectedDeck = Deck.findDeck(deckSelected.getText());
+                                gson.toJson(selectedDeck, fileWriter);
+                            } else {
                                 //todo
                             }
 
                         }
                     }
-                } );
-                export.setOnAction ( new EventHandler<ActionEvent> ( ) {
+                });
+                export.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
-                    public void handle ( ActionEvent event ) {
-                        File file = new File ( fileName.getText ()+".json" );
-                        if ( file.exists () ){
+                    public void handle(ActionEvent event) {
+                        File file = new File(fileName.getText() + ".json");
+                        if (file.exists()) {
                             Deck deck = null;
-                            GsonBuilder gsonBuilder = new GsonBuilder ( );
-                            Gson gson = gsonBuilder.create ( );
+                            GsonBuilder gsonBuilder = new GsonBuilder();
+                            Gson gson = gsonBuilder.create();
                             try {
-                                deck = gson.fromJson ( new FileReader ( file ),Deck.class );
+                                deck = gson.fromJson(new FileReader(file), Deck.class);
                             } catch (FileNotFoundException e) {
-                                e.printStackTrace ( );
+                                e.printStackTrace();
                             }
-                            Account.getMainAccount ().getDecks ().add ( deck );
-                        }
-                        else {
+                            Account.getMainAccount().getDecks().add(deck);
+                        } else {
                             //todo
                         }
                     }
-                } );
+                });
                 for (int i = 0; i < cards.length; i++) {
                     int finalI = i;
                     cards[i].setOnAction(new EventHandler<ActionEvent>() {
@@ -214,6 +211,9 @@ public class Collectionfxml implements Initializable {
                             ObservableList<Label> info = FXCollections.observableArrayList();
                             for (int j = 0; j < Account.getMainAccount().getDecks().get(finalI).getCards().size(); j++) {
                                 info.add(new Label(Account.getMainAccount().getDecks().get(finalI).getCards().get(j).getName()));
+                                if (Account.getMainAccount().getDecks().get(finalI).getItem() != null) {
+                                    info.add(new Label(Account.getMainAccount().getDecks().get(finalI).getItem().getName()));
+                                }
                             }
                             infoList.setItems(info);
                             insideInfo.setPrefHeight(infoList.getPrefHeight());
@@ -261,8 +261,8 @@ public class Collectionfxml implements Initializable {
                         controlBox.setDeckName(deckSelected.getText());
                         controlBox.setType("deleteDeck");
                         Collection.input(controlBox);
-                        for (int i=0 ; i<decks.size() ; i++){
-                            if (decks.get(i).getText().equals(controlBox.getDeckName())){
+                        for (int i = 0; i < decks.size(); i++) {
+                            if (decks.get(i).getText().equals(controlBox.getDeckName())) {
                                 decks.remove(i);
                             }
                         }
@@ -277,7 +277,6 @@ public class Collectionfxml implements Initializable {
 
                     }
                 });
-
             }
         };
         animationTimer.start();

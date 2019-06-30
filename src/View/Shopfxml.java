@@ -43,10 +43,12 @@ public class Shopfxml implements Initializable {
         }
         Button[] items = new Button[Item.getItems().size()];
         for (int i = 0; i < Item.getItems().size(); i++) {
-            items[i] = new Button(Item.getItems().get(i).getName());
-            items[i].setLayoutX(14.0);
-            items[i].setLayoutY(cards[cards.length - 1].getLayoutY() + 40 * i);
-            buttons.add(items[i]);
+            if (!Item.getItems().get(i).isCollectible()) {
+                items[i] = new Button(Item.getItems().get(i).getName());
+                items[i].setLayoutX(14.0);
+                items[i].setLayoutY(cards[cards.length - 1].getLayoutY() + 40 * i);
+                buttons.add(items[i]);
+            }
         }
         listView.setItems(buttons);
         listView.setPrefHeight(items[items.length - 1].getLayoutY() + 20);
@@ -59,6 +61,7 @@ public class Shopfxml implements Initializable {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+
                 for (int i = 0; i < cards.length; i++) {
                     int finalI = i;
                     cards[i].setOnAction(new EventHandler<ActionEvent>() {
@@ -107,32 +110,41 @@ public class Shopfxml implements Initializable {
                         }
                     });
                 }
-                for (int i = 0; i < items.length; i++) {
-                    int finalI = i;
-                    items[i].setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            selected.setText(items[finalI].getText());
-                            ObservableList<Label> info = FXCollections.observableArrayList();
-                            info.add(new Label(items[finalI].getText()));
-                            info.add(new Label(String.format("Buy cost : %d", Item.getItems().get(finalI).getPrice())));
-                            info.add(new Label(Item.getItems().get(finalI).getDescription()));
-                            informationList.setItems(info);
-                            insideInformation.setPrefHeight(informationList.getPrefHeight());
-                            insideInformation.setPrefWidth(informationList.getPrefWidth());
-                            information.setContent(informationList);
-                        }
-                    });
+                for (int i = 0; i < Item.getItems().size(); i++) {
+                    if (!Item.getItems().get(i).isCollectible()) {
+                        int finalI = i;
+                        items[i].setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent event) {
+                                selected.setText(items[finalI].getText());
+                                ObservableList<Label> info = FXCollections.observableArrayList();
+                                info.add(new Label(items[finalI].getText()));
+                                info.add(new Label(String.format("Buy cost : %d", Item.getItems().get(finalI).getPrice())));
+                                info.add(new Label(Item.getItems().get(finalI).getDescription()));
+                                informationList.setItems(info);
+                                insideInformation.setPrefHeight(informationList.getPrefHeight());
+                                insideInformation.setPrefWidth(informationList.getPrefWidth());
+                                information.setContent(informationList);
+                            }
+                        });
+                    }
                 }
                 Back.setOnAction(new EventHandler<ActionEvent>() {
+
                     @Override
                     public void handle(ActionEvent event) {
+                        for (Button card : buttons) {
+                            card.setStyle("");
+                        }
                         Graphic.setRegion("MainMenu");
                     }
                 });
                 Buy.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+                        for (Button card : buttons) {
+                            card.setStyle("");
+                        }
                         controlBox.setCardName(selected.getText());
                         controlBox.setType("buy");
 //                        Shop.buy(label.getText());
@@ -143,6 +155,9 @@ public class Shopfxml implements Initializable {
                 Sell.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+                        for (Button card : buttons) {
+                            card.setStyle("");
+                        }
                         controlBox.setCardName(selected.getText());
                         controlBox.setType("sell");
 //                        Shop.sell(label.getText());
@@ -153,10 +168,20 @@ public class Shopfxml implements Initializable {
                 search.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+                        for (Button card : buttons) {
+                            card.setStyle("");
+                        }
                         controlBox.setCardName(search.getText());
                         controlBox.setType("search");
 //                        Shop.search(search.getText());
                         Shop.input(controlBox);
+                        for (Button card : buttons) {
+                            for (int i=1 ; i<search.getText().length() ; i++) {
+                                if (card.getText().contains(search.getText().subSequence(0, i))) {
+                                    card.setStyle("-fx-background-color: Blue;");
+                                }
+                            }
+                        }
                     }
                 });
 

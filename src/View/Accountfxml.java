@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -16,13 +17,13 @@ import java.util.ResourceBundle;
 public class Accountfxml implements Initializable {
     public Button save;
     public Button logout;
-    public Button help;
+//    public Button help;
     public Button createAccount;
     public Button login;
     public Button showLeaderBoard;
     public TextField userName;
     public TextField passWord;
-    public Button Menu;
+    public Label user;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -31,6 +32,7 @@ public class Accountfxml implements Initializable {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                user.setText(Account.getMainAccount().getUserName());
                 createAccount.setOnAction(event -> {
                     if (isValidPress(userName, passWord)) {
                         controlBox.setUserName(userName.getText());
@@ -71,24 +73,18 @@ public class Accountfxml implements Initializable {
                         Account.input(controlBox);
                     }
                 });
-                Menu.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        Graphic.setRegion("MainMenu");
-                    }
-                });
                 showLeaderBoard.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
                         Graphic.setRegion("LeaderBoard");
                     }
                 });
-                help.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        Graphic.setRegion("HelpAccount");
-                    }
-                });
+//                help.setOnAction(new EventHandler<ActionEvent>() {
+//                    @Override
+//                    public void handle(ActionEvent event) {
+//                        Graphic.setRegion("HelpAccount");
+//                    }
+//                });
 
             }
         };

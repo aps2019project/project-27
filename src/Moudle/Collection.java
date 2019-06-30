@@ -218,12 +218,13 @@ public class Collection {
     }
 
     public void remove(String name, String deckName) {
+        Account account = Account.getMainAccount();
         if (Account.getMainAccount().findDeck(deckName).findCard(name) == null && Account.getMainAccount().findDeck(deckName).getItem() == null) {
             System.out.println("This card|item doesn't exist in deck!");
-        } else if (Account.getMainAccount().findDeck(deckName).findCard(name) != null && Account.getMainAccount().findDeck(deckName).getItem() == null) {
+        } else if (Account.getMainAccount().findDeck(deckName).findCard(name) != null) {
             Account.getMainAccount().findDeck(deckName).removeCard(findCard(name));
             System.out.println("The card's been removed from the deck!");
-        } else if (Account.getMainAccount().findDeck(deckName).findCard(name) == null && Account.getMainAccount().findDeck(deckName).getItem() != null) {
+        } else if (Account.getMainAccount().findDeck(deckName).getItem() != null) {
             Account.getMainAccount().findDeck(deckName).removeItem(findItem(name));
             System.out.println("The item's been removed from the deck!");
         }
