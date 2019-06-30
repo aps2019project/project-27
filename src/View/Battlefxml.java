@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -172,6 +173,7 @@ public class Battlefxml implements Initializable {
 				panes[i][j].resize ( 140,140 );
 				panes[i][j].setPrefSize ( 140,140 );
 				panes[i][j].setStyle ( "-fx-background-color: Orange;" );
+				panes[i][j].toBack ();
 				mainPane.getChildren ().add ( panes[i][j] );
 			}
 		}
@@ -186,10 +188,14 @@ public class Battlefxml implements Initializable {
 			mainPane.getChildren ().add ( handPane[i] );
 		}
 		for ( int i = 1 ; i < 5  ; i++ ) {
+			Rectangle rectangle = new Rectangle (  );
+			rectangle.height = 1260;
+			rectangle.width = 20;
+			rectangle.setLocation ( i*140-10,20 );
 			Pane pane = new Pane (  );
-			pane.resize ( 1260,20 );
+			pane.relocate ( 1260,20 );
 			pane.setPrefHeight ( i*140-10 );
-			pane.setPrefWidth ( 0 );
+			pane.setPrefWidth ( 20 );
 			pane.setStyle ( "-fx-background-color: Blue;" );
 			mainPane.getChildren ().add ( pane );
 		}
@@ -203,16 +209,16 @@ public class Battlefxml implements Initializable {
 		Battle battle = Battle.getCurrentBattle ();
 		switch ( battle.getBattleType () ){
 			case 1:
-				detail.setText ( String.valueOf ( battle.getPlayerInTurn ().getFlagInHand () ) );
+				detail.setText ( "flags you collect"+String.valueOf ( battle.getPlayerInTurn ().getFlagInHand () ) );
 				break;
 			case 0:
 				if ( battle.getPlayerInTurn () == battle.getPlayer1 () )
-					detail.setText ( String.valueOf ( battle.getHeroP2 ().getHP () ) );
+					detail.setText ("enemy hero ap"+  ( battle.getHeroP2 ().getHP () ) );
 				else
-					detail.setText ( String.valueOf ( battle.getHeroP1 ().getHP () ) );
+					detail.setText ("enemy hero ap"+ String.valueOf ( battle.getHeroP1 ().getHP () ) );
 				break;
 			case 2:
-				detail.setText ( String.valueOf ( battle.getPlayerInTurn ().getFlagInHand () ) );
+				detail.setText ( "turns you have flag"+String.valueOf ( battle.getPlayerInTurn ().getFlagInHand () ) );
 				break;
 		}
 		Player player = battle.getPlayerInTurn ();
@@ -287,9 +293,9 @@ class cardGroup{
 		Label nameLable = new Label (  );
 		nameLable.setText ( name );
 		if ( isHand ) {
-			nameLable.relocate ( 150 + 140 * i+50 , 820 );
+			nameLable.relocate ( 150 + 140 * i+50 , 880 );
 		} else {
-			nameLable.relocate ( y * 140 + 50 , x * 140 + 100 );
+			nameLable.relocate ( y * 140 + 50 , x * 140 + 120 );
 		}
 		if ( card!=null ) {
 			if ( isHand ) {
@@ -322,7 +328,7 @@ class cardGroup{
 		newGroup (x,y,isHand,i ,item.getName ());
 		File file;
 		if ( item.getImage ()==null||item.getImage ().isEmpty () )
-			file = new File ( "src\\View\\images\\boss_antiswarm_breathing.gif" );
+			file = new File ( "src\\View\\images\\images.png" );
 		else
 			file = new File ( item.getImage () );
 		try {

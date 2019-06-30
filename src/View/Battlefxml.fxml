@@ -26,6 +26,11 @@
       </Label>
       <Button fx:id="endTurn" layoutX="1081.0" layoutY="773.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="78.0" text="end turn" />
       <Button fx:id="stop" layoutX="578.0" layoutY="797.0" mnemonicParsing="false" text="Button" />
+      <Label fx:id="detail" layoutX="43.0" layoutY="865.0" text="detail">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
       <Pane layoutY="130.0" prefHeight="20.0" prefWidth="1260.0" style="-fx-background-color: blue;" />
       <Pane layoutY="270.0" prefHeight="20.0" prefWidth="1260.0" style="-fx-background-color: blue;" />
       <Pane layoutY="410.0" prefHeight="20.0" prefWidth="1260.0" style="-fx-background-color: blue;" />
@@ -41,10 +46,5 @@
       <Pane layoutX="830.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;" />
       <Pane layoutX="971.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;" />
       <Pane layoutX="1110.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;" />
-      <Label fx:id="detail" layoutX="43.0" layoutY="836.0" text="detail">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>
