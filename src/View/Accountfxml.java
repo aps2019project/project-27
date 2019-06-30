@@ -7,6 +7,7 @@ import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -42,6 +43,11 @@ public class Accountfxml implements Initializable {
                         if (answer.isSucces()) {
                             Graphic.setRegion("MainMenu");
                         }
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setHeaderText("username or password is not valid");
+                        alert.setContentText("");
+                        alert.showAndWait();
                     }
                     Account.input(controlBox);
                 });

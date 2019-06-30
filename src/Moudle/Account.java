@@ -2,6 +2,7 @@ package Moudle;
 
 import Controller.ControlBox;
 import Controller.Controller;
+import javafx.scene.control.Alert;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -86,6 +87,9 @@ public class Account {
         ControlBox controlBox = new ControlBox();
         if (findAccount(userName) != null) {
             controlBox.setSucces(false);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("This account already exists");
+            alert.showAndWait();
         } else {
             Account account = new Account();
             account.userName = userName;
@@ -102,6 +106,8 @@ public class Account {
         if (findAccount(in.getUserName()) == null) {
             controlBox.setSucces(false);
             controlBox.setDescription("no user");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("There is no account with this username");
         } else {
             String passWord = in.getPass();
             if (passWord.equals(findAccount(in.getUserName()).passWord)) {
@@ -111,6 +117,9 @@ public class Account {
             } else {
                 controlBox.setDescription("wrong pass");
                 controlBox.setSucces(false);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Wrong pass");
+                alert.showAndWait();
             }
         }
         return controlBox;

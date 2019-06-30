@@ -2,6 +2,7 @@ package Moudle;
 
 import Controller.ControlBox;
 import View.View;
+import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
 
@@ -141,23 +142,41 @@ public class Shop {
     public void buy(String name) {
         if (findCard(name) == null && findItem(name) == null) {
             System.out.println("This card|item is not in the shop!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("This card|item is not in the shop!");
+            alert.showAndWait();
         } else if (findCard(name) != null && findItem(name) == null) {
             if (Account.getMainAccount().getMoney() < findCard(name).getShopPrice()) {
                 System.out.println("You don't have enough money!");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("You don't have enough money");
+                alert.showAndWait();
             } else {
                 Account.getMainAccount().getCollection().addToCards(findCard(name));
                 Account.getMainAccount().spendMoney(findCard(name).getShopPrice());
                 System.out.println("The card's been bought!");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setHeaderText("The card's been bought");
+                alert.showAndWait();
             }
         } else if (findCard(name) == null && findItem(name) != null) {
             if (Account.getMainAccount().getMoney() < findItem(name).getPrice()) {
                 System.out.println("You don't have enough money!");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("You don't have enough money");
+                alert.showAndWait();
             } else if (Account.getMainAccount().getCollection().getItems().size() >= 3) {
                 System.out.println("You can't buy anymore items!");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("You can't buy anymore items");
+                alert.showAndWait();
             } else {
                 Account.getMainAccount().getCollection().addToItems(findItem(name));
                 Account.getMainAccount().spendMoney(findItem(name).getPrice());
                 System.out.println("The item's been bought!");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setHeaderText("The item's been bought");
+                alert.showAndWait();
             }
         }
     }
@@ -165,14 +184,23 @@ public class Shop {
     public void sell(String name) {
         if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) == null) {
             System.out.println("You don't have this card|item!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("You don't have this card|item");
+            alert.showAndWait();
         } else if (Account.getMainAccount().getCollection().findCard(name) != null && Account.getMainAccount().getCollection().findItem(name) == null) {
             Account.getMainAccount().getCollection().removeFromCards(findCard(name));
             Account.getMainAccount().addMoney(findCard(name).getShopPrice());
             System.out.println("The card's been sold!");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("The card's been sold");
+            alert.showAndWait();
         } else if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) != null) {
             Account.getMainAccount().getCollection().removeFromItems(findItem(name));
             Account.getMainAccount().addMoney(findItem(name).getPrice());
             System.out.println("The item's been sold!");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("The item's been sold");
+            alert.showAndWait();
         }
     }
 
