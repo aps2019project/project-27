@@ -47,6 +47,9 @@ public class Collectionfxml implements Initializable {
 	public ObservableList<Button> decks = FXCollections.observableArrayList ( );
 
 	public void showDecks () {
+		if ( decks.size ( ) == 0 )
+			return;
+
 		for ( int i = 0 ; i < Account.getMainAccount ( ).getDecks ( ).size ( ) ; i++ ) {
 			decks.add ( new Button ( Account.getMainAccount ( ).getDecks ( ).get ( i ).getName ( ) ) );
 			decks.get ( i ).setLayoutX ( 146.0 );
@@ -299,4 +302,15 @@ public class Collectionfxml implements Initializable {
 		};
 		animationTimer.start ( );
 	}
+    public void update(){
+        deckList.getItems().clear();
+        decks.clear();
+        Account account = Account.getMainAccount();
+        for (int i=0 ; i<account.getDecks().size() ; i++){
+            decks.add(new Button(account.getDecks().get(i).getName()));
+        }
+        deckList.setItems(decks);
+        insideDeck.setPrefHeight(deckList.getPrefHeight());
+        deckPane.setContent(deckList);
+    }
 }
