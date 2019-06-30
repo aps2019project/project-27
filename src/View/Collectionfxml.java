@@ -47,9 +47,6 @@ public class Collectionfxml implements Initializable {
 	public ObservableList<Button> decks = FXCollections.observableArrayList ( );
 
 	public void showDecks () {
-		if ( decks.size ( ) == 0 )
-			return;
-
 		for ( int i = 0 ; i < Account.getMainAccount ( ).getDecks ( ).size ( ) ; i++ ) {
 			decks.add ( new Button ( Account.getMainAccount ( ).getDecks ( ).get ( i ).getName ( ) ) );
 			decks.get ( i ).setLayoutX ( 146.0 );
@@ -96,6 +93,7 @@ public class Collectionfxml implements Initializable {
 				impor.setOnAction ( new EventHandler<ActionEvent> ( ) {
 					@Override
 					public void handle ( ActionEvent event ) {
+						String name = fileName.getText ( ) + ".json";
 						File file = new File ( fileName.getText ( ) + ".json" );
 						if ( file.exists ( ) ) {
 							System.out.println ( "already exist" );
@@ -104,13 +102,26 @@ public class Collectionfxml implements Initializable {
 							Gson gson = gsonBuilder.create ( );
 							FileWriter fileWriter = null;
 							try {
-								fileWriter = new FileWriter ( fileName.getAccessibleText ( ) + ".json" );
+								fileWriter = new FileWriter ( fileName.getText ( ) + ".json" );
 							} catch (IOException e) {
 								e.printStackTrace ( );
 							}
 							if ( ! deckSelected.getText ( ).isEmpty ( ) ) {
-								selectedDeck = Deck.findDeck ( deckSelected.getText ( ) );
-								gson.toJson ( selectedDeck , fileWriter );
+								for ( Deck deck:Account.getMainAccount ().getDecks () ) {
+									if ( deck.getName ().equals ( deckSelected.getText () ) )
+										selectedDeck = deck;
+								}
+								String json = gson.toJson ( selectedDeck );
+								try {
+									fileWriter.write ( json );
+								} catch (IOException e) {
+									e.printStackTrace ( );
+								}
+								try {
+									fileWriter.close ();
+								} catch (IOException e) {
+									e.printStackTrace ( );
+								}
 							} else {
 								//todo
 							}
@@ -132,6 +143,8 @@ public class Collectionfxml implements Initializable {
 								e.printStackTrace ( );
 							}
 							Account.getMainAccount ( ).getDecks ( ).add ( deck );
+							Graphic.setRegion ( "" );
+							Graphic.setRegion ( "Collection" );
 						} else {
 							//todo
 						}
@@ -205,6 +218,9 @@ public class Collectionfxml implements Initializable {
 				if ( Account.getMainAccount ( ).getDecks ( ).size ( ) != 0 ) {
 					for ( int i = 0 ; i < account.getDecks ( ).size ( ) ; i++ ) {
 						int finalI = i;
+						int size = account.getDecks ( ).size ( );
+						if ( finalI>=size )
+							return;
 						decks.get ( i ).setOnAction ( new EventHandler<ActionEvent> ( ) {
 							@Override
 							public void handle ( ActionEvent event ) {
