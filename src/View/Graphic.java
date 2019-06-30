@@ -99,6 +99,11 @@ public class Graphic extends Application implements Runnable {
                 primaryStage.setTitle("HelpMenu");
                 scene = new Scene(root, 600, 175);
                 break;
+            case "grave":
+                root = FXMLLoader.load(getClass().getResource("GraveYardfxml.fxml"));
+                primaryStage.setTitle("HelpMenu");
+                scene = new Scene(root, 600, 500);
+                break;
             case "creatBuff":
                 root = FXMLLoader.load(getClass().getResource("buffCreator.fxml"));
                 primaryStage.setTitle("HelpMenu");

@@ -27,6 +27,7 @@ import java.util.ResourceBundle;
 public class Battlefxml implements Initializable {
 	public Label name;
 	public Label mana;
+	public Button grave;
 	public Label detail;
 	public ArrayList<cardGroup> cardGroups = new ArrayList<> (  );
 	public Button endTurn;
@@ -147,6 +148,13 @@ public class Battlefxml implements Initializable {
 										}
 									}
 								}
+							}
+						} );
+						grave.setOnAction ( new EventHandler<ActionEvent> ( ) {
+							@Override
+							public void handle ( ActionEvent event ) {
+
+								Graphic.setRegion ( "grave" );
 							}
 						} );
 					}

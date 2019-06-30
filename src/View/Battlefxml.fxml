@@ -47,5 +47,6 @@
       <Pane layoutX="1110.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;" />
       <Label layoutX="957.0" layoutY="848.0" text="next card" />
       <Button fx:id="heroPower" layoutX="47.0" layoutY="719.0" mnemonicParsing="false" text="hero power" />
+      <Button fx:id="grave" layoutX="47.0" layoutY="827.0" mnemonicParsing="false" text="grave yard" />
    </children>
 </AnchorPane>
