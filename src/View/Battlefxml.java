@@ -265,7 +265,7 @@ class cardGroup{
 		newGroup ( x , y  , isHand , i ,card.getName ());
 		File file;
 		if ( card.getImage ()==null||card.getImage ().isEmpty () )
-			file = new File ( "src\\View\\images\\boss_antiswarm_breathing.gif" );
+			file = new File ( "src\\View\\images\\DiveSepid.gif" );
 		else
 			file = new File ( card.getImage () );
 		try {
