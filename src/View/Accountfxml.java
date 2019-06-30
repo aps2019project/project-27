@@ -33,15 +33,21 @@ public class Accountfxml implements Initializable {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                user.setText(Account.getMainAccount().getUserName());
+                if (Account.getMainAccount() != null) {
+                    user.setText(Account.getMainAccount().getUserName());
+                } else {
+                    user.setText("");
+                }
                 createAccount.setOnAction(event -> {
                     if (isValidPress(userName, passWord)) {
                         controlBox.setUserName(userName.getText());
                         controlBox.setPass(passWord.getText());
                         controlBox.setType("create account");
                         ControlBox answer = Controller.giveFromGraphic(controlBox);
+
                         if (answer.isSucces()) {
                             Graphic.setRegion("MainMenu");
+//                            Account.input(controlBox);
                         }
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -49,7 +55,7 @@ public class Accountfxml implements Initializable {
                         alert.setContentText("");
                         alert.showAndWait();
                     }
-                    Account.input(controlBox);
+
                 });
                 login.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -61,7 +67,7 @@ public class Accountfxml implements Initializable {
                         if (answer.isSucces()) {
                             Graphic.setRegion("MainMenu");
                         }
-                        Account.input(controlBox);
+//                        Account.input(controlBox);
                     }
                 });
                 save.setOnAction(new EventHandler<ActionEvent>() {
