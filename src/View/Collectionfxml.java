@@ -3,7 +3,10 @@ package View;
 import Controller.ControlBox;
 import Moudle.Account;
 import Moudle.Collection;
+import Moudle.Deck;
 import Moudle.MinionAndHero;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,13 +16,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Collectionfxml implements Initializable {
 
     public Button back;
-    public Button save;
     public Button createDeck;
     public Button addToDeck;
     public Button removeFromDeck;
@@ -37,6 +40,10 @@ public class Collectionfxml implements Initializable {
     public ListView infoList;
     public ScrollPane infoPane;
     public AnchorPane insideInfo;
+    public TextField fileName;
+    public Button impor;
+    public Button export;
+    private Deck selectedDeck;
     public ObservableList<Button> decks = FXCollections.observableArrayList();
 
     public void showDecks() {
@@ -83,7 +90,53 @@ public class Collectionfxml implements Initializable {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                impor.setOnAction ( new EventHandler<ActionEvent> ( ) {
+                    @Override
+                    public void handle ( ActionEvent event ) {
+                        File file = new File ( fileName.getText ()+".json" );
+                        if ( file.exists ()){
+                            System.out.println ("already exist" );
+                        }
+                        else {
+                            GsonBuilder gsonBuilder = new GsonBuilder ( );
+                            Gson gson = gsonBuilder.create ( );
+                            FileWriter fileWriter = null;
+                            try {
+                                fileWriter = new FileWriter ( fileName.getAccessibleText ()+".json" );
+                            } catch (IOException e) {
+                                e.printStackTrace ( );
+                            }
+                            if ( !deckSelected.getText ().isEmpty () ) {
+                                selectedDeck = Deck.findDeck ( deckSelected.getText ( ) );
+                                gson.toJson ( selectedDeck,fileWriter );
+                            }
+                            else {
+                                //todo
+                            }
 
+                        }
+                    }
+                } );
+                export.setOnAction ( new EventHandler<ActionEvent> ( ) {
+                    @Override
+                    public void handle ( ActionEvent event ) {
+                        File file = new File ( fileName.getText ()+".json" );
+                        if ( file.exists () ){
+                            Deck deck = null;
+                            GsonBuilder gsonBuilder = new GsonBuilder ( );
+                            Gson gson = gsonBuilder.create ( );
+                            try {
+                                deck = gson.fromJson ( new FileReader ( file ),Deck.class );
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace ( );
+                            }
+                            Account.getMainAccount ().getDecks ().add ( deck );
+                        }
+                        else {
+                            //todo
+                        }
+                    }
+                } );
                 for (int i = 0; i < cards.length; i++) {
                     int finalI = i;
                     cards[i].setOnAction(new EventHandler<ActionEvent>() {
@@ -170,12 +223,6 @@ public class Collectionfxml implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         Graphic.setRegion("MainMenu");
-                    }
-                });
-                save.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        Collection.save();
                     }
                 });
                 createDeck.setOnAction(new EventHandler<ActionEvent>() {

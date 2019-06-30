@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="223.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.CreatSpell">
+   <children>
+      <Label layoutX="27.0" layoutY="49.0" text="name" />
+      <TextField fx:id="name" layoutX="71.0" layoutY="45.0" />
+      <Label layoutX="27.0" layoutY="88.0" text="image" />
+      <TextField fx:id="image" layoutX="71.0" layoutY="84.0" />
+      <Label layoutX="27.0" layoutY="135.0" text="cost" />
+      <TextField fx:id="cost" layoutX="71.0" layoutY="131.0" />
+      <Label layoutX="307.0" layoutY="45.0" text="mana" />
+      <TextField fx:id="mana" layoutX="351.0" layoutY="41.0" />
+      <Label fx:id="buffLable" layoutX="307.0" layoutY="84.0" text="buff" />
+      <TextField fx:id="buff" layoutX="351.0" layoutY="80.0" />
+      <Label fx:id="targetLable" layoutX="307.0" layoutY="131.0" text="target" />
+      <TextField fx:id="target" layoutX="351.0" layoutY="127.0" />
+      <Button fx:id="selectBuff" layoutX="521.0" layoutY="83.0" mnemonicParsing="false" text="select" />
+      <Button fx:id="selectTarget" layoutX="521.0" layoutY="123.0" mnemonicParsing="false" text="select" />
+      <Button fx:id="creat" layoutX="400.0" layoutY="175.0" mnemonicParsing="false" text="creat" />
+   </children>
+</AnchorPane>

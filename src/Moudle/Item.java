@@ -23,15 +23,14 @@ public class Item {
         normalFlag.image = "src\\View\\images\\flag.gif";
 
     }
-
     private String name;
-    private String description;
     private int price;
     private boolean isFlag;
     private boolean isLastFlag;
     private Target target;
     private ArrayList<Buff> buffs;
     private boolean isCollectible;
+    private String description;
 
     public String getDescription() {
         return description;

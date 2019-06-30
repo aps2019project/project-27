@@ -9,11 +9,15 @@ public class Card {
     private int cardID;
     private int shopPrice;
     private int manaPrice;
-    //0:spell   1:minion
+    //0:buff   1:minion
     private int cardType;
- public Card(){
-
- }
+     public Card(String name,String image,String shopPrice,String manaPrice,int cardType){
+         this.name = name;
+         this.image = image;
+         this.shopPrice = Integer.parseInt ( shopPrice );
+         this.manaPrice = Integer.parseInt ( manaPrice );
+        this.cardType = cardType;
+     }
     public static void addMAndH ( ArrayList<MinionAndHero> minionAndHeroes ) {
         for ( MinionAndHero minionAndHero:minionAndHeroes ){
             cards.add ( minionAndHero );

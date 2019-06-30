@@ -82,20 +82,40 @@ public class Graphic extends Application implements Runnable {
             case "CostomCard":
                 root = FXMLLoader.load(getClass().getResource("CostomCard.fxml"));
                 primaryStage.setTitle("HelpMenu");
-                scene = new Scene(root, 600, 400);
+                scene = new Scene(root, 96, 272);
                 break;
-//            case "HelpShop":
-//                root = FXMLLoader.load(getClass().getResource("HelpShopfxml.fxml"));
-//                primaryStage.setTitle("HelpShop");
-//                scene = new Scene(root, 600, 400);
-//            case "HelpCollection":
-//                root = FXMLLoader.load(getClass().getResource("HelpCollectionfxml.fxml"));
-//                primaryStage.setTitle("HelpCollection");
-//                scene = new Scene(root, 600, 400);
-//            case "HelpBattle":
-//                root = FXMLLoader.load(getClass().getResource("HelpBattle.fxml"));
-//                primaryStage.setTitle("HelpBattle");
-//                scene = new Scene(root, 600, 400);
+            case "creatSpell":
+                root = FXMLLoader.load(getClass().getResource("CreatSpell.fxml"));
+                primaryStage.setTitle("CreatSpell");
+                scene = new Scene(root, 600, 223);
+                break;
+            case "creatMinion":
+                root = FXMLLoader.load(getClass().getResource("createMAndH.fxml"));
+                primaryStage.setTitle("CreatMinion");
+                scene = new Scene(root, 665, 338);
+                break;
+            case "creatTarget":
+                root = FXMLLoader.load(getClass().getResource("CreatTarget.fxml"));
+                primaryStage.setTitle("HelpMenu");
+                scene = new Scene(root, 600, 175);
+                break;
+            case "creatBuff":
+                root = FXMLLoader.load(getClass().getResource("CreatBuff.fxml"));
+                primaryStage.setTitle("HelpMenu");
+                scene = new Scene(root, 636, 366);
+                break;
+            //            case "HelpShop":
+            //                root = FXMLLoader.load(getClass().getResource("HelpShopfxml.fxml"));
+            //                primaryStage.setTitle("HelpShop");
+            //                scene = new Scene(root, 600, 400);
+            //            case "HelpCollection":
+            //                root = FXMLLoader.load(getClass().getResource("HelpCollectionfxml.fxml"));
+            //                primaryStage.setTitle("HelpCollection");
+            //                scene = new Scene(root, 600, 400);
+            //            case "HelpBattle":
+            //                root = FXMLLoader.load(getClass().getResource("HelpBattle.fxml"));
+            //                primaryStage.setTitle("HelpBattle");
+            //                scene = new Scene(root, 600, 400);
         }
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
