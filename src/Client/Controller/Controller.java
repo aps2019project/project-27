@@ -1,11 +1,14 @@
 package Client.Controller;
 
-import Client.View.Controller.ControlBox;
+
 import Client.View.Graphic;
+import ControlBox.ControlBox;
 import Server.Moudle.Account;
 import Server.Moudle.Battle;
 import Server.Moudle.Collection;
 import Server.Moudle.Shop;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -114,7 +117,7 @@ public class Controller {
             if (isValidMove(input)) {
                 type = "move";
                 String[] tmp = input.split(" ");
-                setLocation((ControlBox) controlBox, tmp[2]);
+                setLocation( controlBox , tmp[2]);
             }
             if (isValidAttack(input)) {
                 type = "attack";
@@ -123,7 +126,7 @@ public class Controller {
             if (useSpecialPower(input)) {
                 type = "use special power";
                 String location = input.toLowerCase().split(" ")[3];
-                setLocation((ControlBox) controlBox, location);
+                setLocation( controlBox , location);
             }
             if (isValidInsert(input)) {
                 type = "insert";
@@ -294,17 +297,19 @@ public class Controller {
         }
         return 0;
     }
+    public static void sendToServer( ControlBox controlBox){
+        GsonBuilder gsonBuilder = new GsonBuilder ();
+        Gson gson = gsonBuilder.create ();
+        String oblect = gson.toJson ( controlBox );
+        serverOutput.format ( oblect );
+        serverOutput.flush ();
+    }
 	public static ControlBox giveFromGraphic(ControlBox controlBox){
-    	switch ( controlBox.getRegion () ){
-			case "Account":
-				return Account.input ( controlBox );
-			case "MainMenu":
-				//todo
-				break;
-            case "Battle":
-                return Battle.input ( controlBox );
-		}
-		return new ControlBox (  );
+    	sendToServer ( controlBox );
+    	String object = serveerInput.nextLine ();
+        GsonBuilder gsonBuilder = new GsonBuilder ();
+        Gson gson = gsonBuilder.create ();
+		return gson.fromJson ( serveerInput.nextLine (),ControlBox.class );
 	}
     public static void printInMenu () {
         System.out.println ( "1.Collection" );

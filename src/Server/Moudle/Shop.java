@@ -1,7 +1,7 @@
 package Server.Moudle;
 
-import Client.View.Controller.ControlBox;
 import Client.View.View;
+import ControlBox.ControlBox;
 import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class Shop {
     private ArrayList<Card> cards = Card.getCards();
     private ArrayList<Item> items = Item.getItems();
 
-    public static void input(ControlBox controlBox) {
+    public static void input( ControlBox controlBox) {
         String in = controlBox.getType();
         if (in.equals("showCollection")) {
             currentShop.showCollection();

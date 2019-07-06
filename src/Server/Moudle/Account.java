@@ -1,7 +1,7 @@
 package Server.Moudle;
 
-import Client.View.Controller.ControlBox;
-import Client.View.Controller.Controller;
+import Client.Controller.Controller;
+import ControlBox.ControlBox;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;
@@ -41,7 +41,7 @@ public class Account {
         return accounts;
     }
 
-    public static ControlBox input(ControlBox controlBox) {
+    public static ControlBox input( ControlBox controlBox) {
         String in = controlBox.getType();
         if (in.equals("create account")) {
             return createAccount(controlBox.getUserName(), controlBox.getPass());

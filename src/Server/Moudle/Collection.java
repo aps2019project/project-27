@@ -1,7 +1,7 @@
 package Server.Moudle;
 
-import Client.View.Controller.ControlBox;
 import Client.View.View;
+import ControlBox.ControlBox;
 import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class Collection {
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<Deck> decks;
 
-    public static int input(ControlBox controlBox) {
+    public static int input( ControlBox controlBox) {
         String in = controlBox.getType();
         if (in.equals("show")) {
             Account.getMainAccount().getCollection().show();

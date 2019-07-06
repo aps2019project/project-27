@@ -1,6 +1,6 @@
 package Server;
 
-import Client.View.Controller.ControlBox;
+import ControlBox.ControlBox;
 import Server.Moudle.Account;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

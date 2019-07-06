@@ -1,7 +1,7 @@
 package Client.View;
 
 import Client.Controller.Controller;
-import Client.View.Controller.ControlBox;
+import ControlBox.ControlBox;
 import Server.Moudle.Account;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
@@ -102,7 +102,13 @@ public class Accountfxml implements Initializable {
         };
         animationTimer.start();
     }
-
+    private static Account getMainAccount(){
+        ControlBox controlBox = new ControlBox (  );
+        controlBox.setRegion ( "Account" );
+        controlBox.setType ( "getMainAccount" );
+        ControlBox answer = Controller.giveFromGraphic ( controlBox );
+        return answer.getAccount()
+    }
     private static boolean isValidPress(TextField userName, TextField passWord) {
         return !(passWord.getText().isEmpty() && userName.getText().isEmpty());
     }
