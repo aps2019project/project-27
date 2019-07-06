@@ -1,6 +1,6 @@
 package Client.View;
 
-import Client.View.Controller.ControlBox;
+import ControlBox.ControlBox;
 import Server.Moudle.Account;
 import Server.Moudle.Collection;
 import Server.Moudle.Deck;

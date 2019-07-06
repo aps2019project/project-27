@@ -141,7 +141,7 @@ public class Controller {
                 type = "end turn";
             }
             controlBox.setType(type);
-            Battle.input(controlBox);
+            Battle.input(controlBox , this );
             return 0;
         }
         if (region.equals("MainMenu")) {

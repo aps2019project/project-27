@@ -3,13 +3,13 @@ package Server.Moudle;
 import Client.View.Battlefxml;
 import Client.View.View;
 import ControlBox.ControlBox;
+import Server.Client;
 import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Battle {
-	private static Battle currentBattle;
 	private static String winner;
 	private static String lastGift;
 	private Fighter selectedFighter;
@@ -24,6 +24,7 @@ public class Battle {
 	private Player playerInTurn;
 	private ArrayList<Fighter> fighters = new ArrayList<> ( );
 	private Card selectedCard;
+	private boolean isEnd;
 	private Item selectedItem;
 	//0:hero    1:lastflag  2:flags
 	private int battleType;
@@ -53,28 +54,32 @@ public class Battle {
 		}
 	}
 
-	public static Battle getCurrentBattle () {
-		return currentBattle;
+	public boolean isEnd () {
+		return isEnd;
+	}
+
+	public void setEnd ( boolean end ) {
+		isEnd = end;
 	}
 
 	public Player getPlayerInTurn () {
 		return playerInTurn;
 	}
 
-	public static ControlBox input ( ControlBox controllBox ) {
+	public static ControlBox input ( ControlBox controllBox , Client client ) {
 		String in = controllBox.getType ( );
 		if ( in.equals ( "insert select" ) ){
-			currentBattle.selectedCard = currentBattle.playerInTurn.getHand ().getCards ().get ( controllBox.getN () );
+			client.getBattle ().selectedCard = client.getBattle ().playerInTurn.getHand ().getCards ().get ( controllBox.getN () );
 		}
 		if ( in.equals ( "game info" ) ) {
-			currentBattle.showInfo ( );
+			client.getBattle ().showInfo ( );
 			return null;
 		}
 		if ( in.equals ( "help" ) ) {
 			help ( );
 		}
 		if ( in.equals ( "graveyard" ) ){
-			currentBattle.playerInTurn.showGraveYard ();
+			client.getBattle ().playerInTurn.showGraveYard ();
 		}
 		if ( in.equalsIgnoreCase ( "select user" ) ) {
 			ControlBox controlBox = new ControlBox (  );
@@ -95,13 +100,13 @@ public class Battle {
 
 		}
 		if ( in.equalsIgnoreCase ( "new mp" ) ) {
-			return newBattle ( Account.getMainAccount ( ) , secondAccount , controllBox.getBattleType ( ) , controllBox.getN ( ) );
+			return newBattle ( Account.getMainAccount ( ) , secondAccount , controllBox.getBattleType ( ) , controllBox.getN ( ),client );
 		}
 		if ( in.equals ( "show item" ) ) {
-			currentBattle.showItem ( controllBox.getCardName ( ) );
+			client.getBattle ().showItem ( controllBox.getCardName ( ) );
 		}
 		if ( in.equals ( "use item" ) ) {
-			Item item = Item.findItem ( controllBox.getCardName ( ) , currentBattle.playerInTurn.getCollectedItems ( ) );
+			Item item = Item.findItem ( controllBox.getCardName ( ) , client.getBattle ().playerInTurn.getCollectedItems ( ) );
 			if ( item == null ) {
 				System.out.println ( "you havent this item" );
 				Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -109,52 +114,52 @@ public class Battle {
 				alert.showAndWait();
 				return null;
 			}
-			currentBattle.useItem ( item , controllBox.getX ( ) , controllBox.getY ( ) );
+			client.getBattle ().useItem ( item , controllBox.getX ( ) , controllBox.getY ( ),client.getBattle () );
 		}
 		if ( in.equals ( "show items" ) ) {
-			currentBattle.playerInTurn.showCollectables ( );
+			client.getBattle ().playerInTurn.showCollectables ( );
 		}
 		if ( in.equals ( "show my minions" ) ) {
-			currentBattle.playerInTurn.showFighters ( );
+			client.getBattle ().playerInTurn.showFighters ( );
 		}
 		if ( in.equals ( "show opponent minions" ) ) {
-			currentBattle.offTurn ( ).showFighters ( );
+			client.getBattle ().offTurn ( ).showFighters ( );
 		}
 		if ( in.equals ( "show card info" ) ) {
-			currentBattle.showCardInfo ( controllBox.getCardID ( ) );
+			client.getBattle ().showCardInfo ( controllBox.getCardID ( ) );
 		}
 		if ( in.equals ( "next card" ) ){
-			currentBattle.playerInTurn.getHand ().showNextCard ();
+			client.getBattle ().playerInTurn.getHand ().showNextCard ();
 		}
 		if ( in.equals ( "select card" ) ) {
-			currentBattle.setInGroundCard ( controllBox.getCardID ( ) );
-			return currentBattle.setInGroundCard ( controllBox.getX (),controllBox.getY () );
+			client.getBattle ().setInGroundCard ( controllBox.getCardID ( ) );
+			return client.getBattle ().setInGroundCard ( controllBox.getX (),controllBox.getY () );
 		}
 		if ( in.equals ( "end turn" ) ) {
-			return currentBattle.nextTurn ( );
+			return client.getBattle ().nextTurn ( );
 		}
 		if ( in.equals ( "use special power" ) ) {
-			currentBattle.useSpecialPowerHero ( controllBox.getX ( ) , controllBox.getY ( ) );
+			client.getBattle ().useSpecialPowerHero ( controllBox.getX ( ) , controllBox.getY ( ) );
 		}
 		if ( in.equals ( "show hand" ) ) {
-			currentBattle.playerInTurn.showHand ( );
+			client.getBattle ().playerInTurn.showHand ( );
 
 		}
 		if ( in.equals ( "insert" ) ) {
-			return currentBattle.insert ( currentBattle.selectedCard , controllBox.getX ( ) , controllBox.getY ( ) );
+			return client.getBattle ().insert ( client.getBattle ().selectedCard , controllBox.getX ( ) , controllBox.getY ( ) );
 		}
 		if ( in.equals ( "move" ) ) {
-			if ( currentBattle.selectedFighter == null ) {
+			if ( client.getBattle ().selectedFighter == null ) {
 				System.out.println ( "no card selected!" );
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 				alert.setHeaderText("No card selected");
 				alert.showAndWait();
 				return null;
 			}
-			return currentBattle.move ( controllBox.getX ( ) , controllBox.getY ( ) , currentBattle.selectedFighter );
+			return client.getBattle ().move ( controllBox.getX ( ) , controllBox.getY ( ) , client.getBattle ().selectedFighter );
 		}
 		if ( in.equals ( "attack" ) ) {
-			Fighter opponent = ( Fighter ) currentBattle.ground.getCell ( controllBox.getX (),controllBox.getY () ).getCardOnCell ();
+			Fighter opponent = ( Fighter ) client.getBattle ().ground.getCell ( controllBox.getX (),controllBox.getY () ).getCardOnCell ();
 			if ( opponent == null ) {
 				System.out.println ( "There is no opponent to attack!" );
 				Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -162,13 +167,13 @@ public class Battle {
 				alert.showAndWait();
 				return null;
 			}
-			if ( currentBattle.selectedFighter == null ) {
+			if ( client.getBattle ().selectedFighter == null ) {
 				System.out.println ( "fighter dont selected" );
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 				alert.setHeaderText("Fighter not selected");
 				alert.showAndWait();
 			}
-			return currentBattle.attack ( currentBattle.selectedFighter , opponent );
+			return client.getBattle ().attack ( client.getBattle ().selectedFighter , opponent );
 		}
 		return null;
 	}
@@ -267,15 +272,15 @@ public class Battle {
 		return false;
 	}
 
-	private void useItem ( Item item , int x , int y ) {
-		if ( ! item.getTarget ( ).isValidTarget ( currentBattle , x , y , playerInTurn ) ) {
+	private void useItem ( Item item , int x , int y ,Battle battle) {
+		if ( ! item.getTarget ( ).isValidTarget ( battle , x , y , playerInTurn ) ) {
 			System.out.println ( "invalid target" );
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setHeaderText("invalid target");
 			alert.showAndWait();
 			return;
 		}
-		ArrayList<Fighter> fighters = item.getTarget ( ).targetFighters ( currentBattle , x , y , playerInTurn );
+		ArrayList<Fighter> fighters = item.getTarget ( ).targetFighters ( battle , x , y , playerInTurn );
 		for ( Buff buff : item.getBuffs ( ) ) {
 			buff ( buff , fighters , item.getTarget ( ) , x , y );
 			if ( buff.isExeptABuff ( ) )
@@ -684,8 +689,8 @@ public class Battle {
 	public int getBattleType(){
 		return battleType;
 	}
-	public Battle ( Account account , Account account2 , int battleType , int numberOfFlags ) {
-		Battle.currentBattle = this;
+	public Battle ( Account account , Account account2 , int battleType , int numberOfFlags,Client client ) {
+		client.setBattle ( this );
 		player1 = new Player ( account );
 		player2 = new Player ( account2 );
 		ground = new Ground ( );
@@ -750,7 +755,7 @@ public class Battle {
 		return player1;
 	}
 
-	public static ControlBox newBattle ( Account account , Account account2 , int battleType , int numberOfFlags ) {
+	public static ControlBox newBattle ( Account account , Account account2 , int battleType , int numberOfFlags ,Client client) {
 		ControlBox controlBox = new ControlBox (  );
 		controlBox.setSucces ( true );
 		if ( account2 == null ) {
@@ -765,7 +770,7 @@ public class Battle {
 		}
 
 		if ( controlBox.isSucces () )
-			new Battle ( account, account2, battleType, numberOfFlags );
+			new Battle ( account, account2, battleType, numberOfFlags,client );
 		return controlBox;
 	}
 
@@ -995,7 +1000,7 @@ public class Battle {
 		winner = player.getUserName ();
 		//Controller.input ();
 		Battlefxml.winner ();
-		currentBattle = null;
+		this.isEnd = true;
 	}
 	private void setPlayerInTurn () {
 		if ( playerInTurn == ( player1 ) )

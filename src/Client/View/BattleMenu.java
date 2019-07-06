@@ -1,7 +1,7 @@
 package Client.View;
 
-import Client.View.Controller.ControlBox;
-import Client.View.Controller.Controller;
+import Client.Controller.Controller;
+import ControlBox.ControlBox;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

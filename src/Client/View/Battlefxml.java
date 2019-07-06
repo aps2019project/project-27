@@ -1,7 +1,7 @@
 package Client.View;
 
-import Client.View.Controller.ControlBox;
-import Client.View.Controller.Controller;
+import Client.Controller.Controller;
+import ControlBox.ControlBox;
 import Server.Moudle.*;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
@@ -117,7 +117,7 @@ public class Battlefxml implements Initializable {
 										fighterSelected = true;
 									}
 								} else {
-									if ( Battle.getCurrentBattle ( ).getGround ( ).getCell ( finalI , finalJ ).getCardOnCell ( ) == null ) {
+									if ( getCurrentBattle ().getGround ( ).getCell ( finalI , finalJ ).getCardOnCell ( ) == null ) {
 										ControlBox controlBox = new ControlBox ( );
 										controlBox.setRegion ( "Battle" );
 										controlBox.setType ( "move" );
@@ -220,7 +220,7 @@ public class Battlefxml implements Initializable {
 		for ( cardGroup cardGroup :cardGroups )
 			mainPane.getChildren ().removeAll ( cardGroup.getNodes () );
 		cardGroups.clear ();
-		Battle battle = Battle.getCurrentBattle ();
+		Battle battle = getCurrentBattle ();
 		switch ( battle.getBattleType () ){
 			case 1:
 				detail.setText ( "flags you collect"+String.valueOf ( battle.getPlayerInTurn ().getFlagInHand () ) );
@@ -270,6 +270,13 @@ public class Battlefxml implements Initializable {
 			cardGroups.add ( cardGroup );
 			mainPane.getChildren ().addAll ( cardGroup.getNodes () );
 		}
+	}
+	Battle getCurrentBattle(){
+		ControlBox controlBox = new ControlBox (  );
+		controlBox.setRegion ( "Client" );
+		controlBox.setType ( "getCurrentBattle" );
+		ControlBox answer = Controller.giveFromGraphic ( controlBox );
+		return answer.getBattle ();
 	}
 }
 class cardGroup{

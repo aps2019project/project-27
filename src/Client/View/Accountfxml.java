@@ -33,8 +33,8 @@ public class Accountfxml implements Initializable {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (Account.getMainAccount() != null) {
-                    user.setText(Account.getMainAccount().getUserName());
+                if (getMainAccount () != null) {
+                    user.setText(getMainAccount ().getUserName());
                 } else {
                     user.setText("");
                 }
@@ -74,7 +74,8 @@ public class Accountfxml implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         controlBox.setType("save");
-                        Account.input(controlBox);
+                        Account.input(controlBox,null);
+                        //todo
                     }
                 });
                 logout.setOnAction(new EventHandler<ActionEvent>() {
@@ -82,7 +83,8 @@ public class Accountfxml implements Initializable {
                     public void handle(ActionEvent event) {
                         System.out.println("logout3");
                         controlBox.setType("logout");
-                        Account.input(controlBox);
+                        Account.input(controlBox,null);
+                        // TODO: 7/6/2019
                     }
                 });
                 showLeaderBoard.setOnAction(new EventHandler<ActionEvent>() {
@@ -104,10 +106,10 @@ public class Accountfxml implements Initializable {
     }
     private static Account getMainAccount(){
         ControlBox controlBox = new ControlBox (  );
-        controlBox.setRegion ( "Account" );
+        controlBox.setRegion ( "Client" );
         controlBox.setType ( "getMainAccount" );
         ControlBox answer = Controller.giveFromGraphic ( controlBox );
-        return answer.getAccount()
+        return answer.getAccount();
     }
     private static boolean isValidPress(TextField userName, TextField passWord) {
         return !(passWord.getText().isEmpty() && userName.getText().isEmpty());

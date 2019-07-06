@@ -2,6 +2,7 @@ package Server.Moudle;
 
 import Client.Controller.Controller;
 import ControlBox.ControlBox;
+import Server.Client;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;
@@ -41,17 +42,22 @@ public class Account {
         return accounts;
     }
 
-    public static ControlBox input( ControlBox controlBox) {
+    public static ControlBox input( ControlBox controlBox, Client client ) {
         String in = controlBox.getType();
         if (in.equals("create account")) {
-            return createAccount(controlBox.getUserName(), controlBox.getPass());
+            return createAccount(controlBox.getUserName(), controlBox.getPass(),client);
         }
         if (in.equals("login")) {
-            ControlBox controlBox1 = login(controlBox);
+            ControlBox controlBox1 = login(controlBox,client);
             if (controlBox1.isSucces()) {
                 Controller.setRegion("MainMenu");
                 Controller.printInMenu();
             }
+            return controlBox1;
+        }
+        if ( in.equals ( "getMainAccount" ) ){
+            ControlBox controlBox1 = new ControlBox (  );
+            controlBox1.setAccount ( mainAccount );
             return controlBox1;
         }
         if (in.equals("show leaderboard")) {
@@ -83,7 +89,7 @@ public class Account {
         return null;
     }
 
-    public static ControlBox createAccount(String userName, String passWord) {
+    public static ControlBox createAccount ( String userName , String passWord , Client client ) {
         ControlBox controlBox = new ControlBox();
         if (findAccount(userName) != null) {
             controlBox.setSucces(false);
@@ -96,12 +102,13 @@ public class Account {
             account.passWord = passWord;
             accounts.add(account);
             mainAccount = account;
+            client.setAccount ( mainAccount );
             controlBox.setSucces(true);
         }
         return controlBox;
     }
 
-    public static ControlBox login(ControlBox in) {
+    public static ControlBox login ( ControlBox in , Client client ) {
         ControlBox controlBox = new ControlBox();
         if (findAccount(in.getUserName()) == null) {
             controlBox.setSucces(false);
@@ -113,6 +120,7 @@ public class Account {
             if (passWord.equals(findAccount(in.getUserName()).passWord)) {
                 System.out.println("Login successful!");
                 mainAccount = findAccount(in.getUserName());
+                client.setAccount ( mainAccount );
                 controlBox.setSucces(true);
             } else {
                 controlBox.setDescription("wrong pass");

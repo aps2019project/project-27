@@ -1,6 +1,6 @@
 package Client.View;
 
-import Client.View.Controller.ControlBox;
+import ControlBox.ControlBox;
 import Server.Moudle.*;
 import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;

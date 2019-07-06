@@ -1,6 +1,5 @@
 package Server;
 
-import ControlBox.ControlBox;
 import Server.Moudle.*;
 
 import java.io.FileNotFoundException;
@@ -24,27 +23,11 @@ public class Main {
 				while ( true ) {
 					Client client = new Client ( serverSocket.accept ( ) );
 					ArrayList clients = Client.getClients ( );
-					new Thread ( () -> {
-						while ( true ) {
-							ControlBox controlBox = client.recieve ( );
-							ControlBox answer = null;
-							switch ( controlBox.getRegion ( ) ) {
-								case "Account":
-									answer = Account.input ( controlBox );
-									break;
-								case "Battle":
-									answer = Battle.input ( controlBox );
-									break;
-							}
-							client.send ( answer );
-						}
-					} ).start ( );
-					int a = 1;
+					new Thread ( client ).start ();
 				}
 			} catch (IOException e) {
 				e.printStackTrace ( );
 			}
 		} ).start ( );
-
 	}
 }
