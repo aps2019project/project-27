@@ -113,8 +113,8 @@ public class Account {
         if (findAccount(in.getUserName()) == null) {
             controlBox.setSucces(false);
             controlBox.setDescription("no user");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("There is no account with this username");
+           // Alert alert = new Alert(Alert.AlertType.ERROR);
+           // alert.setHeaderText("There is no account with this username");
         } else {
             String passWord = in.getPass();
             if (passWord.equals(findAccount(in.getUserName()).passWord)) {
@@ -125,9 +125,9 @@ public class Account {
             } else {
                 controlBox.setDescription("wrong pass");
                 controlBox.setSucces(false);
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Wrong pass");
-                alert.showAndWait();
+                //Alert alert = new Alert(Alert.AlertType.ERROR);
+                //alert.setHeaderText("Wrong pass");
+               // alert.showAndWait();
             }
         }
         return controlBox;

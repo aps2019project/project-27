@@ -151,9 +151,9 @@ public class Battle {
 		if ( in.equals ( "move" ) ) {
 			if ( client.getBattle ().selectedFighter == null ) {
 				System.out.println ( "no card selected!" );
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setHeaderText("No card selected");
-				alert.showAndWait();
+//				Alert alert = new Alert(Alert.AlertType.ERROR);
+//				alert.setHeaderText("No card selected");
+//				alert.showAndWait();
 				return null;
 			}
 			return client.getBattle ().move ( controllBox.getX ( ) , controllBox.getY ( ) , client.getBattle ().selectedFighter );
@@ -162,16 +162,16 @@ public class Battle {
 			Fighter opponent = ( Fighter ) client.getBattle ().ground.getCell ( controllBox.getX (),controllBox.getY () ).getCardOnCell ();
 			if ( opponent == null ) {
 				System.out.println ( "There is no opponent to attack!" );
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setHeaderText("There is no opponent to attack");
-				alert.showAndWait();
+//				Alert alert = new Alert(Alert.AlertType.ERROR);
+//				alert.setHeaderText("There is no opponent to attack");
+//				alert.showAndWait();
 				return null;
 			}
 			if ( client.getBattle ().selectedFighter == null ) {
 				System.out.println ( "fighter dont selected" );
-				Alert alert = new Alert(Alert.AlertType.ERROR);
-				alert.setHeaderText("Fighter not selected");
-				alert.showAndWait();
+//				Alert alert = new Alert(Alert.AlertType.ERROR);
+//				alert.setHeaderText("Fighter not selected");
+//				alert.showAndWait();
 			}
 			return client.getBattle ().attack ( client.getBattle ().selectedFighter , opponent );
 		}
@@ -189,9 +189,9 @@ public class Battle {
 		Item item = Item.findItem ( name , playerInTurn.getCollectedItems ( ) );
 		if ( item == null ) {
 			System.out.println ( "you havent this item" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("You don't have this item");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("You don't have this item");
+//			alert.showAndWait();
 		} else {
 			item.showItem ( );
 		}
@@ -201,15 +201,15 @@ public class Battle {
 		Fighter fighter = findFighter ( cardID , playerInTurn );
 		if ( fighter == null ) {
 			System.out.println ( "You don't have this fighter!" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("You don't have this fighter");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("You don't have this fighter");
+//			alert.showAndWait();
 		} else {
 			selectedFighter = fighter;
 			System.out.println ( "card selected!" );
-			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-			alert.setHeaderText("Card selected");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//			alert.setHeaderText("Card selected");
+//			alert.showAndWait();
 		}
 	}
 	private ControlBox setInGroundCard ( int x, int y ) {
@@ -250,9 +250,9 @@ public class Battle {
 		Fighter fighter = findFighter ( cardID );
 		if ( fighter == null ) {
 			System.out.println ( "You don't have this fighter!" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("You don't have this fighter");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("You don't have this fighter");
+//			alert.showAndWait();
 			return;
 		}
 		View.showFighter ( fighter );
@@ -275,9 +275,9 @@ public class Battle {
 	private void useItem ( Item item , int x , int y ,Battle battle) {
 		if ( ! item.getTarget ( ).isValidTarget ( battle , x , y , playerInTurn ) ) {
 			System.out.println ( "invalid target" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("invalid target");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("invalid target");
+//			alert.showAndWait();
 			return;
 		}
 		ArrayList<Fighter> fighters = item.getTarget ( ).targetFighters ( battle , x , y , playerInTurn );
@@ -293,17 +293,17 @@ public class Battle {
 		ControlBox controlBox = new ControlBox (  );
 		if ( card == null ) {
 			System.out.println ( "You don't have this card!" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("You don't have this card");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("You don't have this card");
+//			alert.showAndWait();
 			controlBox.setSucces ( false );
 			return controlBox;
 		}
 		if ( !isValidInsert ( card ) ) {
 			System.out.println ("you have not enough mana" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("You don't have enough mana");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("You don't have enough mana");
+//			alert.showAndWait();
 			controlBox.setSucces ( false );
 		return controlBox;
 		}
@@ -326,9 +326,9 @@ public class Battle {
 		if ( spell.getTarget ()!= null )
 		if ( ! spell.getTarget ( ).isValidTarget ( this , x , y , playerInTurn ) ) {
 			System.out.println ( "invalid target" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("Invalid target");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("Invalid target");
+//			alert.showAndWait();
 			return true;
 		}
 		playerInTurn.getHand ( ).removeCard ( card );
@@ -339,9 +339,9 @@ public class Battle {
 				buffs.add ( buff );
 		}
 		System.out.println ("inserted!" );
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setHeaderText("Inserted");
-		alert.showAndWait();
+//		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//		alert.setHeaderText("Inserted");
+//		alert.showAndWait();
 		return false;
 	}
 
@@ -349,9 +349,9 @@ public class Battle {
 		MinionAndHero minionAndHero = ( MinionAndHero ) card;
 		if ( ground.getCell ( x , y ).getCardOnCell ( ) != null ) {
 			System.out.println ( "There is already a card there!" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("There is already a card there");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("There is already a card there");
+//			alert.showAndWait();
 			return false;
 		}
 		if ( ground.getCell ( x , y ).getItemOnCell ( ) != null ) {
@@ -371,9 +371,9 @@ public class Battle {
 			}
 		}
 		System.out.println ("inserted!" );
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setHeaderText("inserted");
-		alert.showAndWait();
+//		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//		alert.setHeaderText("inserted");
+//		alert.showAndWait();
 		fighter.setLocation ( x , y );
 		return true;
 	}
@@ -386,17 +386,17 @@ public class Battle {
 		int baseY = fighter.getY ( );
 		if ( ! isValidDistanceForAttack ( baseX , baseY , targetX , targetY , fighter ) ) {
 			System.out.println ( "distance is not valid" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("Distance is not valid");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("Distance is not valid");
+//			alert.showAndWait();
 			controlBox.setSucces ( false );
 			return controlBox;
 		}
 		if ( ! fighter.CanAttack ( ) ) {
 			System.out.println ( "this fighter cant attack now" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("This fighter can't attack now");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("This fighter can't attack now");
+//			alert.showAndWait();
 			controlBox.setSucces ( false );
 			return controlBox;
 		}
@@ -472,16 +472,16 @@ public class Battle {
 		}
 		if ( hero.getSpecialPowerCoolDown ( ) < ( ( MinionAndHero ) hero ).getSpecialPowerCoolDown ( ) ) {
 			System.out.println ( "you cant use it now because of cool down" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("You can't use it now because of cool down");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("You can't use it now because of cool down");
+//			alert.showAndWait();
 			return;
 		}
 		if ( ! hero.getSpecialPowerTarget ( ).isValidTarget ( this , x , y , playerInTurn ) ) {
 			System.out.println ( "Target is not valid!" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("Target is not valid");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("Target is not valid");
+//			alert.showAndWait();
 			return;
 		}
 		if ( playerInTurn.getMana ( ) >= hero.getSpecialPowerMana ( ) ) {
@@ -507,9 +507,9 @@ public class Battle {
 			}
 		} else {
 			System.out.println ( "You don't have enough mana!" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("You don't have enough mana");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("You don't have enough mana");
+//			alert.showAndWait();
 			return;
 		}
 
@@ -608,18 +608,18 @@ public class Battle {
 				if ( y1 > y2 ) {
 					if ( ground.getCell ( x1 , y1 - 1 ).getCardOnCell ( ) != null || ground.getCell ( x1 , y1 - 2 ).getCardOnCell ( ) != null ) {
 						System.out.println ( "This cell is occupied!" );
-						Alert alert = new Alert(Alert.AlertType.ERROR);
-						alert.setHeaderText("This cell is occupied");
-						alert.showAndWait();
+//						Alert alert = new Alert(Alert.AlertType.ERROR);
+//						alert.setHeaderText("This cell is occupied");
+//						alert.showAndWait();
 						return false;
 					}
 				}
 				if ( y2 > y1 ) {
 					if ( ground.getCell ( x1 , y1 + 1 ).getCardOnCell ( ) != null || ground.getCell ( x1 , y1 + 2 ).getCardOnCell ( ) != null ) {
 						System.out.println ( "This cell is occupied!" );
-						Alert alert = new Alert(Alert.AlertType.ERROR);
-						alert.setHeaderText("This cell is occupied");
-						alert.showAndWait();
+//						Alert alert = new Alert(Alert.AlertType.ERROR);
+//						alert.setHeaderText("This cell is occupied");
+//						alert.showAndWait();
 						return false;
 					}
 				}
@@ -627,18 +627,18 @@ public class Battle {
 				if ( x1 > x2 ) {
 					if ( ground.getCell ( x1 - 1 , y1 ).getCardOnCell ( ) != null || ground.getCell ( x1 - 2 , y1 ).getCardOnCell ( ) != null ) {
 						System.out.println ( "This cell is occupied!" );
-						Alert alert = new Alert(Alert.AlertType.ERROR);
-						alert.setHeaderText("This cell is occupied");
-						alert.showAndWait();
+//						Alert alert = new Alert(Alert.AlertType.ERROR);
+//						alert.setHeaderText("This cell is occupied");
+//						alert.showAndWait();
 						return false;
 					}
 				}
 				if ( x2 > x1 ) {
 					if ( ground.getCell ( x1 + 1 , y1 ).getCardOnCell ( ) != null || ground.getCell ( x1 + 2 , y1 ).getCardOnCell ( ) != null ) {
 						System.out.println ( "This cell is occupied!" );
-						Alert alert = new Alert(Alert.AlertType.ERROR);
-						alert.setHeaderText("This cell is occupied");
-						alert.showAndWait();
+//						Alert alert = new Alert(Alert.AlertType.ERROR);
+//						alert.setHeaderText("This cell is occupied");
+//						alert.showAndWait();
 						return false;
 					}
 				}
@@ -760,9 +760,9 @@ public class Battle {
 		controlBox.setSucces ( true );
 		if ( account2 == null ) {
 			System.out.println ( "second player dont selected" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("Second player not selected");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("Second player not selected");
+//			alert.showAndWait();
 			controlBox.setSucces ( false );
 		}
 		if ( ! new Player ( account ).getHand ( ).getDeck ( ).isValidDeck ( ) || ! new Player ( account2 ).getHand ( ).getDeck ( ).isValidDeck ( ) ) {
@@ -780,17 +780,17 @@ public class Battle {
 		ControlBox controlBox = new ControlBox (  );
 		if ( ! isValidMove ( x , y , targetX , targetY ) ) {
 			System.out.println ( "Your move isn't valid!" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("Your move isn't valid");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("Your move isn't valid");
+//			alert.showAndWait();
 			controlBox.setSucces ( false );
 			return controlBox;
 		}
 		if ( ! isValidTargetForMove ( targetX , targetY ) ) {
 			System.out.println ( "Your target for moving isn't valid!" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("Your target for moving isn't valid");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("Your target for moving isn't valid");
+//			alert.showAndWait();
 			controlBox.setSucces ( false );
 			return controlBox;
 		}
@@ -799,9 +799,9 @@ public class Battle {
 			controlBox.setSucces ( true );
 		} else {
 			System.out.println ("this fighter cant move now" );
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.setHeaderText("This fighter can't move now");
-			alert.showAndWait();
+//			Alert alert = new Alert(Alert.AlertType.ERROR);
+//			alert.setHeaderText("This fighter can't move now");
+//			alert.showAndWait();
 			controlBox.setSucces ( false );
 			return controlBox;
 		}
@@ -827,24 +827,24 @@ public class Battle {
 			if ( item.isFlag ( ) ) {
 				playerInTurn.increaseFlagInHand ( );
 				System.out.println ("flag collected!" );
-				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-				alert.setHeaderText("Flag collected");
-				alert.showAndWait();
+//				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//				alert.setHeaderText("Flag collected");
+//				alert.showAndWait();
 				ground.getCell ( x , y ).removeItem ();
 			} else if ( item.isLastFlag ( ) ) {
 				playerInTurn.setHaveLastFlag ( true );
 				System.out.println ("flag collected!" );
-				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-				alert.setHeaderText("Flag collected");
-				alert.showAndWait();
+//				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//				alert.setHeaderText("Flag collected");
+//				alert.showAndWait();
 				ground.getCell ( x , y ).removeItem ();
 				fighter.setHaveLastFlag ( true );
 			} else if ( item.isCollectible ( ) ) {
 				playerInTurn.addItem ( item );
 				System.out.printf ("item %s collected!\n",item.getName () );
-				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-				alert.setHeaderText(String.format("Item %s collected", item.getName()));
-				alert.showAndWait();
+//				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//				alert.setHeaderText(String.format("Item %s collected", item.getName()));
+//				alert.showAndWait();
 				ground.getCell ( x , y ).removeItem ();
 			}
 		}
@@ -927,9 +927,9 @@ public class Battle {
 			insertCollectibleItem ();
 		}
 		System.out.printf ("start turn %d player : %s\n",currentTurn,playerInTurn.getUserName ());
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setHeaderText(String.format("Start turn %d player : %s", currentTurn, playerInTurn.getUserName()));
-		alert.showAndWait();
+//		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//		alert.setHeaderText(String.format("Start turn %d player : %s", currentTurn, playerInTurn.getUserName()));
+//		alert.showAndWait();
 		return null;
 	}
 	private void insertCollectibleItem(){

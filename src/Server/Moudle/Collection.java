@@ -2,7 +2,6 @@ package Server.Moudle;
 
 import Client.View.View;
 import ControlBox.ControlBox;
-import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
 
@@ -173,32 +172,32 @@ public class Collection {
     public void createDeck(String deckName) {
         if (Account.getMainAccount().findDeck(deckName) != null) {
             System.out.println("There is already a deck with this name!");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("There is already a deck with this name");
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("There is already a deck with this name");
+//            alert.showAndWait();
         } else {
             Deck deck = new Deck();
             deck.setName(deckName);
             Account.getMainAccount().getDecks().add(deck);
             System.out.println("Deck's been created!");
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("Deck's been created");
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//            alert.setHeaderText("Deck's been created");
+//            alert.showAndWait();
         }
     }
 
     public void deleteDeck(String deckName) {
         if (Account.getMainAccount().findDeck(deckName) == null) {
             System.out.println("There is no such deck in your collection!");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("There is no suck deck in your collection");
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("There is no suck deck in your collection");
+//            alert.showAndWait();
         } else {
             Account.getMainAccount().getDecks().remove(Account.getMainAccount().findDeck(deckName));
             System.out.println("Deck's been deleted!");
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("Deck's been deleted");
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//            alert.setHeaderText("Deck's been deleted");
+//            alert.showAndWait();
         }
     }
 
@@ -206,9 +205,9 @@ public class Collection {
         Account account = Account.getMainAccount();
         if (account.getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) == null) {
             System.out.println("This card|item doesn't exist in the collection!");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("This card|item doesn't exist in the collection");
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("This card|item doesn't exist in the collection");
+//            alert.showAndWait();
         } else if (account.getCollection().findCard(name) != null && Account.getMainAccount().getCollection().findItem(name) == null) {
            //if (account.findDeck(deckName).findCard(name) != null) {
              //   System.out.println("This card is already in deck!");
@@ -217,30 +216,30 @@ public class Collection {
                 {
                 if (account.findDeck(deckName).getCards().size() >= 21) {
                     System.out.println("You can't add anymore cards to deck!");
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText("You can't add anymore cards to deck");
-                    alert.showAndWait();
+//                    Alert alert = new Alert(Alert.AlertType.ERROR);
+//                    alert.setHeaderText("You can't add anymore cards to deck");
+//                    alert.showAndWait();
                 } else {
                     account.findDeck(deckName).addToCarts(findCard(name));
                     Deck deck = account.findDeck ( deckName );
                     System.out.println("The card's been added to the deck!");
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setHeaderText("The card's been added to the deck");
-                    alert.showAndWait();
+//                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                    alert.setHeaderText("The card's been added to the deck");
+//                    alert.showAndWait();
                 }
             }
         } else if (account.getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) != null) {
             if (account.findDeck(deckName).getItem() != null) {
                 System.out.println("You can't add anymore items to deck!");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("You can't add anymore items to deck");
-                alert.showAndWait();
+//                Alert alert = new Alert(Alert.AlertType.ERROR);
+//                alert.setHeaderText("You can't add anymore items to deck");
+//                alert.showAndWait();
             } else {
                 account.findDeck(deckName).setItem(findItem(name));
                 System.out.println("The item's been added to the deck!");
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setHeaderText("The item's been added to the deck");
-                alert.showAndWait();
+//                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                alert.setHeaderText("The item's been added to the deck");
+//                alert.showAndWait();
             }
         }
     }
@@ -249,21 +248,21 @@ public class Collection {
         Account account = Account.getMainAccount();
         if (account.findDeck(deckName).findCard(name) == null && account.findDeck(deckName).getItem() == null) {
             System.out.println("This card|item doesn't exist in deck!");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("This card|item doesn't exist in deck");
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("This card|item doesn't exist in deck");
+//            alert.showAndWait();
         } else if (account.findDeck(deckName).findCard(name) != null) {
             account.findDeck(deckName).removeCard(findCard(name));
             System.out.println("The card's been removed from the deck!");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("This card's been removed from the deck");
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("This card's been removed from the deck");
+//            alert.showAndWait();
         } else if (account.findDeck(deckName).getItem() != null) {
             account.findDeck(deckName).removeItem(findItem(name));
             System.out.println("The item's been removed from the deck!");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("This item's been removed from the deck");
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("This item's been removed from the deck");
+//            alert.showAndWait();
         }
     }
 
@@ -275,9 +274,9 @@ public class Collection {
     public static boolean isValidDeck (  Deck deck ) {
         if ( deck == null ) {
             System.out.println ("you havent this deck" );
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("You don't have this deck");
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("You don't have this deck");
+//            alert.showAndWait();
             return false;
         }
         if ( deck.getCards().size() == 21) {
@@ -292,16 +291,16 @@ public class Collection {
             }
             if (counter == 1) {
                 System.out.println("This deck is valid!");
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setHeaderText("This deck is valid");
-                alert.showAndWait();
+//                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                alert.setHeaderText("This deck is valid");
+//                alert.showAndWait();
                 return true;
             }
         } else {
             System.out.println("This deck is not valid!");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("This deck is not valid");
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("This deck is not valid");
+//            alert.showAndWait();
             return false;
         }
         return true;
@@ -310,15 +309,15 @@ public class Collection {
     public void selectDeck(String deckName) {
         if (Account.getMainAccount().findDeck(deckName) == null) {
             System.out.println("There is no such deck!");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("There is no such deck");
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setHeaderText("There is no such deck");
+//            alert.showAndWait();
         } else {
             Account.getMainAccount().setMainDeck(Account.getMainAccount().findDeck(deckName));
             System.out.println("The deck's been selected!");
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("The deck's been selected");
-            alert.showAndWait();
+//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//            alert.setHeaderText("The deck's been selected");
+//            alert.showAndWait();
         }
     }
 

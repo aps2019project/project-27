@@ -3,10 +3,6 @@ package Client.Controller;
 
 import Client.View.Graphic;
 import ControlBox.ControlBox;
-import Server.Moudle.Account;
-import Server.Moudle.Battle;
-import Server.Moudle.Collection;
-import Server.Moudle.Shop;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -42,11 +38,11 @@ public class Controller {
         region = "Account";
         int out = 0;
         while (out != -1) {
-            out = Controller.input();
+          //  out = Controller.input();
         }
     }
 
-    public static int input() {
+  /*  public static int input() {
         input = scanner.nextLine();
         ControlBox controlBox = new ControlBox("Battle", type);
         type = "empty";
@@ -296,20 +292,31 @@ public class Controller {
             return -1;
         }
         return 0;
-    }
+    }*/
     public static void sendToServer( ControlBox controlBox){
         GsonBuilder gsonBuilder = new GsonBuilder ();
         Gson gson = gsonBuilder.create ();
         String oblect = gson.toJson ( controlBox );
-        serverOutput.format ( oblect );
+        serverOutput.format ( oblect+"\n" );
         serverOutput.flush ();
     }
 	public static ControlBox giveFromGraphic(ControlBox controlBox){
-    	sendToServer ( controlBox );
-    	String object = serveerInput.nextLine ();
+        if ( controlBox == null ) {
+            controlBox = new ControlBox (  );
+            controlBox.setRegion ( "xxx" );
+        }
         GsonBuilder gsonBuilder = new GsonBuilder ();
         Gson gson = gsonBuilder.create ();
-		return gson.fromJson ( serveerInput.nextLine (),ControlBox.class );
+        sendToServer ( controlBox );
+        String get = "";
+        while ( true ) {
+            if ( serveerInput.hasNextLine ( ) ) {
+                get = serveerInput.nextLine ( );
+                break;
+            }
+        }
+        ControlBox answer = gson.fromJson ( get,ControlBox.class );
+		return answer;
 	}
     public static void printInMenu () {
         System.out.println ( "1.Collection" );

@@ -54,7 +54,14 @@ public class Client implements Runnable {
 	public ControlBox recieve () {
 		GsonBuilder gsonBuilder = new GsonBuilder ( );
 		Gson gson = gsonBuilder.create ( );
-		ControlBox controlBox = gson.fromJson ( scanner.nextLine ( ) , ControlBox.class );
+		String get = "";
+		while ( true ) {
+			if ( scanner.hasNextLine ( ) ) {
+				get = scanner.nextLine ();
+				break;
+			}
+		}
+		ControlBox controlBox = gson.fromJson ( get , ControlBox.class );
 		return controlBox;
 	}
 
@@ -72,8 +79,9 @@ public class Client implements Runnable {
 
 	@Override
 	public void run () {
-
+		int a = 1;
 		while ( true ) {
+			int b=1;
 			ControlBox controlBox = this.recieve ( );
 			ControlBox answer = new ControlBox ( );
 			switch ( controlBox.getRegion ( ) ) {
