@@ -2,6 +2,7 @@ package Server.Moudle;
 
 import Client.Controller.Controller;
 import ControlBox.ControlBox;
+import Server.Client;
 import javafx.scene.control.Alert;
 
 import java.io.IOException;

@@ -1,9 +1,9 @@
 package Server.Moudle;
 
-import ControlBox.ControlBox;
 import Client.View.Battlefxml;
 import Client.View.View;
 import ControlBox.ControlBox;
+import Server.Client;
 import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
@@ -689,7 +689,7 @@ public class Battle {
 	public int getBattleType(){
 		return battleType;
 	}
-	public Battle ( Account account , Account account2 , int battleType , int numberOfFlags,Client client ) {
+	public Battle ( Account account , Account account2 , int battleType , int numberOfFlags, Client client ) {
 		client.setBattle ( this );
 		player1 = new Player ( account );
 		player2 = new Player ( account2 );

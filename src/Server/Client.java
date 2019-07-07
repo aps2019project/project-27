@@ -79,9 +79,7 @@ public class Client implements Runnable {
 
 	@Override
 	public void run () {
-		int a = 1;
 		while ( true ) {
-			int b=1;
 			ControlBox controlBox = this.recieve ( );
 			ControlBox answer = new ControlBox ( );
 			switch ( controlBox.getRegion ( ) ) {
