@@ -3,8 +3,8 @@ package Server;
 import ControlBox.ControlBox;
 import Server.Moudle.Account;
 import Server.Moudle.Battle;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.gilecode.yagson.YaGson;
+import com.gilecode.yagson.YaGsonBuilder;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -19,6 +19,15 @@ public class Client implements Runnable {
 	private Socket socket;
 	private Scanner scanner;
 	private Formatter formatter;
+	private static YaGson yaGson;
+	static {
+		YaGsonBuilder yaGsonBuilder = new YaGsonBuilder ();
+		yaGson = yaGsonBuilder.create ();
+	}
+
+	public static YaGson getYaGson () {
+		return yaGson;
+	}
 
 	public Client ( Socket socket ) {
 		this.socket = socket;
@@ -52,8 +61,7 @@ public class Client implements Runnable {
 	}
 
 	public ControlBox recieve () {
-		GsonBuilder gsonBuilder = new GsonBuilder ( );
-		Gson gson = gsonBuilder.create ( );
+		YaGson gson = getYaGson ();
 		String get = "";
 		while ( true ) {
 			if ( scanner.hasNextLine ( ) ) {
@@ -70,8 +78,7 @@ public class Client implements Runnable {
 	}
 
 	public void send ( ControlBox controlBox ) {
-		GsonBuilder gsonBuilder = new GsonBuilder ( );
-		Gson gson = gsonBuilder.create ( );
+		YaGson gson = getYaGson ();
 		String str = gson.toJson ( controlBox );
 		formatter.format ( str + "\n" );
 		formatter.flush ( );
@@ -91,13 +98,54 @@ public class Client implements Runnable {
 					break;
 				case "Client":
 					String type = controlBox.getType ( );
-					if ( type.equals ( "getMainAccount" ) )
-						answer.setAccount ( account );
-					else if ( type.equals ( "getCurrentBattle" ) )
-						answer.setBattle ( battle );
+					switch ( type ) {
+						case "getMainAccount":
+							answer.setAccount ( account );
+							break;
+						case "getCurrentBattle":
+							answer.setBattle ( battle );
+							break;
+						case "matchMaking":
+							answer.setType ( "matchMaking" );
+							waitForBattle waitForBattle = Server.waitForBattle.find ( controlBox.getBattleType (),controlBox.getNumberOfFlags () );
+							if ( waitForBattle == null ) {
+								new waitForBattle ( controlBox.getNumberOfFlags (),controlBox.getBattleType (),this );
+								answer.setDescription ( "wait" );
+								answer.setSucces ( false );
+							}
+							else {
+									answer.setSucces ( Battle.newOnlineBattle ( waitForBattle.getClient (),this,controlBox.getBattleType (),controlBox.getNumberOfFlags () ) );
+									waitForBattle.getClient ().send ( answer );
+							}
+							break;
+					}
 					break;
 			}
 			this.send ( answer );
 		}
+	}
+}
+class waitForBattle{
+	private static ArrayList<waitForBattle> waitForBattles = new ArrayList<> (  );
+	private int battleType;
+	private Client client;
+	private int numberOfFlags;
+	public waitForBattle(int numberOfFlags,int battleType,Client client){
+		this.client = client;
+		this.numberOfFlags = numberOfFlags;
+		this.battleType = battleType;
+		waitForBattles.add ( this );
+	}
+	public static waitForBattle find (int battleType,int numberOfFlags){
+		for ( waitForBattle waitForBattle:waitForBattles )
+		if ( battleType == waitForBattle.battleType&&numberOfFlags == waitForBattle.numberOfFlags ){
+			waitForBattles.remove ( waitForBattle );
+			return waitForBattle;
+		}
+		return null;
+	}
+
+	public Client getClient () {
+		return client;
 	}
 }

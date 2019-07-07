@@ -15,8 +15,7 @@ public class Fighter extends MinionAndHero {
 	private boolean canMove;
 	private boolean canAttack;
 	private int holyDefence;
-	ArrayList<Buff> buffs = new ArrayList<> ( );
-	private Cell currentCell;
+	private ArrayList<Buff> buffs = new ArrayList<> ( );
 	private Player player;
 
 	public void resetSpecialPowerCoolDown () {
@@ -184,7 +183,6 @@ public class Fighter extends MinionAndHero {
 		}
 		if ( counter == 0 )
 			counter = 1;
-		this.player = player;
 		this.ID = player.getUserName ( ) + "_" + minionAndHero.getName ( ) + "_" + counter;
 	}
 }
