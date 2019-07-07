@@ -1,7 +1,7 @@
 package Server.Moudle;
 
-import Client.View.View;
 import ControlBox.ControlBox;
+import Client.View.View;
 import javafx.scene.control.Alert;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class Shop {
     private ArrayList<Card> cards = Card.getCards();
     private ArrayList<Item> items = Item.getItems();
 
-    public static void input( ControlBox controlBox) {
+    public static void input(ControlBox controlBox) {
         String in = controlBox.getType();
         if (in.equals("showCollection")) {
             currentShop.showCollection();
@@ -120,13 +120,14 @@ public class Shop {
     }
 
     public void search(String name) {
-        if (findCard(name) != null && findItem(name) == null) {
-            System.out.println(findCard(name).getName());
-        } else if (findCard(name) == null && findItem(name) != null) {
-            System.out.println(findItem(name).getName());
-        } else {
-            System.out.println("This card|item is not in the shop!");
+        for (Card card : cards) {
+            for (int i = 1; i < name.length(); i++) {
+                if (card.getName().contains(name.subSequence(0, i))) {
+                    System.out.println(card.getName());
+                }
+            }
         }
+        System.out.println("This card|item is not in the shop!");
     }
 
     public void searchCollection(String name) {

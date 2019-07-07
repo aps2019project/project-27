@@ -54,6 +54,7 @@ public class Shopfxml implements Initializable {
         insideScrollPane.setPrefHeight(listView.getPrefHeight());
         scrollPane.setContent(listView);
 
+
         ControlBox controlBox = new ControlBox();
         controlBox.setRegion("Shop");
         money.setText(String.format("%d", Account.getMainAccount().getMoney()));
@@ -146,7 +147,6 @@ public class Shopfxml implements Initializable {
                         }
                         controlBox.setCardName(selected.getText());
                         controlBox.setType("buy");
-//                        Shop.buy(label.getText());
                         Shop.input(controlBox);
                         money.setText(String.format("%d", Account.getMainAccount().getMoney()));
                     }
@@ -159,7 +159,6 @@ public class Shopfxml implements Initializable {
                         }
                         controlBox.setCardName(selected.getText());
                         controlBox.setType("sell");
-//                        Shop.sell(label.getText());
                         Shop.input(controlBox);
                         money.setText(String.format("%d", Account.getMainAccount().getMoney()));
                     }
@@ -172,15 +171,15 @@ public class Shopfxml implements Initializable {
                         }
                         controlBox.setCardName(search.getText());
                         controlBox.setType("search");
-//                        Shop.search(search.getText());
                         Shop.input(controlBox);
-                        for (Button card : buttons) {
-                            for (int i=1 ; i<search.getText().length() ; i++) {
-                                if (card.getText().contains(search.getText().subSequence(0, i))) {
-                                    card.setStyle("-fx-background-color: Blue;");
-                                }
-                            }
-                        }
+
+//                        for (Button card : buttons) {
+//                            for (int i = 1; i < search.getText().length(); i++) {
+//                                if (card.getText().contains(search.getText().subSequence(0, i))) {
+//                                    card.setStyle("-fx-background-color: Blue;");
+//                                }
+//                            }
+//                        }
                     }
                 });
 

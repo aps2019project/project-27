@@ -93,7 +93,7 @@ public class Collectionfxml implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         Deck deck = null;
-                        for (Deck deck1:Account.getMainAccount().getDecks()){
+                        for (Deck deck1 : Account.getMainAccount().getDecks()) {
                             if (deckSelected.getText().equals(deck1.getName()))
                                 deck = deck1;
                         }

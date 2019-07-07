@@ -117,7 +117,7 @@ public class Battlefxml implements Initializable {
 										fighterSelected = true;
 									}
 								} else {
-									if ( getCurrentBattle ().getGround ( ).getCell ( finalI , finalJ ).getCardOnCell ( ) == null ) {
+                                    if (getCurrentBattle ().getGround ( ).getCell ( finalI , finalJ ).getCardOnCell ( ) == null ) {
 										ControlBox controlBox = new ControlBox ( );
 										controlBox.setRegion ( "Battle" );
 										controlBox.setType ( "move" );

@@ -1,9 +1,9 @@
 package Server.Moudle;
 
+import ControlBox.ControlBox;
 import Client.View.Battlefxml;
 import Client.View.View;
 import ControlBox.ControlBox;
-import Server.Client;
 import javafx.scene.control.Alert;
 
 import java.util.ArrayList;

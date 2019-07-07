@@ -106,6 +106,7 @@ public class Accountfxml implements Initializable {
         ControlBox answer = Controller.giveFromGraphic ( controlBox );
         return answer.getAccount();
     }
+
     private static boolean isValidPress(TextField userName, TextField passWord) {
         return !(passWord.getText().isEmpty() && userName.getText().isEmpty());
     }
