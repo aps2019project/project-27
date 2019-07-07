@@ -8,57 +8,65 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@Backgrounds/CollectionBackground.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.View.Collectionfxml">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@Backgrounds/CollectionBackground.css"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Client.View.Collectionfxml">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="444.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" width="149.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="444.0" layoutY="14.0" stroke="BLACK" strokeType="INSIDE" width="149.0" />
-        <Label fx:id="cardSelected" layoutX="444.0" layoutY="16.0" prefHeight="21.0" prefWidth="149.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="337.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="337.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="14.0" layoutY="58.0" stroke="BLACK" strokeType="INSIDE" width="133.0" />
-        <Label layoutX="14.0" layoutY="58.0" prefHeight="21.0" prefWidth="133.0" text="Cards" />
-        <Button fx:id="back" layoutX="444.0" layoutY="362.0" mnemonicParsing="false" text="Back to Main Menu" />
-        <Button fx:id="createDeck" layoutX="31.0" layoutY="252.0" mnemonicParsing="false" text="Create Deck" />
-        <Button fx:id="deleteDeck" layoutX="419.0" layoutY="260.0" mnemonicParsing="false" text="Delete Deck" />
-        <Button fx:id="addToDeck" layoutX="368.0" layoutY="291.0" mnemonicParsing="false" text="add to Deck" />
-        <Button fx:id="removeFromDeck" layoutX="397.0" layoutY="322.0" mnemonicParsing="false" text="remove from Deck" />
-        <Button fx:id="validateDeck" layoutX="469.0" layoutY="291.0" mnemonicParsing="false" text="validate Deck" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="147.0" layoutY="58.0" stroke="BLACK" strokeType="INSIDE" width="133.0" />
-        <Label layoutX="147.0" layoutY="58.0" prefHeight="21.0" prefWidth="133.0" text="Decks" />
-        <Label layoutX="342.0" layoutY="16.0" text="Card selected" />
-        <Label layoutX="341.0" layoutY="35.0" text="Deck selected" />
-        <Label fx:id="deckSelected" layoutX="444.0" layoutY="35.0" prefWidth="149.0" />
-        <TextField fx:id="text" layoutX="32.0" layoutY="283.0" prefHeight="31.0" prefWidth="198.0" />
-      <ScrollPane fx:id="cardPane" layoutX="14.0" layoutY="76.0" prefHeight="165.0" prefWidth="133.0">
-        <content>
-          <AnchorPane fx:id="insideCard" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                    <ListView fx:id="cardList" prefHeight="165.0" prefWidth="133.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-      <ScrollPane fx:id="deckPane" layoutX="147.0" layoutY="76.0" prefHeight="165.0" prefWidth="133.0">
-        <content>
-          <AnchorPane fx:id="insideDeck" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                    <ListView fx:id="deckList" prefHeight="165.0" prefWidth="133.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-      <ScrollPane fx:id="infoPane" layoutX="359.0" layoutY="68.0" prefHeight="156.0" prefWidth="205.0">
-        <content>
-          <AnchorPane fx:id="insideInfo" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                    <ListView fx:id="infoList" prefHeight="156.0" prefWidth="205.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </ScrollPane>
-      <TextField fx:id="fileName" layoutX="29.0" layoutY="362.0" prefHeight="31.0" prefWidth="198.0" />
-      <Button fx:id="impor" layoutX="29.0" layoutY="331.0" mnemonicParsing="false" text="import" />
-      <Button fx:id="export" layoutX="94.0" layoutY="331.0" mnemonicParsing="false" text="export" />
-      <Button fx:id="mainDeck" layoutX="225.0" layoutY="322.0" mnemonicParsing="false" text="Select as main deck" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="444.0" layoutY="35.0"
+                   stroke="BLACK" strokeType="INSIDE" width="149.0"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="444.0" layoutY="14.0"
+                   stroke="BLACK" strokeType="INSIDE" width="149.0"/>
+        <Label fx:id="cardSelected" layoutX="444.0" layoutY="16.0" prefHeight="21.0" prefWidth="149.0"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="337.0" layoutY="35.0"
+                   stroke="BLACK" strokeType="INSIDE" width="100.0"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="337.0" layoutY="16.0"
+                   stroke="BLACK" strokeType="INSIDE" width="100.0"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="14.0" layoutY="58.0"
+                   stroke="BLACK" strokeType="INSIDE" width="133.0"/>
+        <Label layoutX="14.0" layoutY="58.0" prefHeight="21.0" prefWidth="133.0" text="Cards"/>
+        <Button fx:id="back" layoutX="444.0" layoutY="362.0" mnemonicParsing="false" text="Back to Main Menu"/>
+        <Button fx:id="createDeck" layoutX="31.0" layoutY="252.0" mnemonicParsing="false" text="Create Deck"/>
+        <Button fx:id="deleteDeck" layoutX="419.0" layoutY="260.0" mnemonicParsing="false" text="Delete Deck"/>
+        <Button fx:id="addToDeck" layoutX="368.0" layoutY="291.0" mnemonicParsing="false" text="add to Deck"/>
+        <Button fx:id="removeFromDeck" layoutX="397.0" layoutY="322.0" mnemonicParsing="false" text="remove from Deck"/>
+        <Button fx:id="validateDeck" layoutX="469.0" layoutY="291.0" mnemonicParsing="false" text="validate Deck"/>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="21.0" layoutX="147.0" layoutY="58.0"
+                   stroke="BLACK" strokeType="INSIDE" width="133.0"/>
+        <Label layoutX="147.0" layoutY="58.0" prefHeight="21.0" prefWidth="133.0" text="Decks"/>
+        <Label layoutX="342.0" layoutY="16.0" text="Card selected"/>
+        <Label layoutX="341.0" layoutY="35.0" text="Deck selected"/>
+        <Label fx:id="deckSelected" layoutX="444.0" layoutY="35.0" prefWidth="149.0"/>
+        <TextField fx:id="text" layoutX="32.0" layoutY="283.0" prefHeight="31.0" prefWidth="198.0"/>
+        <ScrollPane fx:id="cardPane" layoutX="14.0" layoutY="76.0" prefHeight="165.0" prefWidth="133.0">
+            <content>
+                <AnchorPane fx:id="insideCard" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <ListView fx:id="cardList" prefHeight="165.0" prefWidth="133.0"/>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <ScrollPane fx:id="deckPane" layoutX="147.0" layoutY="76.0" prefHeight="165.0" prefWidth="133.0">
+            <content>
+                <AnchorPane fx:id="insideDeck" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <ListView fx:id="deckList" prefHeight="165.0" prefWidth="133.0"/>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <ScrollPane fx:id="infoPane" layoutX="359.0" layoutY="68.0" prefHeight="156.0" prefWidth="205.0">
+            <content>
+                <AnchorPane fx:id="insideInfo" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                    <children>
+                        <ListView fx:id="infoList" prefHeight="156.0" prefWidth="205.0"/>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <TextField fx:id="fileName" layoutX="29.0" layoutY="362.0" prefHeight="31.0" prefWidth="198.0"/>
+        <Button fx:id="impor" layoutX="29.0" layoutY="331.0" mnemonicParsing="false" text="import"/>
+        <Button fx:id="export" layoutX="94.0" layoutY="331.0" mnemonicParsing="false" text="export"/>
+        <Button fx:id="mainDeck" layoutX="225.0" layoutY="322.0" mnemonicParsing="false" text="Select as main deck"/>
     </children>
 </AnchorPane>

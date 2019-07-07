@@ -1,3 +1,8 @@
+package ControlBox;
+
+import Server.Moudle.Account;
+import Server.Moudle.Battle;
+
 public class ControlBox {
     private String type;
     private String region;
@@ -12,6 +17,24 @@ public class ControlBox {
     private String pass;
     private String description;
     private int n;
+    private Account account;
+    private Battle battle;
+
+    public void setBattle ( Battle battle ) {
+        this.battle = battle;
+    }
+
+    public Battle getBattle () {
+        return battle;
+    }
+
+    public void setAccount ( Account account ) {
+        this.account = account;
+    }
+
+    public Account getAccount () {
+        return account;
+    }
 
     public void setN ( int n ) {
         this.n = n;

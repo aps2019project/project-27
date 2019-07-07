@@ -1,6 +1,6 @@
 package Server;
 
-import Client.View.Controller.ControlBox;
+import ControlBox.ControlBox;
 import Server.Moudle.*;
 
 import java.io.FileNotFoundException;

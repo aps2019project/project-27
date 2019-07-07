@@ -5,13 +5,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybg" stylesheets="@Backgrounds/HelpAccountBackground.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.View.HelpAccountfxml">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="bodybg"
+            stylesheets="@Backgrounds/HelpAccountBackground.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.View.HelpAccountfxml">
     <children>
-        <Button fx:id="Back" layoutX="14.0" layoutY="355.0" mnemonicParsing="false" text="Back to Account" />
-      <Label fx:id="help" alignment="TOP_LEFT" prefHeight="335.0" prefWidth="572.0">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
+        <Button fx:id="Back" layoutX="14.0" layoutY="355.0" mnemonicParsing="false" text="Back to Account"/>
+        <Label fx:id="help" alignment="TOP_LEFT" prefHeight="335.0" prefWidth="572.0">
+            <font>
+                <Font size="20.0"/>
+            </font>
+        </Label>
     </children>
 </AnchorPane>

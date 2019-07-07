@@ -1,8 +1,9 @@
 package Server.Moudle;
 
-import Client.View.Controller.ControlBox;
-import Client.View.Controller.Controller;
+import Client.Controller.Controller;
 import javafx.scene.control.Alert;
+import ControlBox.ControlBox;
+
 
 import java.io.IOException;
 import java.util.ArrayList;

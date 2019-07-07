@@ -29,8 +29,8 @@ public class MainMenufxml implements Initializable {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if ( Server.Moudle.Account.getMainAccount() != null) {
-                    AccountLable.setText( Server.Moudle.Account.getMainAccount().getUserName());
+                if (Server.Moudle.Account.getMainAccount() != null) {
+                    AccountLable.setText(Server.Moudle.Account.getMainAccount().getUserName());
                 }
                 Account.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -44,12 +44,12 @@ public class MainMenufxml implements Initializable {
                         Graphic.setRegion("HelpMenu");
                     }
                 });
-                save.setOnAction ( new EventHandler<ActionEvent> ( ) {
+                save.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
-                    public void handle ( ActionEvent event ) {
-                        Server.Moudle.Account.save ();
+                    public void handle(ActionEvent event) {
+                        Server.Moudle.Account.save();
                     }
-                } );
+                });
                 Collection.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
@@ -68,12 +68,12 @@ public class MainMenufxml implements Initializable {
                         Graphic.setRegion("BattleMenu");
                     }
                 });
-				CostumeCard.setOnAction ( new EventHandler<ActionEvent> ( ) {
-					@Override
-					public void handle ( ActionEvent event ) {
-						Graphic.setRegion ( "CostomCard" );
-					}
-				} );
+                CostumeCard.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Graphic.setRegion("CostomCard");
+                    }
+                });
             }
         };
         animationTimer.start();
