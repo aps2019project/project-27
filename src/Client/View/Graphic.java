@@ -110,7 +110,7 @@ public class Graphic extends Application implements Runnable {
                 scene = new Scene(root, 636, 366);
                 break;
             case "Chat":
-                root = FXMLLoader.load(getClass().getResource("ChatApp.java"));
+                root = FXMLLoader.load(getClass().getResource("Chatfxml.fxml"));
                 primaryStage.setTitle("Chat");
                 scene = new Scene(root, 600, 400);
             //            case "HelpShop":
