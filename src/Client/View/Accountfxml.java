@@ -29,9 +29,10 @@ public class Accountfxml implements Initializable {
     public AudioClip clicked;
 
     private void playAudio(){
-        clicked = new AudioClip(this.getClass().getResource("Clicked.wav").toString());
+        clicked = new AudioClip(this.getClass().getResource("C:\\Users\\ASUS\\Music\\Clicked.wav").toString());
         clicked.play();
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
