@@ -183,6 +183,7 @@ public class Fighter extends MinionAndHero {
 		}
 		if ( counter == 0 )
 			counter = 1;
+		this.player = player;
 		this.ID = player.getUserName ( ) + "_" + minionAndHero.getName ( ) + "_" + counter;
 	}
 }

@@ -68,6 +68,7 @@ public class Battle {
 
 	public static ControlBox input ( ControlBox controllBox , Client client ) {
 		String in = controllBox.getType ( );
+		ControlBox answer = new ControlBox (  );
 		if ( in.equals ( "insert select" ) ){
 			client.getBattle ().selectedCard = client.getBattle ().playerInTurn.getHand ().getCards ().get ( controllBox.getN () );
 		}
@@ -112,7 +113,6 @@ public class Battle {
 				Alert alert = new Alert(Alert.AlertType.ERROR);
 				alert.setHeaderText("You don't have this item");
 				alert.showAndWait();
-				return null;
 			}
 			client.getBattle ().useItem ( item , controllBox.getX ( ) , controllBox.getY ( ),client.getBattle () );
 		}
@@ -151,10 +151,10 @@ public class Battle {
 		if ( in.equals ( "move" ) ) {
 			if ( client.getBattle ().selectedFighter == null ) {
 				System.out.println ( "no card selected!" );
+				answer.setDescription ( "no card selected!" );
 //				Alert alert = new Alert(Alert.AlertType.ERROR);
 //				alert.setHeaderText("No card selected");
 //				alert.showAndWait();
-				return null;
 			}
 			return client.getBattle ().move ( controllBox.getX ( ) , controllBox.getY ( ) , client.getBattle ().selectedFighter );
 		}
@@ -162,13 +162,15 @@ public class Battle {
 			Fighter opponent = ( Fighter ) client.getBattle ().ground.getCell ( controllBox.getX (),controllBox.getY () ).getCardOnCell ();
 			if ( opponent == null ) {
 				System.out.println ( "There is no opponent to attack!" );
+				answer.setDescription ( "There is no opponent to attack!" );
 //				Alert alert = new Alert(Alert.AlertType.ERROR);
 //				alert.setHeaderText("There is no opponent to attack");
 //				alert.showAndWait();
-				return null;
+
 			}
 			if ( client.getBattle ().selectedFighter == null ) {
 				System.out.println ( "fighter dont selected" );
+				answer.setDescription ( "fighter dont selected" );
 //				Alert alert = new Alert(Alert.AlertType.ERROR);
 //				alert.setHeaderText("Fighter not selected");
 //				alert.showAndWait();

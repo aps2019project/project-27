@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Client implements Runnable {
@@ -96,6 +97,7 @@ public class Client implements Runnable {
 					break;
 				case "Battle":
 					answer = Battle.input ( controlBox , this );
+					Objects.requireNonNull ( answer ).setBattle ( battle );
 					break;
 				case "Client":
 					String type = controlBox.getType ( );
@@ -105,11 +107,14 @@ public class Client implements Runnable {
 							break;
 						case "getCurrentBattle":
 							answer.setBattle ( battle );
+							answer.setPass ( "battle" );
 							break;
 						case "matchMaking":
 							if ( controlBox.getDescription ()!=null&&controlBox.getDescription ().equals ( "check" ) ){
 								if ( this.battle!=null){
 									answer.setSucces ( true );
+									answer.setType ( "matchMaking" );
+									answer.setPass ( "finishwait" );
 								}
 							}
 							else {
@@ -122,7 +127,7 @@ public class Client implements Runnable {
 									this.isWating = true;
 								} else {
 									answer.setSucces ( Battle.newOnlineBattle ( waitForBattle.getClient ( ) , this , controlBox.getBattleType ( ) , controlBox.getNumberOfFlags ( ) ) );
-									waitForBattle.getClient ( ).send ( answer );
+									//waitForBattle.getClient ( ).send ( answer );
 									waitForBattle.getClient ( ).isWating = false;
 									this.isWating = false;
 								}

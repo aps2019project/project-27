@@ -36,6 +36,8 @@ public class Battlefxml implements Initializable {
 	public Button heroPower;
 	private boolean fighterSelected = false;
 	private boolean hendSelected = false;
+	private boolean inTurn = false;
+	private Account account;
 	public Pane[][] panes = new Pane[5][9];
 	public Pane[] handPane = new Pane[6];
 	public static void winner(){
@@ -48,12 +50,24 @@ public class Battlefxml implements Initializable {
 			update ();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace ( );
+		} catch (InterruptedException e) {
+			e.printStackTrace ( );
 		}
 		Pane pane = new Pane (  );
 		pane.setStyle ( "-fx-background-color: Blue;" );
 		AnimationTimer animationTimer = new AnimationTimer ( ) {
 			@Override
 			public void handle ( long now ) {
+//				if ( !inTurn ) {
+//					try {
+//						update ();
+//					} catch (FileNotFoundException e) {
+//						e.printStackTrace ( );
+//					} catch (InterruptedException e) {
+//						e.printStackTrace ( );
+//					}
+//					return;
+//				}
 				heroPower.setOnAction ( new EventHandler<ActionEvent> ( ) {
 					@Override
 					public void handle ( ActionEvent event ) {
@@ -99,6 +113,8 @@ public class Battlefxml implements Initializable {
 										update ();
 									} catch (FileNotFoundException e) {
 										e.printStackTrace ( );
+									} catch (InterruptedException e) {
+										e.printStackTrace ( );
 									}
 									hendSelected = true;
 								}
@@ -129,6 +145,8 @@ public class Battlefxml implements Initializable {
 												update ( );
 											} catch (FileNotFoundException e) {
 												e.printStackTrace ( );
+											} catch (InterruptedException e) {
+												e.printStackTrace ( );
 											}
 										}
 									} else {
@@ -142,6 +160,8 @@ public class Battlefxml implements Initializable {
 											try {
 												update ( );
 											} catch (FileNotFoundException e) {
+												e.printStackTrace ( );
+											} catch (InterruptedException e) {
 												e.printStackTrace ( );
 											}
 										}
@@ -170,6 +190,8 @@ public class Battlefxml implements Initializable {
 						update ();
 					} catch (FileNotFoundException e) {
 						e.printStackTrace ( );
+					} catch (InterruptedException e) {
+						e.printStackTrace ( );
 					}
 				} );
 			}
@@ -177,6 +199,7 @@ public class Battlefxml implements Initializable {
 		animationTimer.start ();
 	}
 	private void preProccess()  {
+		account = Accountfxml.getMainAccount ();
 		for ( int i = 0 ; i <5  ; i++ ) {
 			for ( int j = 0 ; j <9  ; j++ ) {
 				panes[i][j] = new Pane (  );
@@ -213,7 +236,7 @@ public class Battlefxml implements Initializable {
 			mainPane.getChildren ().add ( pane );
 		}
 	}
-	public void update() throws FileNotFoundException {
+	public void update() throws FileNotFoundException, InterruptedException {
 		hendSelected = false;
 		fighterSelected = false;
 		for ( cardGroup cardGroup :cardGroups )
@@ -222,16 +245,16 @@ public class Battlefxml implements Initializable {
 		Battle battle = getCurrentBattle ();
 		switch ( battle.getBattleType () ){
 			case 1:
-				detail.setText ( "flags you collect"+String.valueOf ( battle.getPlayerInTurn ().getFlagInHand () ) );
+				detail.setText ( "flags you collect"+ battle.getPlayerInTurn ( ).getFlagInHand ( ) );
 				break;
 			case 0:
 				if ( battle.getPlayerInTurn () == battle.getPlayer1 () )
 					detail.setText ("enemy hero ap"+  ( battle.getHeroP2 ().getHP () ) );
 				else
-					detail.setText ("enemy hero ap"+ String.valueOf ( battle.getHeroP1 ().getHP () ) );
+					detail.setText ("enemy hero ap"+ battle.getHeroP1 ( ).getHP ( ) );
 				break;
 			case 2:
-				detail.setText ( "turns you have flag"+String.valueOf ( battle.getPlayerInTurn ().getFlagInHand () ) );
+				detail.setText ( "turns you have flag"+ battle.getPlayerInTurn ( ).getFlagInHand ( ) );
 				break;
 		}
 		Player player = battle.getPlayerInTurn ();
@@ -268,6 +291,13 @@ public class Battlefxml implements Initializable {
 			cardGroup cardGroup = new cardGroup ( 0,0, next,true,5 );
 			cardGroups.add ( cardGroup );
 			mainPane.getChildren ().addAll ( cardGroup.getNodes () );
+		}
+		if (!name.getText ( ).equals ( account.getUserName ( ) )){
+			System.out.println ("not your turn" );
+			update ();
+		}
+		else {
+			System.out.println ("your turn" );
 		}
 	}
 	Battle getCurrentBattle(){

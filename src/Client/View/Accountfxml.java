@@ -136,7 +136,7 @@ public class Accountfxml implements Initializable {
         };
         animationTimer.start();
     }
-    private static Account getMainAccount(){
+    public static Account getMainAccount(){
         ControlBox controlBox = new ControlBox (  );
         controlBox.setRegion ( "Client" );
         controlBox.setType ( "getMainAccount" );
