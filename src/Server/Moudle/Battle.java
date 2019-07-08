@@ -1,6 +1,5 @@
 package Server.Moudle;
 
-import Client.View.Battlefxml;
 import Client.View.View;
 import ControlBox.ControlBox;
 import Server.Client;
@@ -10,8 +9,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Battle {
-	private static String winner;
-	private static String lastGift;
+	private String winner;
 	private Fighter selectedFighter;
 	private static Account secondAccount;
 	private int gift = 1000;
@@ -35,11 +33,8 @@ public class Battle {
 	private ArrayList<Buff> buffs = new ArrayList<> ( );
 	private static ArrayList<Item> collectibleItems = new ArrayList<> (  );
 
-	public static String getLastGift () {
-		return lastGift;
-	}
 
-	public static String getWinner () {
+	public String getWinner () {
 		return winner;
 	}
 
@@ -52,6 +47,10 @@ public class Battle {
 				collectibleItems.add ( item );
 			}
 		}
+	}
+
+	public int getGift () {
+		return gift;
 	}
 
 	public boolean isEnd () {
@@ -1005,10 +1004,7 @@ public class Battle {
 			player2.getAccount ( ).increaseLosses ( );
 		else player1.getAccount ( ).increaseLosses ( );
 		System.out.printf ( "%s wins\n",player.getUserName () );
-		lastGift = String.valueOf ( gift );
 		winner = player.getUserName ();
-		//Controller.input ();
-		Battlefxml.winner ();
 		this.isEnd = true;
 	}
 	private void setPlayerInTurn () {

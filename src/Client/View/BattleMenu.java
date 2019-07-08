@@ -26,7 +26,7 @@ public class BattleMenu implements Initializable {
     public Button check;
     private boolean wait = false;
     private boolean selected = false;
-
+    public Button cancel;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         AnimationTimer animationTimer = new AnimationTimer() {
@@ -44,6 +44,16 @@ public class BattleMenu implements Initializable {
 //                    }
 //                }
 //                System.out.println ("1" );
+                cancel.setOnAction ( new EventHandler<ActionEvent> ( ) {
+                    @Override
+                    public void handle ( ActionEvent event ) {
+                        ControlBox controlBox = new ControlBox (  );
+                        controlBox.setRegion ( "Client" );
+                        controlBox.setType ( "matchMaking" );
+                        controlBox.setDescription ( "cancel" );
+                        Controller.giveFromGraphic ( controlBox );
+                    }
+                } );
                 matchMaking.setOnAction ( event -> {
                     ControlBox controlBox = new ControlBox (  );
                     controlBox.setRegion ( "Client" );

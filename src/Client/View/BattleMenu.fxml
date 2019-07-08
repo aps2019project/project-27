@@ -33,5 +33,6 @@
         <TextField fx:id="number" layoutX="406.0" layoutY="206.0" prefHeight="25.0" prefWidth="65.0" text="0" />
       <Button fx:id="matchMaking" layoutX="393.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="macth making" />
       <Button fx:id="check" layoutX="514.0" layoutY="362.0" mnemonicParsing="false" text="check" />
+      <Button fx:id="cancel" layoutX="514.0" layoutY="327.0" mnemonicParsing="false" text="cancel" />
     </children>
 </AnchorPane>

@@ -37,7 +37,9 @@ public class Battlefxml implements Initializable {
 	private boolean fighterSelected = false;
 	private boolean hendSelected = false;
 	private boolean inTurn = false;
+	private long lastTime;
 	private Account account;
+	private String playerName= new String (  );
 	public Pane[][] panes = new Pane[5][9];
 	public Pane[] handPane = new Pane[6];
 	public static void winner(){
@@ -46,28 +48,19 @@ public class Battlefxml implements Initializable {
 	@Override
 	public void initialize ( URL location , ResourceBundle resources ) {
 		preProccess ();
-		try {
-			update ();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace ( );
-		} catch (InterruptedException e) {
-			e.printStackTrace ( );
-		}
+		update ();
 		Pane pane = new Pane (  );
 		pane.setStyle ( "-fx-background-color: Blue;" );
 		AnimationTimer animationTimer = new AnimationTimer ( ) {
 			@Override
 			public void handle ( long now ) {
-//				if ( !inTurn ) {
-//					try {
-//						update ();
-//					} catch (FileNotFoundException e) {
-//						e.printStackTrace ( );
-//					} catch (InterruptedException e) {
-//						e.printStackTrace ( );
-//					}
-//					return;
-//				}
+				if ( lastTime ==0 )
+					lastTime = now;
+				if ( !playerName.equals ( account.getUserName ( ))&&now-lastTime>2000 ) {
+					lastTime = now;
+					update ();
+					return;
+				}
 				heroPower.setOnAction ( new EventHandler<ActionEvent> ( ) {
 					@Override
 					public void handle ( ActionEvent event ) {
@@ -109,13 +102,7 @@ public class Battlefxml implements Initializable {
 								controlBox.setY ( finalJ );
 								ControlBox answer = Controller.giveFromGraphic ( controlBox );
 								if ( answer.isSucces ( ) ) {
-									try {
-										update ();
-									} catch (FileNotFoundException e) {
-										e.printStackTrace ( );
-									} catch (InterruptedException e) {
-										e.printStackTrace ( );
-									}
+									update ();
 									hendSelected = true;
 								}
 							}
@@ -141,13 +128,7 @@ public class Battlefxml implements Initializable {
 										ControlBox answer = Controller.giveFromGraphic ( controlBox );
 										if ( answer.isSucces ( ) ) {
 											fighterSelected = false;
-											try {
-												update ( );
-											} catch (FileNotFoundException e) {
-												e.printStackTrace ( );
-											} catch (InterruptedException e) {
-												e.printStackTrace ( );
-											}
+											update ( );
 										}
 									} else {
 										ControlBox controlBox = new ControlBox ( );
@@ -157,13 +138,7 @@ public class Battlefxml implements Initializable {
 										controlBox.setType ( "attack" );
 										ControlBox answer = Controller.giveFromGraphic ( controlBox );
 										if ( answer.isSucces ( ) ) {
-											try {
-												update ( );
-											} catch (FileNotFoundException e) {
-												e.printStackTrace ( );
-											} catch (InterruptedException e) {
-												e.printStackTrace ( );
-											}
+											update ( );
 										}
 									}
 								}
@@ -186,13 +161,7 @@ public class Battlefxml implements Initializable {
 //					if ( answer.isSucces () ){
 //						Graphic.setRegion ( "endBattle" );
 //					}
-					try {
-						update ();
-					} catch (FileNotFoundException e) {
-						e.printStackTrace ( );
-					} catch (InterruptedException e) {
-						e.printStackTrace ( );
-					}
+					update ();
 				} );
 			}
 		};
@@ -236,13 +205,16 @@ public class Battlefxml implements Initializable {
 			mainPane.getChildren ().add ( pane );
 		}
 	}
-	public void update() throws FileNotFoundException, InterruptedException {
+	public void update()   {
 		hendSelected = false;
 		fighterSelected = false;
 		for ( cardGroup cardGroup :cardGroups )
 			mainPane.getChildren ().removeAll ( cardGroup.getNodes () );
 		cardGroups.clear ();
 		Battle battle = getCurrentBattle ();
+		if ( battle == null ) {
+			winner ();
+		}
 		switch ( battle.getBattleType () ){
 			case 1:
 				detail.setText ( "flags you collect"+ battle.getPlayerInTurn ( ).getFlagInHand ( ) );
@@ -258,6 +230,7 @@ public class Battlefxml implements Initializable {
 				break;
 		}
 		Player player = battle.getPlayerInTurn ();
+		playerName = player.getUserName ();
 		name.setText ( player.getUserName () );
 		mana.setText ( String.valueOf ( player.getMana () ) );
 		Cell[][] cell = battle.getGround ().getCells ();
@@ -292,15 +265,16 @@ public class Battlefxml implements Initializable {
 			cardGroups.add ( cardGroup );
 			mainPane.getChildren ().addAll ( cardGroup.getNodes () );
 		}
+		Thread thread;
 		if (!name.getText ( ).equals ( account.getUserName ( ) )){
 			System.out.println ("not your turn" );
-			update ();
+
 		}
 		else {
 			System.out.println ("your turn" );
 		}
 	}
-	Battle getCurrentBattle(){
+	public static Battle getCurrentBattle(){
 		ControlBox controlBox = new ControlBox (  );
 		controlBox.setRegion ( "Client" );
 		controlBox.setType ( "getCurrentBattle" );

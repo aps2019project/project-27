@@ -21,6 +21,8 @@ public class Client implements Runnable {
 	private Scanner scanner;
 	private Formatter formatter;
 	private static YaGson yaGson;
+	private String winner;
+	private String gift;
 	private boolean isWating;
 	static {
 		YaGsonBuilder yaGsonBuilder = new YaGsonBuilder ();
@@ -89,6 +91,12 @@ public class Client implements Runnable {
 	@Override
 	public void run () {
 		while ( true ) {
+			if ( battle!=null&&battle.isEnd () )
+				battle = null;
+			if ( !socket.isConnected () ){
+				clients.remove ( this );
+				return;
+			}
 			ControlBox controlBox = this.recieve ( );
 			ControlBox answer = new ControlBox ( );
 			switch ( controlBox.getRegion ( ) ) {
@@ -102,6 +110,10 @@ public class Client implements Runnable {
 				case "Client":
 					String type = controlBox.getType ( );
 					switch ( type ) {
+						case "detail":
+							answer.setDescription ( winner );
+							answer.setType ( gift );
+							break;
 						case "getMainAccount":
 							answer.setAccount ( account );
 							break;
@@ -116,6 +128,9 @@ public class Client implements Runnable {
 									answer.setType ( "matchMaking" );
 									answer.setPass ( "finishwait" );
 								}
+							}
+							else if(controlBox.getDescription ()!=null&&controlBox.getDescription ().equals ( "cancel" )){
+								waitForBattle.remove ( this );
 							}
 							else {
 								answer.setType ( "matchMaking" );
@@ -149,7 +164,16 @@ class waitForBattle{
 		this.client = client;
 		this.numberOfFlags = numberOfFlags;
 		this.battleType = battleType;
+		remove ( client );
 		waitForBattles.add ( this );
+	}
+	public static void remove(Client client){
+		for ( waitForBattle waitForBattle:waitForBattles ){
+			if ( waitForBattle.client == client ){
+				waitForBattles.remove ( waitForBattle );
+				return;
+			}
+		}
 	}
 	public static waitForBattle find (int battleType,int numberOfFlags){
 		for ( waitForBattle waitForBattle:waitForBattles )

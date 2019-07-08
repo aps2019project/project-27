@@ -6,8 +6,8 @@ import ControlBox.ControlBox;
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
 
-import javax.sound.sampled.*;
-import java.io.File;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Formatter;
@@ -34,13 +34,13 @@ public class Controller {
     	yaGson = yaGsonBuilder.create ();
 	}
     public static void main(String[] args) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        File musicPath = new File("C:\\Users\\ASUS\\Music\\Heroic Demise (New).wav");
-        AudioInputStream audioInput = null;
-        audioInput = AudioSystem.getAudioInputStream(musicPath);
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioInput);
-        clip.start();
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+//        File musicPath = new File("C:\\Users\\ASUS\\Music\\Heroic Demise (New).wav");
+//        AudioInputStream audioInput = null;
+//        audioInput = AudioSystem.getAudioInputStream(musicPath);
+//        Clip clip = AudioSystem.getClip();
+//        clip.open(audioInput);
+//        clip.start();
+//        clip.loop(Clip.LOOP_CONTINUOUSLY);
         //connect to server
         String IP = "localhost";
         //IP = scanner.nextLine();
