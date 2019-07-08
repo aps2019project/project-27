@@ -3,8 +3,8 @@ package Client.Controller;
 
 import Client.View.Graphic;
 import ControlBox.ControlBox;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.gilecode.yagson.YaGson;
+import com.gilecode.yagson.YaGsonBuilder;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -12,6 +12,7 @@ import java.util.Formatter;
 import java.util.Scanner;
 
 public class Controller {
+	private static YaGson yaGson;
     private static String input;
     private static String region = "";
     private static String type;
@@ -26,7 +27,10 @@ public class Controller {
     public static void setRegion(String region) {
         Controller.region = region;
     }
-
+	static {
+    	YaGsonBuilder yaGsonBuilder = new YaGsonBuilder ();
+    	yaGson = yaGsonBuilder.create ();
+	}
     public static void main(String[] args) throws IOException {
         //connect to server
         String IP = "localhost";
@@ -294,9 +298,8 @@ public class Controller {
         return 0;
     }*/
     public static void sendToServer( ControlBox controlBox){
-        GsonBuilder gsonBuilder = new GsonBuilder ();
-        Gson gson = gsonBuilder.create ();
-        String oblect = gson.toJson ( controlBox );
+		YaGson yaGson = yaGson ();
+        String oblect = yaGson.toJson ( controlBox );
         serverOutput.format ( oblect+"\n" );
         serverOutput.flush ();
     }
@@ -305,9 +308,21 @@ public class Controller {
             controlBox = new ControlBox (  );
             controlBox.setRegion ( "xxx" );
         }
-        GsonBuilder gsonBuilder = new GsonBuilder ();
-        Gson gson = gsonBuilder.create ();
         sendToServer ( controlBox );
+        ControlBox answer = getFromServer (  );
+        if ( answer.getType ( )!=null&& answer.getType ( ).equals ( "matchMaking" ) ){
+            if ( answer.getType ().equals ( "matchMaking" ) )
+            if ( answer.isSucces () ){
+                Graphic.setRegion ( "Battle" );
+                return null ;
+            }
+        }
+        return answer;
+	}
+	public static YaGson yaGson(){
+    	return yaGson;
+	}
+    public static ControlBox getFromServer (  ) {
         String get = "";
         while ( true ) {
             if ( serveerInput.hasNextLine ( ) ) {
@@ -315,9 +330,15 @@ public class Controller {
                 break;
             }
         }
-        ControlBox answer = gson.fromJson ( get,ControlBox.class );
-		return answer;
-	}
+        return yaGson.fromJson ( get,ControlBox.class );
+    }
+    public static ControlBox getInWait(){
+        if ( serveerInput.hasNextLine () ){
+            String get = serveerInput.nextLine ( );
+            return yaGson.fromJson ( get,ControlBox.class );
+        }
+        return null;
+    }
     public static void printInMenu () {
         System.out.println ( "1.Collection" );
         System.out.println ( "2.Shop" );
@@ -325,139 +346,5 @@ public class Controller {
         System.out.println ( "4.Exit" );
         System.out.println ( "5.Account" );
         System.out.println ( "6.Help" );
-    }
-
-
-    private static void setLocation ( ControlBox controlBox , String location ) {
-        controlBox.setX(Integer.parseInt(String.valueOf(location.charAt(1))));
-        controlBox.setY(Integer.parseInt(String.valueOf(location.charAt(3))));
-    }
-
-    private static boolean isValidSearchShopCollection ( String input ) {
-        return input.toLowerCase().matches("search+ +collection+ +[a-z0-9_.]+");
-    }
-
-    private static boolean isValidBuy ( String input ) {
-        return input.toLowerCase().matches("buy+ +[a-z0-9_.]+");
-    }
-
-    private static boolean isValidSell ( String input ) {
-        return input.toLowerCase().matches("sell+ +[a-z0-9_.]+");
-    }
-
-    private static boolean isValidSearchCollection ( String input ) {
-        return input.toLowerCase().matches("search+ +[a-z0-9]+");
-    }
-
-    private static boolean isValidCreateDeck ( String input ) {
-        return input.toLowerCase().matches("create+ +deck+ +[a-z0-9]+");
-    }
-
-    private static boolean isValidDeleteDeck ( String input ) {
-        return input.toLowerCase().matches("delete+ +deck+ +[a-z0-9]+");
-    }
-
-    private static boolean isValidAdd ( String input ) {
-        return input.toLowerCase().matches("add+ +[a-z0-9_.]+ +to+ +deck+ +[a-z0-9_.]+");
-    }
-
-    private static boolean isValidRemove ( String input ) {
-        return input.toLowerCase().matches("remove+ +[a-z0-9_.]+ +from+ +deck+ +[a-z0-9_.]+");
-    }
-
-    private static boolean isValidValidateDeck ( String input ) {
-        return input.toLowerCase().matches("validate+ +deck+ +[a-z0-9_.]+");
-    }
-
-    private static boolean isValidSelectDeck ( String input ) {
-        return input.toLowerCase().matches("select+ +deck+ +[a-z0-9_.]+");
-    }
-
-    private static boolean isValidShowDeck ( String input ) {
-        return input.toLowerCase().matches("show+ +deck+ +[a-z0-9_.]+");
-    }
-
-    private static boolean isValidSelectCard ( String input ) {
-        return input.toLowerCase().matches("select+ +card+ +[\\w_]+");
-    }
-
-    private static boolean isValidShowHand ( String input ) {
-        return input.toLowerCase().equals("show hand");
-    }
-
-    private static boolean isValidShowOpMinion ( String input ) {
-        return input.toLowerCase().equals("show my opponent minions");
-    }
-
-    private static boolean isValidShowMyMinion ( String input ) {
-        return input.toLowerCase().equals("show my minions");
-    }
-
-    private boolean isValidPasswordLogin(String input) {
-        return input.matches("[a-zA-Z0-9]");
-    }
-
-    private static boolean isValidLogin ( String input ) {
-        return input.matches("login+ +[a-zA-Z0-9]+");
-    }
-
-    private static boolean isValidCreateAccount ( String input ) {
-        return input.matches("create account+ +[a-zA-Z0-9]+");
-    }
-
-    private static boolean isValidSearchShop ( String input ) {
-        return input.toLowerCase().matches("search+ +[a-z0-9]+");
-    }
-
-    private static boolean isValidShowCardInfo ( String input ) {
-        return input.toLowerCase().matches("show+ +card+ +info+ +[\\w_]+");
-    }
-
-    private static boolean isValidGameInfo ( String input ) {
-        return input.equalsIgnoreCase("game info");
-    }
-
-    private static boolean isValidMove ( String input ) {
-        return input.toLowerCase().matches("move+ +to+ +[(]\\d,\\d[)]");
-    }
-
-    private static boolean isValidAttack ( String input ) {
-        return input.toLowerCase().matches("attack+ +[a-zA-Z0-9_]+");
-    }
-
-    private static boolean useSpecialPower ( String input ) {
-        return input.toLowerCase().matches("Use+ +special+ +power+ +[(]\\d,\\d[)]");
-    }
-
-    private static boolean isValidInsert ( String input ) {
-        return input.toLowerCase().matches("insert+ +[a-z]+ +in+ +[(]\\d,\\d[)]");
-    }
-
-    private static boolean isValidEndTur ( String input ) {
-        return input.equalsIgnoreCase("end turn");
-    }
-
-    private static boolean isValidNextCard ( String input ) {
-        return input.equalsIgnoreCase("show next card");
-    }
-
-    private static boolean isValidSelectUser ( String input ) {
-        return input.toLowerCase().matches("select+ +user+ +[a-z0-9._]+");
-    }
-
-    private static boolean isValidNewGame ( String input ) {
-        return input.toLowerCase ().matches("start+ +multiplayer+ +game+ +[hero|flags|oneflag]+ *+\\d*+");
-    }
-
-    private static boolean isValidShowItems ( String input ) {
-        return input.toLowerCase().matches("show+ +items");
-    }
-
-    private static boolean isValidShowItemInfo ( String input ) {
-        return input.toLowerCase().matches("show+ +info+ +[a-z0-9]");
-    }
-
-    private static boolean isValidUseItem ( String input ) {
-        return input.toLowerCase().matches("use+ +item+ +[0-9a-z]+ +[(]\\d,\\d[)]");
     }
 }

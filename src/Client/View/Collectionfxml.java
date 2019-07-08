@@ -5,8 +5,8 @@ import Server.Moudle.Account;
 import Server.Moudle.Collection;
 import Server.Moudle.Deck;
 import Server.Moudle.MinionAndHero;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.gilecode.yagson.YaGson;
+import com.gilecode.yagson.YaGsonBuilder;
 import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -108,8 +108,8 @@ public class Collectionfxml implements Initializable {
                         if (file.exists()) {
                             System.out.println("already exist");
                         } else {
-                            GsonBuilder gsonBuilder = new GsonBuilder();
-                            Gson gson = gsonBuilder.create();
+                            YaGsonBuilder gsonBuilder = new YaGsonBuilder();
+                            YaGson gson = gsonBuilder.create();
                             FileWriter fileWriter = null;
                             try {
                                 fileWriter = new FileWriter(fileName.getText() + ".json");
@@ -145,8 +145,8 @@ public class Collectionfxml implements Initializable {
                         File file = new File(fileName.getText() + ".json");
                         if (file.exists()) {
                             Deck deck = null;
-                            GsonBuilder gsonBuilder = new GsonBuilder();
-                            Gson gson = gsonBuilder.create();
+                            YaGsonBuilder gsonBuilder = new YaGsonBuilder ();
+                            YaGson gson = gsonBuilder.create();
                             try {
                                 deck = gson.fromJson(new FileReader(file), Deck.class);
                             } catch (FileNotFoundException e) {

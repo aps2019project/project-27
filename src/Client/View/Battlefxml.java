@@ -51,7 +51,6 @@ public class Battlefxml implements Initializable {
 		}
 		Pane pane = new Pane (  );
 		pane.setStyle ( "-fx-background-color: Blue;" );
-		mainPane.getChildren ().add ( new Label ( "asdsadad" ) );
 		AnimationTimer animationTimer = new AnimationTimer ( ) {
 			@Override
 			public void handle ( long now ) {
@@ -292,7 +291,7 @@ class cardGroup{
 		newGroup ( x , y  , isHand , i ,card.getName ());
 		File file;
 		if ( card.getImage ()==null||card.getImage ().isEmpty () )
-			file = new File ( "src\\View\\images\\DiveSepid.gif" );
+			file = new File ( "src\\Client\\View\\images\\DiveSepid.gif" );
 		else
 			file = new File ( card.getImage () );
 		try {
@@ -355,7 +354,7 @@ class cardGroup{
 		newGroup (x,y,isHand,i ,item.getName ());
 		File file;
 		if ( item.getImage ()==null||item.getImage ().isEmpty () )
-			file = new File ( "src\\View\\images\\images.png" );
+			file = new File ( "src\\Client\\View\\images\\images.png" );
 		else
 			file = new File ( item.getImage () );
 		try {

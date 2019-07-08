@@ -689,8 +689,7 @@ public class Battle {
 	public int getBattleType(){
 		return battleType;
 	}
-	public Battle ( Account account , Account account2 , int battleType , int numberOfFlags, Client client ) {
-		client.setBattle ( this );
+	public Battle ( Account account , Account account2 , int battleType , int numberOfFlags ) {
 		player1 = new Player ( account );
 		player2 = new Player ( account2 );
 		ground = new Ground ( );
@@ -740,7 +739,6 @@ public class Battle {
 		this.battleType = battleType;
 		nextTurn ( );
 		System.out.println ( "started!" );
-
 	}
 
 	public Fighter getHeroP1 () {
@@ -760,20 +758,29 @@ public class Battle {
 		controlBox.setSucces ( true );
 		if ( account2 == null ) {
 			System.out.println ( "second player dont selected" );
-//			Alert alert = new Alert(Alert.AlertType.ERROR);
-//			alert.setHeaderText("Second player not selected");
-//			alert.showAndWait();
 			controlBox.setSucces ( false );
 		}
 		if ( ! new Player ( account ).getHand ( ).getDeck ( ).isValidDeck ( ) || ! new Player ( account2 ).getHand ( ).getDeck ( ).isValidDeck ( ) ) {
 			controlBox.setSucces ( false );
 		}
 
-		if ( controlBox.isSucces () )
-			new Battle ( account, account2, battleType, numberOfFlags,client );
+		if ( controlBox.isSucces () ) {
+			Battle battle = new Battle ( account , account2 , battleType , numberOfFlags );
+			client.setBattle ( battle );
+		}
 		return controlBox;
 	}
-
+	public static boolean newOnlineBattle(Client client1,Client client2,int battleType,int numberOfFlags){
+		Account account = client1.getAccount ();
+		Account account2 = client2.getAccount ();
+		if ( ! new Player ( account ).getHand ( ).getDeck ( ).isValidDeck ( ) || ! new Player ( account2 ).getHand ( ).getDeck ( ).isValidDeck ( ) ) {
+			return false;
+		}
+			Battle battle =	new Battle ( account , account2 , battleType , numberOfFlags );
+			client1.setBattle ( battle );
+			client2.setBattle ( battle );
+		return true;
+	}
 	private ControlBox move ( int targetX , int targetY , Fighter fighter ) {
 		int x = fighter.getX ( );
 		int y = fighter.getY ( );
