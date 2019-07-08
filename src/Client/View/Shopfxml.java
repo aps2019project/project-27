@@ -50,7 +50,6 @@ public class Shopfxml implements Initializable {
             }
         }
         listView.setItems(buttons);
-        listView.setPrefHeight(items[items.length - 1].getLayoutY() + 20);
         insideScrollPane.setPrefHeight(listView.getPrefHeight());
         scrollPane.setContent(listView);
 
