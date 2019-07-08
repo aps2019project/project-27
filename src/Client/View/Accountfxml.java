@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.media.AudioClip;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,9 +26,45 @@ public class Accountfxml implements Initializable {
     public TextField userName;
     public TextField passWord;
     public Label user;
+    public AudioClip clicked;
+
+    private void playAudio(){
+        clicked = new AudioClip(this.getClass().getResource("Clicked.wav").toString());
+        clicked.play();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        save.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                playAudio();
+            }
+        });
+        logout.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                playAudio();
+            }
+        });
+        createAccount.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                playAudio();
+            }
+        });
+        login.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                playAudio();
+            }
+        });
+        showLeaderBoard.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                playAudio();
+            }
+        });
         ControlBox controlBox = new ControlBox();
         controlBox.setRegion("Account");
         AnimationTimer animationTimer = new AnimationTimer() {

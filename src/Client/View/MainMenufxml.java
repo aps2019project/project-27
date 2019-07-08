@@ -22,6 +22,7 @@ public class MainMenufxml implements Initializable {
     public Label AccountLable;
     public Button Help;
     public Button save;
+    public Button chat;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -72,6 +73,12 @@ public class MainMenufxml implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         Graphic.setRegion("CostomCard");
+                    }
+                });
+                chat.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        Graphic.setRegion("Chat");
                     }
                 });
             }
