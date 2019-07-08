@@ -1,9 +1,6 @@
 package ControlBox;
 
-import Server.Moudle.Account;
-import Server.Moudle.Battle;
-import Server.Moudle.Card;
-import Server.Moudle.Item;
+import Server.Moudle.*;
 
 import java.util.ArrayList;
 
@@ -25,12 +22,21 @@ public class ControlBox {
     private Battle battle;
     private ArrayList<Card> cards;
     private ArrayList<Item> items;
+    private ArrayList<Deck> decks;
 
-    public void setItems(ArrayList<Item> items){
+    public void setDecks(ArrayList<Deck> decks) {
+        this.decks = account.getDecks();
+    }
+
+    public ArrayList<Deck> getDecks() {
+        return account.getDecks();
+    }
+
+    public void setItems(ArrayList<Item> items) {
         this.items = items;
     }
 
-    public ArrayList<Item> getItems(){
+    public ArrayList<Item> getItems() {
         return items;
     }
 

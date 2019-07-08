@@ -1,10 +1,10 @@
 package Client.View;
 
 import ControlBox.ControlBox;
-//import Server.Moudle.Account;
-//import Server.Moudle.Collection;
-//import Server.Moudle.Deck;
-//import Server.Moudle.MinionAndHero;
+import Server.Moudle.Account;
+import Server.Moudle.Collection;
+import Server.Moudle.Deck;
+import Server.Moudle.MinionAndHero;
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
 import javafx.animation.AnimationTimer;
@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Collectionfxml implements Initializable {
@@ -43,13 +44,23 @@ public class Collectionfxml implements Initializable {
     public TextField fileName;
     public Button impor;
     public Button export;
-//    private Deck selectedDeck;
+    private Deck selectedDeck;
     public ObservableList<Button> decks = FXCollections.observableArrayList();
     public Button mainDeck;
 
+    public Account getMainAccount() {
+        ControlBox controlBox = new ControlBox();
+        return controlBox.getAccount();
+    }
+
+    public ArrayList<Deck> getDecks(){
+        ControlBox controlBox = new ControlBox();
+        return controlBox.getDecks();
+    }
+
     public void showDecks() {
-        for (int i = 0; i < Account.getMainAccount().getDecks().size(); i++) {
-            decks.add(new Button(Account.getMainAccount().getDecks().get(i).getName()));
+        for (int i = 0; i < getMainAccount().getDecks().size(); i++) {
+            decks.add(new Button(getMainAccount().getDecks().get(i).getName()));
             decks.get(i).setLayoutX(146.0);
             decks.get(i).setLayoutY(53.0 + 40.0 * i);
         }
@@ -60,22 +71,21 @@ public class Collectionfxml implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (Account.getMainAccount().getDecks().size() > 0) {
+        if (getMainAccount().getDecks().size() > 0) {
             showDecks();
         }
-        Account account = Account.getMainAccount();
-        Button[] cards = new Button[Account.getMainAccount().getCollection().getCards().size()];
+        Button[] cards = new Button[getMainAccount().getCollection().getCards().size()];
         ObservableList<Button> buttons = FXCollections.observableArrayList();
 
-        for (int i = 0; i < Account.getMainAccount().getCollection().getCards().size(); i++) {
-            cards[i] = new Button(Account.getMainAccount().getCollection().getCards().get(i).getName());
+        for (int i = 0; i < getMainAccount().getCollection().getCards().size(); i++) {
+            cards[i] = new Button(getMainAccount().getCollection().getCards().get(i).getName());
             cards[i].setLayoutX(14.0);
             cards[i].setLayoutY(53.0 + 40.0 * i);
             buttons.add(cards[i]);
         }
-        Button[] items = new Button[Account.getMainAccount().getCollection().getItems().size()];
-        for (int i = 0; i < Account.getMainAccount().getCollection().getItems().size(); i++) {
-            items[i] = new Button(Account.getMainAccount().getCollection().getItems().get(i).getName());
+        Button[] items = new Button[getMainAccount().getCollection().getItems().size()];
+        for (int i = 0; i < getMainAccount().getCollection().getItems().size(); i++) {
+            items[i] = new Button(getMainAccount().getCollection().getItems().get(i).getName());
             items[i].setLayoutX(14.0);
             items[i].setLayoutY(cards[cards.length - 1].getLayoutY() + 40 * i);
             buttons.add(items[i]);
@@ -93,11 +103,11 @@ public class Collectionfxml implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         Deck deck = null;
-                        for (Deck deck1 : Account.getMainAccount().getDecks()) {
+                        for (Deck deck1 : getMainAccount().getDecks()) {
                             if (deckSelected.getText().equals(deck1.getName()))
                                 deck = deck1;
                         }
-                        Account.getMainAccount().setMainDeck(deck);
+                        getMainAccount().setMainDeck(deck);
                     }
                 });
                 impor.setOnAction(new EventHandler<ActionEvent>() {
@@ -117,7 +127,7 @@ public class Collectionfxml implements Initializable {
                                 e.printStackTrace();
                             }
                             if (!deckSelected.getText().isEmpty()) {
-                                for (Deck deck : Account.getMainAccount().getDecks()) {
+                                for (Deck deck : getMainAccount().getDecks()) {
                                     if (deck.getName().equals(deckSelected.getText()))
                                         selectedDeck = deck;
                                 }
@@ -152,7 +162,7 @@ public class Collectionfxml implements Initializable {
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
-                            Account.getMainAccount().getDecks().add(deck);
+                            getMainAccount().getDecks().add(deck);
                             Graphic.setRegion("");
                             Graphic.setRegion("Collection");
                         } else {
@@ -168,8 +178,8 @@ public class Collectionfxml implements Initializable {
                             cardSelected.setText(cards[finalI].getText());
                             ObservableList<Label> info = FXCollections.observableArrayList();
                             info.add(new Label(cards[finalI].getText()));
-                            if (Account.getMainAccount().getCollection().getCards().get(finalI).getCardType() == 1) {
-                                MinionAndHero minionAndHero = (MinionAndHero) Account.getMainAccount().getCollection().getCards().get(finalI);
+                            if (getMainAccount().getCollection().getCards().get(finalI).getCardType() == 1) {
+                                MinionAndHero minionAndHero = (MinionAndHero) getMainAccount().getCollection().getCards().get(finalI);
                                 if (minionAndHero.isHero()) {
                                     info.add(new Label("Hero"));
                                     info.add(new Label(String.format("AP : %d", minionAndHero.getAP())));
@@ -198,8 +208,8 @@ public class Collectionfxml implements Initializable {
                                 }
                             } else {
                                 info.add(new Label("Spell"));
-                                info.add(new Label(String.format("MP : %d", Account.getMainAccount().getCollection().getCards().get(finalI).getManaPrice())));
-                                info.add(new Label(String.format("Sell Cost : %d", Account.getMainAccount().getCollection().getCards().get(finalI).getShopPrice())));
+                                info.add(new Label(String.format("MP : %d", getMainAccount().getCollection().getCards().get(finalI).getManaPrice())));
+                                info.add(new Label(String.format("Sell Cost : %d", getMainAccount().getCollection().getCards().get(finalI).getShopPrice())));
                             }
                             infoList.setItems(info);
                             insideInfo.setPrefHeight(infoList.getPrefHeight());
@@ -216,8 +226,8 @@ public class Collectionfxml implements Initializable {
                             cardSelected.setText(items[finalI].getText());
                             ObservableList<Label> info = FXCollections.observableArrayList();
                             info.add(new Label(items[finalI].getText()));
-                            info.add(new Label(String.format("Sell cost : %d", Account.getMainAccount().getCollection().getItems().get(finalI).getPrice())));
-                            info.add(new Label(Account.getMainAccount().getCollection().getItems().get(finalI).getDescription()));
+                            info.add(new Label(String.format("Sell cost : %d", getMainAccount().getCollection().getItems().get(finalI).getPrice())));
+                            info.add(new Label(getMainAccount().getCollection().getItems().get(finalI).getDescription()));
                             infoList.setItems(info);
                             insideInfo.setPrefHeight(infoList.getPrefHeight());
                             insideInfo.setPrefWidth(infoList.getPrefWidth());
@@ -225,20 +235,20 @@ public class Collectionfxml implements Initializable {
                         }
                     });
                 }
-                if (account.getDecks().size() > 0) {
-                    for (int i = 0; i < account.getDecks().size(); i++) {
+                if (getMainAccount().getDecks().size() > 0) {
+                    for (int i = 0; i < getMainAccount().getDecks().size(); i++) {
                         int finalI = i;
-                        int size = account.getDecks().size();
+                        int size = getMainAccount().getDecks().size();
                         if (i < decks.size()) {
                             decks.get(i).setOnAction(new EventHandler<ActionEvent>() {
                                 @Override
                                 public void handle(ActionEvent event) {
                                     deckSelected.setText(decks.get(finalI).getText());
                                     ObservableList<Label> info = FXCollections.observableArrayList();
-                                    for (int j = 0; j < Account.getMainAccount().getDecks().get(finalI).getCards().size(); j++) {
-                                        info.add(new Label(Account.getMainAccount().getDecks().get(finalI).getCards().get(j).getName()));
-                                        if (Account.getMainAccount().getDecks().get(finalI).getItem() != null) {
-                                            info.add(new Label(Account.getMainAccount().getDecks().get(finalI).getItem().getName()));
+                                    for (int j = 0; j < getMainAccount().getDecks().get(finalI).getCards().size(); j++) {
+                                        info.add(new Label(getMainAccount().getDecks().get(finalI).getCards().get(j).getName()));
+                                        if (getMainAccount().getDecks().get(finalI).getItem() != null) {
+                                            info.add(new Label(getMainAccount().getDecks().get(finalI).getItem().getName()));
                                         }
                                     }
                                     infoList.setItems(info);
@@ -321,9 +331,8 @@ public class Collectionfxml implements Initializable {
     public void update() {
         deckList.getItems().clear();
         decks.clear();
-        Account account = Account.getMainAccount();
-        for (int i = 0; i < account.getDecks().size(); i++) {
-            decks.add(new Button(account.getDecks().get(i).getName()));
+        for (int i = 0; i < getMainAccount().getDecks().size(); i++) {
+            decks.add(new Button(getMainAccount().getDecks().get(i).getName()));
         }
         deckList.setItems(decks);
         insideDeck.setPrefHeight(deckList.getPrefHeight());
