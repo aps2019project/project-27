@@ -23,6 +23,7 @@ public class BattleMenu implements Initializable {
     public Label secondPlayerName;
     public TextField number;
     public Button matchMaking;
+    public Button check;
     private boolean wait = false;
     private boolean selected = false;
 
@@ -54,7 +55,23 @@ public class BattleMenu implements Initializable {
                     else if (oneFlag.isSelected())
                         controlBox.setBattleType(2);
                     controlBox.setNumberOfFlags ( Integer.parseInt ( number.getText () ) );
+                    wait = true;
                     ControlBox answer = Controller.giveFromGraphic ( controlBox );
+                } );
+                check.setOnAction ( new EventHandler<ActionEvent> ( ) {
+                    @Override
+                    public void handle ( ActionEvent event ) {
+                        if ( !wait ){
+
+                        }
+                        else {
+                            ControlBox controlBox = new ControlBox (  );
+                            controlBox.setType ( "matchMaking" );
+                            controlBox.setRegion ( "Client" );
+                            controlBox.setDescription ( "check" );
+                            ControlBox answer = Controller.giveFromGraphic ( controlBox );
+                        }
+                    }
                 } );
                 menu.setOnAction(new EventHandler<ActionEvent>() {
                     @Override

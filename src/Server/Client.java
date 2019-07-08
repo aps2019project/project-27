@@ -20,6 +20,7 @@ public class Client implements Runnable {
 	private Scanner scanner;
 	private Formatter formatter;
 	private static YaGson yaGson;
+	private boolean isWating;
 	static {
 		YaGsonBuilder yaGsonBuilder = new YaGsonBuilder ();
 		yaGson = yaGsonBuilder.create ();
@@ -106,16 +107,25 @@ public class Client implements Runnable {
 							answer.setBattle ( battle );
 							break;
 						case "matchMaking":
-							answer.setType ( "matchMaking" );
-							waitForBattle waitForBattle = Server.waitForBattle.find ( controlBox.getBattleType (),controlBox.getNumberOfFlags () );
-							if ( waitForBattle == null ) {
-								new waitForBattle ( controlBox.getNumberOfFlags (),controlBox.getBattleType (),this );
-								answer.setDescription ( "wait" );
-								answer.setSucces ( false );
+							if ( controlBox.getDescription ()!=null&&controlBox.getDescription ().equals ( "check" ) ){
+								if ( this.battle!=null){
+									answer.setSucces ( true );
+								}
 							}
 							else {
-									answer.setSucces ( Battle.newOnlineBattle ( waitForBattle.getClient (),this,controlBox.getBattleType (),controlBox.getNumberOfFlags () ) );
-									waitForBattle.getClient ().send ( answer );
+								answer.setType ( "matchMaking" );
+								waitForBattle waitForBattle = Server.waitForBattle.find ( controlBox.getBattleType ( ) , controlBox.getNumberOfFlags ( ) );
+								if ( waitForBattle == null ) {
+									new waitForBattle ( controlBox.getNumberOfFlags ( ) , controlBox.getBattleType ( ) , this );
+									answer.setDescription ( "wait" );
+									answer.setSucces ( false );
+									this.isWating = true;
+								} else {
+									answer.setSucces ( Battle.newOnlineBattle ( waitForBattle.getClient ( ) , this , controlBox.getBattleType ( ) , controlBox.getNumberOfFlags ( ) ) );
+									waitForBattle.getClient ( ).send ( answer );
+									waitForBattle.getClient ( ).isWating = false;
+									this.isWating = false;
+								}
 							}
 							break;
 					}
