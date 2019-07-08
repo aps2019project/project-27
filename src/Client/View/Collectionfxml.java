@@ -1,10 +1,10 @@
 package Client.View;
 
 import ControlBox.ControlBox;
-import Server.Moudle.Account;
-import Server.Moudle.Collection;
-import Server.Moudle.Deck;
-import Server.Moudle.MinionAndHero;
+//import Server.Moudle.Account;
+//import Server.Moudle.Collection;
+//import Server.Moudle.Deck;
+//import Server.Moudle.MinionAndHero;
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
 import javafx.animation.AnimationTimer;
@@ -43,7 +43,7 @@ public class Collectionfxml implements Initializable {
     public TextField fileName;
     public Button impor;
     public Button export;
-    private Deck selectedDeck;
+//    private Deck selectedDeck;
     public ObservableList<Button> decks = FXCollections.observableArrayList();
     public Button mainDeck;
 

@@ -2,6 +2,10 @@ package ControlBox;
 
 import Server.Moudle.Account;
 import Server.Moudle.Battle;
+import Server.Moudle.Card;
+import Server.Moudle.Item;
+
+import java.util.ArrayList;
 
 public class ControlBox {
     private String type;
@@ -19,68 +23,90 @@ public class ControlBox {
     private int n;
     private Account account;
     private Battle battle;
+    private ArrayList<Card> cards;
+    private ArrayList<Item> items;
 
-    public void setBattle ( Battle battle ) {
+    public void setItems(ArrayList<Item> items){
+        this.items = items;
+    }
+
+    public ArrayList<Item> getItems(){
+        return items;
+    }
+
+    public void setCards(ArrayList<Card> cards) {
+        this.cards = cards;
+    }
+
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
+
+    public void setBattle(Battle battle) {
         this.battle = battle;
     }
 
-    public Battle getBattle () {
+    public Battle getBattle() {
         return battle;
     }
 
-    public void setAccount ( Account account ) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 
-    public Account getAccount () {
+    public Account getAccount() {
         return account;
     }
 
-    public void setN ( int n ) {
+    public void setN(int n) {
         this.n = n;
     }
 
-    public int getN () {
+    public int getN() {
         return n;
     }
 
-    public void setDescription ( String description ) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    public String getDescription () {
+    public String getDescription() {
         return description;
     }
 
-    public void setPass ( String pass ) {
+    public void setPass(String pass) {
         this.pass = pass;
     }
 
-    public String getPass () {
+    public String getPass() {
         return pass;
     }
 
-    public void setSucces ( boolean succes ) {
+    public void setSucces(boolean succes) {
         this.succes = succes;
     }
 
-    public boolean isSucces () {
+    public boolean isSucces() {
         return succes;
     }
 
-    public int getBattleType () {
+    public int getBattleType() {
         return battleType;
     }
-    public void setBattleType ( int battleType ) {
+
+    public void setBattleType(int battleType) {
         this.battleType = battleType;
     }
-    public int getNumberOfFlags () {
+
+    public int getNumberOfFlags() {
         return numberOfFlags;
     }
-    public void setNumberOfFlags ( int numberOfFlags ) {
+
+    public void setNumberOfFlags(int numberOfFlags) {
         this.numberOfFlags = numberOfFlags;
     }
-    public void setDeckName( String deckName) {
+
+    public void setDeckName(String deckName) {
         this.deckName = deckName;
     }
 
@@ -124,13 +150,15 @@ public class ControlBox {
         this.userName = userName;
     }
 
-    public ControlBox ( String region, String type) {
+    public ControlBox(String region, String type) {
         this.region = region;
         this.type = type;
     }
-    public ControlBox (){
-        this.type="empty";
+
+    public ControlBox() {
+        this.type = "empty";
     }
+
     public String getCardName() {
         return cardName;
     }
