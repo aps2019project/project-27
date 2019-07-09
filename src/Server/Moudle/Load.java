@@ -13,10 +13,22 @@ public class Load {
 		AccountTmp accountTmp= new AccountTmp ();
 		accountTmp.accounts=Account.getAccounts ();
 		FileWriter writer = new FileWriter( "Accounts.json" );
-		gson.toJson ( accountTmp,writer );
+		String obj = gson.toJson ( accountTmp );
+		writer.write ( obj );
+		int a=1;
 		System.out.println ( "saved!\n" );
 		writer.close();
+	}
+	public static void saveMAndH() throws IOException {
+		YaGson gson = CreatGson.getGson ();
+		MinionAndHeroTmp minionAndHeroTmp = new MinionAndHeroTmp ();
+		minionAndHeroTmp.minionAndHeroes=MinionAndHero.getMinionAndHeroes ();
+		FileWriter writer = new FileWriter( "MinionAndHeroes.json" );
+		String obj = gson.toJson ( minionAndHeroTmp );
+		writer.write ( obj );
 		int a=1;
+		System.out.println ( "saved!\n" );
+		writer.close();
 	}
 	public static void loadMinionAndHeros() throws FileNotFoundException {
 		YaGson gson = CreatGson.getGson ();

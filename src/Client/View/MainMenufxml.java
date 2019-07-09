@@ -1,5 +1,7 @@
 package Client.View;
 
+import Client.Controller.Controller;
+import ControlBox.ControlBox;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -48,7 +50,9 @@ public class MainMenufxml implements Initializable {
                 save.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        Server.Moudle.Account.save();
+                        ControlBox controlBox = new ControlBox (  );
+                        controlBox.setRegion ( "save" );
+                        Controller.giveFromGraphic ( controlBox );
                     }
                 });
                 Collection.setOnAction(new EventHandler<ActionEvent>() {

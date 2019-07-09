@@ -23,13 +23,40 @@ public class ControlBox {
     private ArrayList<Card> cards;
     private ArrayList<Item> items;
     private ArrayList<Deck> decks;
+    private Target target;
+    private Buff buff;
+    private Card card;
 
-    public void setDecks(ArrayList<Deck> decks) {
-        this.decks = decks;
+    public Target getTarget () {
+        return target;
+    }
+
+    public void setBuff ( Buff buff ) {
+        this.buff = buff;
+    }
+
+    public void setTarget ( Target target ) {
+        this.target = target;
+    }
+
+    public void setCard ( Card card ) {
+        this.card = card;
+    }
+
+    public Card getCard () {
+        return card;
+    }
+
+    public Buff getBuff () {
+        return buff;
+    }
+
+    public void setDecks( ArrayList<Deck> decks) {
+        this.decks = account.getDecks();
     }
 
     public ArrayList<Deck> getDecks() {
-        return decks;
+        return account.getDecks();
     }
 
     public void setItems(ArrayList<Item> items) {

@@ -67,6 +67,9 @@ public class Card {
         this.image = image;
         cards.add(this);
     }
+    public static void addToCards(Card card){
+         cards.add ( card );
+    }
     public String getName() {
         return name;
     }

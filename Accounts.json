@@ -1,1 +1,1 @@
-{"@type":"Server.Moudle.AccountTmp","@val":{"accounts":[]}}
+{"@type":"Server.Moudle.AccountTmp","@val":{"accounts":[{"userName":"amirtest","passWord":"111","collection":{"spells":[],"minionAndHeroes":[],"items":[]},"money":100000,"decks":[],"mainDeck":{"minionAndHeroes":[],"spells":[]},"wins":0,"losses":0}]}}
