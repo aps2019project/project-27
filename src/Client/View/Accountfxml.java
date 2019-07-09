@@ -19,53 +19,16 @@ import java.util.ResourceBundle;
 public class Accountfxml implements Initializable {
     public Button save;
     public Button logout;
-//    public Button help;
+    //    public Button help;
     public Button createAccount;
     public Button login;
     public Button showLeaderBoard;
     public TextField userName;
     public TextField passWord;
     public Label user;
-    public AudioClip clicked;
-
-    private void playAudio(){
-        clicked = new AudioClip(this.getClass().getResource("C:\\Users\\ASUS\\Music\\Clicked.wav").toString());
-        clicked.play();
-    }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        save.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                playAudio();
-            }
-        });
-        logout.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                playAudio();
-            }
-        });
-        createAccount.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                playAudio();
-            }
-        });
-        login.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                playAudio();
-            }
-        });
-        showLeaderBoard.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                playAudio();
-            }
-        });
         ControlBox controlBox = new ControlBox();
         controlBox.setRegion("Account");
         AnimationTimer animationTimer = new AnimationTimer() {
@@ -107,7 +70,7 @@ public class Accountfxml implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         controlBox.setType("save");
-                        Account.input(controlBox,null);
+                        Account.input(controlBox, null);
                         //todo
                     }
                 });
@@ -116,7 +79,7 @@ public class Accountfxml implements Initializable {
                     public void handle(ActionEvent event) {
                         System.out.println("logout3");
                         controlBox.setType("logout");
-                        Account.input(controlBox,null);
+                        Account.input(controlBox, null);
                         // TODO: 7/6/2019
                     }
                 });
@@ -137,11 +100,12 @@ public class Accountfxml implements Initializable {
         };
         animationTimer.start();
     }
-    public static Account getMainAccount(){
-        ControlBox controlBox = new ControlBox (  );
-        controlBox.setRegion ( "Client" );
-        controlBox.setType ( "getMainAccount" );
-        ControlBox answer = Controller.giveFromGraphic ( controlBox );
+
+    public static Account getMainAccount() {
+        ControlBox controlBox = new ControlBox();
+        controlBox.setRegion("Client");
+        controlBox.setType("getMainAccount");
+        ControlBox answer = Controller.giveFromGraphic(controlBox);
         return answer.getAccount();
     }
 

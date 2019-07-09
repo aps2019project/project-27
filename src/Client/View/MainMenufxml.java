@@ -31,7 +31,7 @@ public class MainMenufxml implements Initializable {
             @Override
             public void handle(long now) {
                 if (Server.Moudle.Account.getMainAccount() != null) {
-                    AccountLable.setText(Server.Moudle.Account.getMainAccount().getUserName());
+                    AccountLable.setText(Accountfxml.getMainAccount().getUserName());
                 }
                 Account.setOnAction(new EventHandler<ActionEvent>() {
                     @Override

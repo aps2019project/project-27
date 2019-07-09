@@ -42,22 +42,22 @@ public class Account {
         return accounts;
     }
 
-    public static ControlBox input(ControlBox controlBox, Client client ) {
+    public static ControlBox input(ControlBox controlBox, Client client) {
         String in = controlBox.getType();
         if (in.equals("create account")) {
-            return createAccount(controlBox.getUserName(), controlBox.getPass(),client);
+            return createAccount(controlBox.getUserName(), controlBox.getPass(), client);
         }
         if (in.equals("login")) {
-            ControlBox controlBox1 = login(controlBox,client);
+            ControlBox controlBox1 = login(controlBox, client);
             if (controlBox1.isSucces()) {
                 Controller.setRegion("MainMenu");
                 Controller.printInMenu();
             }
             return controlBox1;
         }
-        if ( in.equals ( "getMainAccount" ) ){
-            ControlBox controlBox1 = new ControlBox (  );
-            controlBox1.setAccount ( mainAccount );
+        if (in.equals("getMainAccount")) {
+            ControlBox controlBox1 = new ControlBox();
+            controlBox1.setAccount(mainAccount);
             return controlBox1;
         }
         if (in.equals("show leaderboard")) {
@@ -89,7 +89,7 @@ public class Account {
         return null;
     }
 
-    public static ControlBox createAccount ( String userName , String passWord , Client client ) {
+    public static ControlBox createAccount(String userName, String passWord, Client client) {
         ControlBox controlBox = new ControlBox();
         if (findAccount(userName) != null) {
             controlBox.setSucces(false);
@@ -102,32 +102,33 @@ public class Account {
             account.passWord = passWord;
             accounts.add(account);
             mainAccount = account;
-            client.setAccount ( mainAccount );
+            client.setAccount(mainAccount);
             controlBox.setSucces(true);
+            controlBox.setAccount(mainAccount);
         }
         return controlBox;
     }
 
-    public static ControlBox login ( ControlBox in , Client client ) {
+    public static ControlBox login(ControlBox in, Client client) {
         ControlBox controlBox = new ControlBox();
         if (findAccount(in.getUserName()) == null) {
             controlBox.setSucces(false);
             controlBox.setDescription("no user");
-           // Alert alert = new Alert(Alert.AlertType.ERROR);
-           // alert.setHeaderText("There is no account with this username");
+            // Alert alert = new Alert(Alert.AlertType.ERROR);
+            // alert.setHeaderText("There is no account with this username");
         } else {
             String passWord = in.getPass();
             if (passWord.equals(findAccount(in.getUserName()).passWord)) {
                 System.out.println("Login successful!");
                 mainAccount = findAccount(in.getUserName());
-                client.setAccount ( mainAccount );
+                client.setAccount(mainAccount);
                 controlBox.setSucces(true);
             } else {
                 controlBox.setDescription("wrong pass");
                 controlBox.setSucces(false);
                 //Alert alert = new Alert(Alert.AlertType.ERROR);
                 //alert.setHeaderText("Wrong pass");
-               // alert.showAndWait();
+                // alert.showAndWait();
             }
         }
         return controlBox;

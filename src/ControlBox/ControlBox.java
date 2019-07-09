@@ -25,11 +25,11 @@ public class ControlBox {
     private ArrayList<Deck> decks;
 
     public void setDecks(ArrayList<Deck> decks) {
-        this.decks = account.getDecks();
+        this.decks = decks;
     }
 
     public ArrayList<Deck> getDecks() {
-        return account.getDecks();
+        return decks;
     }
 
     public void setItems(ArrayList<Item> items) {
