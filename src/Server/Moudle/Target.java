@@ -61,7 +61,6 @@ public class Target {
 			return true;
 		return false;
 	}
-
 	public ArrayList<Cell> targetCells ( Battle battle , int x , int y ) {
 		ArrayList<Cell> cells = new ArrayList<> ( );
 		Ground ground = battle.getGround ( );

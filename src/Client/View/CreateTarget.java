@@ -29,7 +29,7 @@ public class CreateTarget implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         if (isValidCreate()) {
-                            new Target(
+                            Target target = new Target(
                                     name.getText(),
                                     type.getText(),
                                     length.getText(),

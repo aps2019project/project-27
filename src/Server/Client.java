@@ -3,6 +3,8 @@ package Server;
 import ControlBox.ControlBox;
 import Server.Moudle.Account;
 import Server.Moudle.Battle;
+import Server.Moudle.Card;
+import Server.Moudle.Load;
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
 
@@ -106,6 +108,24 @@ public class Client implements Runnable {
 				case "Battle":
 					answer = Battle.input ( controlBox , this );
 					Objects.requireNonNull ( answer ).setBattle ( battle );
+					break;
+				case "add":
+					switch ( controlBox.getType () ){
+						case "Card":
+							if ( controlBox.getCard () != null ) {
+								Card.addToCards ( controlBox.getCard ());
+							}
+							break;
+					}
+					int a = 1;
+					break;
+				case "save":
+					Account.save ();
+					try {
+						Load.saveMAndH ();
+					} catch (IOException e) {
+						e.printStackTrace ( );
+					}
 					break;
 				case "Client":
 					String type = controlBox.getType ( );
