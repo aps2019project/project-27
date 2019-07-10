@@ -28,12 +28,14 @@ public class Battlefxml implements Initializable {
 	public Label name;
 	public Label mana;
 	public Button grave;
+	private int lastTurn = 1;
 	public Label detail;
 	public ArrayList<cardGroup> cardGroups = new ArrayList<> (  );
 	public Button endTurn;
 	public ImageView img;
 	public AnchorPane mainPane;
 	public Button heroPower;
+	public Button check;
 	private boolean fighterSelected = false;
 	private boolean hendSelected = false;
 	private boolean inTurn = false;
@@ -48,19 +50,33 @@ public class Battlefxml implements Initializable {
 	@Override
 	public void initialize ( URL location , ResourceBundle resources ) {
 		preProccess ();
+		if ( getCurrentBattle ().getPlayerInTurn ().getUserName ().equals ( Accountfxml.getMainAccount ().getUserName () ) )
+			inTurn = true;
 		update ();
 		Pane pane = new Pane (  );
 		pane.setStyle ( "-fx-background-color: Blue;" );
 		AnimationTimer animationTimer = new AnimationTimer ( ) {
 			@Override
 			public void handle ( long now ) {
-				if ( lastTime ==0 )
-					lastTime = now;
-				if ( !playerName.equals ( account.getUserName ( ))&&now-lastTime>2000 ) {
-					lastTime = now;
-					update ();
-					return;
-				}
+//				if ( lastTime == 0 )
+//					lastTime = now;
+//				while ( !inTurn ) {
+//					try {
+//						Thread.sleep ( 1000 );
+//					} catch (InterruptedException e) {
+//						e.printStackTrace ( );
+//					}
+//					lastTime = now;
+//					update ();
+//					System.out.println ("update" );
+//				}
+				check.setOnAction ( new EventHandler<ActionEvent> ( ) {
+					@Override
+					public void handle ( ActionEvent event ) {
+						update ();
+						System.out.println ("check update" );
+					}
+				} );
 				heroPower.setOnAction ( new EventHandler<ActionEvent> ( ) {
 					@Override
 					public void handle ( ActionEvent event ) {
@@ -212,9 +228,16 @@ public class Battlefxml implements Initializable {
 			mainPane.getChildren ().removeAll ( cardGroup.getNodes () );
 		cardGroups.clear ();
 		Battle battle = getCurrentBattle ();
-		if ( battle == null ) {
+		if ( battle == null) {
 			winner ();
+			return;
 		}
+		int turn = battle.getCurrentTurn ();
+		if ( turn!=lastTurn ){
+			nextTurn ();
+			lastTurn = turn;
+		}
+
 		switch ( battle.getBattleType () ){
 			case 1:
 				detail.setText ( "flags you collect"+ battle.getPlayerInTurn ( ).getFlagInHand ( ) );
@@ -265,7 +288,6 @@ public class Battlefxml implements Initializable {
 			cardGroups.add ( cardGroup );
 			mainPane.getChildren ().addAll ( cardGroup.getNodes () );
 		}
-		Thread thread;
 		if (!name.getText ( ).equals ( account.getUserName ( ) )){
 			System.out.println ("not your turn" );
 
@@ -280,6 +302,14 @@ public class Battlefxml implements Initializable {
 		controlBox.setType ( "getCurrentBattle" );
 		ControlBox answer = Controller.giveFromGraphic ( controlBox );
 		return answer.getBattle ();
+	}
+	private void nextTurn(){
+		inTurn = (!inTurn);
+	}
+	private ControlBox give(ControlBox controlBox){
+		if ( inTurn )
+			return Controller.giveFromGraphic ( controlBox);
+		else return new ControlBox (  );
 	}
 }
 class cardGroup{

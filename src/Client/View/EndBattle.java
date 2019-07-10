@@ -22,8 +22,8 @@ public class EndBattle implements Initializable {
 		controlBox.setType ( "detail" );
 		controlBox.setRegion ( "Client" );
 		ControlBox answer = Controller.giveFromGraphic ( controlBox );
-		winner.setText ( controlBox.getDescription () );
-		gift.setText ( String.valueOf ( controlBox.getType () ) );
+		winner.setText ( answer.getDescription () );
+		gift.setText ( String.valueOf ( answer.getType () ) );
 		AnimationTimer animationTimer = new AnimationTimer ( ) {
 			@Override
 			public void handle ( long now ) {
@@ -35,5 +35,6 @@ public class EndBattle implements Initializable {
 				} );
 			}
 		};
+		animationTimer.start ();
 	}
 }

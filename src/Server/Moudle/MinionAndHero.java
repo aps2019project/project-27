@@ -105,6 +105,7 @@ public class MinionAndHero extends Card {
 
     public static void setMinionAndHeroes(ArrayList<MinionAndHero> minionAndHeroes) {
         MinionAndHero.minionAndHeroes = minionAndHeroes;
+        int a = 1;
     }
 
     public boolean isHero() {
