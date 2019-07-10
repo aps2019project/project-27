@@ -1,6 +1,9 @@
 package ControlBox;
 
 import Server.Moudle.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 
@@ -26,6 +29,7 @@ public class ControlBox {
     private Target target;
     private Buff buff;
     private Card card;
+    public static ObservableList<Label> messages = FXCollections.observableArrayList();
 
     public Target getTarget () {
         return target;

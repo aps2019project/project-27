@@ -8,13 +8,11 @@ import java.util.ArrayList;
 
 public class Shop {
     private static Shop currentShop = new Shop();
-    private static ArrayList<Card> cards = Card.getCards();
-    private static ArrayList<Item> items = Item.getItems();
+    private static ArrayList<Card> cards = new ArrayList<>();
+    private static ArrayList<Item> items = new ArrayList<>();
 
     public static void input(ControlBox controlBox) {
         String in = controlBox.getType();
-        controlBox.setCards(cards);
-        controlBox.setItems(items);
         if (in.equals("showCollection")) {
             currentShop.showCollection();
         }
@@ -54,16 +52,16 @@ public class Shop {
         return cards;
     }
 
-    public void setCards(ArrayList<Card> cards) {
-        this.cards = cards;
+    public static void addCard(Card card) {
+        cards.add(card);
     }
 
     public ArrayList<Item> getItems() {
         return items;
     }
 
-    public void setItems(ArrayList<Item> items) {
-        this.items = items;
+    public static void addItem(Item item) {
+        items.add(item);
     }
 
     public void exit() {

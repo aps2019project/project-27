@@ -8,26 +8,26 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 
 public class Main {
-	public static void main ( String[] args ) throws FileNotFoundException {
-		//load phase
-		Load.loadAccounts ( );
-		Load.loadMinionAndHeros ( );
-		Load.loadSpells ( );
-		Load.loadItems ( );
-		Battle.setCollectibleItems ( Item.getItems ( ) );
-		Card.addMAndH ( MinionAndHero.getMinionAndHeroes ( ) );
-		Card.addSpells ( Spell.getSpells ( ) );
-		new Thread ( () -> {
-			try {
-				ServerSocket serverSocket = new ServerSocket ( 8888 );
-				while ( true ) {
-					Client client = new Client ( serverSocket.accept ( ) );
-					ArrayList clients = Client.getClients ( );
-					new Thread ( client ).start ();
-				}
-			} catch (IOException e) {
-				e.printStackTrace ( );
-			}
-		} ).start ( );
-	}
+    public static void main(String[] args) throws FileNotFoundException {
+        //load phase
+        Load.loadAccounts();
+        Load.loadMinionAndHeros();
+        Load.loadSpells();
+        Load.loadItems();
+        Battle.setCollectibleItems(Item.getItems());
+        Card.addMAndH(MinionAndHero.getMinionAndHeroes());
+        Card.addSpells(Spell.getSpells());
+        new Thread(() -> {
+            try {
+                ServerSocket serverSocket = new ServerSocket(8888);
+                while (true) {
+                    Client client = new Client(serverSocket.accept());
+                    ArrayList clients = Client.getClients();
+                    new Thread(client).start();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
 }

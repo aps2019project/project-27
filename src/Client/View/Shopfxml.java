@@ -1,5 +1,6 @@
 package Client.View;
 
+import Client.Controller.Controller;
 import ControlBox.ControlBox;
 import Server.Moudle.Item;
 import Server.Moudle.Card;
@@ -39,9 +40,11 @@ public class Shopfxml implements Initializable {
     }
 
     public ArrayList<Card> getCards() {
-        controlBox.setType("xxx");
-        Shop.input(controlBox);
-        return controlBox.getCards();
+        ControlBox controlBox = new ControlBox();
+        controlBox.setRegion("add");
+        controlBox.setType("Card");
+        ControlBox answer = Controller.giveFromGraphic(controlBox);
+        return answer.getCards();
     }
 
     public ArrayList<Item> getItems() {

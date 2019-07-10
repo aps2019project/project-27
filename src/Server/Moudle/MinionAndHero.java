@@ -15,6 +15,7 @@ public class MinionAndHero extends Card {
     //0:onSpawn 2:passive   3:onDeath   4:onAttack  5:onDe  6:combo 7:use with select
     private int specialPowerType;
     private Target specialPowerTarget;
+
     public MinionAndHero(
             String name,
             String AP,
@@ -29,26 +30,26 @@ public class MinionAndHero extends Card {
             String cost,
             String mana,
             boolean isHero
-    ){
-        super (name,image,cost,mana,1 );
-        this.AP = Integer.parseInt ( AP );
-        this.HP = Integer.parseInt ( HP );
-        this.attackType = Integer.parseInt ( AType );
-        this.range = Integer.parseInt ( range );
+    ) {
+        super(name, image, cost, mana, 1);
+        this.AP = Integer.parseInt(AP);
+        this.HP = Integer.parseInt(HP);
+        this.attackType = Integer.parseInt(AType);
+        this.range = Integer.parseInt(range);
         this.isHero = isHero;
         this.specialPowerTarget = targe;
-        this.specialPowers.add ( buff );
-        this.specialPowerType = Integer.parseInt ( SPTyp );
-        if ( isHero ){
-            specialPowerCoolDown = Integer.parseInt ( SPMan );
+        this.specialPowers.add(buff);
+        this.specialPowerType = Integer.parseInt(SPTyp);
+        if (isHero) {
+            specialPowerCoolDown = Integer.parseInt(SPMan);
+        } else {
+            specialPowerMana = Integer.parseInt(SPMan);
         }
-        else {
-            specialPowerMana = Integer.parseInt ( SPMan );
-        }
-        minionAndHeroes.add ( this );
-        Card.addMAndH ( this );
+        minionAndHeroes.add(this);
+        Card.addMAndH(this);
     }
-    public static ArrayList<MinionAndHero> getMinionAndHeroes () {
+
+    public static ArrayList<MinionAndHero> getMinionAndHeroes() {
         return minionAndHeroes;
     }
 
@@ -56,7 +57,7 @@ public class MinionAndHero extends Card {
         return specialPowerTarget;
     }
 
-    public int getRange () {
+    public int getRange() {
         return range;
     }
 
@@ -76,12 +77,12 @@ public class MinionAndHero extends Card {
         return specialPowers;
     }
 
-    protected MinionAndHero(String name, int shopPrice, int manaPrice,String image) {
-        super(name, shopPrice, manaPrice, 1,image);
+    protected MinionAndHero(String name, int shopPrice, int manaPrice, String image) {
+        super(name, shopPrice, manaPrice, 1, image);
     }
 
     protected MinionAndHero(MinionAndHero minionAndHero) {
-        super(minionAndHero.getName(), minionAndHero.getShopPrice(), minionAndHero.getManaPrice(), 1,minionAndHero.getImage ());
+        super(minionAndHero.getName(), minionAndHero.getShopPrice(), minionAndHero.getManaPrice(), 1, minionAndHero.getImage());
         AP = minionAndHero.AP;
         HP = minionAndHero.HP;
         isHero = minionAndHero.isHero;
