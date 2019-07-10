@@ -176,7 +176,7 @@ public class Battle {
 			}
 			return client.getBattle ().attack ( client.getBattle ().selectedFighter , opponent );
 		}
-		return null;
+		return new ControlBox (  );
 	}
 
 	public static void help () {
@@ -938,8 +938,13 @@ public class Battle {
 //		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 //		alert.setHeaderText(String.format("Start turn %d player : %s", currentTurn, playerInTurn.getUserName()));
 //		alert.showAndWait();
-		return null;
+		return new ControlBox (  );
 	}
+
+	public int getCurrentTurn () {
+		return currentTurn;
+	}
+
 	private void insertCollectibleItem(){
 		int size = collectibleItems.size ();
 		Item item = collectibleItems.get (random.nextInt ( size ));

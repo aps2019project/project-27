@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Formatter;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Client implements Runnable {
@@ -93,8 +92,11 @@ public class Client implements Runnable {
 	@Override
 	public void run () {
 		while ( true ) {
-			if ( battle!=null&&battle.isEnd () )
+			if ( battle!=null&&battle.isEnd () ) {
+				this.winner = battle.getWinner ();
+				this.gift = String.valueOf ( battle.getGift () );
 				battle = null;
+			}
 			if ( !socket.isConnected () ){
 				clients.remove ( this );
 				return;
@@ -107,7 +109,8 @@ public class Client implements Runnable {
 					break;
 				case "Battle":
 					answer = Battle.input ( controlBox , this );
-					Objects.requireNonNull ( answer ).setBattle ( battle );
+				//	Objects.requireNonNull ( answer ).setBattle ( battle );
+					answer.setBattle ( battle );
 					break;
 				case "add":
 					switch ( controlBox.getType () ){

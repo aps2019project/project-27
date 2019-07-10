@@ -7,50 +7,48 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainPane" prefHeight="900.0" prefWidth="1260.0" xmlns="http://javafx.com/javafx/8.0.172"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.View.Battlefxml">
+<AnchorPane fx:id="mainPane" prefHeight="900.0" prefWidth="1260.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.View.Battlefxml">
     <children>
         <Label fx:id="name" layoutX="43.0" layoutY="731.0" text="name">
             <font>
-                <Font size="36.0"/>
+                <Font size="36.0" />
             </font>
         </Label>
         <Label layoutX="43.0" layoutY="792.0" text="mana">
             <font>
-                <Font size="24.0"/>
+                <Font size="24.0" />
             </font>
         </Label>
         <Label fx:id="mana" layoutX="125.0" layoutY="796.0" text="2">
             <font>
-                <Font size="18.0"/>
+                <Font size="18.0" />
             </font>
         </Label>
-        <Button fx:id="endTurn" layoutX="1081.0" layoutY="773.0" mnemonicParsing="false" prefHeight="47.0"
-                prefWidth="78.0" text="end turn"/>
+        <Button fx:id="endTurn" layoutX="1081.0" layoutY="773.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="78.0" text="end turn" />
         <Label fx:id="detail" layoutX="43.0" layoutY="865.0" text="detail">
             <font>
-                <Font size="24.0"/>
+                <Font size="24.0" />
             </font>
         </Label>
-        <Pane layoutY="130.0" prefHeight="20.0" prefWidth="1260.0" style="-fx-background-color: blue;"/>
-        <Pane layoutY="270.0" prefHeight="20.0" prefWidth="1260.0" style="-fx-background-color: blue;"/>
-        <Pane layoutY="410.0" prefHeight="20.0" prefWidth="1260.0" style="-fx-background-color: blue;"/>
-        <Pane layoutY="550.0" prefHeight="20.0" prefWidth="1260.0" style="-fx-background-color: blue;"/>
-        <Pane disable="true" focusTraversable="true" layoutX="130.0" prefHeight="700.0" prefWidth="20.0"
-              style="-fx-background-color: blue;">
+        <Pane layoutY="130.0" prefHeight="20.0" prefWidth="1260.0" style="-fx-background-color: blue;" />
+        <Pane layoutY="270.0" prefHeight="20.0" prefWidth="1260.0" style="-fx-background-color: blue;" />
+        <Pane layoutY="410.0" prefHeight="20.0" prefWidth="1260.0" style="-fx-background-color: blue;" />
+        <Pane layoutY="550.0" prefHeight="20.0" prefWidth="1260.0" style="-fx-background-color: blue;" />
+        <Pane disable="true" focusTraversable="true" layoutX="130.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;">
             <cursor>
-                <Cursor fx:constant="NONE"/>
+                <Cursor fx:constant="NONE" />
             </cursor>
         </Pane>
-        <Pane layoutX="270.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;"/>
-        <Pane layoutX="410.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;"/>
-        <Pane layoutX="550.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;"/>
-        <Pane layoutX="690.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;"/>
-        <Pane layoutX="830.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;"/>
-        <Pane layoutX="971.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;"/>
-        <Pane layoutX="1110.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;"/>
-        <Label layoutX="957.0" layoutY="848.0" text="next card"/>
-        <Button fx:id="heroPower" layoutX="47.0" layoutY="719.0" mnemonicParsing="false" text="hero power"/>
-        <Button fx:id="grave" layoutX="47.0" layoutY="827.0" mnemonicParsing="false" text="grave yard"/>
+        <Pane layoutX="270.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;" />
+        <Pane layoutX="410.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;" />
+        <Pane layoutX="550.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;" />
+        <Pane layoutX="690.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;" />
+        <Pane layoutX="830.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;" />
+        <Pane layoutX="971.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;" />
+        <Pane layoutX="1110.0" prefHeight="700.0" prefWidth="20.0" style="-fx-background-color: blue;" />
+        <Label layoutX="957.0" layoutY="874.0" text="next card" />
+        <Button fx:id="heroPower" layoutX="47.0" layoutY="719.0" mnemonicParsing="false" text="hero power" />
+        <Button fx:id="grave" layoutX="47.0" layoutY="827.0" mnemonicParsing="false" text="grave yard" />
+      <Button fx:id="check" layoutX="1097.0" layoutY="858.0" mnemonicParsing="false" text="check" />
     </children>
 </AnchorPane>
