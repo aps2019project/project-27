@@ -10,16 +10,17 @@ public class Hand extends Deck {
     private Card nextCard;
 
     public void addCard() {
-        setNextCard ();
-        handCards.add ( nextCard );
+        setNextCard();
+        handCards.add(nextCard);
         nextCard = null;
     }
-    public void setNextCard(){
-        Random random = new Random (  );
-        if ( nextCard!=null )
+
+    public void setNextCard() {
+        Random random = new Random();
+        if (nextCard != null)
             return;
-        int size = deck.getCards ().size ();
-        nextCard = deck.getCards ().get ( random.nextInt (size) );
+        int size = deck.getCards().size();
+        nextCard = deck.getCards().get(random.nextInt(size));
     }
 
     public Deck getDeck() {
@@ -29,13 +30,15 @@ public class Hand extends Deck {
     public void addItem() {
 
     }
-    public Hand(Deck deck){
-        handCards = new ArrayList<Card> (  );
+
+    public Hand(Deck deck) {
+        handCards = new ArrayList<Card>();
         this.deck = deck;
     }
+
     public void show() {
-        if(handCards.size ()==0){
-            System.out.println ("hand is empty" );
+        if (handCards.size() == 0) {
+            System.out.println("hand is empty");
             return;
         }
         for (Card card : handCards) {
@@ -61,8 +64,9 @@ public class Hand extends Deck {
     }
 
     public void removeCard(Card card) {
-        handCards.remove ( card );
+        handCards.remove(card);
     }
+
     public void removeItem() {
 
     }

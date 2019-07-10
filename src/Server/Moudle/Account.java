@@ -103,6 +103,7 @@ public class Account {
             accounts.add(account);
             mainAccount = account;
             client.setAccount(mainAccount);
+            System.out.println("client account set to" + client.getAccount());
             controlBox.setSucces(true);
             controlBox.setAccount(mainAccount);
         }

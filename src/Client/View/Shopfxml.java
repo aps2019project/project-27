@@ -48,9 +48,11 @@ public class Shopfxml implements Initializable {
     }
 
     public ArrayList<Item> getItems() {
-        controlBox.setType("");
-        Shop.input(controlBox);
-        return controlBox.getItems();
+        ControlBox controlBox = new ControlBox();
+        controlBox.setRegion("add");
+        controlBox.setType("Item");
+        ControlBox answer = Controller.giveFromGraphic(controlBox);
+        return answer.getItems();
     }
 
 

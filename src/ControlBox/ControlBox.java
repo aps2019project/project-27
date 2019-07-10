@@ -31,31 +31,31 @@ public class ControlBox {
     private Card card;
     public static ObservableList<Label> messages = FXCollections.observableArrayList();
 
-    public Target getTarget () {
+    public Target getTarget() {
         return target;
     }
 
-    public void setBuff ( Buff buff ) {
+    public void setBuff(Buff buff) {
         this.buff = buff;
     }
 
-    public void setTarget ( Target target ) {
+    public void setTarget(Target target) {
         this.target = target;
     }
 
-    public void setCard ( Card card ) {
+    public void setCard(Card card) {
         this.card = card;
     }
 
-    public Card getCard () {
+    public Card getCard() {
         return card;
     }
 
-    public Buff getBuff () {
+    public Buff getBuff() {
         return buff;
     }
 
-    public void setDecks( ArrayList<Deck> decks) {
+    public void setDecks(ArrayList<Deck> decks) {
         this.decks = account.getDecks();
     }
 

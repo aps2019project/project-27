@@ -28,15 +28,18 @@ public class Cell {
     }
 
     public void moveFromCell() {
-    cardOnCell = null;
+        cardOnCell = null;
     }
-    public void setItemOnCell(Item itemOnCell){
+
+    public void setItemOnCell(Item itemOnCell) {
         this.itemOnCell = itemOnCell;
     }
-    public void removeItem(){
+
+    public void removeItem() {
         itemOnCell = null;
     }
+
     public void moveInCell(Object object) {
-        cardOnCell = (Card)object;
+        cardOnCell = (Card) object;
     }
 }

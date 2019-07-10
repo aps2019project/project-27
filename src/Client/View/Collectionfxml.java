@@ -69,7 +69,7 @@ public class Collectionfxml implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if (getMainAccount() == null){
+        if (getMainAccount() == null) {
             System.out.println("account is null");
         }
         if (getMainAccount().getDecks().size() > 0) {
@@ -156,7 +156,7 @@ public class Collectionfxml implements Initializable {
                         File file = new File(fileName.getText() + ".json");
                         if (file.exists()) {
                             Deck deck = null;
-                            YaGsonBuilder gsonBuilder = new YaGsonBuilder ();
+                            YaGsonBuilder gsonBuilder = new YaGsonBuilder();
                             YaGson gson = gsonBuilder.create();
                             try {
                                 deck = gson.fromJson(new FileReader(file), Deck.class);

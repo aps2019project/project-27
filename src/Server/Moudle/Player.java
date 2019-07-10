@@ -10,11 +10,11 @@ public class Player {
     private Hand hand;
     private int mana;
     private Account account;
-    private ArrayList<Item> collectedItems = new ArrayList<> (  );
-    private ArrayList<Card> graveYard = new ArrayList<> (  );
+    private ArrayList<Item> collectedItems = new ArrayList<>();
+    private ArrayList<Card> graveYard = new ArrayList<>();
     private Item mainItem;
     private boolean haveLastFlag;
-    private ArrayList<Buff> buffs = new ArrayList<> (  );
+    private ArrayList<Buff> buffs = new ArrayList<>();
     private int flagInHand = 0;
 
     public void increaseFlagInHand() {
@@ -54,7 +54,7 @@ public class Player {
 
     public Player(Account account) {
 
-        this.UserName = account.getUserName ();
+        this.UserName = account.getUserName();
         this.account = account;
         hand = new Hand(account.getMainDeck());
     }
@@ -85,7 +85,7 @@ public class Player {
     }
 
     public void addToGraveYard(Fighter fighter) {
-        fighters.remove ( fighter );
+        fighters.remove(fighter);
         graveYard.add(fighter);
     }
 
@@ -126,11 +126,11 @@ public class Player {
 
     public void showFighters() {
         for (Fighter fighter : fighters) {
-            View.showFighter (fighter);
+            View.showFighter(fighter);
         }
     }
 
-    public ArrayList<Card> getGraveYard () {
+    public ArrayList<Card> getGraveYard() {
         return graveYard;
     }
 
@@ -168,6 +168,7 @@ public class Player {
             }
         }
     }
+
     public void showHand() {
         hand.show();
     }
