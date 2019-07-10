@@ -30,6 +30,7 @@ public class Card {
         for ( Spell spell:spells ){
             cards.add ( spell );
         }
+        int a=1;
     }
     public static void addSpells(Spell spells){
             cards.add ( spells );
