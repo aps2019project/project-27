@@ -1,6 +1,5 @@
 package Client.View;
 
-import ControlBox.ControlBox;
 import Server.Moudle.Account;
 import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
@@ -25,8 +24,7 @@ public class Chatfxml implements Initializable {
     public ScrollPane Scroll;
 
     public Account getMainAccount() {
-        ControlBox controlBox = new ControlBox();
-        return controlBox.getAccount();
+        return Accountfxml.getMainAccount();
     }
 
     @Override
@@ -44,6 +42,7 @@ public class Chatfxml implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         messages.add(new Label(getMainAccount().getUserName() + ": " + text.getText()));
+                        text.clear();
                     }
                 });
                 list.setItems(messages);
@@ -53,4 +52,5 @@ public class Chatfxml implements Initializable {
         };
         animationTimer.start();
     }
+
 }

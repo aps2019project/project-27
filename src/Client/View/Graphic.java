@@ -80,7 +80,7 @@ public class Graphic extends Application implements Runnable {
                 scene = new Scene(root, 1260, 900);
                 break;
             case "CostomCard":
-                root = FXMLLoader.load(getClass().getResource("CostomCard.fxml"));
+                root = FXMLLoader.load(getClass().getResource("CostumeCard"));
                 primaryStage.setTitle("HelpMenu");
                 scene = new Scene(root, 196, 330);
                 break;

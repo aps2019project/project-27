@@ -49,14 +49,12 @@ public class Collectionfxml implements Initializable {
     public Button mainDeck;
 
     public Account getMainAccount() {
-        ControlBox controlBox = new ControlBox();
-        return controlBox.getAccount();
+        return Accountfxml.getMainAccount();
     }
 
-    public ArrayList<Deck> getDecks(){
-        ControlBox controlBox = new ControlBox();
-        return controlBox.getDecks();
-    }
+//    public ArrayList<Deck> getDecks(){
+//        return Accountfxml.getMainAccount().getDecks();
+//    }
 
     public void showDecks() {
         for (int i = 0; i < getMainAccount().getDecks().size(); i++) {
@@ -71,6 +69,9 @@ public class Collectionfxml implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if (getMainAccount() == null){
+            System.out.println("account is null");
+        }
         if (getMainAccount().getDecks().size() > 0) {
             showDecks();
         }

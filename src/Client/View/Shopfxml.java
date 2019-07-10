@@ -32,19 +32,21 @@ public class Shopfxml implements Initializable {
     public ScrollPane information;
     public ListView informationList;
     public AnchorPane insideInformation;
+    public ControlBox controlBox = new ControlBox();
 
-    public Account getMainAccount(){
-        ControlBox controlBox = new ControlBox();
-        return controlBox.getAccount();
+    public Account getMainAccount() {
+        return Accountfxml.getMainAccount();
     }
 
-    public ArrayList<Card> getCards(){
-        ControlBox controlBox = new ControlBox();
+    public ArrayList<Card> getCards() {
+        controlBox.setType("xxx");
+        Shop.input(controlBox);
         return controlBox.getCards();
     }
 
-    public ArrayList<Item> getItems(){
-        ControlBox controlBox = new ControlBox();
+    public ArrayList<Item> getItems() {
+        controlBox.setType("");
+        Shop.input(controlBox);
         return controlBox.getItems();
     }
 
@@ -75,7 +77,6 @@ public class Shopfxml implements Initializable {
         scrollPane.setContent(listView);
 
 
-        ControlBox controlBox = new ControlBox();
         controlBox.setRegion("Shop");
         money.setText(String.format("%d", getMainAccount().getMoney()));
         AnimationTimer animationTimer = new AnimationTimer() {
