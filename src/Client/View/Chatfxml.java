@@ -45,8 +45,7 @@ public class Chatfxml implements Initializable {
                         ControlBox controlBox = new ControlBox();
                         controlBox.setRegion("chat");
                         controlBox.messages.add(new Label(getMainAccount().getUserName() + ": " + text.getText()));
-                        ControlBox answer = Controller.giveFromGraphic(controlBox);
-                        getMainAccount().setMessages(answer.getMessages());
+                        Controller.giveFromGraphic(controlBox);
                         text.clear();
                     }
                 });
