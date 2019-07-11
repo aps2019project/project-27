@@ -4,8 +4,6 @@ import ControlBox.ControlBox;
 import Server.Moudle.*;
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -25,6 +23,7 @@ public class Client implements Runnable {
     private String winner;
     private String gift;
     private boolean isWating;
+    private boolean visit;
 
     static {
         YaGsonBuilder yaGsonBuilder = new YaGsonBuilder();
@@ -110,6 +109,7 @@ public class Client implements Runnable {
                 this.winner = battle.getWinner();
                 this.gift = String.valueOf(battle.getGift());
                 battle = null;
+                visit = false;
             }
             if (!socket.isConnected()) {
                 clients.remove(this);
@@ -118,6 +118,8 @@ public class Client implements Runnable {
             ControlBox controlBox = this.recieve();
             ControlBox answer = new ControlBox();
             switch (controlBox.getRegion()) {
+				case "visit":
+					controlBox.setSucces ( visit );
                 case "card":
                     answer.setCards(Card.getCards());
                 case "Account":
@@ -184,7 +186,15 @@ public class Client implements Runnable {
                                 }
                             } else if (controlBox.getDescription() != null && controlBox.getDescription().equals("cancel")) {
                                 waitForBattle.remove(this);
-                            } else {
+                            }else if ( controlBox.getDescription() != null && controlBox.getDescription().equals("visit") ) {
+								findaBattle ();
+								if ( battle != null ) {
+									answer.setSucces ( true);
+									answer.setType("matchMaking");
+									visit = true;
+								}
+							}
+                            else {
                                 answer.setType("matchMaking");
                                 waitForBattle waitForBattle = Server.waitForBattle.find(controlBox.getBattleType(), controlBox.getNumberOfFlags());
                                 if (waitForBattle == null) {
@@ -230,6 +240,13 @@ public class Client implements Runnable {
 			}
 		}
 		return false;
+	}
+	public void findaBattle(){
+    	for ( Client client:clients ){
+    		if(client.battle!=null){
+    			this.battle = client.battle;
+			}
+		}
 	}
 }
 
