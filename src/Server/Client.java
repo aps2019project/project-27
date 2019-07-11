@@ -21,6 +21,7 @@ public class Client implements Runnable {
 	private Socket socket;
 	private Scanner scanner;
 	private Formatter formatter;
+	private static ArrayList<String> list = new ArrayList<> (  );
 	private static YaGson yaGson;
 	private String winner;
 	private String gift;
@@ -88,7 +89,15 @@ public class Client implements Runnable {
 		formatter.format ( str + "\n" );
 		formatter.flush ( );
 	}
-
+	public static void addToList(String name){
+		list.add ( name );
+	}
+	public static void removeFromList(String name){
+		list.remove ( name );
+	}
+	public static boolean isLogin(String name){
+		return list.contains ( name );
+	}
 	@Override
 	public void run () {
 		while ( true ) {

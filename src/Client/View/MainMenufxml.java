@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -25,10 +26,14 @@ public class MainMenufxml implements Initializable {
     public Button Help;
     public Button save;
     public Button chat;
+    public ScrollPane list;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        ControlBox controlBox = new ControlBox (  );
+        controlBox.setRegion ( "Client" );
+        controlBox.setType ( "getList" );
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {

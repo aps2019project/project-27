@@ -11,7 +11,7 @@ public class Item {
         lastFlag.isLastFlag = true;
         lastFlag.isFlag = false;
         lastFlag.name = "last flag";
-        lastFlag.image = "src\\View\\images\\flag.gif";
+        lastFlag.image = "flag.gif";
     }
 
     private static Item normalFlag = new Item();
@@ -20,7 +20,7 @@ public class Item {
         normalFlag.isLastFlag = false;
         normalFlag.isFlag = true;
         normalFlag.name = "normal flag";
-        normalFlag.image = "src\\View\\images\\flag.gif";
+        normalFlag.image = "flag.gif";
 
     }
     private String name;

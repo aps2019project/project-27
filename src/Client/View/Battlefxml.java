@@ -327,7 +327,7 @@ class cardGroup{
 		if ( card.getImage ()==null||card.getImage ().isEmpty () )
 			file = new File ( "src\\Client\\View\\images\\DiveSepid.gif" );
 		else
-			file = new File ( card.getImage () );
+			file = new File ( "src\\Client\\View\\images\\"+card.getImage () );
 		try {
 			this.imageView.setImage ( new Image ( new FileInputStream ( file ) ) );
 		} catch (FileNotFoundException e) {
@@ -390,7 +390,7 @@ class cardGroup{
 		if ( item.getImage ()==null||item.getImage ().isEmpty () )
 			file = new File ( "src\\Client\\View\\images\\images.png" );
 		else
-			file = new File ( item.getImage () );
+			file = new File ( "src\\Client\\View\\images\\"+item.getImage () );
 		try {
 			this.imageView.setImage ( new Image ( new FileInputStream ( file ) ) );
 		} catch (FileNotFoundException e) {

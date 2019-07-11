@@ -46,7 +46,7 @@ public class Controller {
 //        clip.loop(Clip.LOOP_CONTINUOUSLY);
         //connect to server
         String IP = "localhost";
-        //IP = scanner.nextLine();
+        IP = scanner.nextLine();
         socket = new Socket(IP, 8888);
         serveerInput = new Scanner(socket.getInputStream());
         serverOutput = new Formatter(socket.getOutputStream());
