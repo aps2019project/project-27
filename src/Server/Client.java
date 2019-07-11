@@ -1,10 +1,7 @@
 package Server;
 
 import ControlBox.ControlBox;
-import Server.Moudle.Account;
-import Server.Moudle.Battle;
-import Server.Moudle.Card;
-import Server.Moudle.Load;
+import Server.Moudle.*;
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
 
