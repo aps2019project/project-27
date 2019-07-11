@@ -1,5 +1,7 @@
 package Client.View;
 
+import Client.Controller.Controller;
+import ControlBox.ControlBox;
 import Server.Moudle.Account;
 import javafx.animation.AnimationTimer;
 import javafx.collections.FXCollections;
@@ -15,7 +17,6 @@ import java.util.ResourceBundle;
 
 public class Chatfxml implements Initializable {
 
-    public static ObservableList<Label> messages = FXCollections.observableArrayList();
     public ListView list;
     public Button back;
     public Button send;
@@ -41,11 +42,15 @@ public class Chatfxml implements Initializable {
                 send.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        messages.add(new Label(getMainAccount().getUserName() + ": " + text.getText()));
+                        ControlBox controlBox = new ControlBox();
+                        controlBox.setRegion("chat");
+                        controlBox.messages.add(new Label(getMainAccount().getUserName() + ": " + text.getText()));
+                        ControlBox answer = Controller.giveFromGraphic(controlBox);
+                        getMainAccount().setMessages(answer.getMessages());
                         text.clear();
                     }
                 });
-                list.setItems(messages);
+                list.setItems(getMainAccount().getMessages());
                 insideList.setPrefHeight(list.getPrefHeight());
                 Scroll.setContent(list);
             }

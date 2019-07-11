@@ -27,6 +27,7 @@ public class BattleMenu implements Initializable {
     private boolean wait = false;
     private boolean selected = false;
     public Button cancel;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         AnimationTimer animationTimer = new AnimationTimer() {
@@ -44,45 +45,44 @@ public class BattleMenu implements Initializable {
 //                    }
 //                }
 //                System.out.println ("1" );
-                cancel.setOnAction ( new EventHandler<ActionEvent> ( ) {
+                cancel.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
-                    public void handle ( ActionEvent event ) {
-                        ControlBox controlBox = new ControlBox (  );
-                        controlBox.setRegion ( "Client" );
-                        controlBox.setType ( "matchMaking" );
-                        controlBox.setDescription ( "cancel" );
-                        Controller.giveFromGraphic ( controlBox );
+                    public void handle(ActionEvent event) {
+                        ControlBox controlBox = new ControlBox();
+                        controlBox.setRegion("Client");
+                        controlBox.setType("matchMaking");
+                        controlBox.setDescription("cancel");
+                        Controller.giveFromGraphic(controlBox);
                     }
-                } );
-                matchMaking.setOnAction ( event -> {
-                    ControlBox controlBox = new ControlBox (  );
-                    controlBox.setRegion ( "Client" );
-                    controlBox.setType ( "matchMaking" );
+                });
+                matchMaking.setOnAction(event -> {
+                    ControlBox controlBox = new ControlBox();
+                    controlBox.setRegion("Client");
+                    controlBox.setType("matchMaking");
                     if (hero.isSelected())
                         controlBox.setBattleType(0);
                     else if (flags.isSelected())
                         controlBox.setBattleType(1);
                     else if (oneFlag.isSelected())
                         controlBox.setBattleType(2);
-                    controlBox.setNumberOfFlags ( Integer.parseInt ( number.getText () ) );
+                    controlBox.setNumberOfFlags(Integer.parseInt(number.getText()));
                     wait = true;
-                    ControlBox answer = Controller.giveFromGraphic ( controlBox );
-                } );
-                check.setOnAction ( new EventHandler<ActionEvent> ( ) {
+                    ControlBox answer = Controller.giveFromGraphic(controlBox);
+                });
+                check.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
-                    public void handle ( ActionEvent event ) {
-                        if ( !wait ){
+                    public void handle(ActionEvent event) {
+                        if (!wait) {
 
-                        }
-                        else {
-                            ControlBox controlBox = new ControlBox (  );
-                            controlBox.setType ( "matchMaking" );
-                            controlBox.setRegion ( "Client" );
-                            controlBox.setDescription ( "check" );
-                            ControlBox answer = Controller.giveFromGraphic ( controlBox );
+                        } else {
+                            ControlBox controlBox = new ControlBox();
+                            controlBox.setType("matchMaking");
+                            controlBox.setRegion("Client");
+                            controlBox.setDescription("check");
+                            ControlBox answer = Controller.giveFromGraphic(controlBox);
                         }
                     }
-                } );
+                });
                 menu.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {

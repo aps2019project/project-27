@@ -324,11 +324,12 @@ public class Controller {
         sendToServer(controlBox);
         ControlBox answer = getFromServer();
         if (answer.getType() != null) {
-            if (answer.getType().equals("matchMaking"))
+            if (answer.getType().equals("matchMaking")) {
                 if (answer.isSucces()) {
                     Graphic.setRegion("Battle");
                     return null;
                 }
+            }
         }
         return answer;
     }

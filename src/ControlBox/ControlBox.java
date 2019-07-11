@@ -1,6 +1,9 @@
 package ControlBox;
 
 import Server.Moudle.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 
@@ -26,32 +29,76 @@ public class ControlBox {
     private Target target;
     private Buff buff;
     private Card card;
+    public static ObservableList<Label> messages = FXCollections.observableArrayList();
+    private ArrayList<Card> collectionCards;
+    private ArrayList<Item> collectionItems;
+    private int money = Account.getMainAccount().getMoney();
 
-    public Target getTarget () {
+    public void spendMoney(int a) {
+        money -= a;
+    }
+
+    public void addMoney(int a) {
+        money += a;
+    }
+
+    public static void setMessages(ObservableList<Label> messages) {
+        ControlBox.messages = messages;
+    }
+
+    public ObservableList<Label> getMessages() {
+        return messages;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setCollectionCards(ArrayList<Card> collectionCards) {
+        this.collectionCards = collectionCards;
+    }
+
+    public void setCollectionItems(ArrayList<Item> collectionItems) {
+        this.collectionItems = collectionItems;
+    }
+
+    public ArrayList<Card> getCollectionCards() {
+        return collectionCards;
+    }
+
+    public ArrayList<Item> getCollectionItems() {
+        return collectionItems;
+    }
+
+    public Target getTarget() {
         return target;
     }
 
-    public void setBuff ( Buff buff ) {
+    public void setBuff(Buff buff) {
         this.buff = buff;
     }
 
-    public void setTarget ( Target target ) {
+    public void setTarget(Target target) {
         this.target = target;
     }
 
-    public void setCard ( Card card ) {
+    public void setCard(Card card) {
         this.card = card;
     }
 
-    public Card getCard () {
+    public Card getCard() {
         return card;
     }
 
-    public Buff getBuff () {
+    public Buff getBuff() {
         return buff;
     }
 
-    public void setDecks( ArrayList<Deck> decks) {
+    public void setDecks(ArrayList<Deck> decks) {
         this.decks = account.getDecks();
     }
 

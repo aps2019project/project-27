@@ -3,7 +3,9 @@ package Server.Moudle;
 import Client.Controller.Controller;
 import ControlBox.ControlBox;
 import Server.Client;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,11 +17,20 @@ public class Account {
     private String userName;
     private String passWord;
     private Collection collection = new Collection();
-    private int money = 100000;
+    private int money = 100000000;
     private ArrayList<Deck> decks = new ArrayList<>();
     private Deck mainDeck = new Deck();
     private int wins;
     private int losses;
+    private static ObservableList<Label> messages;
+
+    public void setMessages(ObservableList<Label> messages) {
+        this.messages = messages;
+    }
+
+    public ObservableList<Label> getMessages() {
+        return messages;
+    }
 
     public Deck findDeck(String name) {
         for (Deck deck : decks) {
@@ -103,6 +114,7 @@ public class Account {
             accounts.add(account);
             mainAccount = account;
             client.setAccount(mainAccount);
+            System.out.println("client account set to" + client.getAccount());
             controlBox.setSucces(true);
             controlBox.setAccount(mainAccount);
         }
@@ -171,6 +183,11 @@ public class Account {
         System.out.print("create account [user name]\nlogin [user name]\nshow leaderboard\nsave\nlogout\nhelp\n");
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+        int a=1;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -198,6 +215,7 @@ public class Account {
 
     public void spendMoney(int money) {
         this.money -= money;
+        int a = 1;
     }
 
     public ArrayList<Deck> getDecks() {

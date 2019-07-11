@@ -104,33 +104,48 @@ public class Client implements Runnable {
 			if ( battle!=null&&battle.isEnd () ) {
 				this.winner = battle.getWinner ();
 				this.gift = String.valueOf ( battle.getGift () );
-				battle = null;
-			}
-			if ( !socket.isConnected () ){
-				clients.remove ( this );
-				return;
-			}
-			ControlBox controlBox = this.recieve ( );
-			ControlBox answer = new ControlBox ( );
-			switch ( controlBox.getRegion ( ) ) {
-				case "Account":
-					answer = Account.input ( controlBox , this );
-					break;
-				case "Battle":
-					answer = Battle.input ( controlBox , this );
-				//	Objects.requireNonNull ( answer ).setBattle ( battle );
-					answer.setBattle ( battle );
-					break;
-				case "add":
-					switch ( controlBox.getType () ){
-						case "Card":
-							if ( controlBox.getCard () != null ) {
-								Card.addToCards ( controlBox.getCard ());
-							}
-							break;
-					}
-					int a = 1;
-					break;
+                battle = null;
+            }
+            if (!socket.isConnected()) {
+                clients.remove(this);
+                return;
+            }
+            ControlBox controlBox = this.recieve();
+            ControlBox answer = new ControlBox();
+            switch (controlBox.getRegion()) {
+                case "Account":
+                    answer = Account.input(controlBox, this);
+                    break;
+                case "Battle":
+                    answer = Battle.input(controlBox, this);
+                    //	Objects.requireNonNull ( answer ).setBattle ( battle );
+                    answer.setBattle(battle);
+                    break;
+                case "add":
+                    System.out.println("inside client add");
+                    switch (controlBox.getType()) {
+                        case "Card":
+//                            Card.addToCards(controlBox.getCard());
+                            if (Card.getCards() == null) {
+                                System.out.println("cards are null");
+                            }
+                            answer.setCards(Card.getCards());
+                            break;
+                        case "Item":
+                            if (Item.getItems() == null) {
+                                System.out.println("items are null");
+                            }
+                            answer.setItems(Item.getItems());
+                    }
+                    int a = 1;
+                    break;
+                case "addToCollection":
+                    switch (controlBox.getType()) {
+                        case "Card":
+                            answer.setCards(Account.getMainAccount().getCollection().getCards());
+                        case "Item":
+                            answer.setItems(Account.getMainAccount().getCollection().getItems());
+                    }
 				case "save":
 					Account.save ();
 					try {
@@ -140,18 +155,20 @@ public class Client implements Runnable {
 					}
 					break;
 				case "Client":
-					String type = controlBox.getType ( );
-					switch ( type ) {
+                    System.out.println("inside client client");
+                    String type = controlBox.getType();
+                    switch (type) {
 						case "detail":
 							answer.setDescription ( winner );
 							answer.setType ( gift );
 							break;
 						case "getMainAccount":
-							answer.setAccount ( account );
-							break;
-						case "getCurrentBattle":
-							answer.setBattle ( battle );
-							answer.setPass ( "battle" );
+                            System.out.println("inside client client getmainaccount");
+                            answer.setAccount(Account.getMainAccount());
+                            break;
+                        case "getCurrentBattle":
+                            answer.setBattle(battle);
+                            answer.setPass("battle");
 							break;
 						case "matchMaking":
 							if ( controlBox.getDescription ()!=null&&controlBox.getDescription ().equals ( "check" ) ){
@@ -182,17 +199,29 @@ public class Client implements Runnable {
 							break;
 					}
 					break;
-			}
-			this.send ( answer );
-		}
-	}
+                case "mainAccount":
+                    switch (controlBox.getType()) {
+                        case "money":
+                            answer.setMoney(Account.getMainAccount().getMoney());
+                    }
+                case "chat":
+                    answer.setMessages(controlBox.getMessages());
+                    for (Account account : Account.getAccounts()) {
+                        account.setMessages(answer.getMessages());
+                    }
+            }
+            this.send(answer);
+        }
+    }
 }
-class waitForBattle{
-	private static ArrayList<waitForBattle> waitForBattles = new ArrayList<> (  );
-	private int battleType;
-	private Client client;
-	private int numberOfFlags;
-	public waitForBattle(int numberOfFlags,int battleType,Client client){
+
+class waitForBattle {
+    private static ArrayList<waitForBattle> waitForBattles = new ArrayList<>();
+    private int battleType;
+    private Client client;
+    private int numberOfFlags;
+
+    public waitForBattle(int numberOfFlags, int battleType, Client client) {
 		this.client = client;
 		this.numberOfFlags = numberOfFlags;
 		this.battleType = battleType;
@@ -216,7 +245,7 @@ class waitForBattle{
 		return null;
 	}
 
-	public Client getClient () {
-		return client;
-	}
+    public Client getClient() {
+        return client;
+    }
 }

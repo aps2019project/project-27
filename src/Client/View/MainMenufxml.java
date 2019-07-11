@@ -55,9 +55,9 @@ public class MainMenufxml implements Initializable {
                 save.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        ControlBox controlBox = new ControlBox (  );
-                        controlBox.setRegion ( "save" );
-                        Controller.giveFromGraphic ( controlBox );
+                        ControlBox controlBox = new ControlBox();
+                        controlBox.setRegion("save");
+                        Controller.giveFromGraphic(controlBox);
                     }
                 });
                 Collection.setOnAction(new EventHandler<ActionEvent>() {
