@@ -97,6 +97,7 @@ public class Client implements Runnable {
 	}
 	@Override
 	public void run () {
+		int a=1;
 		while ( true ) {
 			if ( battle!=null&&battle.isEnd () ) {
 				this.winner = battle.getWinner ();
@@ -129,12 +130,12 @@ public class Client implements Runnable {
                             answer.setCards(Card.getCards());
                             break;
                         case "Item":
-                            if (Item.getItems() == null) {
+                            if ( Item.getItems() == null) {
                                 System.out.println("items are null");
                             }
                             answer.setItems(Item.getItems());
                     }
-                    int a = 1;
+                    int c = 1;
                     break;
                 case "addToCollection":
                     switch (controlBox.getType()) {
