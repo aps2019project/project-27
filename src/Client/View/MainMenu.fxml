@@ -62,7 +62,7 @@
       <Button fx:id="chat" layoutX="510.0" layoutY="286.0" mnemonicParsing="false" text="Chat" />
       <ScrollPane layoutX="14.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0">
         <content>
-          <AnchorPane fx:id="list" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+          <AnchorPane fx:id="list" minHeight="0.0" minWidth="0.0" prefHeight="198.0" prefWidth="200.0" />
         </content>
       </ScrollPane>
     </children>
