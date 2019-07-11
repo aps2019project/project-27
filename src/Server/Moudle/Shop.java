@@ -149,7 +149,7 @@ public class Shop {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("This card|item is not in the shop!");
             alert.showAndWait();
-        } else if (findCard(name) != null && findItem(name) == null) {
+        } else if (findCard(name) != null && findCard(name).getTedad() != 0) {
             if (Account.getMainAccount().getMoney() < findCard(name).getShopPrice()) {
                 System.out.println("You don't have enough money!");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -159,14 +159,14 @@ public class Shop {
                 Account.getMainAccount().getCollection().addToCards(findCard(name));
                 Account.getMainAccount().spendMoney(findCard(name).getShopPrice());
                 controlBox.spendMoney(findCard(name).getShopPrice());
-                int money = Account.getMainAccount().getMoney();
-                int a = 1;
+                findCard(name).removeFromTedad();
+                controlBox.setRemaining(findCard(name).getTedad());
                 System.out.println("The card's been bought!");
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setHeaderText("The card's been bought");
                 alert.showAndWait();
             }
-        } else if (findCard(name) == null && findItem(name) != null) {
+        } else if (findItem(name) != null) {
             if (Account.getMainAccount().getMoney() < findItem(name).getPrice()) {
                 System.out.println("You don't have enough money!");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -190,20 +190,22 @@ public class Shop {
     }
 
     public void sell(String name, ControlBox controlBox) {
+
         if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) == null) {
             System.out.println("You don't have this card|item!");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("You don't have this card|item");
             alert.showAndWait();
-        } else if (Account.getMainAccount().getCollection().findCard(name) != null && Account.getMainAccount().getCollection().findItem(name) == null) {
+        } else if (Account.getMainAccount().getCollection().findCard(name) != null && Account.getMainAccount().getCollection().findCard(name).getTedad() != 0) {
             Account.getMainAccount().getCollection().removeFromCards(findCard(name));
             Account.getMainAccount().addMoney(findCard(name).getShopPrice());
             controlBox.addMoney(findCard(name).getShopPrice());
             System.out.println("The card's been sold!");
+            Account.getMainAccount().getCollection().findCard(name).addToTedad();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setHeaderText("The card's been sold");
             alert.showAndWait();
-        } else if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) != null) {
+        } else if (Account.getMainAccount().getCollection().findItem(name) != null) {
             Account.getMainAccount().getCollection().removeFromItems(findItem(name));
             Account.getMainAccount().addMoney(findItem(name).getPrice());
             controlBox.addMoney(findItem(name).getPrice());

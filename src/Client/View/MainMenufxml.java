@@ -28,9 +28,6 @@ public class MainMenufxml implements Initializable {
     public Button Help;
     public Button save;
     public Button chat;
-    public ScrollPane scroll;
-    public AnchorPane insideList;
-    public ListView list;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

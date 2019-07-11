@@ -32,7 +32,16 @@ public class Load {
         System.out.println("saved!\n");
         writer.close();
     }
-
+    public static void saveSpells() throws IOException {
+        YaGson gson = CreatGson.getGson();
+        SpellTmp spellTmp = new SpellTmp();
+        spellTmp.spells = Spell.getSpells();
+        FileWriter writer = new FileWriter("Spells.json");
+        String obj = gson.toJson(spellTmp);
+        writer.write(obj);
+        System.out.println("saved!\n");
+        writer.close();
+    }
     public static void loadMinionAndHeros() throws FileNotFoundException {
         YaGson gson = CreatGson.getGson();
         Reader reader = new FileReader("MinionAndHeroes.json");

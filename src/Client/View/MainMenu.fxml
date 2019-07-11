@@ -61,13 +61,5 @@
             </children>
         </VBox>
       <Button fx:id="chat" layoutX="510.0" layoutY="286.0" mnemonicParsing="false" text="Chat" />
-      <ScrollPane fx:id="scroll" layoutX="14.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0">
-        <content>
-          <AnchorPane fx:id="insideList" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <ListView fx:id="list" prefHeight="200.0" prefWidth="200.0" />
-               </children></AnchorPane>
-        </content>
-      </ScrollPane>
     </children>
 </AnchorPane>

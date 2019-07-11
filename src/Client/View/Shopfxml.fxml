@@ -11,7 +11,7 @@
 <AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
             minHeight="-Infinity" minWidth="-Infinity" styleClass="bodybg" stylesheets="@Backgrounds/ShopBackground.css"
             xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Client.View.Shopfxml">
+            fx:controller="Client.View.ServerShopfxml">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="31.0" layoutX="86.0" layoutY="273.0"
                    stroke="BLACK" strokeType="INSIDE" width="55.0"/>

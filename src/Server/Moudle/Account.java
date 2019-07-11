@@ -161,7 +161,7 @@ public class Account {
         ArrayList<String> answer = new ArrayList<>();
         for (int i = 0; i < accounts.size(); i++) {
             String status;
-            boolean online = false;
+            boolean online = Client.isOnline(accounts.get(i));
             if(online){
                 status = "Online";
             } else {

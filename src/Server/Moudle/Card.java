@@ -13,6 +13,23 @@ public class Card {
     private int manaPrice;
     //0:buff   1:minion
     private int cardType;
+    private int tedad;
+
+    public void addToTedad() {
+        tedad++;
+    }
+
+    public void removeFromTedad() {
+        tedad--;
+    }
+
+    public int getTedad() {
+        return tedad;
+    }
+
+    public void setTedad(int tedad) {
+        this.tedad = tedad;
+    }
 
     public Card(String name, String image, String shopPrice, String manaPrice, int cardType) {
         this.name = name;

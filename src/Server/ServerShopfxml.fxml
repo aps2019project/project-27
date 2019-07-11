@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="bodybg" stylesheets="@ShopBackground.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Server.ServerShopfxml">
+    <children>
+        <ScrollPane fx:id="scrollPane" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0">
+            <content>
+                <AnchorPane fx:id="insideScrollPane" minHeight="0.0" minWidth="0.0" prefHeight="244.0" prefWidth="228.0">
+                    <children>
+                        <ListView fx:id="listView" prefHeight="200.0" prefWidth="200.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <ScrollPane fx:id="information" layoutX="321.0" layoutY="52.0" prefHeight="200.0" prefWidth="200.0">
+            <content>
+                <AnchorPane fx:id="insideInformation" minHeight="0.0" minWidth="0.0" prefHeight="255.0" prefWidth="245.0">
+                    <children>
+                        <ListView fx:id="informationList" prefHeight="200.0" prefWidth="200.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.util.ArrayList;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         //load phase
         Load.loadAccounts();
         Load.loadMinionAndHeros();
@@ -17,6 +17,9 @@ public class Main {
         Battle.setCollectibleItems(Item.getItems());
         Card.addMAndH(MinionAndHero.getMinionAndHeroes());
         Card.addSpells(Spell.getSpells());
+        Load.saveMAndH();
+        Load.saveSpells();
+        Graphic.main(args);
         new Thread(() -> {
             try {
                 ServerSocket serverSocket = new ServerSocket(8888);

@@ -36,6 +36,15 @@ public class ControlBox {
     private String label;
     private ArrayList<String> leaderBoard = new ArrayList<>();
     private String leaderLabel;
+    private int remaining;
+
+    public int getRemaining() {
+        return remaining;
+    }
+
+    public void setRemaining(int remaining) {
+        this.remaining = remaining;
+    }
 
     public ArrayList<String> getLeaderBoard() {
         return leaderBoard;

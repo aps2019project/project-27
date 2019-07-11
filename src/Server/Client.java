@@ -129,7 +129,6 @@ public class Client implements Runnable {
                     answer.setBattle(battle);
                     break;
                 case "add":
-                    System.out.println("inside client add");
                     switch (controlBox.getType()) {
                         case "Card":
 //                            Card.addToCards(controlBox.getCard());
@@ -222,7 +221,7 @@ public class Client implements Runnable {
             this.send(answer);
         }
     }
-    private static boolean isOnline(Account account){
+    public static boolean isOnline(Account account){
 		for(Client client :clients){
 			if ( client.account!=null ){
 				if ( client.account.getUserName ().equals ( account.getUserName () ) ){
