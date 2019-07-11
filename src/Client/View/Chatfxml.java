@@ -23,6 +23,7 @@ public class Chatfxml implements Initializable {
     public TextField text;
     public AnchorPane insideList;
     public ScrollPane Scroll;
+    public ControlBox controlBox = new ControlBox();
 
     public Account getMainAccount() {
         return Accountfxml.getMainAccount();
@@ -30,6 +31,9 @@ public class Chatfxml implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        list.setItems(controlBox.getMessages());
+        insideList.setPrefHeight(list.getPrefHeight());
+        Scroll.setContent(list);
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -42,7 +46,6 @@ public class Chatfxml implements Initializable {
                 send.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        ControlBox controlBox = new ControlBox();
                         controlBox.setRegion("chat");
                         controlBox.messages.add(new Label(getMainAccount().getUserName() + ": " + text.getText()));
                         Controller.giveFromGraphic(controlBox);
