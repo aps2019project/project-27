@@ -15,8 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -40,8 +40,8 @@ public class Battlefxml implements Initializable {
 	private boolean hendSelected = false;
 	private boolean inTurn = false;
 	private long lastTime;
+	private boolean visit = false;
 	private Account account;
-	private String playerName= new String (  );
 	public Pane[][] panes = new Pane[5][9];
 	public Pane[] handPane = new Pane[6];
 	public static void winner(){
@@ -52,24 +52,16 @@ public class Battlefxml implements Initializable {
 		preProccess ();
 		if ( getCurrentBattle ().getPlayerInTurn ().getUserName ().equals ( Accountfxml.getMainAccount ().getUserName () ) )
 			inTurn = true;
+		ControlBox controlBox = new ControlBox (  );
+		controlBox.setRegion ( "visit" );
+		ControlBox answer = Controller.giveFromGraphic ( controlBox );
+		visit = answer.isSucces ();
 		update ();
 		Pane pane = new Pane (  );
 		pane.setStyle ( "-fx-background-color: Blue;" );
 		AnimationTimer animationTimer = new AnimationTimer ( ) {
 			@Override
 			public void handle ( long now ) {
-//				if ( lastTime == 0 )
-//					lastTime = now;
-//				while ( !inTurn ) {
-//					try {
-//						Thread.sleep ( 1000 );
-//					} catch (InterruptedException e) {
-//						e.printStackTrace ( );
-//					}
-//					lastTime = now;
-//					update ();
-//					System.out.println ("update" );
-//				}
 				check.setOnAction ( new EventHandler<ActionEvent> ( ) {
 					@Override
 					public void handle ( ActionEvent event ) {
@@ -85,7 +77,7 @@ public class Battlefxml implements Initializable {
 						controlBox.setType ("use special power");
 						controlBox.setX ( 0 );
 						controlBox.setY ( 0 );
-						Controller.giveFromGraphic ( controlBox );
+						give ( controlBox );
 					}
 				} );
 				for ( int i = 0 ; i <5  ; i++ ) {
@@ -98,7 +90,7 @@ public class Battlefxml implements Initializable {
 							controlBox.setType ( "insert select" );
 							controlBox.setRegion ( "Battle" );
 							controlBox.setN ( finalI);
-							ControlBox answer = Controller.giveFromGraphic ( controlBox );
+							ControlBox answer = give ( controlBox );
 							hendSelected = true;
 							handPane[ finalI1 ].setStyle ( "-fx-background-color: Red;" );
 						}
@@ -116,7 +108,7 @@ public class Battlefxml implements Initializable {
 								controlBox.setType ( "insert" );
 								controlBox.setX ( finalI );
 								controlBox.setY ( finalJ );
-								ControlBox answer = Controller.giveFromGraphic ( controlBox );
+								ControlBox answer = give ( controlBox );
 								if ( answer.isSucces ( ) ) {
 									update ();
 									hendSelected = true;
@@ -129,7 +121,7 @@ public class Battlefxml implements Initializable {
 									controlBox.setType ( "select card" );
 									controlBox.setX ( finalI );
 									controlBox.setY ( finalJ );
-									ControlBox answer = Controller.giveFromGraphic ( controlBox );
+									ControlBox answer = give ( controlBox );
 									if ( answer.isSucces ( ) ) {
 										pane1.setStyle ( "-fx-background-color: Red;" );
 										fighterSelected = true;
@@ -141,7 +133,7 @@ public class Battlefxml implements Initializable {
 										controlBox.setType ( "move" );
 										controlBox.setX ( finalI );
 										controlBox.setY ( finalJ );
-										ControlBox answer = Controller.giveFromGraphic ( controlBox );
+										ControlBox answer = give ( controlBox );
 										if ( answer.isSucces ( ) ) {
 											fighterSelected = false;
 											update ( );
@@ -152,7 +144,7 @@ public class Battlefxml implements Initializable {
 										controlBox.setX ( finalI );
 										controlBox.setY ( finalJ );
 										controlBox.setType ( "attack" );
-										ControlBox answer = Controller.giveFromGraphic ( controlBox );
+										ControlBox answer =give ( controlBox );
 										if ( answer.isSucces ( ) ) {
 											update ( );
 										}
@@ -173,7 +165,7 @@ public class Battlefxml implements Initializable {
 					ControlBox controlBox = new ControlBox (  );
 					controlBox.setRegion ( "Battle" );
 					controlBox.setType ( "end turn" );
-					ControlBox answer = Controller.giveFromGraphic ( controlBox );
+					ControlBox answer = give ( controlBox );
 //					if ( answer.isSucces () ){
 //						Graphic.setRegion ( "endBattle" );
 //					}
@@ -210,9 +202,9 @@ public class Battlefxml implements Initializable {
 		}
 		for ( int i = 1 ; i < 5  ; i++ ) {
 			Rectangle rectangle = new Rectangle (  );
-			rectangle.height = 1260;
-			rectangle.width = 20;
-			rectangle.setLocation ( i*140-10,20 );
+			rectangle.prefHeight ( 1260 );
+			rectangle.prefWidth ( 20);
+			rectangle.relocate ( i*140-10,20 );
 			Pane pane = new Pane (  );
 			pane.relocate ( 1260,20 );
 			pane.setPrefHeight ( i*140-10 );
@@ -253,7 +245,6 @@ public class Battlefxml implements Initializable {
 				break;
 		}
 		Player player = battle.getPlayerInTurn ();
-		playerName = player.getUserName ();
 		name.setText ( player.getUserName () );
 		mana.setText ( String.valueOf ( player.getMana () ) );
 		Cell[][] cell = battle.getGround ().getCells ();
@@ -307,7 +298,7 @@ public class Battlefxml implements Initializable {
 		inTurn = (!inTurn);
 	}
 	private ControlBox give(ControlBox controlBox){
-		if ( inTurn )
+		if ( inTurn&&!visit )
 			return Controller.giveFromGraphic ( controlBox);
 		else return new ControlBox (  );
 	}

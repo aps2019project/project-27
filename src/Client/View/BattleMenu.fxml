@@ -7,36 +7,29 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Client.View.BattleMenu">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.View.BattleMenu">
     <children>
         <RadioButton fx:id="flags" layoutX="415.0" layoutY="137.0" mnemonicParsing="false" text="flags">
             <toggleGroup>
-                <ToggleGroup fx:id="mode"/>
+                <ToggleGroup fx:id="mode" />
             </toggleGroup>
         </RadioButton>
-        <Button layoutX="100.0" layoutY="174.0" mnemonicParsing="false" text="level2"/>
-        <Button layoutX="100.0" layoutY="218.0" mnemonicParsing="false" text="level3"/>
-        <Button layoutX="100.0" layoutY="137.0" mnemonicParsing="false" text="level1"/>
+        <Button layoutX="100.0" layoutY="174.0" mnemonicParsing="false" text="level2" />
+        <Button layoutX="100.0" layoutY="218.0" mnemonicParsing="false" text="level3" />
+        <Button layoutX="100.0" layoutY="137.0" mnemonicParsing="false" text="level1" />
         <RadioButton fx:id="oneFlag" layoutX="415.0" layoutY="169.0" mnemonicParsing="false" text="one flag">
             <toggleGroup>
-                <ToggleGroup fx:id="mode"/>
+                <ToggleGroup fx:id="mode" />
             </toggleGroup>
         </RadioButton>
-        <Label layoutX="415.0" layoutY="68.0" text="mode"/>
-        <Label fx:id="secondPlayerName" layoutX="385.0" layoutY="235.0" text="second player name"/>
-        <Label layoutX="93.0" layoutY="100.0" text="story mode"/>
-        <TextField fx:id="secondPlayer" layoutX="373.0" layoutY="281.0"/>
-        <Button fx:id="start" layoutX="395.0" layoutY="327.0" mnemonicParsing="false" text="start"/>
-        <Button fx:id="menu" layoutX="53.0" layoutY="43.0" mnemonicParsing="false" text="menu"/>
-        <Button fx:id="select" layoutX="454.0" layoutY="327.0" mnemonicParsing="false" text="select"/>
-        <RadioButton fx:id="hero" layoutX="417.0" layoutY="109.0" mnemonicParsing="false" text="hero"
-                     toggleGroup="$mode"/>
-        <TextField fx:id="number" layoutX="406.0" layoutY="206.0" prefHeight="25.0" prefWidth="65.0" text="0"/>
-        <Button fx:id="matchMaking" layoutX="393.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0"
-                prefWidth="107.0" text="macth making"/>
-        <Button fx:id="check" layoutX="514.0" layoutY="362.0" mnemonicParsing="false" text="check"/>
-        <Button fx:id="cancel" layoutX="514.0" layoutY="327.0" mnemonicParsing="false" text="cancel"/>
+        <Label layoutX="415.0" layoutY="68.0" text="mode" />
+        <Label layoutX="93.0" layoutY="100.0" text="story mode" />
+        <Button fx:id="menu" layoutX="53.0" layoutY="43.0" mnemonicParsing="false" text="menu" />
+        <RadioButton fx:id="hero" layoutX="417.0" layoutY="109.0" mnemonicParsing="false" text="hero" toggleGroup="$mode" />
+        <TextField fx:id="number" layoutX="406.0" layoutY="206.0" prefHeight="25.0" prefWidth="65.0" text="0" />
+        <Button fx:id="matchMaking" layoutX="386.0" layoutY="296.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="macth making" />
+        <Button fx:id="check" layoutX="507.0" layoutY="297.0" mnemonicParsing="false" text="check" />
+        <Button fx:id="cancel" layoutX="507.0" layoutY="262.0" mnemonicParsing="false" text="cancel" />
+      <Button fx:id="visit" layoutX="385.0" layoutY="262.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="visit" />
     </children>
 </AnchorPane>
