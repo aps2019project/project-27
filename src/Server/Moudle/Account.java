@@ -24,7 +24,7 @@ public class Account {
     private int losses;
     private static ArrayList<String> messages = new ArrayList<>();
 
-    public static void addToMessages (String label) {
+    public static void addToMessages(String label) {
         messages.add(label);
     }
 
@@ -150,7 +150,7 @@ public class Account {
         return controlBox;
     }
 
-    public static String showLeaderBoard() {
+    public static ArrayList<String> showLeaderBoard() {
         for (int i = 0; i < accounts.size(); i++) {
             for (int j = i + 1; j < accounts.size(); j++) {
                 if (accounts.get(j).wins > accounts.get(i).wins) {
@@ -158,10 +158,16 @@ public class Account {
                 }
             }
         }
-        String answer = new String();
+        ArrayList<String> answer = new ArrayList<>();
         for (int i = 0; i < accounts.size(); i++) {
-            System.out.printf("%d-UserName : %s-Wins : %d\n", i + 1, accounts.get(i).userName, accounts.get(i).wins);
-            answer += String.format("%d-UserName : %s-Wins : %d\n", i + 1, accounts.get(i).userName, accounts.get(i).wins);
+            String status;
+            boolean online = false;
+            if(online){
+                status = "Online";
+            } else {
+                status = "Offline";
+            }
+            answer.add(String.format("%d-UserName : %s-Wins : %d status: %s\n", i + 1, accounts.get(i).userName, accounts.get(i).wins, status));
         }
         return answer;
     }

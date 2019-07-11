@@ -118,8 +118,8 @@ public class Client implements Runnable {
             ControlBox controlBox = this.recieve();
             ControlBox answer = new ControlBox();
             switch (controlBox.getRegion()) {
-            	case "card":
-            		answer.setCards ( Card.getCards () );
+                case "card":
+                    answer.setCards(Card.getCards());
                 case "Account":
                     answer = Account.input(controlBox, this);
                     break;
@@ -213,10 +213,11 @@ public class Client implements Runnable {
                         String label = controlBox.getLabel();
                         ArrayList<String> l = Account.getMessages();
                         l.add(label);
-                    }
-                    else{
+                    } else {
                         answer.setMessages(Account.getMessages());
                     }
+                case "leader":
+                    answer.setLeaderBoard(Account.showLeaderBoard());
             }
             this.send(answer);
         }
