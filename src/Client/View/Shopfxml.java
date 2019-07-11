@@ -2,6 +2,7 @@ package Client.View;
 
 import Client.Controller.Controller;
 import ControlBox.ControlBox;
+import Server.Client;
 import Server.Moudle.Item;
 import Server.Moudle.Card;
 import Server.Moudle.Account;
@@ -36,6 +37,7 @@ public class Shopfxml implements Initializable {
     public ControlBox controlBox = new ControlBox();
 
     public Account getMainAccount() {
+        Accountfxml.getMainAccount().setMoney(123);
         return Accountfxml.getMainAccount();
     }
 
@@ -54,7 +56,6 @@ public class Shopfxml implements Initializable {
         ControlBox answer = Controller.giveFromGraphic(controlBox);
         return answer.getItems();
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -82,11 +83,12 @@ public class Shopfxml implements Initializable {
         scrollPane.setContent(listView);
 
 
+        money.setText(String.format("%d", controlBox.getMoney()));
         controlBox.setRegion("Shop");
-        money.setText(String.format("%d", getMainAccount().getMoney()));
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+
 
                 for (int i = 0; i < cards.length; i++) {
                     int finalI = i;
@@ -173,8 +175,11 @@ public class Shopfxml implements Initializable {
                         }
                         controlBox.setCardName(selected.getText());
                         controlBox.setType("buy");
+                        controlBox.setCards(getCards());
+                        controlBox.setItems(getItems());
                         Shop.input(controlBox);
-                        money.setText(String.format("%d", getMainAccount().getMoney()));
+                        money.setText(String.format("%d", controlBox.getMoney()));
+                        int a = 1;
                     }
                 });
                 Sell.setOnAction(new EventHandler<ActionEvent>() {
@@ -185,8 +190,10 @@ public class Shopfxml implements Initializable {
                         }
                         controlBox.setCardName(selected.getText());
                         controlBox.setType("sell");
+                        controlBox.setCards(getCards());
+                        controlBox.setItems(getItems());
                         Shop.input(controlBox);
-                        money.setText(String.format("%d", getMainAccount().getMoney()));
+                        money.setText(String.format("%d", controlBox.getMoney()));
                     }
                 });
                 search.setOnAction(new EventHandler<ActionEvent>() {
@@ -197,6 +204,8 @@ public class Shopfxml implements Initializable {
                         }
                         controlBox.setCardName(search.getText());
                         controlBox.setType("search");
+                        controlBox.setCards(getCards());
+                        controlBox.setItems(getItems());
                         Shop.input(controlBox);
 
 //                        for (Button card : buttons) {

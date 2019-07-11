@@ -30,6 +30,49 @@ public class ControlBox {
     private Buff buff;
     private Card card;
     public static ObservableList<Label> messages = FXCollections.observableArrayList();
+    private ArrayList<Card> collectionCards;
+    private ArrayList<Item> collectionItems;
+    private int money = Account.getMainAccount().getMoney();
+
+    public void spendMoney(int a) {
+        money -= a;
+    }
+
+    public void addMoney(int a) {
+        money += a;
+    }
+
+    public static void setMessages(ObservableList<Label> messages) {
+        ControlBox.messages = messages;
+    }
+
+    public ObservableList<Label> getMessages() {
+        return messages;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setCollectionCards(ArrayList<Card> collectionCards) {
+        this.collectionCards = collectionCards;
+    }
+
+    public void setCollectionItems(ArrayList<Item> collectionItems) {
+        this.collectionItems = collectionItems;
+    }
+
+    public ArrayList<Card> getCollectionCards() {
+        return collectionCards;
+    }
+
+    public ArrayList<Item> getCollectionItems() {
+        return collectionItems;
+    }
 
     public Target getTarget() {
         return target;

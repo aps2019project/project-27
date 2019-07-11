@@ -34,6 +34,7 @@ public class Accountfxml implements Initializable {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+
                 createAccount.setOnAction(event -> {
                     if (isValidPress(userName, passWord)) {
                         controlBox.setUserName(userName.getText());

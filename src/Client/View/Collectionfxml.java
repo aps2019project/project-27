@@ -1,10 +1,8 @@
 package Client.View;
 
+import Client.Controller.Controller;
 import ControlBox.ControlBox;
-import Server.Moudle.Account;
-import Server.Moudle.Collection;
-import Server.Moudle.Deck;
-import Server.Moudle.MinionAndHero;
+import Server.Moudle.*;
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
 import javafx.animation.AnimationTimer;
@@ -52,6 +50,24 @@ public class Collectionfxml implements Initializable {
         return Accountfxml.getMainAccount();
     }
 
+    public ArrayList<Card> getCards() {
+        ControlBox controlBox = new ControlBox();
+        controlBox.setRegion("addToCollection");
+        controlBox.setType("Card");
+        ControlBox answer = Controller.giveFromGraphic(controlBox);
+        int a = 1;
+        return answer.getCards();
+    }
+
+    public ArrayList<Item> getItems() {
+        ControlBox controlBox = new ControlBox();
+        controlBox.setRegion("addToCollection");
+        controlBox.setType("Item");
+        ControlBox answer = Controller.giveFromGraphic(controlBox);
+        int a = 1;
+        return answer.getItems();
+    }
+
 //    public ArrayList<Deck> getDecks(){
 //        return Accountfxml.getMainAccount().getDecks();
 //    }
@@ -75,11 +91,11 @@ public class Collectionfxml implements Initializable {
         if (getMainAccount().getDecks().size() > 0) {
             showDecks();
         }
-        Button[] cards = new Button[getMainAccount().getCollection().getCards().size()];
+        Button[] cards = new Button[getCards().size()];
         ObservableList<Button> buttons = FXCollections.observableArrayList();
 
-        for (int i = 0; i < getMainAccount().getCollection().getCards().size(); i++) {
-            cards[i] = new Button(getMainAccount().getCollection().getCards().get(i).getName());
+        for (int i = 0; i < getCards().size(); i++) {
+            cards[i] = new Button(getCards().get(i).getName());
             cards[i].setLayoutX(14.0);
             cards[i].setLayoutY(53.0 + 40.0 * i);
             buttons.add(cards[i]);

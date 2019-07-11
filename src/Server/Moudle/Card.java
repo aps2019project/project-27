@@ -25,26 +25,22 @@ public class Card {
     public static void addMAndH(ArrayList<MinionAndHero> minionAndHeroes) {
         for (MinionAndHero minionAndHero : minionAndHeroes) {
             cards.add(minionAndHero);
-            Shop.addCard(minionAndHero);
         }
     }
 
     public static void addMAndH(MinionAndHero minionAndHeroes) {
         cards.add(minionAndHeroes);
-        Shop.addCard(minionAndHeroes);
     }
 
     public static void addSpells(ArrayList<Spell> spells) {
         for (Spell spell : spells) {
             cards.add(spell);
-            Shop.addCard(spell);
         }
         int a = 1;
     }
 
     public static void addSpells(Spell spells) {
         cards.add(spells);
-        Shop.addCard(spells);
     }
 
     public String getImage() {

@@ -23,7 +23,6 @@ public class Client implements Runnable {
     private String winner;
     private String gift;
     private boolean isWating;
-    private ArrayList<Card> cards = new ArrayList<>();
 
     static {
         YaGsonBuilder yaGsonBuilder = new YaGsonBuilder();
@@ -43,10 +42,6 @@ public class Client implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void addCard(Card card) {
-        cards.add(card);
     }
 
     public Battle getBattle() {
@@ -134,6 +129,13 @@ public class Client implements Runnable {
                     }
                     int a = 1;
                     break;
+                case "addToCollection":
+                    switch (controlBox.getType()) {
+                        case "Card":
+                            answer.setCards(Account.getMainAccount().getCollection().getCards());
+                        case "Item":
+                            answer.setItems(Account.getMainAccount().getCollection().getItems());
+                    }
                 case "save":
                     Account.save();
                     try {
@@ -152,7 +154,7 @@ public class Client implements Runnable {
                             break;
                         case "getMainAccount":
                             System.out.println("inside client client getmainaccount");
-                            answer.setAccount(account);
+                            answer.setAccount(Account.getMainAccount());
                             break;
                         case "getCurrentBattle":
                             answer.setBattle(battle);
@@ -185,6 +187,16 @@ public class Client implements Runnable {
                             break;
                     }
                     break;
+                case "mainAccount":
+                    switch (controlBox.getType()) {
+                        case "money":
+                            answer.setMoney(Account.getMainAccount().getMoney());
+                    }
+                case "chat":
+                    answer.setMessages(controlBox.getMessages());
+                    for (Account account : Account.getAccounts()) {
+                        account.setMessages(answer.getMessages());
+                    }
             }
             this.send(answer);
         }

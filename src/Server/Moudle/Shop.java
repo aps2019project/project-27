@@ -13,6 +13,9 @@ public class Shop {
 
     public static void input(ControlBox controlBox) {
         String in = controlBox.getType();
+        cards = controlBox.getCards();
+        items = controlBox.getItems();
+        int a = 1;
         if (in.equals("showCollection")) {
             currentShop.showCollection();
         }
@@ -23,10 +26,10 @@ public class Shop {
             currentShop.searchCollection(controlBox.getCardName());
         }
         if (in.equals("buy")) {
-            currentShop.buy(controlBox.getCardName());
+            currentShop.buy(controlBox.getCardName(), controlBox);
         }
         if (in.equals("sell")) {
-            currentShop.sell(controlBox.getCardName());
+            currentShop.sell(controlBox.getCardName(), controlBox);
         }
         if (in.equals("show")) {
             currentShop.show();
@@ -52,16 +55,16 @@ public class Shop {
         return cards;
     }
 
-    public static void addCard(Card card) {
-        cards.add(card);
+    public static void setCards(ArrayList<Card> card) {
+        Shop.cards = card;
     }
 
     public ArrayList<Item> getItems() {
         return items;
     }
 
-    public static void addItem(Item item) {
-        items.add(item);
+    public static void setItems(ArrayList<Item> item) {
+        Shop.items = item;
     }
 
     public void exit() {
@@ -140,7 +143,7 @@ public class Shop {
         }
     }
 
-    public void buy(String name) {
+    public void buy(String name, ControlBox controlBox) {
         if (findCard(name) == null && findItem(name) == null) {
             System.out.println("This card|item is not in the shop!");
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -155,6 +158,9 @@ public class Shop {
             } else {
                 Account.getMainAccount().getCollection().addToCards(findCard(name));
                 Account.getMainAccount().spendMoney(findCard(name).getShopPrice());
+                controlBox.spendMoney(findCard(name).getShopPrice());
+                int money = Account.getMainAccount().getMoney();
+                int a = 1;
                 System.out.println("The card's been bought!");
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setHeaderText("The card's been bought");
@@ -174,6 +180,7 @@ public class Shop {
             } else {
                 Account.getMainAccount().getCollection().addToItems(findItem(name));
                 Account.getMainAccount().spendMoney(findItem(name).getPrice());
+                controlBox.spendMoney(findItem(name).getPrice());
                 System.out.println("The item's been bought!");
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setHeaderText("The item's been bought");
@@ -182,7 +189,7 @@ public class Shop {
         }
     }
 
-    public void sell(String name) {
+    public void sell(String name, ControlBox controlBox) {
         if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) == null) {
             System.out.println("You don't have this card|item!");
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -191,6 +198,7 @@ public class Shop {
         } else if (Account.getMainAccount().getCollection().findCard(name) != null && Account.getMainAccount().getCollection().findItem(name) == null) {
             Account.getMainAccount().getCollection().removeFromCards(findCard(name));
             Account.getMainAccount().addMoney(findCard(name).getShopPrice());
+            controlBox.addMoney(findCard(name).getShopPrice());
             System.out.println("The card's been sold!");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setHeaderText("The card's been sold");
@@ -198,6 +206,7 @@ public class Shop {
         } else if (Account.getMainAccount().getCollection().findCard(name) == null && Account.getMainAccount().getCollection().findItem(name) != null) {
             Account.getMainAccount().getCollection().removeFromItems(findItem(name));
             Account.getMainAccount().addMoney(findItem(name).getPrice());
+            controlBox.addMoney(findItem(name).getPrice());
             System.out.println("The item's been sold!");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setHeaderText("The item's been sold");

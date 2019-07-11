@@ -152,14 +152,28 @@ public class Collection {
             spells.add((Spell) card);
         if (card.getCardType() == 1)
             minionAndHeroes.add((MinionAndHero) card);
+        int a = 1;
 
     }
 
     public void removeFromCards(Card card) {
-        if (card.getCardType() == 0)
-            spells.remove((Spell) card);
-        if (card.getCardType() == 1)
-            minionAndHeroes.remove((MinionAndHero) card);
+        if (card.getCardType() == 0) {
+            for (Spell spell:spells){
+                if (spell.getName().equals(card.getName())){
+                    spells.remove(spell);
+                    break;
+                }
+            }
+        }
+        if (card.getCardType() == 1) {
+            for (MinionAndHero minionAndHero:minionAndHeroes){
+                if (minionAndHero.getName().equals(card.getName())){
+                    minionAndHeroes.remove(minionAndHero);
+                    break;
+                }
+            }
+        }
+        int a = 1;
     }
 
     public void addToItems(Item item) {
