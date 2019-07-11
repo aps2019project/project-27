@@ -22,13 +22,17 @@ public class Account {
     private Deck mainDeck = new Deck();
     private int wins;
     private int losses;
-    private static ObservableList<Label> messages;
+    private static ArrayList<String> messages = new ArrayList<>();
 
-    public void setMessages(ObservableList<Label> messages) {
-        this.messages = messages;
+    public static void addToMessages (String label) {
+        messages.add(label);
     }
 
-    public ObservableList<Label> getMessages() {
+    public static void setMessages(ArrayList<String> messages) {
+        Account.messages = messages;
+    }
+
+    public static ArrayList<String> getMessages() {
         return messages;
     }
 
@@ -185,7 +189,7 @@ public class Account {
 
     public void setUserName(String userName) {
         this.userName = userName;
-        int a=1;
+        int a = 1;
     }
 
     public String getUserName() {

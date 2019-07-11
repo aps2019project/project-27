@@ -38,12 +38,12 @@ public class MainMenufxml implements Initializable {
         ControlBox controlBox = new ControlBox (  );
         controlBox.setRegion ( "Client" );
         controlBox.setType ( "getList" );
+        if (Server.Moudle.Account.getMainAccount() != null) {
+            AccountLable.setText(Accountfxml.getMainAccount().getUserName());
+        }
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (Server.Moudle.Account.getMainAccount() != null) {
-                    AccountLable.setText(Accountfxml.getMainAccount().getUserName());
-                }
                 Account.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {

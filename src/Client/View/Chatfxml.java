@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Chatfxml implements Initializable {
@@ -31,12 +32,13 @@ public class Chatfxml implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        list.setItems(controlBox.getMessages());
-        insideList.setPrefHeight(list.getPrefHeight());
-        Scroll.setContent(list);
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                controlBox.setRegion("chat");
+                controlBox.setType("get");
+                ControlBox answer = Controller.giveFromGraphic(controlBox);
+                update(answer.getMessages());
                 back.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
@@ -47,17 +49,26 @@ public class Chatfxml implements Initializable {
                     @Override
                     public void handle(ActionEvent event) {
                         controlBox.setRegion("chat");
-                        controlBox.messages.add(new Label(getMainAccount().getUserName() + ": " + text.getText()));
+                        controlBox.setType("send");
+                        controlBox.setLabel(getMainAccount().getUserName() + ": " + text.getText());
                         Controller.giveFromGraphic(controlBox);
+                        controlBox.setType("get");
+                        ControlBox answer = Controller.giveFromGraphic(controlBox);
+                        update(answer.getMessages());
                         text.clear();
                     }
                 });
-                list.setItems(getMainAccount().getMessages());
-                insideList.setPrefHeight(list.getPrefHeight());
-                Scroll.setContent(list);
             }
         };
         animationTimer.start();
     }
-
+    private void update(ArrayList<String> list) {
+        ObservableList<Label> list1 = FXCollections.observableArrayList();
+        for (String label : list) {
+            list1.add(new Label(label));
+        }
+        this.list.setItems(list1);
+        insideList.setPrefHeight(this.list.getPrefHeight());
+        Scroll.setContent(this.list);
+    }
 }

@@ -321,6 +321,9 @@ public class Controller {
             controlBox = new ControlBox();
             controlBox.setRegion("xxx");
         }
+        if (controlBox.getRegion().equals("chat")){
+            int a=1;
+        }
         sendToServer(controlBox);
         ControlBox answer = getFromServer();
         if (answer.getType() != null) {
