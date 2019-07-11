@@ -34,6 +34,24 @@ public class ControlBox {
     private ArrayList<Item> collectionItems;
     private int money = Account.getMainAccount().getMoney();
     private String label;
+    private ArrayList<String> leaderBoard = new ArrayList<>();
+    private String leaderLabel;
+
+    public ArrayList<String> getLeaderBoard() {
+        return leaderBoard;
+    }
+
+    public String getLeaderLabel() {
+        return leaderLabel;
+    }
+
+    public void setLeaderBoard(ArrayList<String> leaderBoard) {
+        this.leaderBoard = leaderBoard;
+    }
+
+    public void setLeaderLabel(String leaderLabel) {
+        this.leaderLabel = leaderLabel;
+    }
 
     public void setLabel(String label) {
         this.label = label;

@@ -120,8 +120,8 @@ public class Client implements Runnable {
             switch (controlBox.getRegion()) {
 				case "visit":
 					controlBox.setSucces ( visit );
-            	case "card":
-            		answer.setCards ( Card.getCards () );
+                case "card":
+                    answer.setCards(Card.getCards());
                 case "Account":
                     answer = Account.input(controlBox, this);
                     break;
@@ -183,6 +183,7 @@ public class Client implements Runnable {
                                 if (this.battle != null) {
                                     answer.setSucces(true);
                                     answer.setType("matchMaking");
+                                    answer.setPass("finishwait");
                                 }
                             } else if (controlBox.getDescription() != null && controlBox.getDescription().equals("cancel")) {
                                 waitForBattle.remove(this);
@@ -222,10 +223,11 @@ public class Client implements Runnable {
                         String label = controlBox.getLabel();
                         ArrayList<String> l = Account.getMessages();
                         l.add(label);
-                    }
-                    else{
+                    } else {
                         answer.setMessages(Account.getMessages());
                     }
+                case "leader":
+                    answer.setLeaderBoard(Account.showLeaderBoard());
             }
             this.send(answer);
         }
