@@ -111,6 +111,8 @@ public class Client implements Runnable {
             ControlBox controlBox = this.recieve();
             ControlBox answer = new ControlBox();
             switch (controlBox.getRegion()) {
+            	case "card":
+            		answer.setCards ( Card.getCards () );
                 case "Account":
                     answer = Account.input(controlBox, this);
                     break;

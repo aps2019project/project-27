@@ -33,7 +33,6 @@ public class ControlBox {
     private ArrayList<Card> collectionCards;
     private ArrayList<Item> collectionItems;
     private int money = Account.getMainAccount().getMoney();
-
     public void spendMoney(int a) {
         money -= a;
     }
