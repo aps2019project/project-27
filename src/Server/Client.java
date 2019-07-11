@@ -213,6 +213,16 @@ public class Client implements Runnable {
             this.send(answer);
         }
     }
+    private static boolean isOnline(Account account){
+		for(Client client :clients){
+			if ( client.account!=null ){
+				if ( client.account.getUserName ().equals ( account.getUserName () ) ){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
 
 class waitForBattle {
